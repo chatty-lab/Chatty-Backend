@@ -5,6 +5,9 @@ spring:
     username: root
     password:
 
+  profiles:
+    include: API-KEY
+
   jpa:
     hibernate:
       ddl-auto: create

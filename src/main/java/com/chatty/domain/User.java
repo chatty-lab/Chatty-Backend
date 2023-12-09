@@ -1,59 +1,54 @@
-package com.chatty.domain.entity;
+package com.chatty.domain;
 
-import com.chatty.domain.Role;
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
-import jakarta.persistence.EnumType;
-import jakarta.persistence.Enumerated;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
-import java.time.LocalDate;
+import jakarta.validation.constraints.NotNull;
 import java.util.Collection;
-import java.util.List;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-import org.springframework.data.geo.Point;
+import lombok.Setter;
 import org.springframework.security.core.GrantedAuthority;
-import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 @Entity
-@Table(name = "users")
 @Getter
-@Builder
+@Setter
 @NoArgsConstructor
 @AllArgsConstructor
+@Builder
+@Table(name = "users")
 public class User implements UserDetails {
-
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    private long id;
 
-    private String username;
-    private String email;
+    @NotNull
+    @Column(name = "username")
+    private String name;
+
+    private String nickName;
+
+    @NotNull
     private String mobileNumber;
-    private String password;
-    private String nickname;
-    private LocalDate birth;
-    private String mbti;
-    private Point location;
-    private String address;
-    private String uuid;
 
-    @Enumerated(EnumType.STRING)
-    private Role role;
+    @NotNull
+    private String password;
+
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        return List.of(new SimpleGrantedAuthority(role.name()));
+        return null;
     }
 
     @Override
-    public String getPassword() {
-        return password;
+    public String getUsername() {
+        return this.mobileNumber;
     }
 
     @Override
@@ -76,4 +71,3 @@ public class User implements UserDetails {
         return true;
     }
 }
-

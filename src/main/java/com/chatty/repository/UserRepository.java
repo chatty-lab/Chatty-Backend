@@ -1,11 +1,10 @@
 package com.chatty.repository;
 
-import com.chatty.domain.entity.User;
-import java.util.Optional;
+import com.chatty.domain.User;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.stereotype.Repository;
 
-public interface UserRepository extends JpaRepository<User, Long> {
-
-    Optional<User> findByMobileNumber(String mobileNumber);
-
+@Repository
+public interface UserRepository extends JpaRepository<User,Long> {
+    User getUserByMobileNumber(String mobileNumber);
 }
