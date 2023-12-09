@@ -13,11 +13,5 @@ spring:
       hibernate:
         format_sql: true
         use_sql_comments: true
-logging:
-  level:
-    org:
-      hibernate:
-        type:
-          descriptor:
-            sql:
-              trace
+    database: mysql
+    database-platform: org.hibernate.dialect.MySQLInnoDBDialect
