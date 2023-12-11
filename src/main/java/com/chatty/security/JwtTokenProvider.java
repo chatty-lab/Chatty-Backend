@@ -1,6 +1,5 @@
 package com.chatty.security;
 
-import com.chatty.domain.Roles;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jws;
 import io.jsonwebtoken.Jwts;
@@ -8,7 +7,10 @@ import io.jsonwebtoken.io.Decoders;
 import io.jsonwebtoken.security.Keys;
 import jakarta.annotation.PostConstruct;
 import jakarta.servlet.http.HttpServletRequest;
+import java.nio.charset.StandardCharsets;
+import java.util.Base64;
 import java.util.Date;
+import java.util.List;
 import javax.crypto.SecretKey;
 import lombok.RequiredArgsConstructor;
 import org.slf4j.Logger;
@@ -26,17 +28,18 @@ public class JwtTokenProvider {
     private final Logger LOGGER = LoggerFactory.getLogger(JwtTokenProvider.class);
     private final UserDetailsService userDetailsService;
 
-    private SecretKey secretKey;
+    @Value("${jwt-secret-key}")
+    private String secretKey;
     private final long tokenValidMillisecond = 1000L * 60 * 60;
 
     @PostConstruct
-    protected void init(@Value("${jwt-secret-key}") String secretKey){
+    protected void init(){
         LOGGER.info("[init] JwtTokenProvider 내 secretKey 초기화 시작");
-        this.secretKey = Keys.hmacShaKeyFor(Decoders.BASE64URL.decode(secretKey));
+        secretKey = Base64.getEncoder().encodeToString(secretKey.getBytes(StandardCharsets.UTF_8));
         LOGGER.info("[init] JwtTokenProvider 내 secretKey 초기화 완료");
     }
 
-    public String createToken(String userMobileNumber, Roles role){
+    public String createToken(String userMobileNumber, List<String> role){
         LOGGER.info("[createToken] 토큰 생성 시작");
 
         Claims claims = Jwts.claims().subject(userMobileNumber).build();
@@ -49,11 +52,15 @@ public class JwtTokenProvider {
                 .claims(claims)
                 .issuedAt(now)
                 .expiration(new Date(now.getTime() + tokenValidMillisecond))
-                .signWith(secretKey)
+                .signWith(convertStringToSecretKey())
                 .compact();
 
         LOGGER.info("[createToken] 토큰 생성 완료");
         return token;
+    }
+
+    private SecretKey convertStringToSecretKey(){
+        return Keys.hmacShaKeyFor(Decoders.BASE64.decode(this.secretKey));
     }
 
     public Authentication getAuthentication(String token) {
@@ -67,7 +74,7 @@ public class JwtTokenProvider {
     public String getUserMobileNumber(String token){
 
         LOGGER.info("[getAuthentication] 토큰 기반 회원 정보 추출");
-        String info = Jwts.parser().verifyWith(secretKey).build().parseSignedClaims(token).getPayload().getSubject();
+        String info = Jwts.parser().verifyWith(convertStringToSecretKey()).build().parseSignedClaims(token).getPayload().getSubject();
         LOGGER.info("[getUsername] 토큰 기반 회원 구별 정보 추출 완료, info : {}",info);
         return info;
     }
@@ -80,8 +87,7 @@ public class JwtTokenProvider {
     public boolean validateToken(String token){
         LOGGER.info("[validationToken] 토큰 유효 체크 시작");
         try{
-            Jws<Claims> claims = Jwts.parser().verifyWith(secretKey).build().parseSignedClaims(token);
-
+            Jws<Claims> claims = Jwts.parser().verifyWith(convertStringToSecretKey()).build().parseSignedClaims(token);
             return !claims.getPayload().getExpiration().before(new Date());
         } catch(Exception e){
             LOGGER.info("[validateToken] 토큰 유효 체크 예외 발생");
