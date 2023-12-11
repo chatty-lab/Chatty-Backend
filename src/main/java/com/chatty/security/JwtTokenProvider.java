@@ -49,6 +49,7 @@ public class JwtTokenProvider {
                 .claims(claims)
                 .issuedAt(now)
                 .expiration(new Date(now.getTime() + tokenValidMillisecond))
+                .signWith(secretKey)
                 .compact();
 
         LOGGER.info("[createToken] 토큰 생성 완료");
