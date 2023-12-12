@@ -1,9 +1,0 @@
-POST http://localhost:8080/sign-api/sign-up
-Content-Type: application/json
-
-{
-  "mobileNumber" : "010-8892-1236",
-  "nickname" : "봄버맨",
-  "name" : "이훈희",
-  "role" : "USER"
-}
