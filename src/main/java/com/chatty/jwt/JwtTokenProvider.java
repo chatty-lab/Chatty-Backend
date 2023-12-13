@@ -21,6 +21,11 @@ public class JwtTokenProvider {
         this.key = Keys.hmacShaKeyFor(Decoders.BASE64.decode(secretKey));
     }
 
+    public String getMobileNumber(String token){
+        token = token.split(" ")[1];
+        return Jwts.parser().verifyWith(key).build().parseSignedClaims(token).getPayload().get("mobileNumber",String.class);
+    }
+
     public String createToken(String mobileNumber, String uuid){
 
         Claims claims = Jwts.claims()
@@ -38,7 +43,7 @@ public class JwtTokenProvider {
 
     public boolean isExistToken(final String token){
         if(token == null){
-            log.error("token이 존재하지 않는다.");
+            log.error("token이 존재하지 않습니다.");
             return false;
         }
 
