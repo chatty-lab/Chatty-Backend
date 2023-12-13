@@ -1,6 +1,7 @@
 package com.chatty.jwt;
 
 import com.chatty.service.UserDetailsServiceImpl;
+import com.chatty.utils.JwtTokenUtils;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
@@ -11,15 +12,11 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.util.StringUtils;
 import org.springframework.web.filter.OncePerRequestFilter;
 
 @Slf4j
 @RequiredArgsConstructor
 public class JwtTokenFilter extends OncePerRequestFilter {
-
-    private static final String AUTHORIZATION = "Authorization";
-    private static final String BEARER_TYPE = "Bearer ";
 
     private final JwtTokenProvider jwtTokenProvider;
     private final UserDetailsServiceImpl userDetailsService;
@@ -28,14 +25,22 @@ public class JwtTokenFilter extends OncePerRequestFilter {
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain)
             throws ServletException, IOException {
 
-        String token = resolveToken(request);
+        String accessToken = jwtTokenProvider.resolveAccessToken(request);
+        String refreshToken = jwtTokenProvider.resolvRefreshToken(request);
 
-        if(!validateToken(token)){
+        if(!validateAccessToken(accessToken)){
+            log.error("AccessToken 오류");
             filterChain.doFilter(request,response);
             return;
         }
 
-        String userMobileNumber = jwtTokenProvider.getMobileNumber(token);
+        if(!validateRefreshToken(refreshToken)){
+            log.error("RefreshToken 오류");
+            filterChain.doFilter(request,response);
+            return;
+        }
+
+        String userMobileNumber = jwtTokenProvider.getMobileNumber(accessToken);
         UserDetails userDetails = userDetailsService.loadUserByUsername(userMobileNumber);
         UsernamePasswordAuthenticationToken authenticationToken = new UsernamePasswordAuthenticationToken(userDetails,null,
                 userDetails.getAuthorities());
@@ -43,30 +48,39 @@ public class JwtTokenFilter extends OncePerRequestFilter {
         filterChain.doFilter(request, response);
     }
 
-    private boolean validateToken(String token){
-        if(!jwtTokenProvider.isExistToken(token)){ // 토큰 존재 여부
+    private boolean validateRefreshToken(String refreshToken){
+
+        log.info("refreshToken : {}",refreshToken);
+
+        if(!jwtTokenProvider.isExistToken(refreshToken)){
+            log.error("refreshToken 토큰이 존재 하지 안습니다.");
             return false;
         }
 
-        if(!jwtTokenProvider.isRightFormat(token, BEARER_TYPE)){
-            return false;
-        }
-
-        if(jwtTokenProvider.isExpiredToken(token)){ // 토큰이 만료된 경우
+        if(jwtTokenProvider.isExpiredToken(refreshToken)){
+            log.error("refreshToken 만료");
             return false;
         }
 
         return true;
     }
 
-    private String resolveToken(HttpServletRequest request){
-        String bearerToken = request.getHeader(AUTHORIZATION);
-
-        log.info("Header : {}", bearerToken);
-        if(StringUtils.hasText(bearerToken) && bearerToken.startsWith(BEARER_TYPE)){
-            return bearerToken;
+    private boolean validateAccessToken(String accessToken){
+        if(!jwtTokenProvider.isExistToken(accessToken)){ // 토큰 존재 여부
+            log.error("accessToken 토큰이 존재하지 않습니다.");
+            return false;
         }
 
-        return null;
+        if(!jwtTokenProvider.isRightFormat(accessToken)){ // 토큰 형식 여부
+            log.error("올바른 토큰의 형식을 입력해주세요.");
+            return false;
+        }
+
+        if(jwtTokenProvider.isExpiredToken(JwtTokenUtils.getAccessToken(accessToken))){ // 토큰이 만료된 경우
+            log.error("accessToken 만료");
+            return false;
+        }
+
+        return true;
     }
 }

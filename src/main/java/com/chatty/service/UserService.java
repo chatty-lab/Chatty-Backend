@@ -6,6 +6,7 @@ import com.chatty.entity.User;
 import com.chatty.jwt.JwtTokenProvider;
 import com.chatty.repository.UserRepository;
 import com.chatty.utils.AuthenticationNumberUtil;
+import java.util.HashMap;
 import java.util.Map;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -19,6 +20,9 @@ public class UserService {
     private final JwtTokenProvider jwtTokenProvider;
     private final UserRepository userRepository;
     private final AuthenticationNumberUtil authenticationNumberUtil;
+
+    private static final String ACCESS_TOKEN = "accessToken";
+    private static final String REFRESH_TOKEN = "refreshToken";
 
     public Map<String,String> login(UserRequestDto userRequestDto) {
 
@@ -34,7 +38,7 @@ public class UserService {
             return null;
         }
 
-        return jwtTokenProvider.createTokens(userRequestDto.getMobileNumber(), userRequestDto.getUuid());
+        return createTokens(userRequestDto.getMobileNumber(), userRequestDto.getUuid());
     }
 
     public Map<String,String> join(UserRequestDto userRequestDto) {
@@ -57,7 +61,15 @@ public class UserService {
                 .build();
         userRepository.save(user);
         log.info("[UserService/join] 회원 가입 완료");
-        return jwtTokenProvider.createTokens(user.getMobileNumber(), user.getUuid());
+        return createTokens(user.getMobileNumber(), user.getUuid());
+    }
+
+    private Map<String,String> createTokens(String mobileNumber, String uuid){
+        Map<String,String> tokens = new HashMap<>();
+        tokens.put(ACCESS_TOKEN, jwtTokenProvider.createAccessToken(mobileNumber, uuid));
+        tokens.put(REFRESH_TOKEN, jwtTokenProvider.createRefreshToken(mobileNumber));
+
+        return tokens;
     }
 
     private boolean isAlreadyExistedUser(String mobileNumber){
