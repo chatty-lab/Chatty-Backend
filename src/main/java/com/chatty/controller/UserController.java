@@ -1,7 +1,6 @@
 package com.chatty.controller;
 
-import com.chatty.dto.UserJoinRequestDto;
-import com.chatty.dto.UserLoginRequestDto;
+import com.chatty.dto.UserRequestDto;
 import com.chatty.service.UserService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
@@ -21,15 +20,16 @@ public class UserController {
     private final UserService userService;
 
     @PostMapping("/login")
-    public ResponseEntity<String> login(@Valid @RequestBody UserLoginRequestDto userLoginRequestDto){
-        String token = userService.login(userLoginRequestDto);
+    public ResponseEntity<String> login(@Valid @RequestBody UserRequestDto userRequestDto){
+        log.info("[UserController/login] 로그인 시작");
+        String token = userService.login(userRequestDto);
         return ResponseEntity.ok().body(token);
     }
 
     @PostMapping("/join")
-    public ResponseEntity<String> join(@Valid @RequestBody UserJoinRequestDto userJoinRequestDto){
-        log.info("[UserController/join] 회원가입 컨트롤러 시작");
-        String token = userService.join(userJoinRequestDto);
+    public ResponseEntity<String> join(@Valid @RequestBody UserRequestDto userRequestDto){
+        log.info("[UserController/join] 회원 가입 시작");
+        String token = userService.join(userRequestDto);
         return ResponseEntity.ok().body(token);
     }
 }
