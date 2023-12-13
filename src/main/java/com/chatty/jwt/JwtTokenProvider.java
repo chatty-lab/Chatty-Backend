@@ -4,7 +4,10 @@ import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.io.Decoders;
 import io.jsonwebtoken.security.Keys;
+import jakarta.annotation.PostConstruct;
 import java.util.Date;
+import java.util.HashMap;
+import java.util.Map;
 import javax.crypto.SecretKey;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
@@ -14,10 +17,19 @@ import org.springframework.stereotype.Component;
 @Component
 public class JwtTokenProvider {
 
-    private static final long accessTokenExpirationTime = 1000 * 30;
-    private final SecretKey key;
+    @Value("${jwt-secret-key}")
+    private String secretKey;
 
-    public JwtTokenProvider(@Value("${jwt-secret-key}") String secretKey) {
+    @Value("${jwt-access-token-expiration-time}")
+    private long ACCESS_TOKEN_EXPIRED_TIME;
+
+    @Value("${jwt-refresh-token-expiration-time}")
+    private long REFRESH_TOKEN_EXPIRED_TIME;
+
+    private SecretKey key;
+
+    @PostConstruct
+    public void init(){
         this.key = Keys.hmacShaKeyFor(Decoders.BASE64.decode(secretKey));
     }
 
@@ -26,24 +38,35 @@ public class JwtTokenProvider {
         return Jwts.parser().verifyWith(key).build().parseSignedClaims(token).getPayload().get("mobileNumber",String.class);
     }
 
-    public String createToken(String mobileNumber, String uuid){
+    public Map<String,String> createTokens(String mobileNumber, String uuid){
 
         Claims claims = Jwts.claims()
                 .add("mobileNumber", mobileNumber)
                 .add("uuid", uuid)
                 .build();
 
+        String accessToken = createToken(claims,ACCESS_TOKEN_EXPIRED_TIME);
+        String refreshToken = createToken(claims,REFRESH_TOKEN_EXPIRED_TIME);
+
+        Map<String,String> tokens = new HashMap<>();
+        tokens.put("accessToken",accessToken);
+        tokens.put("refreshToken", refreshToken);
+
+        return tokens;
+    }
+
+    private String createToken(Claims claims, long expirationTime){
         return Jwts.builder()
                 .claims(claims)
                 .issuedAt(new Date(System.currentTimeMillis()))
-                .expiration(new Date(System.currentTimeMillis() + accessTokenExpirationTime))
+                .expiration(new Date(System.currentTimeMillis() + expirationTime))
                 .signWith(key)
                 .compact();
     }
 
     public boolean isExistToken(final String token){
         if(token == null){
-            log.error("token이 존재하지 않습니다.");
+            log.error("token이 존재 하지 않습니다.");
             return false;
         }
 

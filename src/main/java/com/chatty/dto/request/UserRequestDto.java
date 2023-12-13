@@ -1,4 +1,4 @@
-package com.chatty.dto;
+package com.chatty.dto.request;
 
 import jakarta.validation.constraints.NotBlank;
 import lombok.Getter;
