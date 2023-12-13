@@ -45,8 +45,8 @@ public class JwtTokenProvider {
                 .add("uuid", uuid)
                 .build();
 
-        String accessToken = createToken(claims,ACCESS_TOKEN_EXPIRED_TIME);
-        String refreshToken = createToken(claims,REFRESH_TOKEN_EXPIRED_TIME);
+        String accessToken = createAccessToken(claims);
+        String refreshToken = createRefreshToken();
 
         Map<String,String> tokens = new HashMap<>();
         tokens.put("accessToken",accessToken);
@@ -55,11 +55,19 @@ public class JwtTokenProvider {
         return tokens;
     }
 
-    private String createToken(Claims claims, long expirationTime){
+    private String createAccessToken(Claims claims){
         return Jwts.builder()
                 .claims(claims)
                 .issuedAt(new Date(System.currentTimeMillis()))
-                .expiration(new Date(System.currentTimeMillis() + expirationTime))
+                .expiration(new Date(System.currentTimeMillis() + ACCESS_TOKEN_EXPIRED_TIME))
+                .signWith(key)
+                .compact();
+    }
+
+    private String createRefreshToken(){
+        return Jwts.builder()
+                .issuedAt(new Date(System.currentTimeMillis()))
+                .expiration(new Date(System.currentTimeMillis() + REFRESH_TOKEN_EXPIRED_TIME))
                 .signWith(key)
                 .compact();
     }
