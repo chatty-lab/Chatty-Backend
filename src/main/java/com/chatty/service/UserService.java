@@ -2,9 +2,9 @@ package com.chatty.service;
 
 import com.chatty.dto.request.UserRequestDto;
 import com.chatty.entity.Authority;
+import com.chatty.entity.RefreshToken;
 import com.chatty.entity.User;
 import com.chatty.jwt.JwtTokenProvider;
-import com.chatty.repository.RefreshTokenRepository;
 import com.chatty.repository.UserRepository;
 import com.chatty.utils.AuthenticationNumberUtil;
 import java.util.HashMap;
@@ -20,7 +20,7 @@ public class UserService {
 
     private final JwtTokenProvider jwtTokenProvider;
     private final UserRepository userRepository;
-    private final RefreshTokenRepository refreshTokenRepository;
+    private final RefreshTokenService refreshTokenService;
 
     private static final String ACCESS_TOKEN = "accessToken";
     private static final String REFRESH_TOKEN = "refreshToken";
@@ -61,22 +61,34 @@ public class UserService {
                 .authority(Authority.USER)
                 .uuid(userRequestDto.getUuid())
                 .build();
+
         userRepository.save(user);
         log.info("[UserService/join] 회원 가입 완료");
         return createTokens(user.getMobileNumber(), user.getUuid());
     }
 
     private Map<String,String> createTokens(String mobileNumber, String uuid){
+
+        log.info("[UserService/createTokens] AccessToken, RefreshToken 생성");
         Map<String,String> tokens = new HashMap<>();
-        tokens.put(ACCESS_TOKEN, jwtTokenProvider.createAccessToken(mobileNumber, uuid));
-        tokens.put(REFRESH_TOKEN, jwtTokenProvider.createRefreshToken(mobileNumber));
+        String accessToken = jwtTokenProvider.createAccessToken(mobileNumber,uuid);
+        String refreshToken = jwtTokenProvider.createRefreshToken(mobileNumber);
+        tokens.put(ACCESS_TOKEN, accessToken);
+        tokens.put(REFRESH_TOKEN, refreshToken);
 
+        log.info("[UserService/createTokens] RefreshToken Redis 저장");
+        RefreshToken savedRefreshToken = refreshTokenService.saveRefreshToken(refreshToken, jwtTokenProvider.getRefreshTokenUuid(refreshToken));
 
+        if(savedRefreshToken == null){
+            log.error("[AuthService/createTokens] refreshToken을 Redis DB 저장 실패");
+            return null;
+        }
 
         return tokens;
     }
 
     private boolean isAlreadyExistedUser(String mobileNumber){
+        log.info("[UserService/isAlreadyExistedUser] 이미 가입한 유저인지 확인");
         return userRepository.existsUserByMobileNumber(mobileNumber);
     }
 }

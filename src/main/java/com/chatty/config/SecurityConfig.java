@@ -37,7 +37,8 @@ public class SecurityConfig {
     @Bean
     public WebSecurityCustomizer webSecurityCustomizer(){
         return (web) -> web.ignoring().requestMatchers(
-                "/api/users/**"
+                "/api/users/**",
+                "/api/auth/refresh"
         );
     }
 }

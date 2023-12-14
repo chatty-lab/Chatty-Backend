@@ -1,7 +1,0 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<testsuite name="com.chatty.utils.JwtTokenUtilsTest" tests="1" skipped="0" failures="0" errors="0" timestamp="2023-12-13T11:11:22" hostname="bagsang-yun-ui-MacBookPro.local" time="121.898">
-  <properties/>
-  <testcase name="Refresh토큰 랜덤 uuid 생성" classname="com.chatty.utils.JwtTokenUtilsTest" time="121.898"/>
-  <system-out><![CDATA[]]></system-out>
-  <system-err><![CDATA[]]></system-err>
-</testsuite>

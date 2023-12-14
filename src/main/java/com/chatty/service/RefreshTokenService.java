@@ -13,8 +13,8 @@ public class RefreshTokenService {
     private final RefreshTokenRepository refreshTokenRepository;
 
     @Transactional
-    public void saveRefreshToken(String refreshToken, String uuid) {
-        refreshTokenRepository.save(RefreshToken.builder()
+    public RefreshToken saveRefreshToken(String refreshToken, String uuid) {
+        return refreshTokenRepository.save(RefreshToken.builder()
                 .uuid(uuid)
                 .refreshToken(refreshToken)
                 .build()
@@ -22,8 +22,8 @@ public class RefreshTokenService {
     }
 
     @Transactional
-    public void removeRefreshToken(String accessToken){
-        refreshTokenRepository.findByAccessToken(accessToken)
-                .ifPresent(refreshToken -> refreshTokenRepository.delete(refreshToken));
+    public void removeRefreshToken(String uuid){
+        refreshTokenRepository.findRefreshTokenByUuid(uuid)
+                .ifPresent(refreshTokenRepository::delete);
     }
 }

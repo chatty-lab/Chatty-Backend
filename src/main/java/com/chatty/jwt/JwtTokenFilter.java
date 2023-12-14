@@ -58,7 +58,7 @@ public class JwtTokenFilter extends OncePerRequestFilter {
         }
 
         // 리프레시 토큰이 redis에 저장된 토큰과 일치
-        if(!jwtTokenProvider.isEqualRedisRefresh(refreshToken)){
+        if(!jwtTokenProvider.isEqualRedisRefresh(refreshToken, jwtTokenProvider.getRefreshTokenUuid(refreshToken))){
             log.error("refreshToken이 일치하지 않습니다.");
             return false;
         }
@@ -72,6 +72,9 @@ public class JwtTokenFilter extends OncePerRequestFilter {
     }
 
     private boolean validateAccessToken(String accessToken){
+
+        log.info("[JwtTokenFilter] accessToken 유효 여부 확인");
+
         if(!jwtTokenProvider.isExistToken(accessToken)){ // 토큰 존재 여부
             log.error("accessToken 토큰이 존재하지 않습니다.");
             return false;

@@ -1,7 +1,4 @@
 package com.chatty.entity;
-
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -19,11 +16,10 @@ import org.springframework.data.redis.core.index.Indexed;
 public class RefreshToken {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private long id;
+    String id;
 
     @Indexed
-    private String uuid; // mobileNumber + 랜덤한 숫자
+    private String uuid;
 
     private String refreshToken;
 }

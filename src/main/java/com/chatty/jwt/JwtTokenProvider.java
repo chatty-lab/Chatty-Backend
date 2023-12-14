@@ -45,9 +45,13 @@ public class JwtTokenProvider {
         this.key = Keys.hmacShaKeyFor(Decoders.BASE64.decode(secretKey));
     }
 
-    public String getMobileNumber(String token) {
-        return Jwts.parser().verifyWith(key).build().parseSignedClaims(JwtTokenUtils.getAccessToken(token)).getPayload()
+    public String getMobileNumber(String accessToken) {
+        return Jwts.parser().verifyWith(key).build().parseSignedClaims(JwtTokenUtils.getAccessToken(accessToken)).getPayload()
                 .get(MOBILE_NUMBER, String.class);
+    }
+
+    public String getRefreshTokenUuid(String refreshToken){
+        return Jwts.parser().verifyWith(key).build().parseSignedClaims(refreshToken).getPayload().get(UUID,String.class);
     }
 
     public String createAccessToken(String mobileNumber, String uuid) {
@@ -102,8 +106,13 @@ public class JwtTokenProvider {
                 before(new Date());
     }
 
-    public boolean isEqualRedisRefresh(String token){
-        RefreshToken refreshToken = refreshTokenRepository.findByRefreshToken(token).orElseThrow();
+    public boolean isEqualRedisRefresh(String token, String uuid){
+
+        log.info("[isEqualRedisRefresh] Request uuid : {}", uuid);
+        log.info("[isEqualRedisRefresh] Request refreshToken : {}", token);
+        log.info("[isEqualRedisRefresh] refreshToken과 Redis에 저장된 refreshToken과 일치여부 확인");
+        RefreshToken refreshToken = refreshTokenRepository.findRefreshTokenByUuid(uuid).orElseThrow();
+        log.info("[isEqualRedisRefresh] 전달받은 refreshToken이 현재 refreshToken과 일치 확인");
         return token.equals(refreshToken.getRefreshToken());
     }
 
@@ -114,7 +123,9 @@ public class JwtTokenProvider {
     }
 
     public String resolvRefreshToken(HttpServletRequest request){
+        log.info("[resolveRefreshToken] Request로 전달받은 refreshToken 분리");
         String refreshToken = request.getHeader(REFRESH_TOKEN);
+        log.info("[resolveRefreshToken] refreshToken : {}",refreshToken);
 
         return refreshToken;
     }

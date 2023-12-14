@@ -62,12 +62,12 @@ public class User implements UserDetails {
 
     @Override
     public String getPassword() {
-        return null;
+        return uuid;
     }
 
     @Override
     public String getUsername() {
-        return username;
+        return mobileNumber;
     }
 
     @Override
