@@ -4,9 +4,11 @@ import com.chatty.entity.RefreshToken;
 import com.chatty.repository.RefreshTokenRepository;
 import com.chatty.utils.JwtTokenUtils;
 import io.jsonwebtoken.Claims;
+import io.jsonwebtoken.ExpiredJwtException;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.io.Decoders;
 import io.jsonwebtoken.security.Keys;
+import io.jsonwebtoken.security.SignatureException;
 import jakarta.annotation.PostConstruct;
 import jakarta.servlet.http.HttpServletRequest;
 import java.util.Date;
@@ -101,19 +103,41 @@ public class JwtTokenProvider {
         return true;
     }
 
+    public boolean isValidToken(final String token){
+        log.info("[JwtTokenProvider/isValidToken] 비밀키를 통해 유효한 토큰인지 확인");
+
+        try {
+            Jwts.parser().verifyWith(key).build().parseSignedClaims(token).getPayload();
+            return true;
+        }catch(SignatureException e){
+            return false;
+        }catch (ExpiredJwtException e) {
+            return true;
+        }
+    }
+
     public boolean isExpiredToken(String token) {
-        return Jwts.parser().verifyWith(key).build().parseSignedClaims(token).getPayload().getExpiration().
-                before(new Date());
+        log.info("[JwtTokenProvider/isExpiredToken] 만료된 도큰인지 확인");
+        try {
+            Jwts.parser().verifyWith(key).build().parseSignedClaims(token).getPayload().getExpiration().
+                    before(new Date());
+        }catch(ExpiredJwtException e){
+            return true;
+        }
+
+        return false;
     }
 
     public boolean isEqualRedisRefresh(String token, String uuid){
 
-        log.info("[isEqualRedisRefresh] Request uuid : {}", uuid);
-        log.info("[isEqualRedisRefresh] Request refreshToken : {}", token);
         log.info("[isEqualRedisRefresh] refreshToken과 Redis에 저장된 refreshToken과 일치여부 확인");
-        RefreshToken refreshToken = refreshTokenRepository.findRefreshTokenByUuid(uuid).orElseThrow();
-        log.info("[isEqualRedisRefresh] 전달받은 refreshToken이 현재 refreshToken과 일치 확인");
-        return token.equals(refreshToken.getRefreshToken());
+        try {
+            RefreshToken refreshToken = refreshTokenRepository.findRefreshTokenByUuid(uuid).orElseThrow();
+            log.info("[isEqualRedisRefresh] 전달받은 refreshToken이 현재 refreshToken과 일치합니다.");
+            return token.equals(refreshToken.getRefreshToken());
+        }catch(Exception e){
+            return false;
+        }
     }
 
     public String resolveAccessToken(HttpServletRequest request) {

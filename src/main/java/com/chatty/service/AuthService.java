@@ -1,6 +1,7 @@
 package com.chatty.service;
 
 import com.chatty.jwt.JwtTokenProvider;
+import com.chatty.utils.JwtTokenUtils;
 import java.util.HashMap;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -20,10 +21,17 @@ public class AuthService {
     private final RefreshTokenService refreshTokenService;
 
     public HashMap<String, String> reissueTokens(String accessToken, String refreshToken) {
+
+        // access 토큰이 유효 한지 검사
+        if(!validateAccessToken(accessToken)){
+            log.error("[AuthService/reissueTokens] accessToken 유효성 검사 실패");
+            return new HashMap<>();
+        }
+
         // refresh 토큰이 유효 한지 검사
-        if (!validation(refreshToken)) {
+        if (!validateRefreshToken(refreshToken)) {
             log.error("[AuthService/reissueTokens] refreshToken 유효성 검사 실패");
-            return null;
+            return new HashMap<>();
         }
 
         // refresh 토큰이 유효한 경우 토큰 재발급
@@ -32,8 +40,7 @@ public class AuthService {
 
     private HashMap<String, String> createTokens(String accessToken, String refreshToken) {
 
-        UserDetails userDetails = userDetailsServiceImpl.loadUserByUsername(
-                jwtTokenProvider.getMobileNumber(accessToken));
+        UserDetails userDetails = userDetailsServiceImpl.loadUserByUsername(jwtTokenProvider.getRefreshTokenUuid(refreshToken).split(" ")[0]);
         if (userDetails == null) {
             log.error("[AuthService/reissueTokens] 전달받은 accessToken의 정보를 가지는 사용자가 존재하지 않습니다.");
             return null;
@@ -59,10 +66,39 @@ public class AuthService {
         return newTokens;
     }
 
-    public boolean validation(String refreshToken) {
+    public boolean validateAccessToken(String accessToken){
+
+        if(!jwtTokenProvider.isExistToken(accessToken)){
+            log.error("accessToken이 존재하지 않습니다.");
+            return false;
+        }
+
+        if(!jwtTokenProvider.isRightFormat(accessToken)){
+            log.error("올바른 토큰의 형식을 입력해주세요.");
+            return false;
+        }
+
+        if(!jwtTokenProvider.isValidToken(JwtTokenUtils.getAccessToken(accessToken))){
+            log.error("유효하지 않은 accessToken 입니다.");
+            return false;
+        }
+
+        if(!jwtTokenProvider.isExpiredToken(JwtTokenUtils.getAccessToken(accessToken))){
+            log.error("accessToken이 만료되지 않았습니다.");
+            return false;
+        }
+        return true;
+    }
+
+    public boolean validateRefreshToken(String refreshToken) {
 
         if (!jwtTokenProvider.isExistToken(refreshToken)) {
             log.error("refreshToken이 존재하지 않습니다.");
+            return false;
+        }
+
+        if(!jwtTokenProvider.isValidToken(refreshToken)){
+            log.error("유효하지 않은 토큰 입니다.");
             return false;
         }
 

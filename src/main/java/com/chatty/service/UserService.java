@@ -73,6 +73,8 @@ public class UserService {
         Map<String,String> tokens = new HashMap<>();
         String accessToken = jwtTokenProvider.createAccessToken(mobileNumber,uuid);
         String refreshToken = jwtTokenProvider.createRefreshToken(mobileNumber);
+        log.info("[UserService/createTokens] 생성한 accessToken : {}",accessToken);
+        log.info("[UserService/createTokens] 생성한 refreshToken : {}",refreshToken);
         tokens.put(ACCESS_TOKEN, accessToken);
         tokens.put(REFRESH_TOKEN, refreshToken);
 

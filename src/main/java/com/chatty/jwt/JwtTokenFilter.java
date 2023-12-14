@@ -57,6 +57,11 @@ public class JwtTokenFilter extends OncePerRequestFilter {
             return false;
         }
 
+        if(!jwtTokenProvider.isValidToken(refreshToken)){
+            log.error("유효한 refreshToken이 아닙니다.");
+            return false;
+        }
+
         // 리프레시 토큰이 redis에 저장된 토큰과 일치
         if(!jwtTokenProvider.isEqualRedisRefresh(refreshToken, jwtTokenProvider.getRefreshTokenUuid(refreshToken))){
             log.error("refreshToken이 일치하지 않습니다.");
@@ -82,6 +87,11 @@ public class JwtTokenFilter extends OncePerRequestFilter {
 
         if(!jwtTokenProvider.isRightFormat(accessToken)){ // 토큰 형식 여부
             log.error("올바른 토큰의 형식을 입력해주세요.");
+            return false;
+        }
+
+        if(!jwtTokenProvider.isValidToken(accessToken)){
+            log.error("유효한 accessToken이 아닙니다.");
             return false;
         }
 
