@@ -38,7 +38,8 @@ public class SecurityConfig {
     public WebSecurityCustomizer webSecurityCustomizer(){
         return (web) -> web.ignoring().requestMatchers(
                 "/api/users/**",
-                "/api/auth/refresh"
+                "/api/auth/refresh",
+                "/api/sms/**"
         );
     }
 }
