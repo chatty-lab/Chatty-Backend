@@ -44,13 +44,14 @@ public class UserService {
     public Map<String,String> join(UserRequestDto userRequestDto) {
 
         log.info("[UserService/join] 회원 가입 시작");
-        if(isAlreadyExistedUser(userRequestDto.getMobileNumber())){
-            log.error("이미 존재 하는 유저 입니다.");
-            return null;
-        }
 
         if(!authenticationNumberUtil.isMatchNumber(userRequestDto.getAuthenticationNumber())){
             log.error("인증 번호가 일치하지 않는다.");
+            return null;
+        }
+
+        if(isAlreadyExistedUser(userRequestDto.getMobileNumber())){
+            log.error("이미 존재 하는 유저 입니다.");
             return null;
         }
 

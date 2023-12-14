@@ -15,7 +15,6 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
-import org.springframework.util.StringUtils;
 
 @Slf4j
 @RequiredArgsConstructor
@@ -101,6 +100,11 @@ public class JwtTokenProvider {
     public boolean isExpiredToken(String token) {
         return Jwts.parser().verifyWith(key).build().parseSignedClaims(token).getPayload().getExpiration().
                 before(new Date());
+    }
+
+    public boolean isEqualRedisRefresh(String token){
+        RefreshToken refreshToken = refreshTokenRepository.findByRefreshToken(token).orElseThrow();
+        return token.equals(refreshToken.getRefreshToken());
     }
 
     public String resolveAccessToken(HttpServletRequest request) {

@@ -53,7 +53,13 @@ public class JwtTokenFilter extends OncePerRequestFilter {
         log.info("refreshToken : {}",refreshToken);
 
         if(!jwtTokenProvider.isExistToken(refreshToken)){
-            log.error("refreshToken 토큰이 존재 하지 안습니다.");
+            log.error("refreshToken이 존재 하지 안습니다.");
+            return false;
+        }
+
+        // 리프레시 토큰이 redis에 저장된 토큰과 일치
+        if(!jwtTokenProvider.isEqualRedisRefresh(refreshToken)){
+            log.error("refreshToken이 일치하지 않습니다.");
             return false;
         }
 
