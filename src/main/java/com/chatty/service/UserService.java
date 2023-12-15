@@ -2,11 +2,11 @@ package com.chatty.service;
 
 import com.chatty.dto.request.UserRequestDto;
 import com.chatty.entity.Authority;
-import com.chatty.entity.RefreshToken;
 import com.chatty.entity.User;
 import com.chatty.jwt.JwtTokenProvider;
+import com.chatty.repository.RefreshTokenRepository;
 import com.chatty.repository.UserRepository;
-import com.chatty.utils.AuthenticationNumberUtil;
+import com.chatty.utils.SmsUtils;
 import java.util.HashMap;
 import java.util.Map;
 import lombok.RequiredArgsConstructor;
@@ -20,7 +20,7 @@ public class UserService {
 
     private final JwtTokenProvider jwtTokenProvider;
     private final UserRepository userRepository;
-    private final RefreshTokenService refreshTokenService;
+    private final RefreshTokenRepository refreshTokenRepository;
 
     private static final String ACCESS_TOKEN = "accessToken";
     private static final String REFRESH_TOKEN = "refreshToken";
@@ -29,7 +29,8 @@ public class UserService {
 
         log.info("[UserService/login] 로그인 시작");
 
-        if(!AuthenticationNumberUtil.isMatchNumber(userRequestDto.getAuthenticationNumber())){
+
+        if(!SmsUtils.isMatchNumber(userRequestDto.getAuthenticationNumber())){
             log.error("인증 번호가 일치하지 않는다.");
             return null;
         }
@@ -46,7 +47,7 @@ public class UserService {
 
         log.info("[UserService/join] 회원 가입 시작");
 
-        if(!AuthenticationNumberUtil.isMatchNumber(userRequestDto.getAuthenticationNumber())){
+        if(!SmsUtils.isMatchNumber(userRequestDto.getAuthenticationNumber())){
             log.error("인증 번호가 일치하지 않는다.");
             return null;
         }
@@ -79,12 +80,7 @@ public class UserService {
         tokens.put(REFRESH_TOKEN, refreshToken);
 
         log.info("[UserService/createTokens] RefreshToken Redis 저장");
-        RefreshToken savedRefreshToken = refreshTokenService.saveRefreshToken(refreshToken, jwtTokenProvider.getRefreshTokenUuid(refreshToken));
-
-        if(savedRefreshToken == null){
-            log.error("[AuthService/createTokens] refreshToken을 Redis DB 저장 실패");
-            return null;
-        }
+        refreshTokenRepository.save(jwtTokenProvider.getRefreshTokenUuid(refreshToken),refreshToken);
 
         return tokens;
     }
