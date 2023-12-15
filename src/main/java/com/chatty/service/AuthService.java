@@ -1,6 +1,7 @@
 package com.chatty.service;
 
 import com.chatty.jwt.JwtTokenProvider;
+import com.chatty.repository.RefreshTokenRepository;
 import com.chatty.utils.JwtTokenUtils;
 import java.util.HashMap;
 import lombok.RequiredArgsConstructor;
@@ -18,7 +19,7 @@ public class AuthService {
 
     private final JwtTokenProvider jwtTokenProvider;
     private final UserDetailsServiceImpl userDetailsServiceImpl;
-    private final RefreshTokenService refreshTokenService;
+    private final RefreshTokenRepository refreshTokenRepository;
 
     public HashMap<String, String> reissueTokens(String accessToken, String refreshToken) {
 
@@ -35,11 +36,12 @@ public class AuthService {
         }
 
         // refresh 토큰이 유효한 경우 토큰 재발급
-        return createTokens(accessToken, refreshToken);
+        return createTokens(refreshToken);
     }
 
-    private HashMap<String, String> createTokens(String accessToken, String refreshToken) {
+    private HashMap<String, String> createTokens(String refreshToken) {
 
+        // access Token은 만료되었기 때문에 데이터 추출이
         UserDetails userDetails = userDetailsServiceImpl.loadUserByUsername(jwtTokenProvider.getRefreshTokenUuid(refreshToken).split(" ")[0]);
         if (userDetails == null) {
             log.error("[AuthService/reissueTokens] 전달받은 accessToken의 정보를 가지는 사용자가 존재하지 않습니다.");
@@ -48,12 +50,12 @@ public class AuthService {
 
         log.info("[AuthService/createTokens] 새로운 토큰 발급 시작");
         // refreshToken은 Redis에 기존에 저장되어 있던 것 지우고 새로 발급
-        refreshTokenService.removeRefreshToken(jwtTokenProvider.getRefreshTokenUuid(refreshToken));
+        refreshTokenRepository.delete(jwtTokenProvider.getRefreshTokenUuid(refreshToken));
         log.info("[AuthService/createTokens] Redis에 존재하는 기존 refresh Token 제거");
 
         String newAccessToken = jwtTokenProvider.createAccessToken(userDetails.getUsername(), userDetails.getPassword());
         String newRefreshToken = jwtTokenProvider.createRefreshToken(userDetails.getUsername());
-        refreshTokenService.saveRefreshToken(newRefreshToken, jwtTokenProvider.getRefreshTokenUuid(newRefreshToken));
+        refreshTokenRepository.save(jwtTokenProvider.getRefreshTokenUuid(newRefreshToken), newRefreshToken);
         log.info("[AuthService/createToken] 새로 발급한 refresh Token redis 저장");
 
         return getTokens(newAccessToken, newRefreshToken);

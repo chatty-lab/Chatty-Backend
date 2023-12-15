@@ -1,6 +1,5 @@
 package com.chatty.jwt;
 
-import com.chatty.entity.RefreshToken;
 import com.chatty.repository.RefreshTokenRepository;
 import com.chatty.utils.JwtTokenUtils;
 import io.jsonwebtoken.Claims;
@@ -132,9 +131,9 @@ public class JwtTokenProvider {
 
         log.info("[isEqualRedisRefresh] refreshToken과 Redis에 저장된 refreshToken과 일치여부 확인");
         try {
-            RefreshToken refreshToken = refreshTokenRepository.findRefreshTokenByUuid(uuid).orElseThrow();
+            String refreshToken = refreshTokenRepository.findRefreshTokenByUuid(uuid);
             log.info("[isEqualRedisRefresh] 전달받은 refreshToken이 현재 refreshToken과 일치합니다.");
-            return token.equals(refreshToken.getRefreshToken());
+            return token.equals(refreshToken);
         }catch(Exception e){
             return false;
         }
