@@ -11,7 +11,7 @@ import lombok.NoArgsConstructor;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class SmsRequestDto {
+public class NaverSmsRequestDto {
     private String type;
     private String contentType;
     private String countryCode;

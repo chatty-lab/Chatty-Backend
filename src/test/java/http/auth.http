@@ -1,7 +1,8 @@
-POST http://localhost:8080/api/signin
+POST http://localhost:8080/api/users/join
 Content-Type: application/json
 
 {
   "mobileNumber": "010-1234-5678",
-  "uuid": "1234"
+  "uuid": "1234",
+  "authenticationNumber" : "123456"
 }

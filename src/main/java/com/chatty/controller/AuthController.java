@@ -1,7 +1,10 @@
 package com.chatty.controller;
 
+import com.chatty.dto.MessageDto;
+import com.chatty.dto.request.UserSmsRequestDto;
 import com.chatty.jwt.JwtTokenProvider;
 import com.chatty.service.AuthService;
+import com.chatty.service.SmsService;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import java.util.HashMap;
@@ -17,6 +20,7 @@ import org.springframework.web.bind.annotation.RestController;
 public class AuthController {
 
     private final AuthService authService;
+    private final SmsService smsService;
     private final JwtTokenProvider jwtTokenProvider;
 
     @PostMapping("/refresh")
@@ -25,5 +29,11 @@ public class AuthController {
                 jwtTokenProvider.resolvRefreshToken(request));
 
         return ResponseEntity.ok().body(newTokens.toString());
+    }
+
+    @PostMapping("/mobileNumber")
+    public ResponseEntity<String> mobileNumber(UserSmsRequestDto userSmsRequestDto) {
+
+        return ResponseEntity.ok("인증이 완료되었습니다.");
     }
 }

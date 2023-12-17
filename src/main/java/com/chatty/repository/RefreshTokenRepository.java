@@ -1,8 +1,10 @@
 package com.chatty.repository;
 
+import java.time.Duration;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.data.redis.core.ValueOperations;
 import org.springframework.stereotype.Repository;
@@ -10,6 +12,10 @@ import org.springframework.stereotype.Repository;
 @Slf4j
 @Repository
 public class RefreshTokenRepository {
+
+    @Value("${jwt-refresh-token-expiration-time}")
+    private String validTime;
+
     private RedisTemplate<String, String> redisTemplateToken;
 
     @Autowired
@@ -20,7 +26,7 @@ public class RefreshTokenRepository {
     public void save(String uuid, String refreshToken){
         try {
             ValueOperations<String, String> value = redisTemplateToken.opsForValue();
-            value.set(uuid,refreshToken);
+            value.set(uuid,refreshToken, Duration.ofSeconds(Long.parseLong(validTime)/1000));
         }catch(Exception e) {
             log.error("[RedistTokenService/getRefreshTokenByUuid] 데이터 저장 실패");
         }

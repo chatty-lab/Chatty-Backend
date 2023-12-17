@@ -29,7 +29,6 @@ public class UserService {
 
         log.info("[UserService/login] 로그인 시작");
 
-
         if(!SmsUtils.isMatchNumber(userRequestDto.getAuthenticationNumber())){
             log.error("인증 번호가 일치하지 않는다.");
             return null;
