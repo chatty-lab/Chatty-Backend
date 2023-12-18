@@ -6,6 +6,7 @@ import com.chatty.dto.MessageDto;
 import com.chatty.dto.request.NaverSmsRequestDto;
 import com.chatty.dto.request.UserSmsRequestDto;
 import com.chatty.dto.response.SmsResponseDto;
+import com.chatty.repository.AuthNumberRepository;
 import com.chatty.utils.SmsUtils;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -18,11 +19,7 @@ import java.util.ArrayList;
 import java.util.List;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.data.redis.core.RedisTemplate;
-import org.springframework.data.redis.core.ValueOperations;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
@@ -34,9 +31,12 @@ import org.springframework.web.client.RestTemplate;
 
 @Slf4j
 @Service
+@RequiredArgsConstructor
 public class SmsService {
 
     private static final String PREFIX_NUMBER = "010";
+    private static final String REGEX = "^[0-9]*$";
+    private static final int MOBILE_NUMBER_LENGTH = 11;
 
     @Value("${naver-cloud-sms-access-key}")
     private String accessKey;
@@ -50,36 +50,7 @@ public class SmsService {
     @Value("${naver-cloud-sms-sender-phone-number}")
     private String phone;
 
-    private RedisTemplate<String, String> redisTemplateAuthNumber;
-
-    @Autowired
-    public SmsService(@Qualifier("redisTemplateAuthNumber") RedisTemplate<String, String> redisTemplateAuthenticationNumber){
-        log.debug("[SmsRepository 주입] {}",redisTemplateAuthenticationNumber);
-        this.redisTemplateAuthNumber = redisTemplateAuthenticationNumber;
-    }
-
-    public void save(String key, String authNumber) {
-        try {
-            ValueOperations<String, String> value = redisTemplateAuthNumber.opsForValue();
-            value.set(key,authNumber);
-        }catch(Exception e) {
-            log.error("[RedistTokenService/getRefreshTokenByUuid] 데이터 저장 실패");
-        }
-    }
-
-    public String findAuthNumberByMobileNumber(String mobileNumber) {
-        try {
-            ValueOperations<String, String> value = redisTemplateAuthNumber.opsForValue();
-            return value.get(mobileNumber);
-        }catch(Exception e) {
-            log.error("[RedistTokenService/getRefreshTokenByUuid] 일치하는 refresh 토큰이 존재하지 않습니다.");
-            return null;
-        }
-    }
-
-    public void delete(String mobileNumber) {
-        redisTemplateAuthNumber.delete(mobileNumber);
-    }
+    private final AuthNumberRepository authNumberRepository;
 
     public SmsResponseDto sendSms(MessageDto messageDto) throws JsonProcessingException, RestClientException, URISyntaxException, InvalidKeyException, NoSuchAlgorithmException, UnsupportedEncodingException {
         Long time = System.currentTimeMillis();
@@ -121,19 +92,18 @@ public class SmsService {
         try {
             String authNumber = SmsUtils.generateNumber();
             String key = userSmsRequestDto.getMobileNumber() + userSmsRequestDto.getUuid();
-            save(key,authNumber);
+            authNumberRepository.save(key,authNumber);
             log.info("번호 인증 요청 정보 저장 완료");
             return authNumber;
         }catch (Exception e){
             log.error(e.getMessage());
         }
-
         return null;
     }
 
-    public boolean checkAuthNumber(String number, String authNumber) {
+    public boolean checkAuthNumber(String key, String authNumber) {
         try {
-            String auth = findAuthNumberByMobileNumber(number);
+            String auth = authNumberRepository.findAuthNumber(key);
             if(auth.equals(authNumber)){
                 return true;
             }
@@ -146,6 +116,14 @@ public class SmsService {
 
     public boolean validateNumber(String number){
         if(!number.startsWith(PREFIX_NUMBER)){
+            return false;
+        }
+
+        if(!number.matches(REGEX)){
+            return false;
+        }
+
+        if(number.length() != MOBILE_NUMBER_LENGTH){
             return false;
         }
 
