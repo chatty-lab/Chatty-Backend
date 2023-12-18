@@ -3,9 +3,10 @@ package com.chatty.service;
 import static com.chatty.utils.SmsUtils.makeSignature;
 
 import com.chatty.dto.MessageDto;
-import com.chatty.dto.request.SmsRequesNavertDto;
+import com.chatty.dto.request.NaverSmsRequestDto;
+import com.chatty.dto.request.UserSmsRequestDto;
 import com.chatty.dto.response.SmsResponseDto;
-import com.chatty.repository.SmsRepository;
+import com.chatty.utils.SmsUtils;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import java.io.UnsupportedEncodingException;
@@ -17,7 +18,11 @@ import java.util.ArrayList;
 import java.util.List;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.data.redis.core.RedisTemplate;
+import org.springframework.data.redis.core.ValueOperations;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
@@ -28,13 +33,10 @@ import org.springframework.web.client.RestTemplate;
 
 
 @Slf4j
-@RequiredArgsConstructor
 @Service
 public class SmsService {
 
     private static final String PREFIX_NUMBER = "010";
-    private static final int NUMBER_LENGTH = 11;
-    private static final String  REGEXP = "^[0-9]+$";
 
     @Value("${naver-cloud-sms-access-key}")
     private String accessKey;
@@ -48,7 +50,36 @@ public class SmsService {
     @Value("${naver-cloud-sms-sender-phone-number}")
     private String phone;
 
-    private SmsRepository smsRepository;
+    private RedisTemplate<String, String> redisTemplateAuthNumber;
+
+    @Autowired
+    public SmsService(@Qualifier("redisTemplateAuthNumber") RedisTemplate<String, String> redisTemplateAuthenticationNumber){
+        log.debug("[SmsRepository 주입] {}",redisTemplateAuthenticationNumber);
+        this.redisTemplateAuthNumber = redisTemplateAuthenticationNumber;
+    }
+
+    public void save(String key, String authNumber) {
+        try {
+            ValueOperations<String, String> value = redisTemplateAuthNumber.opsForValue();
+            value.set(key,authNumber);
+        }catch(Exception e) {
+            log.error("[RedistTokenService/getRefreshTokenByUuid] 데이터 저장 실패");
+        }
+    }
+
+    public String findAuthNumberByMobileNumber(String mobileNumber) {
+        try {
+            ValueOperations<String, String> value = redisTemplateAuthNumber.opsForValue();
+            return value.get(mobileNumber);
+        }catch(Exception e) {
+            log.error("[RedistTokenService/getRefreshTokenByUuid] 일치하는 refresh 토큰이 존재하지 않습니다.");
+            return null;
+        }
+    }
+
+    public void delete(String mobileNumber) {
+        redisTemplateAuthNumber.delete(mobileNumber);
+    }
 
     public SmsResponseDto sendSms(MessageDto messageDto) throws JsonProcessingException, RestClientException, URISyntaxException, InvalidKeyException, NoSuchAlgorithmException, UnsupportedEncodingException {
         Long time = System.currentTimeMillis();
@@ -62,7 +93,7 @@ public class SmsService {
         List<MessageDto> messages = new ArrayList<>();
         messages.add(messageDto);
 
-        SmsRequesNavertDto request = SmsRequesNavertDto.builder()
+        NaverSmsRequestDto request = NaverSmsRequestDto.builder()
                 .type("SMS")
                 .contentType("COMM")
                 .countryCode("82")
@@ -82,42 +113,39 @@ public class SmsService {
         return response;
     }
 
-    public void saveSms(String number, String authNumber) throws Exception {
-        if(!validateNumber(number)){
+    public String saveSms(UserSmsRequestDto userSmsRequestDto) throws Exception {
+        if(!validateNumber(userSmsRequestDto.getMobileNumber())){
             throw new Exception("올바르지 않은 번호 형식");
         }
 
         try {
-            smsRepository.save(number,authNumber);
+            String authNumber = SmsUtils.generateNumber();
+            String key = userSmsRequestDto.getMobileNumber() + userSmsRequestDto.getUuid();
+            save(key,authNumber);
+            log.info("번호 인증 요청 정보 저장 완료");
+            return authNumber;
         }catch (Exception e){
             log.error(e.getMessage());
         }
+
+        return null;
     }
 
-    public boolean checkSms(String number, String authNumber) {
+    public boolean checkAuthNumber(String number, String authNumber) {
         try {
-            String auth = smsRepository.findAuthNumberByMobileNumber(number);
+            String auth = findAuthNumberByMobileNumber(number);
             if(auth.equals(authNumber)){
                 return true;
             }
-
-            return false;
         }catch (Exception e){
             log.error(e.getMessage());
-            return false;
         }
+
+        return false;
     }
 
     public boolean validateNumber(String number){
         if(!number.startsWith(PREFIX_NUMBER)){
-            return false;
-        }
-
-        if(!number.matches(REGEXP)){
-            return false;
-        }
-
-        if(number.length() != NUMBER_LENGTH) {
             return false;
         }
 
