@@ -1,5 +1,6 @@
 package com.chatty.controller;
 
+import com.chatty.dto.MessageDto;
 import com.chatty.dto.request.UserSmsRequestDto;
 import com.chatty.jwt.JwtTokenProvider;
 import com.chatty.service.AuthService;
@@ -45,6 +46,7 @@ public class AuthController {
     public ResponseEntity<String> mobile(@Valid @RequestBody UserSmsRequestDto userSmsRequestDto) throws Exception {
         log.info("번호 인증 요청");
         String authNumber = smsService.saveSms(userSmsRequestDto);
+        smsService.sendSms(MessageDto.builder().to(userSmsRequestDto.getMobileNumber()).content(authNumber).build());
         return ResponseEntity.ok().body("인증 번호 : " + authNumber);
     }
 }

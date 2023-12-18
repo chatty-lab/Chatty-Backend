@@ -91,9 +91,9 @@ public class SmsService {
 
         try {
             String authNumber = SmsUtils.generateNumber();
-            String key = userSmsRequestDto.getMobileNumber() + userSmsRequestDto.getUuid();
+            String key = SmsUtils.makeKey(userSmsRequestDto.getMobileNumber(),userSmsRequestDto.getUuid());
             authNumberRepository.save(key,authNumber);
-            log.info("번호 인증 요청 정보 저장 완료");
+            log.info("번호 인증 요청 정보 저장 완료 : {}", authNumber);
             return authNumber;
         }catch (Exception e){
             log.error(e.getMessage());
@@ -104,6 +104,7 @@ public class SmsService {
     public boolean checkAuthNumber(String key, String authNumber) {
         try {
             String auth = authNumberRepository.findAuthNumber(key);
+            log.info("확인이 필요한 인증번호 : {}",auth);
             if(auth.equals(authNumber)){
                 return true;
             }

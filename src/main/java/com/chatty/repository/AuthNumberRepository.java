@@ -1,5 +1,6 @@
 package com.chatty.repository;
 
+import java.util.concurrent.TimeUnit;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.redis.core.RedisTemplate;
@@ -11,14 +12,13 @@ import org.springframework.stereotype.Repository;
 @RequiredArgsConstructor
 public class AuthNumberRepository {
 
-    private static final int VALIDITY_TIME = 1000 * 60 * 3;
-
     private final RedisTemplate<String, String> redisTemplateAuthNumber;
+    private static final long VALIDITY_NUMBER = 5;
 
     public void save(String key, String authNumber) {
         try {
             ValueOperations<String, String> value = redisTemplateAuthNumber.opsForValue();
-            value.set(key,authNumber,VALIDITY_TIME);
+            value.set(key,authNumber,VALIDITY_NUMBER, TimeUnit.MINUTES);
         }catch(Exception e) {
             log.error("[RedistTokenService/getRefreshTokenByUuid] 데이터 저장 실패");
         }

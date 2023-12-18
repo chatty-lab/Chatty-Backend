@@ -52,4 +52,8 @@ public class SmsUtils {
 
         return sb.toString();
     }
+
+    public static String makeKey(String number, String uuid){
+        return number + uuid;
+    }
 }

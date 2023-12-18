@@ -21,6 +21,7 @@ public class UserService {
     private final JwtTokenProvider jwtTokenProvider;
     private final UserRepository userRepository;
     private final RefreshTokenRepository refreshTokenRepository;
+    private final SmsService smsService;
 
     private static final String ACCESS_TOKEN = "accessToken";
     private static final String REFRESH_TOKEN = "refreshToken";
@@ -29,7 +30,10 @@ public class UserService {
 
         log.info("[UserService/login] 로그인 시작");
 
-        if(!SmsUtils.isMatchNumber(userRequestDto.getAuthenticationNumber())){
+        String key = userRequestDto.getMobileNumber() + userRequestDto.getUuid();
+        String authNumber = userRequestDto.getAuthenticationNumber();
+
+        if(!smsService.checkAuthNumber(key,authNumber)){
             log.error("인증 번호가 일치하지 않는다.");
             return null;
         }
@@ -45,8 +49,9 @@ public class UserService {
     public Map<String,String> join(UserRequestDto userRequestDto) {
 
         log.info("[UserService/join] 회원 가입 시작");
+        String key = SmsUtils.makeKey(userRequestDto.getMobileNumber(),userRequestDto.getUuid());
 
-        if(!SmsUtils.isMatchNumber(userRequestDto.getAuthenticationNumber())){
+        if(!smsService.checkAuthNumber(key,userRequestDto.getAuthenticationNumber())){
             log.error("인증 번호가 일치하지 않는다.");
             return null;
         }
