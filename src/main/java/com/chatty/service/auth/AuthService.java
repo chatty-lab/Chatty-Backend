@@ -52,7 +52,7 @@ public class AuthService {
         UserDetails userDetails = userDetailsServiceImpl.loadUserByUsername(jwtTokenProvider.getUuidByRefreshToken(refreshToken).split(" ")[0]);
         if (userDetails == null) {
             log.error("[AuthService/reissueTokens] 전달받은 accessToken의 정보를 가지는 사용자가 존재하지 않습니다.");
-            return null;
+            throw new CustomException(ErrorCode.NOT_VALID_ACCESS_TOKEN);
         }
 
         log.info("[AuthService/createTokens] 새로운 토큰 발급 시작");

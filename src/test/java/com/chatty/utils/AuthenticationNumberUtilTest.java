@@ -9,7 +9,7 @@ public class AuthenticationNumberUtilTest {
     @DisplayName("인증번호 랜덤 생성 테스트")
     void createAuthenticationNumber() throws Exception{
         //given
-        AuthenticationNumberUtil authenticationNumberUtil = new AuthenticationNumberUtil();
+        SmsUtils authenticationNumberUtil = new SmsUtils();
         //when
         String number = authenticationNumberUtil.generateNumber();
 
