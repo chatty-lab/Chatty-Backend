@@ -59,6 +59,8 @@ public class User  extends CommonEntity implements UserDetails{
     @Enumerated(EnumType.STRING)
     private Authority authority;
 
+    private String imageUrl;
+
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
         return List.of(new SimpleGrantedAuthority(authority.name()));
