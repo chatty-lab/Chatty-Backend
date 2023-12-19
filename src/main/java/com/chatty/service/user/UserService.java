@@ -1,11 +1,14 @@
-package com.chatty.service;
+package com.chatty.service.user;
 
-import com.chatty.dto.request.UserRequestDto;
-import com.chatty.entity.Authority;
-import com.chatty.entity.User;
+import com.chatty.constants.ErrorCode;
+import com.chatty.dto.user.request.UserRequestDto;
+import com.chatty.entity.user.Authority;
+import com.chatty.entity.user.User;
+import com.chatty.exception.NormalException;
 import com.chatty.jwt.JwtTokenProvider;
-import com.chatty.repository.RefreshTokenRepository;
-import com.chatty.repository.UserRepository;
+import com.chatty.repository.token.RefreshTokenRepository;
+import com.chatty.repository.user.UserRepository;
+import com.chatty.service.sms.SmsService;
 import com.chatty.utils.SmsUtils;
 import java.util.HashMap;
 import java.util.Map;
@@ -33,14 +36,14 @@ public class UserService {
         String key = userRequestDto.getMobileNumber() + userRequestDto.getUuid();
         String authNumber = userRequestDto.getAuthenticationNumber();
 
-        if(!smsService.checkAuthNumber(key,authNumber)){
-            log.error("인증 번호가 일치하지 않는다.");
-            return null;
-        }
-
         if(!isAlreadyExistedUser(userRequestDto.getMobileNumber())){
             log.error("존재 하지 않는 유저 입니다.");
-            return null;
+            throw new NormalException(ErrorCode.NOT_EXIST_USER);
+        }
+
+        if(!smsService.checkAuthNumber(key,authNumber)){
+            log.error("인증 번호가 일치하지 않는다.");
+            throw new NormalException(ErrorCode.AUTH_NUMBER_ERROR);
         }
 
         return createTokens(userRequestDto.getMobileNumber(), userRequestDto.getUuid());
@@ -51,14 +54,14 @@ public class UserService {
         log.info("[UserService/join] 회원 가입 시작");
         String key = SmsUtils.makeKey(userRequestDto.getMobileNumber(),userRequestDto.getUuid());
 
-        if(!smsService.checkAuthNumber(key,userRequestDto.getAuthenticationNumber())){
-            log.error("인증 번호가 일치하지 않는다.");
-            return null;
-        }
-
         if(isAlreadyExistedUser(userRequestDto.getMobileNumber())){
             log.error("이미 존재 하는 유저 입니다.");
-            return null;
+            throw new NormalException(ErrorCode.ALREADY_EXIST_USER);
+        }
+
+        if(!smsService.checkAuthNumber(key,userRequestDto.getAuthenticationNumber())){
+            log.error("인증 번호가 일치하지 않는다.");
+            throw new NormalException(ErrorCode.AUTH_NUMBER_ERROR);
         }
 
         User user = User.builder()

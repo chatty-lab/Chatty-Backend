@@ -1,4 +1,4 @@
-package com.chatty.entity;
+package com.chatty.entity.user;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;

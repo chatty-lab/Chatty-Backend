@@ -1,4 +1,4 @@
-package com.chatty.dto;
+package com.chatty.dto.sms.request;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;

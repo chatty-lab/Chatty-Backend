@@ -1,7 +1,10 @@
-package com.chatty.service;
+package com.chatty.service.auth;
 
+import com.chatty.constants.ErrorCode;
+import com.chatty.exception.NormalException;
 import com.chatty.jwt.JwtTokenProvider;
-import com.chatty.repository.RefreshTokenRepository;
+import com.chatty.repository.token.RefreshTokenRepository;
+import com.chatty.service.user.UserDetailsServiceImpl;
 import com.chatty.utils.JwtTokenUtils;
 import java.util.HashMap;
 import lombok.RequiredArgsConstructor;
@@ -26,13 +29,13 @@ public class AuthService {
         // access 토큰이 유효 한지 검사
         if(!validateAccessToken(accessToken)){
             log.error("[AuthService/reissueTokens] accessToken 유효성 검사 실패");
-            return new HashMap<>();
+            throw new NormalException(ErrorCode.NOT_VALID_ACCESS_TOKEN);
         }
 
         // refresh 토큰이 유효 한지 검사
         if (!validateRefreshToken(refreshToken)) {
             log.error("[AuthService/reissueTokens] refreshToken 유효성 검사 실패");
-            return new HashMap<>();
+            throw new NormalException(ErrorCode.NOT_VALID_REFRESH_TOKEN);
         }
 
         // refresh 토큰이 유효한 경우 토큰 재발급

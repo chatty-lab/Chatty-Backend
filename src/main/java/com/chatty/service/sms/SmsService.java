@@ -1,12 +1,14 @@
-package com.chatty.service;
+package com.chatty.service.sms;
 
 import static com.chatty.utils.SmsUtils.makeSignature;
 
-import com.chatty.dto.MessageDto;
-import com.chatty.dto.request.NaverSmsRequestDto;
-import com.chatty.dto.request.UserSmsRequestDto;
-import com.chatty.dto.response.SmsResponseDto;
-import com.chatty.repository.AuthNumberRepository;
+import com.chatty.constants.ErrorCode;
+import com.chatty.dto.sms.request.MessageDto;
+import com.chatty.dto.sms.request.NaverSmsRequestDto;
+import com.chatty.dto.sms.request.UserSmsRequestDto;
+import com.chatty.dto.sms.response.SmsResponseDto;
+import com.chatty.exception.NormalException;
+import com.chatty.repository.auth.AuthNumberRepository;
 import com.chatty.utils.SmsUtils;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -27,7 +29,6 @@ import org.springframework.http.client.HttpComponentsClientHttpRequestFactory;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestClientException;
 import org.springframework.web.client.RestTemplate;
-
 
 @Slf4j
 @Service
@@ -84,9 +85,9 @@ public class SmsService {
         return response;
     }
 
-    public String saveSms(UserSmsRequestDto userSmsRequestDto) throws Exception {
+    public String saveSms(UserSmsRequestDto userSmsRequestDto) {
         if(!validateNumber(userSmsRequestDto.getMobileNumber())){
-            throw new Exception("올바르지 않은 번호 형식");
+            throw new NormalException(ErrorCode.NOT_NUMBER_FORMAT);
         }
 
         try {

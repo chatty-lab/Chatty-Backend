@@ -1,7 +1,8 @@
 package com.chatty.service;
 
-import com.chatty.dto.MessageDto;
-import com.chatty.dto.response.SmsResponseDto;
+import com.chatty.dto.sms.request.MessageDto;
+import com.chatty.dto.sms.response.SmsResponseDto;
+import com.chatty.service.sms.SmsService;
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;

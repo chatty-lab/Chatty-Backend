@@ -1,6 +1,6 @@
 package com.chatty.jwt;
 
-import com.chatty.service.UserDetailsServiceImpl;
+import com.chatty.service.user.UserDetailsServiceImpl;
 import com.chatty.utils.JwtTokenUtils;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;

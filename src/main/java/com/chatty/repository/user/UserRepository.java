@@ -1,6 +1,6 @@
-package com.chatty.repository;
+package com.chatty.repository.user;
 
-import com.chatty.entity.User;
+import com.chatty.entity.user.User;
 import java.util.Optional;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;

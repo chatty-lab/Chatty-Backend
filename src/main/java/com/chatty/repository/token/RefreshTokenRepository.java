@@ -1,4 +1,4 @@
-package com.chatty.repository;
+package com.chatty.repository.token;
 
 import java.time.Duration;
 import lombok.RequiredArgsConstructor;

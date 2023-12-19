@@ -1,4 +1,4 @@
-package com.chatty.repository;
+package com.chatty.repository.auth;
 
 import java.util.concurrent.TimeUnit;
 import lombok.RequiredArgsConstructor;

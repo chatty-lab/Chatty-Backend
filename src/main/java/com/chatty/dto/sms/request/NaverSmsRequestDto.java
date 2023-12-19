@@ -1,6 +1,5 @@
-package com.chatty.dto.request;
+package com.chatty.dto.sms.request;
 
-import com.chatty.dto.MessageDto;
 import java.util.List;
 import lombok.AllArgsConstructor;
 import lombok.Builder;

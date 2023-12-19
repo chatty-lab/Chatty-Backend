@@ -1,7 +1,7 @@
-package com.chatty.service;
+package com.chatty.service.user;
 
-import com.chatty.entity.User;
-import com.chatty.repository.UserRepository;
+import com.chatty.entity.user.User;
+import com.chatty.repository.user.UserRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;

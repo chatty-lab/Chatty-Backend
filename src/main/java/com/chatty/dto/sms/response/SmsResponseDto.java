@@ -1,4 +1,4 @@
-package com.chatty.dto.response;
+package com.chatty.dto.sms.response;
 
 import java.time.LocalDateTime;
 import lombok.AllArgsConstructor;
