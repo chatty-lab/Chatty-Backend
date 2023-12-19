@@ -10,8 +10,6 @@ import org.apache.tomcat.util.codec.binary.Base64;
 
 public class SmsUtils {
 
-    private static final String authenticationNumber = "123456";
-
     public static String makeSignature(String accessKey, String serviceId, String secretKey, Long time) throws NoSuchAlgorithmException, UnsupportedEncodingException, InvalidKeyException {
         String space = " ";
         String newLine = "\n";
@@ -37,10 +35,6 @@ public class SmsUtils {
         String encodeBase64String = Base64.encodeBase64String(rawHmac);
 
         return encodeBase64String;
-    }
-
-    public static boolean isMatchNumber(String number){
-        return authenticationNumber.equals(number);
     }
 
     public static String generateNumber(){

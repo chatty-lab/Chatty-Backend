@@ -8,6 +8,7 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
+import jakarta.validation.constraints.NotBlank;
 import java.time.LocalDate;
 import java.util.Collection;
 import java.util.List;
@@ -33,9 +34,11 @@ public class User implements UserDetails {
     private long id;
 
     @Column(name = "mobile_number")
+    @NotBlank
     private String mobileNumber;
 
     @Column(name = "device_id")
+    @NotBlank
     private String uuid;
 
     private String username;

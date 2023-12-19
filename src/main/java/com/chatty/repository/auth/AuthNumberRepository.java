@@ -16,21 +16,16 @@ public class AuthNumberRepository {
     private static final long VALIDITY_NUMBER = 5;
 
     public void save(String key, String authNumber) {
-        try {
-            ValueOperations<String, String> value = redisTemplateAuthNumber.opsForValue();
-            value.set(key,authNumber,VALIDITY_NUMBER, TimeUnit.MINUTES);
-        }catch(Exception e) {
-            log.error("[RedistTokenService/getRefreshTokenByUuid] 데이터 저장 실패");
-        }
+        ValueOperations<String, String> value = redisTemplateAuthNumber.opsForValue();
+        value.set(key, authNumber, VALIDITY_NUMBER, TimeUnit.MINUTES);
     }
 
     public String findAuthNumber(String key) {
-        try {
-            ValueOperations<String, String> value = redisTemplateAuthNumber.opsForValue();
-            return value.get(key);
-        }catch(Exception e) {
-            log.error("[RedistTokenService/getRefreshTokenByUuid] 일치하는 refresh 토큰이 존재하지 않습니다.");
-            return null;
-        }
+        ValueOperations<String, String> value = redisTemplateAuthNumber.opsForValue();
+        return value.get(key);
+    }
+
+    public void delete(String key){
+        redisTemplateAuthNumber.delete(key);
     }
 }

@@ -2,9 +2,10 @@ package com.chatty.service.user;
 
 import com.chatty.constants.ErrorCode;
 import com.chatty.dto.user.request.UserRequestDto;
+import com.chatty.dto.user.response.UserResponseDto;
 import com.chatty.entity.user.Authority;
 import com.chatty.entity.user.User;
-import com.chatty.exception.NormalException;
+import com.chatty.exception.CustomException;
 import com.chatty.jwt.JwtTokenProvider;
 import com.chatty.repository.token.RefreshTokenRepository;
 import com.chatty.repository.user.UserRepository;
@@ -29,7 +30,7 @@ public class UserService {
     private static final String ACCESS_TOKEN = "accessToken";
     private static final String REFRESH_TOKEN = "refreshToken";
 
-    public Map<String,String> login(UserRequestDto userRequestDto) {
+    public UserResponseDto login(UserRequestDto userRequestDto) {
 
         log.info("[UserService/login] 로그인 시작");
 
@@ -38,30 +39,32 @@ public class UserService {
 
         if(!isAlreadyExistedUser(userRequestDto.getMobileNumber())){
             log.error("존재 하지 않는 유저 입니다.");
-            throw new NormalException(ErrorCode.NOT_EXIST_USER);
+            throw new CustomException(ErrorCode.NOT_EXIST_USER);
         }
 
         if(!smsService.checkAuthNumber(key,authNumber)){
             log.error("인증 번호가 일치하지 않는다.");
-            throw new NormalException(ErrorCode.AUTH_NUMBER_ERROR);
+            throw new CustomException(ErrorCode.AUTH_NUMBER_ERROR);
         }
 
-        return createTokens(userRequestDto.getMobileNumber(), userRequestDto.getUuid());
+        deleteToken(userRequestDto.getUuid());
+        Map<String,String> tokens = createTokens(userRequestDto.getMobileNumber(), userRequestDto.getUuid());
+        return UserResponseDto.of(tokens.get(ACCESS_TOKEN), tokens.get(REFRESH_TOKEN));
     }
 
-    public Map<String,String> join(UserRequestDto userRequestDto) {
+    public UserResponseDto join(UserRequestDto userRequestDto) {
 
         log.info("[UserService/join] 회원 가입 시작");
         String key = SmsUtils.makeKey(userRequestDto.getMobileNumber(),userRequestDto.getUuid());
 
         if(isAlreadyExistedUser(userRequestDto.getMobileNumber())){
             log.error("이미 존재 하는 유저 입니다.");
-            throw new NormalException(ErrorCode.ALREADY_EXIST_USER);
+            throw new CustomException(ErrorCode.ALREADY_EXIST_USER);
         }
 
         if(!smsService.checkAuthNumber(key,userRequestDto.getAuthenticationNumber())){
             log.error("인증 번호가 일치하지 않는다.");
-            throw new NormalException(ErrorCode.AUTH_NUMBER_ERROR);
+            throw new CustomException(ErrorCode.AUTH_NUMBER_ERROR);
         }
 
         User user = User.builder()
@@ -72,7 +75,9 @@ public class UserService {
 
         userRepository.save(user);
         log.info("[UserService/join] 회원 가입 완료");
-        return createTokens(user.getMobileNumber(), user.getUuid());
+
+        Map<String,String> tokens = createTokens(userRequestDto.getMobileNumber(), userRequestDto.getUuid());
+        return UserResponseDto.of(tokens.get(ACCESS_TOKEN), tokens.get(REFRESH_TOKEN));
     }
 
     private Map<String,String> createTokens(String mobileNumber, String uuid){
@@ -87,9 +92,13 @@ public class UserService {
         tokens.put(REFRESH_TOKEN, refreshToken);
 
         log.info("[UserService/createTokens] RefreshToken Redis 저장");
-        refreshTokenRepository.save(jwtTokenProvider.getRefreshTokenUuid(refreshToken),refreshToken);
+        refreshTokenRepository.save(jwtTokenProvider.getUuidByRefreshToken(refreshToken),refreshToken);
 
         return tokens;
+    }
+
+    private void deleteToken(String uuid){
+        refreshTokenRepository.delete(uuid);
     }
 
     private boolean isAlreadyExistedUser(String mobileNumber){

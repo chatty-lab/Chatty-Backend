@@ -2,6 +2,7 @@ package com.chatty.dto;
 
 import com.chatty.constants.ErrorCode;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 
 @Getter
 public class DataResponseDto<T> extends ResponseDto {

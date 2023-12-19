@@ -51,7 +51,7 @@ public class JwtTokenProvider {
                 .get(MOBILE_NUMBER, String.class);
     }
 
-    public String getRefreshTokenUuid(String refreshToken){
+    public String getUuidByRefreshToken(String refreshToken){
         return Jwts.parser().verifyWith(key).build().parseSignedClaims(refreshToken).getPayload().get(UUID,String.class);
     }
 

@@ -3,6 +3,7 @@ package com.chatty.controller.user;
 import com.chatty.dto.user.request.UserRequestDto;
 import com.chatty.dto.DataResponseDto;
 import com.chatty.dto.ResponseDto;
+import com.chatty.dto.user.response.UserResponseDto;
 import com.chatty.service.user.UserService;
 import jakarta.validation.Valid;
 import java.util.Map;
@@ -22,16 +23,14 @@ public class UserController {
     private final UserService userService;
 
     @PostMapping("/login")
-    public ResponseDto login(@Valid @RequestBody UserRequestDto userRequestDto) {
+    public DataResponseDto<UserResponseDto> login(@Valid @RequestBody UserRequestDto userRequestDto) {
         log.info("[UserController/login] 로그인 시작");
-        Map<String, String> tokens = userService.login(userRequestDto);
-        return DataResponseDto.of(tokens);
+        return DataResponseDto.of(userService.login(userRequestDto));
     }
 
     @PostMapping("/join")
-    public ResponseDto join(@Valid @RequestBody UserRequestDto userRequestDto) {
+    public DataResponseDto<UserResponseDto> join(@Valid @RequestBody UserRequestDto userRequestDto) {
         log.info("[UserController/join] 회원 가입 시작");
-        Map<String, String> tokens = userService.join(userRequestDto);
-        return DataResponseDto.of(tokens);
+        return DataResponseDto.of(userService.join(userRequestDto));
     }
 }

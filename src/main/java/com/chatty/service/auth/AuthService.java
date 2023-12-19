@@ -1,12 +1,14 @@
 package com.chatty.service.auth;
 
 import com.chatty.constants.ErrorCode;
-import com.chatty.exception.NormalException;
+import com.chatty.dto.auth.response.AuthResponseDto;
+import com.chatty.exception.CustomException;
 import com.chatty.jwt.JwtTokenProvider;
 import com.chatty.repository.token.RefreshTokenRepository;
 import com.chatty.service.user.UserDetailsServiceImpl;
 import com.chatty.utils.JwtTokenUtils;
 import java.util.HashMap;
+import java.util.Map;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -24,28 +26,30 @@ public class AuthService {
     private final UserDetailsServiceImpl userDetailsServiceImpl;
     private final RefreshTokenRepository refreshTokenRepository;
 
-    public HashMap<String, String> reissueTokens(String accessToken, String refreshToken) {
+    public AuthResponseDto reissueTokens(String accessToken, String refreshToken) {
 
         // access 토큰이 유효 한지 검사
         if(!validateAccessToken(accessToken)){
             log.error("[AuthService/reissueTokens] accessToken 유효성 검사 실패");
-            throw new NormalException(ErrorCode.NOT_VALID_ACCESS_TOKEN);
+            throw new CustomException(ErrorCode.NOT_VALID_ACCESS_TOKEN);
         }
 
         // refresh 토큰이 유효 한지 검사
         if (!validateRefreshToken(refreshToken)) {
             log.error("[AuthService/reissueTokens] refreshToken 유효성 검사 실패");
-            throw new NormalException(ErrorCode.NOT_VALID_REFRESH_TOKEN);
+            throw new CustomException(ErrorCode.NOT_VALID_REFRESH_TOKEN);
         }
 
+        Map<String,String> tokens = createTokens(refreshToken);
+
         // refresh 토큰이 유효한 경우 토큰 재발급
-        return createTokens(refreshToken);
+        return AuthResponseDto.of(tokens.get(ACCESS_TOKEN), tokens.get(REFRESH_TOKEN));
     }
 
     private HashMap<String, String> createTokens(String refreshToken) {
 
         // access Token은 만료되었기 때문에 데이터 추출이
-        UserDetails userDetails = userDetailsServiceImpl.loadUserByUsername(jwtTokenProvider.getRefreshTokenUuid(refreshToken).split(" ")[0]);
+        UserDetails userDetails = userDetailsServiceImpl.loadUserByUsername(jwtTokenProvider.getUuidByRefreshToken(refreshToken).split(" ")[0]);
         if (userDetails == null) {
             log.error("[AuthService/reissueTokens] 전달받은 accessToken의 정보를 가지는 사용자가 존재하지 않습니다.");
             return null;
@@ -53,12 +57,12 @@ public class AuthService {
 
         log.info("[AuthService/createTokens] 새로운 토큰 발급 시작");
         // refreshToken은 Redis에 기존에 저장되어 있던 것 지우고 새로 발급
-        refreshTokenRepository.delete(jwtTokenProvider.getRefreshTokenUuid(refreshToken));
+        refreshTokenRepository.delete(jwtTokenProvider.getUuidByRefreshToken(refreshToken));
         log.info("[AuthService/createTokens] Redis에 존재하는 기존 refresh Token 제거");
 
         String newAccessToken = jwtTokenProvider.createAccessToken(userDetails.getUsername(), userDetails.getPassword());
         String newRefreshToken = jwtTokenProvider.createRefreshToken(userDetails.getUsername());
-        refreshTokenRepository.save(jwtTokenProvider.getRefreshTokenUuid(newRefreshToken), newRefreshToken);
+        refreshTokenRepository.save(jwtTokenProvider.getUuidByRefreshToken(newRefreshToken), newRefreshToken);
         log.info("[AuthService/createToken] 새로 발급한 refresh Token redis 저장");
 
         return getTokens(newAccessToken, newRefreshToken);
@@ -113,7 +117,7 @@ public class AuthService {
             return false;
         }
 
-        if (!jwtTokenProvider.isEqualRedisRefresh(refreshToken, jwtTokenProvider.getRefreshTokenUuid(refreshToken))) {
+        if (!jwtTokenProvider.isEqualRedisRefresh(refreshToken, jwtTokenProvider.getUuidByRefreshToken(refreshToken))) {
             log.error("refreshToken이 DB에 저장된 refreshToken과 일치하지 않습니다.");
             return false;
         }

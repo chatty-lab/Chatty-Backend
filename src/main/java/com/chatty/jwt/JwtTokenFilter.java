@@ -63,7 +63,7 @@ public class JwtTokenFilter extends OncePerRequestFilter {
         }
 
         // 리프레시 토큰이 redis에 저장된 토큰과 일치
-        if(!jwtTokenProvider.isEqualRedisRefresh(refreshToken, jwtTokenProvider.getRefreshTokenUuid(refreshToken))){
+        if(!jwtTokenProvider.isEqualRedisRefresh(refreshToken, jwtTokenProvider.getUuidByRefreshToken(refreshToken))){
             log.error("refreshToken이 일치하지 않습니다.");
             return false;
         }

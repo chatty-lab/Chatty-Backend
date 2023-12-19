@@ -7,7 +7,8 @@ import com.chatty.dto.sms.request.MessageDto;
 import com.chatty.dto.sms.request.NaverSmsRequestDto;
 import com.chatty.dto.sms.request.UserSmsRequestDto;
 import com.chatty.dto.sms.response.SmsResponseDto;
-import com.chatty.exception.NormalException;
+import com.chatty.dto.sms.response.SmsUserResponseDto;
+import com.chatty.exception.CustomException;
 import com.chatty.repository.auth.AuthNumberRepository;
 import com.chatty.utils.SmsUtils;
 import com.fasterxml.jackson.core.JsonProcessingException;
@@ -53,14 +54,15 @@ public class SmsService {
 
     private final AuthNumberRepository authNumberRepository;
 
-    public SmsResponseDto sendSms(MessageDto messageDto) throws JsonProcessingException, RestClientException, URISyntaxException, InvalidKeyException, NoSuchAlgorithmException, UnsupportedEncodingException {
+    public SmsResponseDto sendSms(MessageDto messageDto)
+            throws JsonProcessingException, RestClientException, URISyntaxException, InvalidKeyException, NoSuchAlgorithmException, UnsupportedEncodingException {
         Long time = System.currentTimeMillis();
 
         HttpHeaders headers = new HttpHeaders();
         headers.setContentType(MediaType.APPLICATION_JSON);
         headers.set("x-ncp-apigw-timestamp", time.toString());
         headers.set("x-ncp-iam-access-key", accessKey);
-        headers.set("x-ncp-apigw-signature-v2", makeSignature(accessKey,serviceId,secretKey,time));
+        headers.set("x-ncp-apigw-signature-v2", makeSignature(accessKey, serviceId, secretKey, time));
 
         List<MessageDto> messages = new ArrayList<>();
         messages.add(messageDto);
@@ -80,52 +82,46 @@ public class SmsService {
 
         RestTemplate restTemplate = new RestTemplate();
         restTemplate.setRequestFactory(new HttpComponentsClientHttpRequestFactory());
-        SmsResponseDto response = restTemplate.postForObject(new URI("https://sens.apigw.ntruss.com/sms/v2/services/"+ serviceId +"/messages"), httpBody, SmsResponseDto.class);
+        SmsResponseDto response = restTemplate.postForObject(
+                new URI("https://sens.apigw.ntruss.com/sms/v2/services/" + serviceId + "/messages"), httpBody,
+                SmsResponseDto.class);
 
         return response;
     }
 
-    public String saveSms(UserSmsRequestDto userSmsRequestDto) {
-        if(!validateNumber(userSmsRequestDto.getMobileNumber())){
-            throw new NormalException(ErrorCode.NOT_NUMBER_FORMAT);
+    public SmsUserResponseDto saveSms(UserSmsRequestDto userSmsRequestDto) throws UnsupportedEncodingException, URISyntaxException, NoSuchAlgorithmException, InvalidKeyException, JsonProcessingException {
+        if (!validateNumber(userSmsRequestDto.getMobileNumber())) {
+            throw new CustomException(ErrorCode.NOT_AUTH_NUMBER_FORMAT);
         }
 
-        try {
-            String authNumber = SmsUtils.generateNumber();
-            String key = SmsUtils.makeKey(userSmsRequestDto.getMobileNumber(),userSmsRequestDto.getUuid());
-            authNumberRepository.save(key,authNumber);
-            log.info("번호 인증 요청 정보 저장 완료 : {}", authNumber);
-            return authNumber;
-        }catch (Exception e){
-            log.error(e.getMessage());
-        }
-        return null;
+        String authNumber = SmsUtils.generateNumber();
+        String key = SmsUtils.makeKey(userSmsRequestDto.getMobileNumber(), userSmsRequestDto.getUuid());
+        authNumberRepository.save(key, authNumber);
+        log.info("번호 인증 요청 정보 저장 완료 : {}", authNumber);
+        sendSms(MessageDto.builder().to(userSmsRequestDto.getMobileNumber()).content(authNumber).build());
+        return SmsUserResponseDto.of(authNumber);
     }
 
     public boolean checkAuthNumber(String key, String authNumber) {
-        try {
-            String auth = authNumberRepository.findAuthNumber(key);
-            log.info("확인이 필요한 인증번호 : {}",auth);
-            if(auth.equals(authNumber)){
-                return true;
-            }
-        }catch (Exception e){
-            log.error(e.getMessage());
+        String auth = authNumberRepository.findAuthNumber(key);
+        log.info("확인이 필요한 인증번호 : {}", auth);
+        if (auth.equals(authNumber)) {
+            return true;
         }
 
         return false;
     }
 
-    public boolean validateNumber(String number){
-        if(!number.startsWith(PREFIX_NUMBER)){
+    public boolean validateNumber(String number) {
+        if (!number.startsWith(PREFIX_NUMBER)) {
             return false;
         }
 
-        if(!number.matches(REGEX)){
+        if (!number.matches(REGEX)) {
             return false;
         }
 
-        if(number.length() != MOBILE_NUMBER_LENGTH){
+        if (number.length() != MOBILE_NUMBER_LENGTH) {
             return false;
         }
 
