@@ -13,23 +13,23 @@ import org.springframework.data.redis.serializer.StringRedisSerializer;
 @EnableRedisRepositories
 public class RedisConfig {
 
-    @Value("${redis-host}")
-    private String host;
+    @Value("${redis-token-host}")
+    private String tokenHost;
 
-    @Value("${redis-token-port}")
-    private int tokenPort;
+    @Value("${redis-authenticationNumber-host}")
+    private String authNumberHost;
 
-    @Value("${redis-authenticationNumber-port}")
-    private int authenticationNumberPort;
+    @Value("${redis-port}")
+    private int port;
 
     @Bean
     public RedisConnectionFactory redisConnectionFactoryToken(){
-        return new LettuceConnectionFactory(host, tokenPort);
+        return new LettuceConnectionFactory(tokenHost, port);
     }
 
     @Bean
     public RedisConnectionFactory redisConnectionFactoryAuthenticationNumber(){
-        return new LettuceConnectionFactory(host,authenticationNumberPort);
+        return new LettuceConnectionFactory(authNumberHost,port);
     }
 
     @Bean
