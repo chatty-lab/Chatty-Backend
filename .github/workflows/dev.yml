@@ -1,0 +1,75 @@
+# workflow의 이름
+name: Deploy to Amazon EC2 / Spring Boot with Maven
+
+# 환경 변수 $변수명으로 사용
+env:
+  PROJECT_NAME: chatty-api
+  BUCKET_NAME: chatty-dev-s3
+  CODE_DEPLOY_APP: chatty-dev-codedeploy-app
+  CODE_DEPLOY_DEPLOYMENT_GROUP: chatty-dev-codedeploy-deployment-group
+
+on:
+  push:
+    branches: [develop]
+
+jobs:
+  build:
+    name: CI/CD
+    # 해당 jobs에서 아래의 steps들이 어떠한 환경에서 실행될 것인지를 지정합니다.
+    runs-on: ubuntu-latest
+
+    steps:
+      # 작업에서 액세스할 수 있도록 $GITHUB_WORKSPACE에서 저장소를 체크아웃합니다.
+      - uses: actions/checkout@v2
+      
+      # Spring 구동을 위한 JDK 17을 세팅합니다.
+      - name: Set up JDK 17
+        uses: actions/setup-java@v2
+        with:
+          java-version: '17'
+          distribution: 'zulu'
+
+      - name: Grant execute permission for gradlew
+        run: chmod +x gradlew # gradlew를 실행할 수 있는 권한을 추가(리눅스의 명령어)
+
+      - name: Gradle Caching
+        uses: actions/cache@v3
+        with:
+          path: |
+            ~/.gradle/caches
+            ~/.gradle/wrapper
+          key: ${{ runner.os }}-gradle-${{ hashFiles('**/*.gradle*', '**/gradle-wrapper.properties') }}
+          restore-keys: |
+            ${{ runner.os }}-gradle-
+      
+      - name: Setup Gradle
+        uses: gradle/gradle-build-action@v2
+        with:
+          arguments: build 
+          cache-read-only: ${{ github.ref != 'refs/heads/main' && github.ref != 'refs/heads/develop' }}
+
+      # build한 후 프로젝트를 압축한다.
+      - name: Make zip file
+        run: zip -r ./$PROJECT_NAME.zip .
+        shell: bash
+      
+      # aws 인증서비스
+      # github repository에서 Setting에서 사용할 암호화된 변수
+      - name: Configure AWS credentials
+        uses: aws-actions/configure-aws-credentials@v1
+        with:
+            aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+            aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+            aws-region: ${{ secrets.AWS_REGION}}
+
+      # Upload to S3 stroage
+      - name: Upload to S3
+        run: aws s3 cp $PROJECT_NAME.zip s3://$BUCKET_NAME/deploy/$PROJECT_NAME.zip --region ap-northeast-2
+
+      # CodeDeploy에게 배포 명령을 내린다.
+      - name: Code Deploy
+        run: >
+         aws deploy create-deployment --application-name $CODE_DEPLOY_APP
+         --deployment-config-name CodeDeployDefault.AllAtOnce
+         --deployment-group-name $CODE_DEPLOY_DEPLOYMENT_GROUP
+         --s3-location bucket=$BUCKET_NAME,bundleType=zip,key=deploy/$PROJECT_NAME.zip
