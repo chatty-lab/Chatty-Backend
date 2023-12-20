@@ -22,7 +22,6 @@ public class RedisConfig {
     @Value("${redis-port}")
     private int port;
 
-
     @Bean
     public RedisConnectionFactory redisConnectionFactoryToken(){
         return new LettuceConnectionFactory(tokenHost, port);
