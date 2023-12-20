@@ -6,4 +6,4 @@ cd /home/ubuntu/
 echo "> 도커 이미지 빌드"
 docker build -t "${APP_NAME}" .
 echo "> 도커 컴포즈 실행"
-docker compose up
+docker compose up -d
