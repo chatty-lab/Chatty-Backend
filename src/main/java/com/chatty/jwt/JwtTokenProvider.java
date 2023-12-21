@@ -10,6 +10,7 @@ import io.jsonwebtoken.security.Keys;
 import io.jsonwebtoken.security.SignatureException;
 import jakarta.annotation.PostConstruct;
 import jakarta.servlet.http.HttpServletRequest;
+import java.rmi.server.ExportException;
 import java.util.Date;
 import javax.crypto.SecretKey;
 import lombok.RequiredArgsConstructor;
@@ -108,10 +109,10 @@ public class JwtTokenProvider {
         try {
             Jwts.parser().verifyWith(key).build().parseSignedClaims(token).getPayload();
             return true;
-        }catch(SignatureException e){
-            return false;
-        }catch (ExpiredJwtException e) {
+        }catch(ExpiredJwtException e){
             return true;
+        }catch (Exception e) {
+            return false;
         }
     }
 

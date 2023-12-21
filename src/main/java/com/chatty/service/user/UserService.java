@@ -1,6 +1,6 @@
 package com.chatty.service.user;
 
-import com.chatty.constants.ErrorCode;
+import com.chatty.constants.Code;
 import com.chatty.dto.user.request.UserRequestDto;
 import com.chatty.dto.user.response.UserResponseDto;
 import com.chatty.entity.user.Authority;
@@ -39,12 +39,12 @@ public class UserService {
 
         if(!isAlreadyExistedUser(userRequestDto.getMobileNumber())){
             log.error("존재 하지 않는 유저 입니다.");
-            throw new CustomException(ErrorCode.NOT_EXIST_USER);
+            throw new CustomException(Code.NOT_EXIST_USER);
         }
 
         if(!smsService.checkAuthNumber(key,authNumber)){
             log.error("인증 번호가 일치하지 않는다.");
-            throw new CustomException(ErrorCode.AUTH_NUMBER_ERROR);
+            throw new CustomException(Code.INVALID_AUTH_NUMBER);
         }
 
         deleteToken(userRequestDto.getUuid());
@@ -58,13 +58,15 @@ public class UserService {
         String key = SmsUtils.makeKey(userRequestDto.getMobileNumber(),userRequestDto.getUuid());
 
         if(isAlreadyExistedUser(userRequestDto.getMobileNumber())){
-            log.error("이미 존재 하는 유저 입니다.");
-            throw new CustomException(ErrorCode.ALREADY_EXIST_USER);
+            if(!checkUserByUuid(userRequestDto.getUuid())){
+                log.error("이미 존재 하는 유저 입니다.");
+                throw new CustomException(Code.ALREADY_EXIST_USER);
+            }
         }
 
         if(!smsService.checkAuthNumber(key,userRequestDto.getAuthenticationNumber())){
             log.error("인증 번호가 일치하지 않는다.");
-            throw new CustomException(ErrorCode.AUTH_NUMBER_ERROR);
+            throw new CustomException(Code.INVALID_AUTH_NUMBER);
         }
 
         User user = User.builder()
@@ -104,5 +106,9 @@ public class UserService {
     private boolean isAlreadyExistedUser(String mobileNumber){
         log.info("[UserService/isAlreadyExistedUser] 이미 가입한 유저인지 확인");
         return userRepository.existsUserByMobileNumber(mobileNumber);
+    }
+
+    private boolean checkUserByUuid(String uuid){
+        return userRepository.existsUserByUuid(uuid);
     }
 }
