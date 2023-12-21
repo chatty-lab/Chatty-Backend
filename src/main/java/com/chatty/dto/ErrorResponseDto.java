@@ -1,4 +1,4 @@
-package com.chatty.dto.error;
+package com.chatty.dto;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;

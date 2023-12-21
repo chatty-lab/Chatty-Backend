@@ -1,7 +1,7 @@
 package com.chatty.config;
 
 import com.chatty.constants.Code;
-import com.chatty.dto.error.ErrorResponseDto;
+import com.chatty.dto.ErrorResponseDto;
 import com.chatty.exception.CustomException;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import java.io.UnsupportedEncodingException;

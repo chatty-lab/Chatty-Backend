@@ -1,6 +1,7 @@
 package com.chatty.controller.auth;
 
 import com.chatty.constants.Code;
+import com.chatty.dto.DataResponseDto;
 import com.chatty.dto.auth.response.AuthResponseDto;
 import com.chatty.dto.sms.request.UserSmsRequestDto;
 import com.chatty.dto.sms.response.SmsUserResponseDto;
@@ -28,16 +29,16 @@ public class AuthController {
     private final JwtTokenProvider jwtTokenProvider;
 
     @PostMapping("/refresh")
-    public ResponseEntity<AuthResponseDto> refresh(HttpServletRequest request) {
+    public ResponseEntity<DataResponseDto<AuthResponseDto>> refresh(HttpServletRequest request) {
 
-        return ResponseEntity.status(Code.OK.getHttpStatus()).body(authService.reissueTokens(jwtTokenProvider.resolveAccessToken(request),
-                jwtTokenProvider.resolvRefreshToken(request)));
+        return ResponseEntity.status(Code.OK.getHttpStatus()).body(DataResponseDto.of(authService.reissueTokens(jwtTokenProvider.resolveAccessToken(request),
+                jwtTokenProvider.resolvRefreshToken(request))));
     }
 
     @PostMapping("/mobile")
-    public ResponseEntity<SmsUserResponseDto> mobile(@Valid @RequestBody UserSmsRequestDto userSmsRequestDto) throws Exception {
+    public ResponseEntity<DataResponseDto<SmsUserResponseDto>> mobile(@Valid @RequestBody UserSmsRequestDto userSmsRequestDto) throws Exception {
         log.info("번호 인증 요청");
 
-        return ResponseEntity.status(Code.OK.getHttpStatus()).body(smsService.saveSms(userSmsRequestDto));
+        return ResponseEntity.status(Code.OK.getHttpStatus()).body(DataResponseDto.of(smsService.saveSms(userSmsRequestDto)));
     }
 }

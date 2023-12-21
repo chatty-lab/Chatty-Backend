@@ -1,6 +1,7 @@
 package com.chatty.controller.user;
 
 import com.chatty.constants.Code;
+import com.chatty.dto.DataResponseDto;
 import com.chatty.dto.user.request.UserRequestDto;
 import com.chatty.dto.user.response.UserResponseDto;
 import com.chatty.service.user.UserService;
@@ -22,14 +23,14 @@ public class UserController {
     private final UserService userService;
 
     @PostMapping("/login")
-    public ResponseEntity<UserResponseDto> login(@Valid @RequestBody UserRequestDto userRequestDto) {
+    public ResponseEntity<DataResponseDto<UserResponseDto>> login(@Valid @RequestBody UserRequestDto userRequestDto) {
         log.info("[UserController/login] 로그인 시작");
-        return ResponseEntity.status(Code.OK.getHttpStatus()).body(userService.login(userRequestDto));
+        return ResponseEntity.status(Code.OK.getHttpStatus()).body(DataResponseDto.of(userService.login(userRequestDto)));
     }
 
     @PostMapping("/join")
-    public ResponseEntity<UserResponseDto> join(@Valid @RequestBody UserRequestDto userRequestDto) {
+    public ResponseEntity<DataResponseDto<UserResponseDto>> join(@Valid @RequestBody UserRequestDto userRequestDto) {
         log.info("[UserController/join] 회원 가입 시작");
-        return ResponseEntity.status(Code.OK.getHttpStatus()).body(userService.join(userRequestDto));
+        return ResponseEntity.status(Code.OK.getHttpStatus()).body(DataResponseDto.of(userService.join(userRequestDto)));
     }
 }
