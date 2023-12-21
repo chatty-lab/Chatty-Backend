@@ -1,15 +1,15 @@
 package com.chatty.exception;
 
-import com.chatty.constants.ErrorCode;
+import com.chatty.constants.Code;
 import lombok.Getter;
 
 @Getter
 public class CustomException extends RuntimeException{
 
-    private final ErrorCode errorCode;
+    private final Code code;
 
-    public CustomException(ErrorCode errorCode){
-        super(errorCode.getMessage());
-        this.errorCode = errorCode;
+    public CustomException(Code code){
+        super(code.getMessage());
+        this.code = code;
     }
 }

@@ -1,6 +1,6 @@
 package com.chatty.service.auth;
 
-import com.chatty.constants.ErrorCode;
+import com.chatty.constants.Code;
 import com.chatty.dto.auth.response.AuthResponseDto;
 import com.chatty.exception.CustomException;
 import com.chatty.jwt.JwtTokenProvider;
@@ -29,16 +29,10 @@ public class AuthService {
     public AuthResponseDto reissueTokens(String accessToken, String refreshToken) {
 
         // access 토큰이 유효 한지 검사
-        if(!validateAccessToken(accessToken)){
-            log.error("[AuthService/reissueTokens] accessToken 유효성 검사 실패");
-            throw new CustomException(ErrorCode.NOT_VALID_ACCESS_TOKEN);
-        }
+        validateAccessToken(accessToken);
 
         // refresh 토큰이 유효 한지 검사
-        if (!validateRefreshToken(refreshToken)) {
-            log.error("[AuthService/reissueTokens] refreshToken 유효성 검사 실패");
-            throw new CustomException(ErrorCode.NOT_VALID_REFRESH_TOKEN);
-        }
+        validateRefreshToken(refreshToken);
 
         Map<String,String> tokens = createTokens(refreshToken);
 
@@ -52,7 +46,7 @@ public class AuthService {
         UserDetails userDetails = userDetailsServiceImpl.loadUserByUsername(jwtTokenProvider.getUuidByRefreshToken(refreshToken).split(" ")[0]);
         if (userDetails == null) {
             log.error("[AuthService/reissueTokens] 전달받은 accessToken의 정보를 가지는 사용자가 존재하지 않습니다.");
-            throw new CustomException(ErrorCode.NOT_VALID_ACCESS_TOKEN);
+            throw new CustomException(Code.INVALID_ACCESS_TOKEN);
         }
 
         log.info("[AuthService/createTokens] 새로운 토큰 발급 시작");
@@ -75,53 +69,47 @@ public class AuthService {
         return newTokens;
     }
 
-    public boolean validateAccessToken(String accessToken){
+    public void validateAccessToken(String accessToken){
 
-        if(!jwtTokenProvider.isExistToken(accessToken)){
-            log.error("accessToken이 존재하지 않습니다.");
-            return false;
-        }
+        jwtTokenProvider.isExistToken(accessToken);
 
         if(!jwtTokenProvider.isRightFormat(accessToken)){
             log.error("올바른 토큰의 형식을 입력해주세요.");
-            return false;
+            throw new CustomException(Code.INVALID_ACCESS_TOKEN);
         }
 
         if(!jwtTokenProvider.isValidToken(JwtTokenUtils.getAccessToken(accessToken))){
             log.error("유효하지 않은 accessToken 입니다.");
-            return false;
+            throw new CustomException(Code.INVALID_ACCESS_TOKEN);
         }
 
         if(!jwtTokenProvider.isExpiredToken(JwtTokenUtils.getAccessToken(accessToken))){
             log.error("accessToken이 만료되지 않았습니다.");
-            return false;
+            throw new CustomException(Code.NOT_EXPIRED_ACCESS_TOKEN);
         }
-        return true;
     }
 
-    public boolean validateRefreshToken(String refreshToken) {
+    public void validateRefreshToken(String refreshToken) {
 
         if (!jwtTokenProvider.isExistToken(refreshToken)) {
             log.error("refreshToken이 존재하지 않습니다.");
-            return false;
+            throw new CustomException(Code.INVALID_REFRESH_TOKEN);
         }
 
         if(!jwtTokenProvider.isValidToken(refreshToken)){
             log.error("유효하지 않은 토큰 입니다.");
-            return false;
+            throw new CustomException(Code.INVALID_REFRESH_TOKEN);
         }
 
         if (jwtTokenProvider.isExpiredToken(refreshToken)) {
             log.error("refreshToken이 만료 되었습니다.");
             // 만료된 경우 로그아웃 시키기
-            return false;
+            throw new CustomException(Code.EXPIRED_REFRESH_TOKEN);
         }
 
         if (!jwtTokenProvider.isEqualRedisRefresh(refreshToken, jwtTokenProvider.getUuidByRefreshToken(refreshToken))) {
             log.error("refreshToken이 DB에 저장된 refreshToken과 일치하지 않습니다.");
-            return false;
+            throw new CustomException(Code.INVALID_REFRESH_TOKEN);
         }
-
-        return true;
     }
 }

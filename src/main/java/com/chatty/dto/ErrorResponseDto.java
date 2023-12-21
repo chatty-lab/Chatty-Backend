@@ -1,14 +1,19 @@
 package com.chatty.dto;
 
-import com.chatty.constants.ErrorCode;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
 
-public class ErrorResponseDto extends ResponseDto {
+@Getter
+@NoArgsConstructor
+@AllArgsConstructor
+@Builder
+public class ErrorResponseDto {
+    private String message;
 
-    public ErrorResponseDto(ErrorCode errorCode) {
-        super(errorCode.getHttpStatus().value(), errorCode.getMessage());
-    }
-
-    public static ErrorResponseDto of(ErrorCode errorCode){
-        return new ErrorResponseDto(errorCode);
+    public static ErrorResponseDto of(String message){
+        return ErrorResponseDto.builder()
+                .message(message).build();
     }
 }

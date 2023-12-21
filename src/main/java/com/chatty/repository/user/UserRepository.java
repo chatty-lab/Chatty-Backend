@@ -9,5 +9,8 @@ import org.springframework.stereotype.Repository;
 public interface UserRepository extends JpaRepository<User, Long> {
 
     Optional<User> findUserByMobileNumber(String mobileNumber);
+
     Boolean existsUserByMobileNumber(String mobileNumber);
+
+    Boolean existsUserByUuid(String uuid);
 }

@@ -2,7 +2,7 @@ package com.chatty.service.sms;
 
 import static com.chatty.utils.SmsUtils.makeSignature;
 
-import com.chatty.constants.ErrorCode;
+import com.chatty.constants.Code;
 import com.chatty.dto.sms.request.MessageDto;
 import com.chatty.dto.sms.request.NaverSmsRequestDto;
 import com.chatty.dto.sms.request.UserSmsRequestDto;
@@ -91,7 +91,7 @@ public class SmsService {
 
     public SmsUserResponseDto saveSms(UserSmsRequestDto userSmsRequestDto) throws UnsupportedEncodingException, URISyntaxException, NoSuchAlgorithmException, InvalidKeyException, JsonProcessingException {
         if (!validateNumber(userSmsRequestDto.getMobileNumber())) {
-            throw new CustomException(ErrorCode.NOT_AUTH_NUMBER_FORMAT);
+            throw new CustomException(Code.NOT_AUTH_NUMBER_FORMAT);
         }
 
         String authNumber = SmsUtils.generateNumber();
@@ -105,7 +105,7 @@ public class SmsService {
     public boolean checkAuthNumber(String key, String authNumber) {
         String auth = authNumberRepository.findAuthNumber(key);
         log.info("확인이 필요한 인증번호 : {}", auth);
-        if (auth.equals(authNumber)) {
+        if (auth != null && auth.equals(authNumber)) {
             return true;
         }
 
