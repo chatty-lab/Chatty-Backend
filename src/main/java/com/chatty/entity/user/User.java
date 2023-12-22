@@ -32,7 +32,7 @@ public class User  extends CommonEntity implements UserDetails{
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "user_id")
-    private long id;
+    private Long id;
 
     @Column(name = "mobile_number")
     @NotBlank
@@ -52,6 +52,7 @@ public class User  extends CommonEntity implements UserDetails{
 
     private String mbti;
 
+    @Column(columnDefinition = "POINT SRID 4326")
     private Point location;
 
     private String address;
