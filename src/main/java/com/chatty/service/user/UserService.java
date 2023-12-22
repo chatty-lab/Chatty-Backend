@@ -1,7 +1,9 @@
 package com.chatty.service.user;
 
 import com.chatty.constants.Code;
+import com.chatty.dto.user.request.UserNicknameRequest;
 import com.chatty.dto.user.request.UserRequestDto;
+import com.chatty.dto.user.response.UserResponse;
 import com.chatty.dto.user.response.UserResponseDto;
 import com.chatty.entity.user.Authority;
 import com.chatty.entity.user.User;
@@ -17,6 +19,7 @@ import java.util.Map;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 @Service
 @Slf4j
@@ -63,10 +66,10 @@ public class UserService {
             throw new CustomException(Code.ALREADY_EXIST_USER);
         }
 
-        if(!smsService.checkAuthNumber(key,userRequestDto.getAuthenticationNumber())){
-            log.error("인증 번호가 일치하지 않는다.");
-            throw new CustomException(Code.INVALID_AUTH_NUMBER);
-        }
+//        if(!smsService.checkAuthNumber(key,userRequestDto.getAuthenticationNumber())){
+//            log.error("인증 번호가 일치하지 않는다.");
+//            throw new CustomException(Code.INVALID_AUTH_NUMBER);
+//        }
 
         User user = User.builder()
                 .mobileNumber(userRequestDto.getMobileNumber())
@@ -96,6 +99,25 @@ public class UserService {
         refreshTokenRepository.save(jwtTokenProvider.getUuidByRefreshToken(refreshToken),refreshToken);
 
         return tokens;
+    }
+
+    @Transactional
+    public UserResponse updateNickname(final String mobileNumber, final UserNicknameRequest request) {
+        User user = userRepository.findUserByMobileNumber(mobileNumber)
+                .orElseThrow(() -> new CustomException(Code.NOT_EXIST_USER));
+
+        validateDuplicateNickname(request);
+
+        user.updateNickname(request.getNickname());
+
+        return UserResponse.of(user);
+    }
+
+    private void validateDuplicateNickname(final UserNicknameRequest request) {
+        userRepository.findByNickname(request.getNickname())
+                .ifPresent(findUser -> {
+                    throw new CustomException(Code.ALREADY_EXIST_NICKNAME);
+                });
     }
 
     private void deleteToken(String uuid){

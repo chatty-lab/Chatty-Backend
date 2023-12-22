@@ -62,6 +62,11 @@ public class User  extends CommonEntity implements UserDetails{
 
     private String imageUrl;
 
+    public void updateNickname(final String nickname) {
+        this.nickname = nickname;
+    }
+
+
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
         return List.of(new SimpleGrantedAuthority(authority.name()));
