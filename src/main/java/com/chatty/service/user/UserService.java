@@ -10,6 +10,7 @@ import com.chatty.jwt.JwtTokenProvider;
 import com.chatty.repository.token.RefreshTokenRepository;
 import com.chatty.repository.user.UserRepository;
 import com.chatty.service.sms.SmsService;
+import com.chatty.utils.JwtTokenUtils;
 import com.chatty.utils.SmsUtils;
 import java.util.HashMap;
 import java.util.Map;
@@ -34,7 +35,7 @@ public class UserService {
 
         log.info("[UserService/login] 로그인 시작");
 
-        String key = userRequestDto.getMobileNumber() + userRequestDto.getUuid();
+        String key = SmsUtils.makeKey(userRequestDto.getMobileNumber(), userRequestDto.getUuid());
         String authNumber = userRequestDto.getAuthenticationNumber();
 
         if(!isAlreadyExistedUser(userRequestDto.getMobileNumber())){
@@ -47,7 +48,7 @@ public class UserService {
             throw new CustomException(Code.INVALID_AUTH_NUMBER);
         }
 
-        deleteToken(userRequestDto.getUuid());
+        deleteToken(JwtTokenUtils.getRefreshTokenUuid(userRequestDto.getMobileNumber(),userRequestDto.getUuid()));
         Map<String,String> tokens = createTokens(userRequestDto.getMobileNumber(), userRequestDto.getUuid());
         return UserResponseDto.of(tokens.get(ACCESS_TOKEN), tokens.get(REFRESH_TOKEN));
     }
@@ -58,10 +59,8 @@ public class UserService {
         String key = SmsUtils.makeKey(userRequestDto.getMobileNumber(),userRequestDto.getUuid());
 
         if(isAlreadyExistedUser(userRequestDto.getMobileNumber())){
-            if(!checkUserByUuid(userRequestDto.getUuid())){
-                log.error("이미 존재 하는 유저 입니다.");
-                throw new CustomException(Code.ALREADY_EXIST_USER);
-            }
+            log.error("이미 존재 하는 유저 입니다.");
+            throw new CustomException(Code.ALREADY_EXIST_USER);
         }
 
         if(!smsService.checkAuthNumber(key,userRequestDto.getAuthenticationNumber())){
@@ -87,7 +86,7 @@ public class UserService {
         log.info("[UserService/createTokens] AccessToken, RefreshToken 생성");
         Map<String,String> tokens = new HashMap<>();
         String accessToken = jwtTokenProvider.createAccessToken(mobileNumber,uuid);
-        String refreshToken = jwtTokenProvider.createRefreshToken(mobileNumber);
+        String refreshToken = jwtTokenProvider.createRefreshToken(mobileNumber, uuid);
         log.info("[UserService/createTokens] 생성한 accessToken : {}",accessToken);
         log.info("[UserService/createTokens] 생성한 refreshToken : {}",refreshToken);
         tokens.put(ACCESS_TOKEN, accessToken);
@@ -106,9 +105,5 @@ public class UserService {
     private boolean isAlreadyExistedUser(String mobileNumber){
         log.info("[UserService/isAlreadyExistedUser] 이미 가입한 유저인지 확인");
         return userRepository.existsUserByMobileNumber(mobileNumber);
-    }
-
-    private boolean checkUserByUuid(String uuid){
-        return userRepository.existsUserByUuid(uuid);
     }
 }

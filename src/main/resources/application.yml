@@ -18,12 +18,12 @@ logging:
     root: info
 
 jwt-secret-key: FC6363F38DF714CFE1C697E24EB75S23S23AM2MF4LMI1DUM3
-jwt-access-token-expiration-time: 60000
+jwt-access-token-expiration-time: 10000
 jwt-refresh-token-expiration-time: 300000
 
-naver-cloud-sms-access-key: WrveQ2geA2ewt3ibvQQu
-naver-cloud-sms-secret-key: ESjmSyZYMowPgIAY5nxzpxNeMaHGuR3awHyFmpPK
-naver-cloud-sms-service-id: ncp:sms:kr:322059377796:chatty_sms
+naver-cloud-sms-access-key: EfLYwq7WXi11Bc0DHKTS
+naver-cloud-sms-secret-key: 1xMmLBEhPcW8rB4vWL0atjHkBDqGMxsZ3egFsGw9
+naver-cloud-sms-service-id: ncp:sms:kr:322059361753:chatty_sms
 naver-cloud-sms-sender-phone-number: 01062585055
 
 redis-token-host: localhost
