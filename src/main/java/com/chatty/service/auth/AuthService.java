@@ -76,7 +76,6 @@ public class AuthService {
 
         if (jwtTokenProvider.isExpiredToken(refreshToken)) {
             log.error("refreshToken이 만료 되었습니다.");
-            // 만료된 경우 로그아웃 시키기
             throw new CustomException(Code.EXPIRED_REFRESH_TOKEN);
         }
 

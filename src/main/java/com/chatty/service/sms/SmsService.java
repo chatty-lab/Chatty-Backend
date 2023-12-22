@@ -54,40 +54,40 @@ public class SmsService {
 
     private final AuthNumberRepository authNumberRepository;
 
-//    public SmsResponseDto sendSms(MessageDto messageDto)
-//            throws JsonProcessingException, RestClientException, URISyntaxException, InvalidKeyException, NoSuchAlgorithmException, UnsupportedEncodingException {
-//        Long time = System.currentTimeMillis();
-//
-//        HttpHeaders headers = new HttpHeaders();
-//        headers.setContentType(MediaType.APPLICATION_JSON);
-//        headers.set("x-ncp-apigw-timestamp", time.toString());
-//        headers.set("x-ncp-iam-access-key", accessKey);
-//        headers.set("x-ncp-apigw-signature-v2", makeSignature(accessKey, serviceId, secretKey, time));
-//
-//        List<MessageDto> messages = new ArrayList<>();
-//        messages.add(messageDto);
-//
-//        NaverSmsRequestDto request = NaverSmsRequestDto.builder()
-//                .type("SMS")
-//                .contentType("COMM")
-//                .countryCode("82")
-//                .from(phone)
-//                .content(messageDto.getContent())
-//                .messages(messages)
-//                .build();
-//
-//        ObjectMapper objectMapper = new ObjectMapper();
-//        String body = objectMapper.writeValueAsString(request);
-//        HttpEntity<String> httpBody = new HttpEntity<>(body, headers);
-//
-//        RestTemplate restTemplate = new RestTemplate();
-//        restTemplate.setRequestFactory(new HttpComponentsClientHttpRequestFactory());
-//        SmsResponseDto response = restTemplate.postForObject(
-//                new URI("https://sens.apigw.ntruss.com/sms/v2/services/" + serviceId + "/messages"), httpBody,
-//                SmsResponseDto.class);
-//
-//        return response;
-//    }
+    public SmsResponseDto sendSms(MessageDto messageDto)
+            throws JsonProcessingException, RestClientException, URISyntaxException, InvalidKeyException, NoSuchAlgorithmException, UnsupportedEncodingException {
+        Long time = System.currentTimeMillis();
+
+        HttpHeaders headers = new HttpHeaders();
+        headers.setContentType(MediaType.APPLICATION_JSON);
+        headers.set("x-ncp-apigw-timestamp", time.toString());
+        headers.set("x-ncp-iam-access-key", accessKey);
+        headers.set("x-ncp-apigw-signature-v2", makeSignature(accessKey, serviceId, secretKey, time));
+
+        List<MessageDto> messages = new ArrayList<>();
+        messages.add(messageDto);
+
+        NaverSmsRequestDto request = NaverSmsRequestDto.builder()
+                .type("SMS")
+                .contentType("COMM")
+                .countryCode("82")
+                .from(phone)
+                .content(messageDto.getContent())
+                .messages(messages)
+                .build();
+
+        ObjectMapper objectMapper = new ObjectMapper();
+        String body = objectMapper.writeValueAsString(request);
+        HttpEntity<String> httpBody = new HttpEntity<>(body, headers);
+
+        RestTemplate restTemplate = new RestTemplate();
+        restTemplate.setRequestFactory(new HttpComponentsClientHttpRequestFactory());
+        SmsResponseDto response = restTemplate.postForObject(
+                new URI("https://sens.apigw.ntruss.com/sms/v2/services/" + serviceId + "/messages"), httpBody,
+                SmsResponseDto.class);
+
+        return response;
+    }
 
     public SmsUserResponseDto saveSms(UserSmsRequestDto userSmsRequestDto) throws UnsupportedEncodingException, URISyntaxException, NoSuchAlgorithmException, InvalidKeyException, JsonProcessingException {
         if (!validateNumber(userSmsRequestDto.getMobileNumber())) {
@@ -98,7 +98,7 @@ public class SmsService {
         String key = SmsUtils.makeKey(userSmsRequestDto.getMobileNumber(), userSmsRequestDto.getUuid());
         authNumberRepository.save(key, authNumber);
         log.info("번호 인증 요청 정보 저장 완료 : {}", authNumber);
-        //sendSms(MessageDto.builder().to(userSmsRequestDto.getMobileNumber()).content(authNumber).build());
+        sendSms(MessageDto.builder().to(userSmsRequestDto.getMobileNumber()).content(authNumber).build());
         return SmsUserResponseDto.of(authNumber);
     }
 

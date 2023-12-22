@@ -1,7 +1,5 @@
 package com.chatty.utils;
 
-import java.util.UUID;
-
 public class JwtTokenUtils {
 
     public static String getAccessToken(String token){
