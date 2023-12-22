@@ -1,5 +1,6 @@
 package com.chatty.service.user;
 
+import com.chatty.dto.user.request.UserGenderRequest;
 import com.chatty.dto.user.request.UserNicknameRequest;
 import com.chatty.dto.user.response.UserResponse;
 import com.chatty.entity.user.Authority;
@@ -67,6 +68,25 @@ class UserServiceTest {
         assertThatThrownBy(() -> userService.updateNickname(newUser.getMobileNumber(), request))
                 .isInstanceOf(CustomException.class)
                 .hasMessage("이미 존재하는 닉네임 입니다.");
+    }
+
+    @DisplayName("성별을 수정한다.")
+    @Test
+    void updateGender() {
+        // given
+        User user = createUser("닉네임", "01012345678");
+        User savedUser = userRepository.save(user);
+
+        UserGenderRequest request = UserGenderRequest.builder()
+                .gender(Gender.MALE)
+                .build();
+
+        // when
+        UserResponse userResponse = userService.updateGender(user.getMobileNumber(), request);
+
+        // then
+        assertThat(userResponse).isNotNull();
+        assertThat(userResponse.getGender()).isEqualTo(Gender.MALE);
     }
 
     private User createUser(final String nickname, final String mobileNumber) {

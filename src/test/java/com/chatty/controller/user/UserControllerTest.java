@@ -1,8 +1,11 @@
 package com.chatty.controller.user;
 
+import com.chatty.dto.user.request.UserGenderRequest;
 import com.chatty.dto.user.request.UserNicknameRequest;
 import com.chatty.entity.user.Authority;
+import com.chatty.entity.user.Gender;
 import com.chatty.service.user.UserService;
+import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
@@ -100,5 +103,47 @@ class UserControllerTest {
                 .andDo(print())
                 .andExpect(status().isBadRequest())
                 .andExpect(jsonPath("$.message").value("닉네임은 특수문자를 제외한 2~10자리여야 합니다."));
+    }
+    
+    @DisplayName("성별을 등록한다.")
+    @Test
+    void updateGender() throws Exception {
+        // given
+        UserGenderRequest request = UserGenderRequest.builder()
+                .gender(Gender.MALE)
+                .build();
+
+        // when // then
+        mockMvc.perform(
+                        put("/users/gender").with(csrf())
+                                .contentType(MediaType.APPLICATION_JSON)
+                                .content(objectMapper.writeValueAsString(request))
+                )
+                .andDo(print())
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$.code").value("200"))
+                .andExpect(jsonPath("$.status").value("OK"))
+                .andExpect(jsonPath("$.message").value("OK"));
+    }
+
+    @DisplayName("성별을 등록할 때, 성별을 꼭 입력해야 된다.")
+    @Test
+    void updateGenderWithoutGender() throws Exception {
+        // given
+        UserGenderRequest request = UserGenderRequest.builder()
+//                .gender(Gender.MALE)
+                .build();
+
+        // when // then
+        mockMvc.perform(
+                        put("/users/gender").with(csrf())
+                                .contentType(MediaType.APPLICATION_JSON)
+                                .content(objectMapper.writeValueAsString(request))
+                )
+                .andDo(print())
+                .andExpect(status().isBadRequest())
+                .andExpect(jsonPath("$.code").value("400"))
+                .andExpect(jsonPath("$.status").value("BAD_REQUEST"))
+                .andExpect(jsonPath("$.message").value("성별은 필수로 선택해야 됩니다."));
     }
 }
