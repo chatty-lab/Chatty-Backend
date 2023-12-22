@@ -1,6 +1,7 @@
 package com.chatty.controller.user;
 
 import com.chatty.constants.Code;
+import com.chatty.dto.ApiResponse;
 import com.chatty.dto.DataResponseDto;
 import com.chatty.dto.user.request.UserNicknameRequest;
 import com.chatty.dto.user.request.UserRequestDto;
@@ -35,8 +36,8 @@ public class UserController {
     }
 
     @PutMapping("/nickname")
-    public DataResponseDto<UserResponse> updateNickname(@Valid @RequestBody UserNicknameRequest request,
-                                                           final Authentication authentication) {
-        return DataResponseDto.of(userService.updateNickname(authentication.getName(), request));
+    public ApiResponse<UserResponse> updateNickname(@Valid @RequestBody UserNicknameRequest request,
+                                                    final Authentication authentication) {
+        return ApiResponse.ok(userService.updateNickname(authentication.getName(), request));
     }
 }
