@@ -48,7 +48,8 @@ public class User  extends CommonEntity implements UserDetails{
 
     private LocalDate birth;
 
-    private String gender;
+    @Enumerated(EnumType.STRING)
+    private Gender gender;
 
     private String mbti;
 
