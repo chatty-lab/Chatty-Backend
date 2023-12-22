@@ -1,9 +1,11 @@
 package com.chatty.entity.user;
 
+import com.fasterxml.jackson.annotation.JsonCreator;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 
 import java.util.List;
+import java.util.stream.Stream;
 
 @RequiredArgsConstructor
 @Getter
@@ -13,4 +15,11 @@ public enum Gender {
 
     private final String gender;
 
+    @JsonCreator
+    public static Gender validateGender(String inputValue) {
+        return Stream.of(Gender.values())
+                .filter(gender -> gender.toString().equals(inputValue.toUpperCase()))
+                .findFirst()
+                .orElse(null);
+    }
 }
