@@ -6,12 +6,12 @@ import com.chatty.dto.ErrorResponseDto;
 import com.chatty.exception.CustomException;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import java.io.UnsupportedEncodingException;
-import java.net.BindException;
 import java.net.URISyntaxException;
 import java.security.InvalidKeyException;
 import java.security.NoSuchAlgorithmException;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import org.springframework.validation.BindException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 import org.springframework.web.client.RestClientException;
@@ -24,10 +24,17 @@ public class GlobalExceptionHandler {
         return ResponseEntity.status(e.getCode().getHttpStatus()).body(ErrorResponseDto.of(e.getCode()));
     }
 
+
     @ExceptionHandler(BindException.class)
     public ResponseEntity<ErrorResponseDto> validationException(BindException e){
-        return ResponseEntity.status(INVALID_PARAMETER.getHttpStatus()).body(ErrorResponseDto.of(INVALID_PARAMETER));
+        return ResponseEntity.status(INVALID_PARAMETER.getHttpStatus())
+                .body(ErrorResponseDto.of(e.getBindingResult().getAllErrors().get(0).getDefaultMessage()));
     }
+
+//    @ExceptionHandler(BindException.class)
+//    public ResponseEntity<ErrorResponseDto> validationException(BindException e){
+//        return ResponseEntity.status(INVALID_PARAMETER.getHttpStatus()).body(ErrorResponseDto.of(INVALID_PARAMETER));
+//    }
 
     @ExceptionHandler({JsonProcessingException.class, RestClientException.class, URISyntaxException.class, InvalidKeyException.class, NoSuchAlgorithmException.class, UnsupportedEncodingException.class})
     public ResponseEntity<ErrorResponseDto> sendSmsException(Exception e){
