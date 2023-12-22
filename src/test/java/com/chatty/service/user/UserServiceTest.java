@@ -3,6 +3,7 @@ package com.chatty.service.user;
 import com.chatty.dto.user.request.UserNicknameRequest;
 import com.chatty.dto.user.response.UserResponse;
 import com.chatty.entity.user.Authority;
+import com.chatty.entity.user.Gender;
 import com.chatty.entity.user.User;
 import com.chatty.exception.CustomException;
 import com.chatty.repository.user.UserRepository;
@@ -77,7 +78,7 @@ class UserServiceTest {
                 .birth(LocalDate.now())
                 .imageUrl("이미지")
                 .address("주소")
-                .gender("남자")
+                .gender(Gender.MALE)
                 .nickname(nickname)
                 .build();
     }
