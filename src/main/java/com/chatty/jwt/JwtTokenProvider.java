@@ -128,9 +128,12 @@ public class JwtTokenProvider {
 
     public boolean isEqualRedisRefresh(String token, String uuid){
 
+        System.out.println(token);
+        System.out.println(uuid);
         log.info("[isEqualRedisRefresh] refreshToken과 Redis에 저장된 refreshToken과 일치여부 확인");
         try {
             String refreshToken = refreshTokenRepository.findRefreshTokenByUuid(uuid);
+            System.out.println(refreshToken);
             log.info("[isEqualRedisRefresh] 전달받은 refreshToken이 현재 refreshToken과 일치합니다.");
             return token.equals(refreshToken);
         }catch(Exception e){
