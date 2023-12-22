@@ -1,5 +1,6 @@
 package com.chatty.jwt;
 
+import com.chatty.dto.auth.request.AuthRequestDto;
 import com.chatty.repository.token.RefreshTokenRepository;
 import com.chatty.utils.JwtTokenUtils;
 import io.jsonwebtoken.Claims;
@@ -7,10 +8,8 @@ import io.jsonwebtoken.ExpiredJwtException;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.io.Decoders;
 import io.jsonwebtoken.security.Keys;
-import io.jsonwebtoken.security.SignatureException;
 import jakarta.annotation.PostConstruct;
 import jakarta.servlet.http.HttpServletRequest;
-import java.rmi.server.ExportException;
 import java.util.Date;
 import javax.crypto.SecretKey;
 import lombok.RequiredArgsConstructor;
@@ -26,7 +25,6 @@ public class JwtTokenProvider {
     private static final String AUTHORIZATION = "Authorization";
     private static final String BEARER_TYPE = "Bearer ";
     private static final String MOBILE_NUMBER = "mobileNumber";
-    private static final String REFRESH_TOKEN = "Refresh";
     private static final String UUID = "uuid";
 
     @Value("${jwt-secret-key}")
@@ -71,10 +69,10 @@ public class JwtTokenProvider {
                 .compact();
     }
 
-    public String createRefreshToken(String mobileNumber) {
+    public String createRefreshToken(String mobileNumber, String uuid) {
 
         Claims claims = Jwts.claims()
-                .add(UUID, JwtTokenUtils.getRefreshTokenRandomUuid(mobileNumber))
+                .add(UUID, JwtTokenUtils.getRefreshTokenUuid(mobileNumber,uuid))
                 .build();
 
         return Jwts.builder()
@@ -85,7 +83,7 @@ public class JwtTokenProvider {
                 .compact();
     }
 
-    public boolean isExistToken(final String token) {
+    public boolean isExistToken(String token) {
         if (token == null || token.isBlank()) {
             log.error("token이 존재 하지 않습니다.");
             return false;
@@ -94,7 +92,7 @@ public class JwtTokenProvider {
         return true;
     }
 
-    public boolean isRightFormat(final String token) {
+    public boolean isRightFormat(String token) {
 
         if (!token.startsWith(BEARER_TYPE)) {
             log.error("형식에 맞지 않은 token 발송");
@@ -103,7 +101,7 @@ public class JwtTokenProvider {
         return true;
     }
 
-    public boolean isValidToken(final String token){
+    public boolean isValidToken(String token){
         log.info("[JwtTokenProvider/isValidToken] 비밀키를 통해 유효한 토큰인지 확인");
 
         try {
@@ -130,9 +128,12 @@ public class JwtTokenProvider {
 
     public boolean isEqualRedisRefresh(String token, String uuid){
 
+        System.out.println(token);
+        System.out.println(uuid);
         log.info("[isEqualRedisRefresh] refreshToken과 Redis에 저장된 refreshToken과 일치여부 확인");
         try {
             String refreshToken = refreshTokenRepository.findRefreshTokenByUuid(uuid);
+            System.out.println(refreshToken);
             log.info("[isEqualRedisRefresh] 전달받은 refreshToken이 현재 refreshToken과 일치합니다.");
             return token.equals(refreshToken);
         }catch(Exception e){
@@ -146,9 +147,9 @@ public class JwtTokenProvider {
         return accessToken;
     }
 
-    public String resolvRefreshToken(HttpServletRequest request){
+    public String resolvRefreshToken(AuthRequestDto authRequestDto){
         log.info("[resolveRefreshToken] Request로 전달받은 refreshToken 분리");
-        String refreshToken = request.getHeader(REFRESH_TOKEN);
+        String refreshToken = authRequestDto.getRefreshToken();
         log.info("[resolveRefreshToken] refreshToken : {}",refreshToken);
 
         return refreshToken;

@@ -17,20 +17,20 @@ import org.springframework.web.bind.annotation.RestController;
 @Slf4j
 @RestController
 @RequiredArgsConstructor
-@RequestMapping("/api/users")
+@RequestMapping("users")
 public class UserController {
 
     private final UserService userService;
 
     @PostMapping("/login")
-    public ResponseEntity<DataResponseDto<UserResponseDto>> login(@Valid @RequestBody UserRequestDto userRequestDto) {
+    public DataResponseDto<UserResponseDto> login(@Valid @RequestBody UserRequestDto userRequestDto) {
         log.info("[UserController/login] 로그인 시작");
-        return ResponseEntity.status(Code.OK.getHttpStatus()).body(DataResponseDto.of(userService.login(userRequestDto)));
+        return DataResponseDto.of(userService.login(userRequestDto));
     }
 
     @PostMapping("/join")
-    public ResponseEntity<DataResponseDto<UserResponseDto>> join(@Valid @RequestBody UserRequestDto userRequestDto) {
+    public DataResponseDto<UserResponseDto> join(@Valid @RequestBody UserRequestDto userRequestDto) {
         log.info("[UserController/join] 회원 가입 시작");
-        return ResponseEntity.status(Code.OK.getHttpStatus()).body(DataResponseDto.of(userService.join(userRequestDto)));
+        return DataResponseDto.of(userService.join(userRequestDto));
     }
 }

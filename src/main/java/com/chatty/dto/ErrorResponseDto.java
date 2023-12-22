@@ -1,5 +1,6 @@
 package com.chatty.dto;
 
+import com.chatty.constants.Code;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
@@ -12,8 +13,9 @@ import lombok.NoArgsConstructor;
 public class ErrorResponseDto {
     private String message;
 
-    public static ErrorResponseDto of(String message){
+    public static ErrorResponseDto of(Code code){
         return ErrorResponseDto.builder()
-                .message(message).build();
+                .message(code.getMessage())
+                .build();
     }
 }
