@@ -67,6 +67,10 @@ public class User  extends CommonEntity implements UserDetails{
         this.nickname = nickname;
     }
 
+    public void updateGender(final Gender gender) {
+        this.gender = gender;
+    }
+
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {

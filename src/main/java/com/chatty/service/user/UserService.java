@@ -1,6 +1,7 @@
 package com.chatty.service.user;
 
 import com.chatty.constants.Code;
+import com.chatty.dto.user.request.UserGenderRequest;
 import com.chatty.dto.user.request.UserNicknameRequest;
 import com.chatty.dto.user.request.UserRequestDto;
 import com.chatty.dto.user.response.UserResponse;
@@ -109,6 +110,16 @@ public class UserService {
         validateDuplicateNickname(request);
 
         user.updateNickname(request.getNickname());
+
+        return UserResponse.of(user);
+    }
+
+    @Transactional
+    public UserResponse updateGender(final String mobileNumber, final UserGenderRequest request) {
+        User user = userRepository.findUserByMobileNumber(mobileNumber)
+                .orElseThrow(() -> new CustomException(Code.NOT_EXIST_USER));
+
+        user.updateGender(request.getGender());
 
         return UserResponse.of(user);
     }
