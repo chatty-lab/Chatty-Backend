@@ -1,5 +1,6 @@
 package com.chatty.service.user;
 
+import com.chatty.dto.user.request.UserBirthRequest;
 import com.chatty.dto.user.request.UserGenderRequest;
 import com.chatty.dto.user.request.UserNicknameRequest;
 import com.chatty.dto.user.response.UserResponse;
@@ -75,7 +76,7 @@ class UserServiceTest {
     void updateGender() {
         // given
         User user = createUser("닉네임", "01012345678");
-        User savedUser = userRepository.save(user);
+        userRepository.save(user);
 
         UserGenderRequest request = UserGenderRequest.builder()
                 .gender(Gender.MALE)
@@ -87,6 +88,26 @@ class UserServiceTest {
         // then
         assertThat(userResponse).isNotNull();
         assertThat(userResponse.getGender()).isEqualTo(Gender.MALE);
+    }
+
+    @DisplayName("생년월일을 수정한다.")
+    @Test
+    void updateBirth() {
+        // given
+        LocalDate now = LocalDate.now();
+        User user = createUser("닉네임", "01012345678");
+        userRepository.save(user);
+
+        UserBirthRequest request = UserBirthRequest.builder()
+                .birth(now)
+                .build();
+
+        // when
+        UserResponse userResponse = userService.updateBirth(user.getMobileNumber(), request);
+
+        // then
+        assertThat(userResponse).isNotNull();
+        assertThat(userResponse.getBirth()).isEqualTo(now);
     }
 
     private User createUser(final String nickname, final String mobileNumber) {

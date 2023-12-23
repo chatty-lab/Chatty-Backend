@@ -1,5 +1,6 @@
 package com.chatty.controller.user;
 
+import com.chatty.dto.user.request.UserBirthRequest;
 import com.chatty.dto.user.request.UserGenderRequest;
 import com.chatty.dto.user.request.UserNicknameRequest;
 import com.chatty.entity.user.Authority;
@@ -21,6 +22,7 @@ import org.springframework.security.core.context.SecurityContext;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.test.web.servlet.MockMvc;
 
+import java.time.LocalDate;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -145,5 +147,47 @@ class UserControllerTest {
                 .andExpect(jsonPath("$.code").value("400"))
                 .andExpect(jsonPath("$.status").value("BAD_REQUEST"))
                 .andExpect(jsonPath("$.message").value("성별은 필수로 선택해야 됩니다."));
+    }
+
+    @DisplayName("생년월일을 등록한다.")
+    @Test
+    void updateBirth() throws Exception {
+        // given
+        UserBirthRequest request = UserBirthRequest.builder()
+                .birth(LocalDate.now())
+                .build();
+
+        // when // then
+        mockMvc.perform(
+                put("/users/birth").with(csrf())
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content(objectMapper.writeValueAsString(request))
+        )
+                .andDo(print())
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$.code").value("200"))
+                .andExpect(jsonPath("$.status").value("OK"))
+                .andExpect(jsonPath("$.message").value("OK"));
+    }
+
+    @DisplayName("생년월일을 등록할 때, 생년월일은 필수로 입력해야 된다.")
+    @Test
+    void updateBirthWithoutBirth() throws Exception {
+        // given
+        UserBirthRequest request = UserBirthRequest.builder()
+//                .birth(LocalDate.now())
+                .build();
+
+        // when // then
+        mockMvc.perform(
+                put("/users/birth").with(csrf())
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content(objectMapper.writeValueAsString(request))
+        )
+                .andDo(print())
+                .andExpect(status().isBadRequest())
+                .andExpect(jsonPath("$.code").value("400"))
+                .andExpect(jsonPath("$.status").value("BAD_REQUEST"))
+                .andExpect(jsonPath("$.message").value("생년월일은 필수로 입력해야 됩니다."));
     }
 }
