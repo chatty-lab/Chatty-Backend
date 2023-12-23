@@ -2,9 +2,11 @@ package com.chatty.controller.user;
 
 import com.chatty.dto.user.request.UserBirthRequest;
 import com.chatty.dto.user.request.UserGenderRequest;
+import com.chatty.dto.user.request.UserMbtiRequest;
 import com.chatty.dto.user.request.UserNicknameRequest;
 import com.chatty.entity.user.Authority;
 import com.chatty.entity.user.Gender;
+import com.chatty.entity.user.Mbti;
 import com.chatty.service.user.UserService;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -189,5 +191,47 @@ class UserControllerTest {
                 .andExpect(jsonPath("$.code").value("400"))
                 .andExpect(jsonPath("$.status").value("BAD_REQUEST"))
                 .andExpect(jsonPath("$.message").value("생년월일은 필수로 입력해야 됩니다."));
+    }
+
+    @DisplayName("MBTI를 등록한다.")
+    @Test
+    void updateMbti() throws Exception {
+        // given
+        UserMbtiRequest request = UserMbtiRequest.builder()
+                .mbti(Mbti.ESFJ)
+                .build();
+
+        // when // then
+        mockMvc.perform(
+                        put("/users/mbti").with(csrf())
+                                .contentType(MediaType.APPLICATION_JSON)
+                                .content(objectMapper.writeValueAsString(request))
+                )
+                .andDo(print())
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$.code").value("200"))
+                .andExpect(jsonPath("$.status").value("OK"))
+                .andExpect(jsonPath("$.message").value("OK"));
+    }
+
+    @DisplayName("MBTI를 등록할 때, MBTI 값을 필수로 입력해야 한다.")
+    @Test
+    void updateMbtiWithoutMbti() throws Exception {
+        // given
+        UserMbtiRequest request = UserMbtiRequest.builder()
+//                .mbti(Mbti.ESFJ)
+                .build();
+
+        // when // then
+        mockMvc.perform(
+                        put("/users/mbti").with(csrf())
+                                .contentType(MediaType.APPLICATION_JSON)
+                                .content(objectMapper.writeValueAsString(request))
+                )
+                .andDo(print())
+                .andExpect(status().isBadRequest())
+                .andExpect(jsonPath("$.code").value("400"))
+                .andExpect(jsonPath("$.status").value("BAD_REQUEST"))
+                .andExpect(jsonPath("$.message").value("MBTI는 필수로 입력해야 됩니다."));
     }
 }

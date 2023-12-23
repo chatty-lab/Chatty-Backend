@@ -2,6 +2,7 @@ package com.chatty.service.user;
 
 import com.chatty.dto.user.request.UserBirthRequest;
 import com.chatty.dto.user.request.UserGenderRequest;
+import com.chatty.dto.user.request.UserMbtiRequest;
 import com.chatty.dto.user.request.UserNicknameRequest;
 import com.chatty.dto.user.response.UserResponse;
 import com.chatty.entity.user.Authority;
@@ -111,12 +112,31 @@ class UserServiceTest {
         assertThat(userResponse.getBirth()).isEqualTo(now);
     }
 
+    @DisplayName("MBTI를 수정한다.")
+    @Test
+    void updateMbti() {
+        // given
+        User user = createUser("닉네임", "01012345678");
+        userRepository.save(user);
+
+        UserMbtiRequest request = UserMbtiRequest.builder()
+                .mbti(Mbti.ESFJ)
+                .build();
+
+        // when
+        UserResponse userResponse = userService.updateMbti(user.getMobileNumber(), request);
+
+        // then
+        assertThat(userResponse).isNotNull();
+        assertThat(userResponse.getMbti()).isEqualTo(Mbti.ESFJ);
+    }
+
     private User createUser(final String nickname, final String mobileNumber) {
         return User.builder()
                 .mobileNumber(mobileNumber)
                 .uuid("123456")
                 .authority(Authority.USER)
-                .mbti(Mbti.ENFJ)
+//                .mbti(Mbti.ENFJ)
                 .birth(LocalDate.now())
                 .imageUrl("이미지")
                 .address("주소")
