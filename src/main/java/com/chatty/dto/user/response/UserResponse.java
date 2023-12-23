@@ -1,6 +1,8 @@
 package com.chatty.dto.user.response;
 
+import com.chatty.entity.user.Authority;
 import com.chatty.entity.user.Gender;
+import com.chatty.entity.user.Mbti;
 import com.chatty.entity.user.User;
 import lombok.AccessLevel;
 import lombok.Builder;
@@ -18,13 +20,13 @@ public class UserResponse {
     private String nickname;
     private LocalDate birth;
     private Gender gender;
-    private String mbti;
+    private Mbti mbti;
     private String address;
-    private String authority;
+    private Authority authority;
     private String imageUrl;
 
     @Builder
-    public UserResponse(final Long id, final String mobileNumber, final String nickname, final LocalDate birth, final Gender gender, final String mbti, final String address, final String authority, final String imageUrl) {
+    public UserResponse(final Long id, final String mobileNumber, final String nickname, final LocalDate birth, final Gender gender, final Mbti mbti, final String address, final Authority authority, final String imageUrl) {
         this.id = id;
         this.mobileNumber = mobileNumber;
         this.nickname = nickname;
@@ -45,7 +47,7 @@ public class UserResponse {
                 .gender(user.getGender())
                 .mbti(user.getMbti())
                 .address(user.getAddress())
-                .authority(user.getAuthority().name())
+                .authority(user.getAuthority())
                 .imageUrl(user.getImageUrl())
                 .build();
     }
