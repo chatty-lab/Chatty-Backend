@@ -52,7 +52,9 @@ public class GlobalExceptionHandler {
 
     @ExceptionHandler({JsonProcessingException.class, RestClientException.class, URISyntaxException.class, InvalidKeyException.class, NoSuchAlgorithmException.class, UnsupportedEncodingException.class})
     public ResponseEntity<ErrorResponseDto> sendSmsException(Exception e){
-        return ResponseEntity.status(NOT_SEND_SMS.getHttpStatus()).body(ErrorResponseDto.of(NOT_SEND_SMS));
+        //TODO: LocalDate에 값을 어떻게 검증할 것인지? 이상하게 넣으면 Parsing 예외 발생한다.
+        e.printStackTrace();
+        return ResponseEntity.status(NOT_SEND_SMS.getHttpStatus()).body(ErrorResponseDto.of(e.getMessage()));
     }
 
     @ExceptionHandler(UsernameNotFoundException.class)
