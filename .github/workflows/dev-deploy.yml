@@ -29,6 +29,7 @@ jobs:
           java-version: '17'
           distribution: 'zulu'
 
+      # private repository에서 application.yml 을 가져옵니다.
       - name: Bring ignored files
         uses: actions/checkout@v3
         with:
@@ -39,6 +40,7 @@ jobs:
       - name: Grant execute permission for gradlew
         run: chmod +x gradlew # gradlew를 실행할 수 있는 권한을 추가(리눅스의 명령어)
 
+      # 빌드 캐시를 불러옵니다. 
       - name: Gradle Caching
         uses: actions/cache@v3
         with:
@@ -48,14 +50,15 @@ jobs:
           key: ${{ runner.os }}-gradle-${{ hashFiles('**/*.gradle*', '**/gradle-wrapper.properties') }}
           restore-keys: |
             ${{ runner.os }}-gradle-
-      
+
+      # main, develop 브랜치일 경우 빌드 캐시를 사용하여 빌드합니다.
       - name: Setup Gradle
         uses: gradle/gradle-build-action@v2.4.2
         with:
           arguments: build 
           cache-read-only: ${{ github.ref != 'refs/heads/main' && github.ref != 'refs/heads/develop' }}
 
-      # build한 후 프로젝트를 압축한다.
+      # build한 후 프로젝트를 압축해요
       - name: Make zip file
         run: zip -r ./$PROJECT_NAME.zip .
         shell: bash
@@ -73,7 +76,7 @@ jobs:
       - name: Upload to S3
         run: aws s3 cp $PROJECT_NAME.zip s3://$BUCKET_NAME/deploy/$PROJECT_NAME.zip --region ap-northeast-2
 
-      # CodeDeploy에게 배포 명령을 내린다.
+      # CodeDeploy에게 배포 명령을 내려요.
       - name: Code Deploy
         run: >
          aws deploy create-deployment --application-name $CODE_DEPLOY_APP
