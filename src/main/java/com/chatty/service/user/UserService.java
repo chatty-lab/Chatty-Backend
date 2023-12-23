@@ -1,10 +1,7 @@
 package com.chatty.service.user;
 
 import com.chatty.constants.Code;
-import com.chatty.dto.user.request.UserBirthRequest;
-import com.chatty.dto.user.request.UserGenderRequest;
-import com.chatty.dto.user.request.UserNicknameRequest;
-import com.chatty.dto.user.request.UserRequestDto;
+import com.chatty.dto.user.request.*;
 import com.chatty.dto.user.response.UserResponse;
 import com.chatty.dto.user.response.UserResponseDto;
 import com.chatty.entity.user.Authority;
@@ -131,6 +128,16 @@ public class UserService {
                 .orElseThrow(() -> new CustomException(Code.NOT_EXIST_USER));
 
         user.updateBirth(request.getBirth());
+
+        return UserResponse.of(user);
+    }
+
+    @Transactional
+    public UserResponse updateMbti(final String mobileNumber, final UserMbtiRequest request) {
+        User user = userRepository.findUserByMobileNumber(mobileNumber)
+                .orElseThrow(() -> new CustomException(Code.NOT_EXIST_USER));
+
+        user.updateMbti(request.getMbti());
 
         return UserResponse.of(user);
     }

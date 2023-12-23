@@ -76,6 +76,10 @@ public class User  extends CommonEntity implements UserDetails{
         this.birth = birth;
     }
 
+    public void updateMbti(final Mbti mbti) {
+        this.mbti = mbti;
+    }
+
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
         return List.of(new SimpleGrantedAuthority(authority.name()));

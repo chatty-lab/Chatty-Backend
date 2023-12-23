@@ -3,10 +3,7 @@ package com.chatty.controller.user;
 import com.chatty.constants.Code;
 import com.chatty.dto.ApiResponse;
 import com.chatty.dto.DataResponseDto;
-import com.chatty.dto.user.request.UserBirthRequest;
-import com.chatty.dto.user.request.UserGenderRequest;
-import com.chatty.dto.user.request.UserNicknameRequest;
-import com.chatty.dto.user.request.UserRequestDto;
+import com.chatty.dto.user.request.*;
 import com.chatty.dto.user.response.UserResponse;
 import com.chatty.dto.user.response.UserResponseDto;
 import com.chatty.service.user.UserService;
@@ -54,5 +51,12 @@ public class UserController {
                                                  final Authentication authentication) {
 
         return ApiResponse.ok(userService.updateBirth(authentication.getName(), request));
+    }
+
+    @PutMapping("/mbti")
+    public ApiResponse<UserResponse> updateMbti(@Valid @RequestBody UserMbtiRequest request,
+                                                final Authentication authentication) {
+
+        return ApiResponse.ok(userService.updateMbti(authentication.getName(), request));
     }
 }
