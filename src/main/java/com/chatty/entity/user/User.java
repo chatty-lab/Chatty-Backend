@@ -71,6 +71,9 @@ public class User  extends CommonEntity implements UserDetails{
         this.gender = gender;
     }
 
+    public void updateBirth(final LocalDate birth) {
+        this.birth = birth;
+    }
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
