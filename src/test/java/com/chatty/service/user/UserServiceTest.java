@@ -6,6 +6,7 @@ import com.chatty.dto.user.request.UserNicknameRequest;
 import com.chatty.dto.user.response.UserResponse;
 import com.chatty.entity.user.Authority;
 import com.chatty.entity.user.Gender;
+import com.chatty.entity.user.Mbti;
 import com.chatty.entity.user.User;
 import com.chatty.exception.CustomException;
 import com.chatty.repository.user.UserRepository;
@@ -115,7 +116,7 @@ class UserServiceTest {
                 .mobileNumber(mobileNumber)
                 .uuid("123456")
                 .authority(Authority.USER)
-                .mbti("mbti")
+                .mbti(Mbti.ENFJ)
                 .birth(LocalDate.now())
                 .imageUrl("이미지")
                 .address("주소")
