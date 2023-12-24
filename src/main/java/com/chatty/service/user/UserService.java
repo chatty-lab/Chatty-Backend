@@ -72,7 +72,7 @@ public class UserService {
 
         User user = User.builder()
                 .mobileNumber(userRequestDto.getMobileNumber())
-                .authority(Authority.USER)
+                .authority(Authority.ANONYMOUS)
                 .uuid(userRequestDto.getUuid())
                 .build();
 

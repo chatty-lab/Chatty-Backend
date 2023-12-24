@@ -82,7 +82,7 @@ public class User  extends CommonEntity implements UserDetails{
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        return List.of(new SimpleGrantedAuthority(authority.name()));
+        return List.of(new SimpleGrantedAuthority("ROLE_" + authority.name()));
     }
 
     @Override
