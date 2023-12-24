@@ -59,4 +59,11 @@ public class UserController {
 
         return ApiResponse.ok(userService.updateMbti(authentication.getName(), request));
     }
+
+    @PutMapping("/coordinate")
+    public ApiResponse<UserResponse> updateCoordinate(@Valid @RequestBody UserCoordinateRequest request,
+                                                      final Authentication authentication) {
+
+        return ApiResponse.ok(userService.updateCoordinate(authentication.getName(), request));
+    }
 }

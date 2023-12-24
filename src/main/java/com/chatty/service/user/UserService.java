@@ -142,6 +142,16 @@ public class UserService {
         return UserResponse.of(user);
     }
 
+    @Transactional
+    public UserResponse updateCoordinate(final String mobileNumber, final UserCoordinateRequest request) {
+        User user = userRepository.findUserByMobileNumber(mobileNumber)
+                .orElseThrow(() -> new CustomException(Code.NOT_EXIST_USER));
+
+        user.updateCoordinate(request.getCoordinate());
+
+        return UserResponse.of(user);
+    }
+
     private void validateDuplicateNickname(final UserNicknameRequest request) {
         userRepository.findByNickname(request.getNickname())
                 .ifPresent(findUser -> {

@@ -17,7 +17,9 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import org.locationtech.jts.geom.GeometryFactory;
 import org.locationtech.jts.geom.Point;
+import org.locationtech.jts.geom.PrecisionModel;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -78,6 +80,15 @@ public class User  extends CommonEntity implements UserDetails{
 
     public void updateMbti(final Mbti mbti) {
         this.mbti = mbti;
+    }
+
+    public void updateCoordinate(final Coordinate coordinate) {
+        this.location = createPoint(coordinate);
+    }
+
+    public static Point createPoint(final Coordinate coordinate) {
+        GeometryFactory geometryFactory = new GeometryFactory(new PrecisionModel(), 4326);
+        return geometryFactory.createPoint(new org.locationtech.jts.geom.Coordinate(coordinate.getLng(), coordinate.getLat()));
     }
 
     @Override
