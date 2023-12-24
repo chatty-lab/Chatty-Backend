@@ -1,19 +1,14 @@
 package com.chatty.service.user;
 
-import com.chatty.dto.user.request.UserBirthRequest;
-import com.chatty.dto.user.request.UserGenderRequest;
-import com.chatty.dto.user.request.UserMbtiRequest;
-import com.chatty.dto.user.request.UserNicknameRequest;
+import com.chatty.dto.user.request.*;
 import com.chatty.dto.user.response.UserResponse;
-import com.chatty.entity.user.Authority;
-import com.chatty.entity.user.Gender;
-import com.chatty.entity.user.Mbti;
-import com.chatty.entity.user.User;
+import com.chatty.entity.user.*;
 import com.chatty.exception.CustomException;
 import com.chatty.repository.user.UserRepository;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
+import org.locationtech.jts.geom.Point;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
@@ -129,6 +124,30 @@ class UserServiceTest {
         // then
         assertThat(userResponse).isNotNull();
         assertThat(userResponse.getMbti()).isEqualTo(Mbti.ESFJ);
+    }
+
+    @DisplayName("좌표 정보를 수정한다.")
+    @Test
+    void updateCoordinate() {
+        // given
+        User user = createUser("닉네임", "01012345678");
+        userRepository.save(user);
+
+        Coordinate coordinate = new Coordinate(37.1, 127.1);
+        UserCoordinateRequest request = UserCoordinateRequest.builder()
+                .coordinate(coordinate)
+                .build();
+
+        // when
+        UserResponse userResponse = userService.updateCoordinate(user.getMobileNumber(), request);
+
+        // then
+        assertThat(userResponse).isNotNull();
+        assertThat(userResponse.getCoordinate())
+                .extracting("lat", "lng")
+                .containsExactly(
+                        37.1, 127.1
+                );
     }
 
     private User createUser(final String nickname, final String mobileNumber) {

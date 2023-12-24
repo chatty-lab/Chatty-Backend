@@ -1,10 +1,8 @@
 package com.chatty.controller.user;
 
-import com.chatty.dto.user.request.UserBirthRequest;
-import com.chatty.dto.user.request.UserGenderRequest;
-import com.chatty.dto.user.request.UserMbtiRequest;
-import com.chatty.dto.user.request.UserNicknameRequest;
+import com.chatty.dto.user.request.*;
 import com.chatty.entity.user.Authority;
+import com.chatty.entity.user.Coordinate;
 import com.chatty.entity.user.Gender;
 import com.chatty.entity.user.Mbti;
 import com.chatty.service.user.UserService;
@@ -233,5 +231,52 @@ class UserControllerTest {
                 .andExpect(jsonPath("$.code").value("400"))
                 .andExpect(jsonPath("$.status").value("BAD_REQUEST"))
                 .andExpect(jsonPath("$.message").value("MBTI는 필수로 입력해야 됩니다."));
+    }
+
+    @DisplayName("위치 정보를 등록한다.")
+    @Test
+    void updateCoordinate() throws Exception {
+        // given
+        Coordinate coordinate = Coordinate.builder()
+                .lat(37.1234)
+                .lng(127.1234)
+                .build();
+
+        UserCoordinateRequest request = UserCoordinateRequest.builder()
+                .coordinate(coordinate)
+                .build();
+
+        // when // then
+        mockMvc.perform(
+                        put("/users/coordinate").with(csrf())
+                                .contentType(MediaType.APPLICATION_JSON)
+                                .content(objectMapper.writeValueAsString(request))
+                )
+                .andDo(print())
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$.code").value("200"))
+                .andExpect(jsonPath("$.status").value("OK"))
+                .andExpect(jsonPath("$.message").value("OK"));
+    }
+
+    @DisplayName("좌표를 수정할 때, 위도와 경도(Coordinate) 값은 꼭 입력해야 한다.")
+    @Test
+    void updateCoordinateWithoutLatOrLng() throws Exception {
+        // given
+        UserCoordinateRequest request = UserCoordinateRequest.builder()
+                .build();
+
+        // when // then
+        mockMvc.perform(
+                        put("/users/coordinate").with(csrf())
+                                .contentType(MediaType.APPLICATION_JSON)
+                                .content(objectMapper.writeValueAsString(request))
+                )
+                .andDo(print())
+                .andExpect(status().isBadRequest())
+                .andExpect(jsonPath("$.code").value("400"))
+                .andExpect(jsonPath("$.status").value("BAD_REQUEST"))
+                .andExpect(jsonPath("$.message").value("좌표는 필수로 입력해야 합니다."))
+                .andExpect(jsonPath("$.data").isEmpty());
     }
 }
