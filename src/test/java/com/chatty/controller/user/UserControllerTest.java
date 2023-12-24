@@ -279,4 +279,159 @@ class UserControllerTest {
                 .andExpect(jsonPath("$.message").value("좌표는 필수로 입력해야 합니다."))
                 .andExpect(jsonPath("$.data").isEmpty());
     }
+
+    @DisplayName("회원가입에 필요한 정보를 입력 후, 회원 가입을 완료한다.")
+    @Test
+    void joinComplete() throws Exception {
+        // given
+        Coordinate coordinate = new Coordinate(37.1, 127.1);
+        UserJoinRequest request = UserJoinRequest.builder()
+                .coordinate(coordinate)
+                .nickname("닉네임")
+                .gender(Gender.MALE)
+                .mbti(Mbti.INFP)
+                .birth(LocalDate.now())
+                .build();
+
+        // when // then
+        mockMvc.perform(
+                        put("/users/join").with(csrf())
+                                .contentType(MediaType.APPLICATION_JSON)
+                                .content(objectMapper.writeValueAsString(request))
+                )
+                .andDo(print())
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$.code").value("200"))
+                .andExpect(jsonPath("$.status").value("OK"))
+                .andExpect(jsonPath("$.message").value("OK"));
+    }
+
+    @DisplayName("회원가입을 진행할 때, 위치 정보는 필수값이다.")
+    @Test
+    void joinCompleteWithoutCoordinate() throws Exception {
+        // given
+        UserJoinRequest request = UserJoinRequest.builder()
+//                .coordinate(coordinate)
+                .nickname("닉네임")
+                .gender(Gender.MALE)
+                .mbti(Mbti.INFP)
+                .birth(LocalDate.now())
+                .build();
+
+        // when // then
+        mockMvc.perform(
+                        put("/users/join").with(csrf())
+                                .contentType(MediaType.APPLICATION_JSON)
+                                .content(objectMapper.writeValueAsString(request))
+                )
+                .andDo(print())
+                .andExpect(status().isBadRequest())
+                .andExpect(jsonPath("$.code").value("400"))
+                .andExpect(jsonPath("$.status").value("BAD_REQUEST"))
+                .andExpect(jsonPath("$.message").value("좌표는 필수로 입력해야 합니다."));
+    }
+
+    @DisplayName("회원가입을 진행할 때, 닉네임은 필수값이다.")
+    @Test
+    void joinCompleteWithoutNickname() throws Exception {
+        // given
+        Coordinate coordinate = new Coordinate(37.1, 127.1);
+        UserJoinRequest request = UserJoinRequest.builder()
+                .coordinate(coordinate)
+//                .nickname("닉네임")
+                .gender(Gender.MALE)
+                .mbti(Mbti.INFP)
+                .birth(LocalDate.now())
+                .build();
+
+        // when // then
+        mockMvc.perform(
+                        put("/users/join").with(csrf())
+                                .contentType(MediaType.APPLICATION_JSON)
+                                .content(objectMapper.writeValueAsString(request))
+                )
+                .andDo(print())
+                .andExpect(status().isBadRequest())
+                .andExpect(jsonPath("$.code").value("400"))
+                .andExpect(jsonPath("$.status").value("BAD_REQUEST"))
+                .andExpect(jsonPath("$.message").value("닉네임은 필수로 입력해야 합니다."));
+    }
+
+    @DisplayName("회원가입을 진행할 때, 성별은 필수값이다.")
+    @Test
+    void joinCompleteWithoutGender() throws Exception {
+        // given
+        Coordinate coordinate = new Coordinate(37.1, 127.1);
+        UserJoinRequest request = UserJoinRequest.builder()
+                .coordinate(coordinate)
+                .nickname("닉네임")
+//                .gender(Gender.MALE)
+                .mbti(Mbti.INFP)
+                .birth(LocalDate.now())
+                .build();
+
+        // when // then
+        mockMvc.perform(
+                        put("/users/join").with(csrf())
+                                .contentType(MediaType.APPLICATION_JSON)
+                                .content(objectMapper.writeValueAsString(request))
+                )
+                .andDo(print())
+                .andExpect(status().isBadRequest())
+                .andExpect(jsonPath("$.code").value("400"))
+                .andExpect(jsonPath("$.status").value("BAD_REQUEST"))
+                .andExpect(jsonPath("$.message").value("성별은 필수로 선택해야 됩니다."));
+    }
+
+    @DisplayName("회원가입을 진행할 때, MBTI는 필수값이다.")
+    @Test
+    void joinCompleteWithoutMbti() throws Exception {
+        // given
+        Coordinate coordinate = new Coordinate(37.1, 127.1);
+        UserJoinRequest request = UserJoinRequest.builder()
+                .coordinate(coordinate)
+                .nickname("닉네임")
+                .gender(Gender.MALE)
+//                .mbti(Mbti.INFP)
+                .birth(LocalDate.now())
+                .build();
+
+        // when // then
+        mockMvc.perform(
+                        put("/users/join").with(csrf())
+                                .contentType(MediaType.APPLICATION_JSON)
+                                .content(objectMapper.writeValueAsString(request))
+                )
+                .andDo(print())
+                .andExpect(status().isBadRequest())
+                .andExpect(jsonPath("$.code").value("400"))
+                .andExpect(jsonPath("$.status").value("BAD_REQUEST"))
+                .andExpect(jsonPath("$.message").value("MBTI는 필수로 입력해야 됩니다."));
+    }
+
+    @DisplayName("회원가입을 진행할 때, 생년월일은 필수값이다.")
+    @Test
+    void joinCompleteWithoutBirth() throws Exception {
+        // given
+        Coordinate coordinate = new Coordinate(37.1, 127.1);
+        UserJoinRequest request = UserJoinRequest.builder()
+                .coordinate(coordinate)
+                .nickname("닉네임")
+                .gender(Gender.MALE)
+                .mbti(Mbti.INFP)
+//                .birth(LocalDate.now())
+                .build();
+
+        // when // then
+        mockMvc.perform(
+                        put("/users/join").with(csrf())
+                                .contentType(MediaType.APPLICATION_JSON)
+                                .content(objectMapper.writeValueAsString(request))
+                )
+                .andDo(print())
+                .andExpect(status().isBadRequest())
+                .andExpect(jsonPath("$.code").value("400"))
+                .andExpect(jsonPath("$.status").value("BAD_REQUEST"))
+                .andExpect(jsonPath("$.message").value("생년월일은 필수로 입력해야 됩니다."));
+    }
 }

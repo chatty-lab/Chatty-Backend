@@ -31,6 +31,42 @@ class UserServiceTest {
         userRepository.deleteAllInBatch();
     }
 
+    @DisplayName("회원가입을 완료한다.")
+    @Test
+    void joinComplete() {
+        // given
+        User user = notCompleteJoinUser("01012345678");
+        userRepository.save(user);
+
+        Coordinate coordinate = new Coordinate(37.1, 127.1);
+        LocalDate now = LocalDate.now();
+
+        UserJoinRequest request = UserJoinRequest.builder()
+                .coordinate(coordinate)
+                .birth(now)
+                .nickname("닉네임")
+                .gender(Gender.MALE)
+                .mbti(Mbti.ISTJ)
+                .build();
+
+        // when
+        UserResponse userResponse = userService.joinComplete(user.getMobileNumber(), request);
+        System.out.println("userResponse.getAuthority() = " + userResponse.getAuthority());
+
+        // then
+        assertThat(userResponse).isNotNull();
+        assertThat(userResponse)
+                .extracting("nickname", "birth", "gender", "mbti", "authority")
+                .containsExactlyInAnyOrder(
+                        "닉네임", now, Gender.MALE, Mbti.ISTJ, Authority.USER
+                );
+        assertThat(userResponse.getCoordinate())
+                .extracting("lat", "lng")
+                .containsExactly(
+                        37.1, 127.1
+                );
+    }
+
     @DisplayName("유저 닉네임을 수정한다.")
     @Test
     void updateNickname() {
@@ -148,6 +184,13 @@ class UserServiceTest {
                 .containsExactly(
                         37.1, 127.1
                 );
+    }
+
+    private User notCompleteJoinUser(final String mobileNumber) {
+        return User.builder()
+                .mobileNumber(mobileNumber)
+                .uuid("123456")
+                .build();
     }
 
     private User createUser(final String nickname, final String mobileNumber) {
