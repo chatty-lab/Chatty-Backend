@@ -34,6 +34,13 @@ public class UserController {
         return DataResponseDto.of(userService.join(userRequestDto));
     }
 
+    @PutMapping("/join")
+    public ApiResponse<UserResponse> joinComplete(@Valid @RequestBody UserJoinRequest request,
+                                                  final Authentication authentication) {
+
+        return ApiResponse.ok(userService.joinComplete(authentication.getName(), request));
+    }
+
     @PutMapping("/nickname")
     public ApiResponse<UserResponse> updateNickname(@Valid @RequestBody UserNicknameRequest request,
                                                     final Authentication authentication) {

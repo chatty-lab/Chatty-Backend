@@ -101,6 +101,16 @@ public class UserService {
     }
 
     @Transactional
+    public UserResponse joinComplete(final String mobileNumber, final UserJoinRequest request) {
+        User user = userRepository.findUserByMobileNumber(mobileNumber)
+                .orElseThrow(() -> new CustomException(Code.NOT_EXIST_USER));
+
+        user.joinComplete(request.toEntity());
+
+        return UserResponse.of(user);
+    }
+
+    @Transactional
     public UserResponse updateNickname(final String mobileNumber, final UserNicknameRequest request) {
         User user = userRepository.findUserByMobileNumber(mobileNumber)
                 .orElseThrow(() -> new CustomException(Code.NOT_EXIST_USER));

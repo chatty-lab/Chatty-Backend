@@ -1,5 +1,6 @@
 package com.chatty.entity.user;
 
+import com.chatty.dto.user.request.UserJoinRequest;
 import com.chatty.entity.CommonEntity;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -65,6 +66,15 @@ public class User  extends CommonEntity implements UserDetails{
     private Authority authority;
 
     private String imageUrl;
+
+    public void joinComplete(final User request) {
+        this.nickname = request.getNickname();
+        this.location = request.getLocation();
+        this.gender = request.getGender();
+        this.birth = request.getBirth();
+        this.mbti = request.getMbti();
+        this.authority = request.getAuthority();
+    }
 
     public void updateNickname(final String nickname) {
         this.nickname = nickname;
