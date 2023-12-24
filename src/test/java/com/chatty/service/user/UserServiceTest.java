@@ -161,6 +161,12 @@ class UserServiceTest {
                 .address("주소")
                 .gender(Gender.MALE)
                 .nickname(nickname)
+                .location(User.createPoint(
+                        Coordinate.builder()
+                                .lat(37.1)
+                                .lng(127.1)
+                                .build()
+                ))
                 .build();
     }
 }
