@@ -22,7 +22,4 @@ public class ChatRoom {
 
     @OneToMany(mappedBy = "chatRoom")
     private Set<ChatRoomUser> users = new HashSet<>();
-
-    @OneToMany(mappedBy = "chatRoom")
-    private Set<ChatRoomUser> messages = new HashSet<>();
 }
