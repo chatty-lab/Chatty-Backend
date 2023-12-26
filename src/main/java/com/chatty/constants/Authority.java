@@ -1,4 +1,4 @@
-package com.chatty.entity.user;
+package com.chatty.constants;
 
 public enum Authority {
     USER,

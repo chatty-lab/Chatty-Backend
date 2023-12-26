@@ -3,7 +3,7 @@ package com.chatty.service.user;
 import com.chatty.constants.Code;
 import com.chatty.dto.user.request.UserRequestDto;
 import com.chatty.dto.user.response.UserResponseDto;
-import com.chatty.entity.user.Authority;
+import com.chatty.constants.Authority;
 import com.chatty.entity.user.User;
 import com.chatty.exception.CustomException;
 import com.chatty.jwt.JwtTokenProvider;
