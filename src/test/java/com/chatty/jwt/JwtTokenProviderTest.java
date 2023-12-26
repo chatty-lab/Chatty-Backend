@@ -176,7 +176,6 @@ class JwtTokenProviderTest {
     @Test
     @DisplayName("레디스에 저장된 refreshToken과 일치하는 경우")
     void isEqualRedisRefresh() throws Exception {
-
         //given
         String token = "abcdefg";
         String uuid = "abc";
