@@ -41,6 +41,18 @@ jobs:
         with:
           java-version: 17
           distribution: 'zulu'
+
+      # ignored 파일을 불러와요.
+      - name: Bring ignored files
+        uses: actions/checkout@v3
+        with:
+          repository: chatty-lab/Chatty-Backend-ignored
+          path: temp
+          token: ${{ secrets.ACTION_TOKEN }}
+
+      # 필요한 application.yml을 불러와요.
+      - name: Copy Test Config File
+        run: cp temp/application-test.yml src/test/resources/application.yml
  
       # 빌드 캐시를 불러와요.
       - name: Cache Gradle packages
