@@ -67,20 +67,10 @@ jobs:
       - name: Test with Gradle
         run: ./gradlew --info test
 
-      # Test result file이 있는지 확인해요.
-      - name: Check if test results exist
-        id: check_files
-        run: |
-          if [ -f build/test-results/**/*.xml ]; then
-            echo "##[set-output name=exists;]true"
-          else
-            echo "##[set-output name=exists;]false"
-          fi
-
       # Test 결과를 PR 과정에 공개해요.
       - name: Publish Unit Test Results
-        if: steps.check_files.outputs.exists == 'true'
         uses: EnricoMi/publish-unit-test-result-action@v1
+        if: ${{ always() }}  # 테스트가 실패하여도 Report를 보기 위해 `always`로 설정
         with:
           files: build/test-results/**/*.xml
  
