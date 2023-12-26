@@ -34,8 +34,12 @@ jobs:
         uses: actions/checkout@v3
         with:
           repository: chatty-lab/Chatty-Backend-ignored
-          path: src/main/resources
+          path: temp
           token: ${{ secrets.ACTION_TOKEN }}
+
+      # 필요한 application.yml을 불러와요.
+      - name: Move Test Config File
+        run: mv temp/application.yml src/main/resources/application.yml
 
       - name: Grant execute permission for gradlew
         run: chmod +x gradlew # gradlew를 실행할 수 있는 권한을 추가(리눅스의 명령어)
