@@ -63,16 +63,21 @@ jobs:
           path: src/main/resources
           token: ${{ secrets.ACTION_TOKEN }}
 
-      # Gradle Test를 실행해요.
-      - name: Test with Gradle
-        run: ./gradlew --info test
+      # 프로젝트를 빌드해요.
+      - name: Build
+        run: ./gradlew build -x test
+
+      # 테스트를 실행해요.
+      - name: Test
+      #  run: SPRING_PROFILES_ACTIVE=[test] ./gradlew test
+        run: ./gradlew test
 
       # Test 결과를 PR 과정에 공개해요.
-      - name: Publish Unit Test Results
-        uses: EnricoMi/publish-unit-test-result-action@v1
-        if: ${{ always() }}  # 테스트가 실패하여도 Report를 보기 위해 `always`로 설정
+      - name: Publish Test Results
+        uses: EnricoMi/publish-unit-test-result-action@v2
+        if: always()
         with:
-          files: build/test-results/**/*.xml
+          junit_files: "build/test-results/test/**/*.xml"
  
       # Gradle 캐시를 초기화해요.
       - name: Cleanup Gradle Cache
