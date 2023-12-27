@@ -29,8 +29,6 @@ public class JwtTokenFilter extends OncePerRequestFilter {
 
         String accessToken = jwtTokenProvider.resolveAccessToken(request);
 
-        validateAccessToken(accessToken);
-
         String userMobileNumber = jwtTokenProvider.getMobileNumber(accessToken);
         UserDetails userDetails = userDetailsService.loadUserByUsername(userMobileNumber);
         UsernamePasswordAuthenticationToken authenticationToken = new UsernamePasswordAuthenticationToken(userDetails,null,
