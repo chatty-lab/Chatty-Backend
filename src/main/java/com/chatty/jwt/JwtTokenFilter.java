@@ -29,8 +29,14 @@ public class JwtTokenFilter extends OncePerRequestFilter {
 
         String accessToken = jwtTokenProvider.resolveAccessToken(request);
 
+        validateAccessToken(accessToken);
+
+        accessToken = JwtTokenUtils.getAccessToken(accessToken);
+
         String userMobileNumber = jwtTokenProvider.getMobileNumber(accessToken);
+        log.info(userMobileNumber);
         UserDetails userDetails = userDetailsService.loadUserByUsername(userMobileNumber);
+        log.info(String.valueOf(userDetails));
         UsernamePasswordAuthenticationToken authenticationToken = new UsernamePasswordAuthenticationToken(userDetails,null,
                 userDetails.getAuthorities());
         SecurityContextHolder.getContext().setAuthentication(authenticationToken);
@@ -51,14 +57,14 @@ public class JwtTokenFilter extends OncePerRequestFilter {
             throw new CustomException(Code.INVALID_ACCESS_TOKEN);
         }
 
-        if(!jwtTokenProvider.isValidToken(accessToken)){
+        if(!jwtTokenProvider.isValidToken(JwtTokenUtils.getAccessToken(accessToken))){
             log.error("유효한 accessToken이 아닙니다.");
             throw new CustomException(Code.INVALID_ACCESS_TOKEN);
         }
 
         if(jwtTokenProvider.isExpiredToken(JwtTokenUtils.getAccessToken(accessToken))){ // 토큰이 만료된 경우
             log.error("accessToken 만료");
-            throw new CustomException(Code.NOT_EXPIRED_ACCESS_TOKEN);
+            throw new CustomException(Code.EXPIRED_ACCESS_TOKEN);
         }
 
     }
