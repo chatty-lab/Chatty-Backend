@@ -19,7 +19,7 @@ public enum Code {
     INVALID_ACCESS_TOKEN(HttpStatus.BAD_REQUEST, "accessToken 유효성 검증을 실패했습니다."),
     INVALID_REFRESH_TOKEN(HttpStatus.BAD_REQUEST, "refreshToken 유효성 검증을 실패했습니다."),
     EXPIRED_REFRESH_TOKEN(HttpStatus.BAD_REQUEST, "refreshToken이 만료되었습니다."),
-    NOT_EXPIRED_ACCESS_TOKEN(HttpStatus.BAD_REQUEST, "accessToken이 만료되지 않았습니다.");
+    EXPIRED_ACCESS_TOKEN(HttpStatus.BAD_REQUEST, "accessToken이 만료되었습니다.");
 
     private final HttpStatus httpStatus;
     private final String message;

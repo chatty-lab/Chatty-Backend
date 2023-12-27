@@ -46,7 +46,7 @@ public class JwtTokenProvider {
     }
 
     public String getMobileNumber(String accessToken) {
-        return Jwts.parser().verifyWith(key).build().parseSignedClaims(JwtTokenUtils.getAccessToken(accessToken)).getPayload()
+        return Jwts.parser().verifyWith(key).build().parseSignedClaims(accessToken).getPayload()
                 .get(MOBILE_NUMBER, String.class);
     }
 
@@ -103,27 +103,29 @@ public class JwtTokenProvider {
 
     public boolean isValidToken(String token){
         log.info("[JwtTokenProvider/isValidToken] 비밀키를 통해 유효한 토큰인지 확인");
-
+        log.info(token);
         try {
             Jwts.parser().verifyWith(key).build().parseSignedClaims(token).getPayload();
             return true;
         }catch(ExpiredJwtException e){
             return true;
         }catch (Exception e) {
+            log.info(e.getMessage());
             return false;
         }
     }
 
     public boolean isExpiredToken(String token) {
         log.info("[JwtTokenProvider/isExpiredToken] 만료된 도큰인지 확인");
+
         try {
-            Jwts.parser().verifyWith(key).build().parseSignedClaims(token).getPayload().getExpiration().
-                    before(new Date());
+            Jwts.parser().verifyWith(key).build().parseSignedClaims(token).getPayload();
+            log.info("만료되지 않았습니다.");
+            return false;
         }catch(ExpiredJwtException e){
+            log.info("만료되었습니다.");
             return true;
         }
-
-        return false;
     }
 
     public boolean isEqualRedisRefresh(String token, String uuid){
