@@ -38,7 +38,8 @@ public class SecurityConfig {
     public WebSecurityCustomizer webSecurityCustomizer(){
         return (web) -> web.ignoring().requestMatchers(
                 "/users/**",
-                "/auth/**"
+                "/auth/**",
+                "/chat/**"
         );
     }
 }

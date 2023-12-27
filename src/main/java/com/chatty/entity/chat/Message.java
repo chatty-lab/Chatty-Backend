@@ -1,6 +1,5 @@
 package com.chatty.entity.chat;
 
-import com.chatty.entity.chat.ChatRoom;
 import com.chatty.entity.user.User;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -14,7 +13,7 @@ import java.time.LocalDateTime;
 
 @Entity
 @Table(name="message")
-public class MessageEntity {
+public class Message {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
