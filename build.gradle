@@ -34,6 +34,9 @@ dependencies {
     runtimeOnly 'io.jsonwebtoken:jjwt-impl:0.12.3'
     runtimeOnly 'io.jsonwebtoken:jjwt-jackson:0.12.3'
 
+    // hibernate-spatial
+    implementation 'org.hibernate:hibernate-spatial:6.3.1.Final'
+
     compileOnly 'org.projectlombok:lombok'
     runtimeOnly 'com.h2database:h2'
     runtimeOnly 'com.mysql:mysql-connector-j'

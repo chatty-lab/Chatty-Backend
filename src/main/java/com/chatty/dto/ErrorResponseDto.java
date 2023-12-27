@@ -18,4 +18,10 @@ public class ErrorResponseDto {
                 .message(code.getMessage())
                 .build();
     }
+
+    public static ErrorResponseDto of(final String message) {
+        return ErrorResponseDto.builder()
+                .message(message)
+                .build();
+    }
 }
