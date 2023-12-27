@@ -81,7 +81,7 @@ class JwtTokenProviderTest {
         String accessToken = PREFIX_ACCESTOKEN + jwtTokenProvider.createAccessToken(mobileNumber1, uuid);
 
         //when
-        String mobileNumber2 = jwtTokenProvider.getMobileNumber(accessToken);
+         String mobileNumber2 = jwtTokenProvider.getMobileNumber(JwtTokenUtils.getAccessToken(accessToken));
 
         //then
         assertThat(mobileNumber1).isEqualTo(mobileNumber2);
