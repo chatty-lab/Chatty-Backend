@@ -1,25 +1,48 @@
 name: PR Test
- 
+
+# develop 브랜치에 Pull Request가 열릴 때 실행되요.
 on:
   pull_request:
     types:
       - opened
     branches:
       - develop
+
+permissions: write-all
  
 jobs:
   test:
     runs-on: ubuntu-latest
+
+    services:
+      redis:
+        image: redis
+        ports:
+          - 6379:6379
+
     steps:
       - uses: actions/checkout@v2
- 
+
+      # JDK 17 버전으로 세팅해요.
       - name: Set up JDK 17
         uses: actions/setup-java@v2
         with:
           java-version: 17
           distribution: 'zulu'
+
+      # ignored 파일을 불러와요.
+      - name: Bring ignored files
+        uses: actions/checkout@v3
+        with:
+          repository: chatty-lab/Chatty-Backend-ignored
+          path: temp
+          token: ${{ secrets.ACTION_TOKEN }}
+
+      # 필요한 application.yml을 불러와요.
+      - name: Move Test Config File
+        run: mv temp/application-test.yml src/test/resources/application.yml
  
-      # 추가
+      # 빌드 캐시를 불러와요.
       - name: Cache Gradle packages
         uses: actions/cache@v2
         with:
@@ -29,36 +52,36 @@ jobs:
           key: ${{ runner.os }}-gradle-${{ hashFiles('**/*.gradle*', '**/gradle-wrapper.properties') }}
           restore-keys: |
             ${{ runner.os }}-gradle-
- 
+
+      # Gradlew 권한을 설정해요.
       - name: Grant execute permission for gradlew
         run: chmod +x gradlew
 
+      # ignored 된 파일을 비공개 저장소에서 불러와요.
       - name: Bring ignored files
         uses: actions/checkout@v3
         with:
           repository: chatty-lab/Chatty-Backend-ignored
           path: src/main/resources
           token: ${{ secrets.ACTION_TOKEN }}
- 
-      - name: Test with Gradle
-        run: ./gradlew --info test
- 
-      - name: Check if test results exist
-        id: check_files
-        run: |
-          if [ -f build/test-results/**/*.xml ]; then
-            echo "##[set-output name=exists;]true"
-          else
-            echo "##[set-output name=exists;]false"
-          fi
 
-      - name: Publish Unit Test Results
-        if: steps.check_files.outputs.exists == 'true'
-        uses: EnricoMi/publish-unit-test-result-action@v1
+      # 프로젝트를 빌드해요.
+      - name: Build
+        run: ./gradlew build -x test
+
+      # 테스트를 실행해요.
+      - name: Test
+      #  run: SPRING_PROFILES_ACTIVE=[test] ./gradlew test
+        run: ./gradlew test
+
+      # Test 결과를 PR 과정에 공개해요.
+      - name: Publish Test Results
+        uses: EnricoMi/publish-unit-test-result-action@v2
+        if: always()
         with:
-          files: build/test-results/**/*.xml
+          junit_files: "build/test-results/test/**/*.xml"
  
-      # 추가
+      # Gradle 캐시를 초기화해요.
       - name: Cleanup Gradle Cache
         # Remove some files from the Gradle cache, so they aren't cached by GitHub Actions.
         # Restoring these files from a GitHub Actions cache might cause problems for future builds.

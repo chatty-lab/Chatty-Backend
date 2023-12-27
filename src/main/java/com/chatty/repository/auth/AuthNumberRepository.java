@@ -24,8 +24,4 @@ public class AuthNumberRepository {
         ValueOperations<String, String> value = redisTemplateAuthNumber.opsForValue();
         return value.get(key);
     }
-
-    public void delete(String key){
-        redisTemplateAuthNumber.delete(key);
-    }
 }

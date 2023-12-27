@@ -1,6 +1,7 @@
 package com.chatty.service.auth;
 
 import com.chatty.constants.Code;
+import com.chatty.dto.auth.request.AuthRequestDto;
 import com.chatty.dto.auth.response.AuthResponseDto;
 import com.chatty.exception.CustomException;
 import com.chatty.jwt.JwtTokenProvider;
@@ -26,28 +27,20 @@ public class AuthService {
     private final UserDetailsServiceImpl userDetailsServiceImpl;
     private final RefreshTokenRepository refreshTokenRepository;
 
-    public AuthResponseDto reissueTokens(String accessToken, String refreshToken) {
+    public AuthResponseDto reissueTokens(AuthRequestDto authRequestDto) {
 
-        // access 토큰이 유효 한지 검사
-        validateAccessToken(accessToken);
+        String refreshToken = jwtTokenProvider.resolvRefreshToken(authRequestDto);
 
-        // refresh 토큰이 유효 한지 검사
         validateRefreshToken(refreshToken);
 
         Map<String,String> tokens = createTokens(refreshToken);
 
-        // refresh 토큰이 유효한 경우 토큰 재발급
         return AuthResponseDto.of(tokens.get(ACCESS_TOKEN), tokens.get(REFRESH_TOKEN));
     }
 
     private HashMap<String, String> createTokens(String refreshToken) {
 
-        // access Token은 만료되었기 때문에 데이터 추출이
         UserDetails userDetails = userDetailsServiceImpl.loadUserByUsername(jwtTokenProvider.getUuidByRefreshToken(refreshToken).split(" ")[0]);
-        if (userDetails == null) {
-            log.error("[AuthService/reissueTokens] 전달받은 accessToken의 정보를 가지는 사용자가 존재하지 않습니다.");
-            throw new CustomException(Code.INVALID_ACCESS_TOKEN);
-        }
 
         log.info("[AuthService/createTokens] 새로운 토큰 발급 시작");
         // refreshToken은 Redis에 기존에 저장되어 있던 것 지우고 새로 발급
@@ -55,7 +48,7 @@ public class AuthService {
         log.info("[AuthService/createTokens] Redis에 존재하는 기존 refresh Token 제거");
 
         String newAccessToken = jwtTokenProvider.createAccessToken(userDetails.getUsername(), userDetails.getPassword());
-        String newRefreshToken = jwtTokenProvider.createRefreshToken(userDetails.getUsername());
+        String newRefreshToken = jwtTokenProvider.createRefreshToken(userDetails.getUsername(), userDetails.getPassword());
         refreshTokenRepository.save(jwtTokenProvider.getUuidByRefreshToken(newRefreshToken), newRefreshToken);
         log.info("[AuthService/createToken] 새로 발급한 refresh Token redis 저장");
 
@@ -67,26 +60,6 @@ public class AuthService {
         newTokens.put(ACCESS_TOKEN, newAccessToken);
         newTokens.put(REFRESH_TOKEN, newRefreshToken);
         return newTokens;
-    }
-
-    public void validateAccessToken(String accessToken){
-
-        jwtTokenProvider.isExistToken(accessToken);
-
-        if(!jwtTokenProvider.isRightFormat(accessToken)){
-            log.error("올바른 토큰의 형식을 입력해주세요.");
-            throw new CustomException(Code.INVALID_ACCESS_TOKEN);
-        }
-
-        if(!jwtTokenProvider.isValidToken(JwtTokenUtils.getAccessToken(accessToken))){
-            log.error("유효하지 않은 accessToken 입니다.");
-            throw new CustomException(Code.INVALID_ACCESS_TOKEN);
-        }
-
-        if(!jwtTokenProvider.isExpiredToken(JwtTokenUtils.getAccessToken(accessToken))){
-            log.error("accessToken이 만료되지 않았습니다.");
-            throw new CustomException(Code.NOT_EXPIRED_ACCESS_TOKEN);
-        }
     }
 
     public void validateRefreshToken(String refreshToken) {
@@ -103,7 +76,6 @@ public class AuthService {
 
         if (jwtTokenProvider.isExpiredToken(refreshToken)) {
             log.error("refreshToken이 만료 되었습니다.");
-            // 만료된 경우 로그아웃 시키기
             throw new CustomException(Code.EXPIRED_REFRESH_TOKEN);
         }
 

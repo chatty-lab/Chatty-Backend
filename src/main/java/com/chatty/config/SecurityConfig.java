@@ -28,7 +28,7 @@ public class SecurityConfig {
                 .httpBasic(HttpBasicConfigurer::disable)
                 .csrf(AbstractHttpConfigurer::disable)
                 .authorizeHttpRequests(authorize -> authorize
-                                .requestMatchers("/api/reviews").authenticated()
+                                .requestMatchers("/reviews").authenticated()
                 )
                 .addFilterBefore(new JwtTokenFilter(jwtTokenProvider, userDetailsService), UsernamePasswordAuthenticationFilter.class)
                 .build();
@@ -37,8 +37,9 @@ public class SecurityConfig {
     @Bean
     public WebSecurityCustomizer webSecurityCustomizer(){
         return (web) -> web.ignoring().requestMatchers(
-                "/api/users/**",
-                "/api/auth/**"
+                "/users/**",
+                "/auth/**",
+                "/chat/**"
         );
     }
 }
