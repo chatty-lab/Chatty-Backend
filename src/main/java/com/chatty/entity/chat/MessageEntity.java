@@ -1,4 +1,4 @@
-package com.chatty.entity.message;
+package com.chatty.entity.chat;
 
 import com.chatty.entity.chat.ChatRoom;
 import com.chatty.entity.user.User;
@@ -10,7 +10,7 @@ import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
-import java.time.LocalDate;
+import java.time.LocalDateTime;
 
 @Entity
 @Table(name="message")
@@ -31,7 +31,7 @@ public class MessageEntity {
 
     private String content;
 
-    private LocalDate sendTime;
+    private LocalDateTime sendTime;
 
     private Boolean check;
 }
