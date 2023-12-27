@@ -13,7 +13,6 @@ public class ReviewController {
     public ResponseEntity<String> writeReview(){
         return ResponseEntity.ok().body("리뷰 등록이 완료되었습니다.");
     }
-}
 
     @GetMapping("/home")
     public String home() {
