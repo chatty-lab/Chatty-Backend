@@ -57,7 +57,7 @@ public class User  extends CommonEntity implements UserDetails{
     @Enumerated(EnumType.STRING)
     private Mbti mbti;
 
-    @Column(columnDefinition = "POINT SRID 4326")
+//    @Column(columnDefinition = "POINT SRID 4326")
     private Point location;
 
     private String address;
