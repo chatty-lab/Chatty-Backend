@@ -1,7 +1,8 @@
 package com.chatty.service.user;
 
 import com.chatty.constants.Code;
-import com.chatty.dto.user.request.UserRequestDto;
+import com.chatty.dto.user.request.*;
+import com.chatty.dto.user.response.UserResponse;
 import com.chatty.dto.user.response.UserResponseDto;
 import com.chatty.constants.Authority;
 import com.chatty.entity.user.User;
@@ -17,6 +18,7 @@ import java.util.Map;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 @Service
 @Slf4j
@@ -70,7 +72,7 @@ public class UserService {
 
         User user = User.builder()
                 .mobileNumber(userRequestDto.getMobileNumber())
-                .authority(Authority.USER)
+                .authority(Authority.ANONYMOUS)
                 .uuid(userRequestDto.getUuid())
                 .build();
 
@@ -96,6 +98,75 @@ public class UserService {
         refreshTokenRepository.save(jwtTokenProvider.getUuidByRefreshToken(refreshToken),refreshToken);
 
         return tokens;
+    }
+
+    @Transactional
+    public UserResponse joinComplete(final String mobileNumber, final UserJoinRequest request) {
+        User user = userRepository.findUserByMobileNumber(mobileNumber)
+                .orElseThrow(() -> new CustomException(Code.NOT_EXIST_USER));
+
+        user.joinComplete(request.toEntity());
+
+        return UserResponse.of(user);
+    }
+
+    @Transactional
+    public UserResponse updateNickname(final String mobileNumber, final UserNicknameRequest request) {
+        User user = userRepository.findUserByMobileNumber(mobileNumber)
+                .orElseThrow(() -> new CustomException(Code.NOT_EXIST_USER));
+
+        validateDuplicateNickname(request);
+
+        user.updateNickname(request.getNickname());
+
+        return UserResponse.of(user);
+    }
+
+    @Transactional
+    public UserResponse updateGender(final String mobileNumber, final UserGenderRequest request) {
+        User user = userRepository.findUserByMobileNumber(mobileNumber)
+                .orElseThrow(() -> new CustomException(Code.NOT_EXIST_USER));
+
+        user.updateGender(request.getGender());
+
+        return UserResponse.of(user);
+    }
+
+    @Transactional
+    public UserResponse updateBirth(final String mobileNumber, final UserBirthRequest request) {
+        User user = userRepository.findUserByMobileNumber(mobileNumber)
+                .orElseThrow(() -> new CustomException(Code.NOT_EXIST_USER));
+
+        user.updateBirth(request.getBirth());
+
+        return UserResponse.of(user);
+    }
+
+    @Transactional
+    public UserResponse updateMbti(final String mobileNumber, final UserMbtiRequest request) {
+        User user = userRepository.findUserByMobileNumber(mobileNumber)
+                .orElseThrow(() -> new CustomException(Code.NOT_EXIST_USER));
+
+        user.updateMbti(request.getMbti());
+
+        return UserResponse.of(user);
+    }
+
+    @Transactional
+    public UserResponse updateCoordinate(final String mobileNumber, final UserCoordinateRequest request) {
+        User user = userRepository.findUserByMobileNumber(mobileNumber)
+                .orElseThrow(() -> new CustomException(Code.NOT_EXIST_USER));
+
+        user.updateCoordinate(request.getCoordinate());
+
+        return UserResponse.of(user);
+    }
+
+    private void validateDuplicateNickname(final UserNicknameRequest request) {
+        userRepository.findByNickname(request.getNickname())
+                .ifPresent(findUser -> {
+                    throw new CustomException(Code.ALREADY_EXIST_NICKNAME);
+                });
     }
 
     private void deleteToken(String uuid){

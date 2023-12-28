@@ -22,7 +22,9 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-import org.springframework.data.geo.Point;
+import org.locationtech.jts.geom.GeometryFactory;
+import org.locationtech.jts.geom.Point;
+import org.locationtech.jts.geom.PrecisionModel;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -37,7 +39,7 @@ public class User  extends CommonEntity implements UserDetails{
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "user_id")
-    private long id;
+    private Long id;
 
     @Column(name = "mobile_number")
     @NotBlank
@@ -53,10 +55,13 @@ public class User  extends CommonEntity implements UserDetails{
 
     private LocalDate birth;
 
-    private String gender;
+    @Enumerated(EnumType.STRING)
+    private Gender gender;
 
-    private String mbti;
+    @Enumerated(EnumType.STRING)
+    private Mbti mbti;
 
+//    @Column(columnDefinition = "POINT SRID 4326")
     private Point location;
 
     private String address;
@@ -69,9 +74,43 @@ public class User  extends CommonEntity implements UserDetails{
     @OneToMany(mappedBy = "user")
     private Set<ChatRoomUser> chatRooms = new HashSet<>();
 
+    public void joinComplete(final User request) {
+        this.nickname = request.getNickname();
+        this.location = request.getLocation();
+        this.gender = request.getGender();
+        this.birth = request.getBirth();
+        this.mbti = request.getMbti();
+        this.authority = request.getAuthority();
+    }
+
+    public void updateNickname(final String nickname) {
+        this.nickname = nickname;
+    }
+
+    public void updateGender(final Gender gender) {
+        this.gender = gender;
+    }
+
+    public void updateBirth(final LocalDate birth) {
+        this.birth = birth;
+    }
+
+    public void updateMbti(final Mbti mbti) {
+        this.mbti = mbti;
+    }
+
+    public void updateCoordinate(final Coordinate coordinate) {
+        this.location = createPoint(coordinate);
+    }
+
+    public static Point createPoint(final Coordinate coordinate) {
+        GeometryFactory geometryFactory = new GeometryFactory(new PrecisionModel(), 4326);
+        return geometryFactory.createPoint(new org.locationtech.jts.geom.Coordinate(coordinate.getLng(), coordinate.getLat()));
+    }
+
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        return List.of(new SimpleGrantedAuthority(authority.name()));
+        return List.of(new SimpleGrantedAuthority("ROLE_" + authority.name()));
     }
 
     @Override

@@ -1,0 +1,36 @@
+spring:
+  datasource:
+    driver-class-name: org.h2.Driver
+    url: jdbc:h2:mem:testdb;
+    username: sa
+    password:
+
+  jpa:
+    hibernate:
+      ddl-auto: create
+    show-sql: true
+    properties:
+      hibernate:
+        format_sql: true
+        default_batch_fetch_size: 100
+#        dialect: org.hibernate.dialect.MySQLDialect
+        use_sql_comments: true
+        highlight_sql: true
+    open-in-view: false
+
+logging:
+  level:
+    root: info
+
+jwt-secret-key: ZXCASDQWE123ZXCASDQWE123ZXCASDQWE123ZXCASDQWE123
+jwt-access-token-expiration-time: 60000
+jwt-refresh-token-expiration-time: 300000
+
+naver-cloud-sms-access-key: ZXCASDWQE123ZXCASDQWE123
+naver-cloud-sms-secret-key: ZXCASDWQE123ZXCASDQWE123ZXCASDWQE123ZXCASDQWE123
+naver-cloud-sms-service-id: ncp:sms:kr:1234566778734:naver_sms
+naver-cloud-sms-sender-phone-number: 01062585055
+
+redis-token-host: localhost
+redis-authenticationNumber-host: localhost
+redis-port: 6379

@@ -14,6 +14,7 @@ import org.mockito.MockitoAnnotations;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.util.ReflectionTestUtils;
+import com.chatty.utils.JwtTokenUtils;
 
 @SpringBootTest
 class JwtTokenProviderTest {
@@ -81,7 +82,7 @@ class JwtTokenProviderTest {
         String accessToken = PREFIX_ACCESTOKEN + jwtTokenProvider.createAccessToken(mobileNumber1, uuid);
 
         //when
-        String mobileNumber2 = jwtTokenProvider.getMobileNumber(accessToken);
+         String mobileNumber2 = jwtTokenProvider.getMobileNumber(JwtTokenUtils.getAccessToken(accessToken));
 
         //then
         assertThat(mobileNumber1).isEqualTo(mobileNumber2);
