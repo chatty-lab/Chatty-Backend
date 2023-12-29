@@ -1,4 +1,4 @@
-package com.chatty.config;
+package com.chatty.handler;
 
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;

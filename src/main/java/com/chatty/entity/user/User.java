@@ -2,7 +2,6 @@ package com.chatty.entity.user;
 
 import com.chatty.constants.Authority;
 import com.chatty.entity.CommonEntity;
-import com.chatty.entity.chat.ChatRoomUser;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.EnumType;
@@ -10,14 +9,11 @@ import jakarta.persistence.Enumerated;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
-import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 import jakarta.validation.constraints.NotBlank;
 import java.time.LocalDate;
 import java.util.Collection;
-import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
@@ -70,9 +66,6 @@ public class User  extends CommonEntity implements UserDetails{
     private Authority authority;
 
     private String imageUrl;
-
-    @OneToMany(mappedBy = "user")
-    private Set<ChatRoomUser> chatRooms = new HashSet<>();
 
     public void joinComplete(final User request) {
         this.nickname = request.getNickname();

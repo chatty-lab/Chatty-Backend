@@ -34,12 +34,11 @@ public class JwtTokenFilter extends OncePerRequestFilter {
         accessToken = JwtTokenUtils.getAccessToken(accessToken);
 
         String userMobileNumber = jwtTokenProvider.getMobileNumber(accessToken);
-        log.info(userMobileNumber);
         UserDetails userDetails = userDetailsService.loadUserByUsername(userMobileNumber);
-        log.info(String.valueOf(userDetails));
         UsernamePasswordAuthenticationToken authenticationToken = new UsernamePasswordAuthenticationToken(userDetails,null,
                 userDetails.getAuthorities());
         SecurityContextHolder.getContext().setAuthentication(authenticationToken);
+        log.info("doFilter로 넘어가기");
         filterChain.doFilter(request, response);
     }
 

@@ -1,5 +1,6 @@
 package com.chatty.config;
 
+import com.chatty.handler.CustomAccessDeniedHandler;
 import com.chatty.jwt.JwtTokenFilter;
 import com.chatty.jwt.JwtTokenProvider;
 import com.chatty.service.user.UserDetailsServiceImpl;
@@ -30,9 +31,9 @@ public class SecurityConfig {
                 .httpBasic(HttpBasicConfigurer::disable)
                 .csrf(AbstractHttpConfigurer::disable)
                 .authorizeHttpRequests(authorize -> authorize
-                                .requestMatchers("/api/reviews/home").hasRole("USER")
-                                .requestMatchers("/api/reviews/**").authenticated()
-                        .anyRequest().authenticated()
+                                .requestMatchers("/reviews/home").hasRole("USER")
+                                .requestMatchers("/reviews/**").authenticated()
+                        .requestMatchers("/chat/**").authenticated()
                 )
                 .addFilterBefore(new JwtTokenFilter(jwtTokenProvider, userDetailsService), UsernamePasswordAuthenticationFilter.class)
 
@@ -48,8 +49,7 @@ public class SecurityConfig {
     public WebSecurityCustomizer webSecurityCustomizer(){
         return (web) -> web.ignoring().requestMatchers(
                 "/users/**",
-                "/auth/**",
-                "/chat/**"
+                "/auth/**"
         );
     }
 }
