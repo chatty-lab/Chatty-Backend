@@ -145,7 +145,6 @@ public class JwtTokenProvider {
 
     public String resolveAccessToken(HttpServletRequest request) {
         String accessToken = request.getHeader(AUTHORIZATION);
-
         return accessToken;
     }
 

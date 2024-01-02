@@ -1,6 +1,5 @@
 package com.chatty.dto.chat.request;
 
-import com.chatty.constants.MessageType;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
@@ -16,8 +15,6 @@ import lombok.Setter;
 @Builder
 public class MessageDto {
 
-    private MessageType type;
-
     @NotNull
     private Long roomId;
 
@@ -26,8 +23,4 @@ public class MessageDto {
 
     @NotBlank
     private String content;
-
-    public void setContent(String content){
-        this.content = content;
-    }
 }

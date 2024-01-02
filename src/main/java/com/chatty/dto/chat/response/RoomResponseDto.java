@@ -1,6 +1,5 @@
 package com.chatty.dto.chat.response;
 
-import com.chatty.entity.user.User;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;

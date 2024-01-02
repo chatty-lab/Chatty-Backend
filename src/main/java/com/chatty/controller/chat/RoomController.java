@@ -25,17 +25,17 @@ public class RoomController {
 
     private final RoomService roomService;
 
-    @PostMapping("/room")
+    @PostMapping("/create/room")
     public DataResponseDto<RoomResponseDto> createRoom(@Valid @RequestBody ChatDto chatDto, @AuthenticationPrincipal User userDetails){
 
-        log.info("채팅방 생성 Controller 실행");
+        log.info("채팅방 생성");
         Long roomId = roomService.createRoom(chatDto.getUserId(), userDetails);
 
         return DataResponseDto.of(RoomResponseDto.builder().roomId(roomId).build());
     }
 
-    @GetMapping("/{room-id}")
-    public DataResponseDto<RoomResponseDto> getChatRoom(@PathVariable("room-id") long roomId){
+    @PostMapping("/room")
+    public DataResponseDto<RoomResponseDto> getRoom(@RequestBody long roomId){
         ChatRoom chatRoom = roomService.findChatRoom(roomId);
 
         return DataResponseDto.of(RoomResponseDto.builder().roomId(chatRoom.getRoomId()).receiverId(chatRoom.getReceiver().getId()).senderId(chatRoom.getSender().getId()).build());
