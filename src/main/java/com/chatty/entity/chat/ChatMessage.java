@@ -39,4 +39,12 @@ public class ChatMessage {
     @JoinColumn(name = "room_id")
     private ChatRoom chatRoom;
 
+    public static ChatMessage to(ChatRoom chatRoom, User sender, String content){
+        return ChatMessage.builder()
+                .chatRoom(chatRoom)
+                .sender(sender)
+                .content(content)
+                .sendTime(LocalDateTime.now())
+                .build();
+    }
 }

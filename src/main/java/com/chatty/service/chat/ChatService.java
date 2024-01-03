@@ -9,7 +9,6 @@ import com.chatty.exception.CustomException;
 import com.chatty.repository.chat.ChatRoomRepository;
 import com.chatty.repository.chat.MessageRepository;
 import com.chatty.repository.user.UserRepository;
-import java.time.LocalDateTime;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
@@ -34,7 +33,7 @@ public class ChatService {
         User sender = User.builder().id(messageDto.getSenderId()).build();
         ChatRoom chatRoom = roomService.findChatRoom(roomId);
 
-        messageRepository.save(ChatMessage.builder().chatRoom(chatRoom).sender(sender).sendTime(LocalDateTime.now()).content(messageDto.getContent()).build());
+        messageRepository.save(ChatMessage.to(chatRoom,sender,messageDto.getContent()));
 
         log.info("메시지 저장이 완료되었습니다.");
     }

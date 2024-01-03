@@ -1,7 +1,6 @@
 package com.chatty.controller.chat;
 
 import com.chatty.dto.ApiResponse;
-import com.chatty.dto.DataResponseDto;
 import com.chatty.dto.chat.request.RoomDto;
 import com.chatty.dto.chat.response.RoomResponseDto;
 import com.chatty.service.chat.RoomService;

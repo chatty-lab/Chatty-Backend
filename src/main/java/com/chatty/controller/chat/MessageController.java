@@ -7,6 +7,8 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.messaging.handler.annotation.DestinationVariable;
 import org.springframework.messaging.handler.annotation.MessageMapping;
 import org.springframework.messaging.handler.annotation.SendTo;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RestController;
 
 @Slf4j
@@ -30,4 +32,10 @@ public class MessageController {
                 .content(messageDto.getContent())
                 .build());
     }
+
+    @GetMapping("/chat/message/{roomId}")
+    public ApiResponse<MessageDto> getMessages(@PathVariable Long roomId){
+
+    }
+
 }
