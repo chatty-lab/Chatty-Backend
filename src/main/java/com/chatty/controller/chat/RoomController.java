@@ -1,15 +1,14 @@
 package com.chatty.controller.chat;
 
 import com.chatty.dto.DataResponseDto;
-import com.chatty.dto.chat.request.ChatDto;
+import com.chatty.dto.chat.request.RoomDto;
 import com.chatty.dto.chat.response.RoomResponseDto;
-import com.chatty.entity.chat.ChatRoom;
-import com.chatty.entity.user.User;
 import com.chatty.service.chat.RoomService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -24,18 +23,20 @@ public class RoomController {
     private final RoomService roomService;
 
     @PostMapping("/create/room")
-    public DataResponseDto<RoomResponseDto> createRoom(@Valid @RequestBody ChatDto chatDto, @AuthenticationPrincipal User userDetails){
-
+    public DataResponseDto<RoomResponseDto> createRoom(@Valid @RequestBody RoomDto roomDto){
         log.info("채팅방 생성");
-        Long roomId = roomService.createRoom(chatDto.getUserId(), userDetails);
-
-        return DataResponseDto.of(RoomResponseDto.builder().roomId(roomId).build());
+        return DataResponseDto.of(roomService.createRoom(roomDto));
     }
 
-    @PostMapping("/room")
-    public DataResponseDto<RoomResponseDto> getRoom(@RequestBody long roomId){
-        ChatRoom chatRoom = roomService.findChatRoom(roomId);
+    @GetMapping("/delete/room/{roomId}")
+    public DataResponseDto<RoomResponseDto> deleteRoom(@PathVariable Long roomId){
+        log.info("채팅방 삭제");
+        return DataResponseDto.of(roomService.deleteRoom(roomId));
+    }
 
-        return DataResponseDto.of(RoomResponseDto.builder().roomId(chatRoom.getRoomId()).receiverId(chatRoom.getReceiver().getId()).senderId(chatRoom.getSender().getId()).build());
+    @GetMapping("/room/{roomId}")
+    public DataResponseDto<RoomResponseDto> getRoom(@PathVariable Long roomId){
+        log.info("채팅방 찾기");
+        return DataResponseDto.of(roomService.findChatRoom(roomId));
     }
 }

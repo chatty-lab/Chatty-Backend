@@ -30,12 +30,4 @@ public class ChatRoom extends CommonEntity {
     @ManyToOne
     @JoinColumn(name = "receiver_id")
     private User receiver;
-
-    public void setSender(User sender){
-        this.sender = sender;
-    }
-
-    public void setReceiver(User receiver){
-        this.receiver = receiver;
-    }
 }

@@ -178,7 +178,8 @@ public class UserService {
         return userRepository.existsUserByMobileNumber(mobileNumber);
     }
 
-    public User validateExistUser(long receiverId) {
-        return userRepository.findUserById(receiverId).orElseThrow(() -> new CustomException(Code.NOT_EXIST_USER));
+    public User validateExistUser(long userId) {
+        log.info("유저가 유효한지 검사");
+        return userRepository.findUserById(userId).orElseThrow(() -> new CustomException(Code.NOT_EXIST_USER));
     }
 }
