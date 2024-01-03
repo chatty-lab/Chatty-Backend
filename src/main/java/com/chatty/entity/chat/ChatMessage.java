@@ -39,11 +39,4 @@ public class ChatMessage {
     @JoinColumn(name = "room_id")
     private ChatRoom chatRoom;
 
-    public void setSender(User sender){
-        this.sender = sender;
-    }
-
-    public void setChatRoom(ChatRoom chatRoom){
-        this.chatRoom = chatRoom;
-    }
 }

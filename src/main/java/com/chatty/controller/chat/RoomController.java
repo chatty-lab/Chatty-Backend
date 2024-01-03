@@ -1,5 +1,6 @@
 package com.chatty.controller.chat;
 
+import com.chatty.dto.ApiResponse;
 import com.chatty.dto.DataResponseDto;
 import com.chatty.dto.chat.request.RoomDto;
 import com.chatty.dto.chat.response.RoomResponseDto;
@@ -23,20 +24,20 @@ public class RoomController {
     private final RoomService roomService;
 
     @PostMapping("/create/room")
-    public DataResponseDto<RoomResponseDto> createRoom(@Valid @RequestBody RoomDto roomDto){
+    public ApiResponse<RoomResponseDto> createRoom(@Valid @RequestBody RoomDto roomDto){
         log.info("채팅방 생성");
-        return DataResponseDto.of(roomService.createRoom(roomDto));
+        return ApiResponse.ok(RoomResponseDto.of(roomService.createRoom(roomDto)));
     }
 
     @GetMapping("/delete/room/{roomId}")
-    public DataResponseDto<RoomResponseDto> deleteRoom(@PathVariable Long roomId){
+    public ApiResponse<String> deleteRoom(@PathVariable Long roomId){
         log.info("채팅방 삭제");
-        return DataResponseDto.of(roomService.deleteRoom(roomId));
+        return ApiResponse.ok(roomService.deleteRoom(roomId));
     }
 
     @GetMapping("/room/{roomId}")
-    public DataResponseDto<RoomResponseDto> getRoom(@PathVariable Long roomId){
+    public ApiResponse<RoomResponseDto> getRoom(@PathVariable Long roomId){
         log.info("채팅방 찾기");
-        return DataResponseDto.of(roomService.findChatRoom(roomId));
+        return ApiResponse.ok(RoomResponseDto.of(roomService.findChatRoom(roomId)));
     }
 }

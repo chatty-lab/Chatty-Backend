@@ -1,5 +1,6 @@
 package com.chatty.dto.chat.response;
 
+import com.chatty.entity.chat.ChatRoom;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
@@ -14,11 +15,11 @@ public class RoomResponseDto {
     private Long senderId;
     private Long receiverId;
 
-    public static RoomResponseDto of(Long roomId, Long senderId, Long receiverId){
+    public static RoomResponseDto of(ChatRoom chatRoom){
         return RoomResponseDto.builder()
-                .roomId(roomId)
-                .senderId(senderId)
-                .receiverId(receiverId)
+                .roomId(chatRoom.getRoomId())
+                .senderId(chatRoom.getSender().getId())
+                .receiverId(chatRoom.getReceiver().getId())
                 .build();
     }
 }

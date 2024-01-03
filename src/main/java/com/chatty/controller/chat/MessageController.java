@@ -1,5 +1,7 @@
 package com.chatty.controller.chat;
+import com.chatty.dto.ApiResponse;
 import com.chatty.dto.chat.request.MessageDto;
+import com.chatty.service.chat.ChatService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.messaging.handler.annotation.DestinationVariable;
@@ -12,19 +14,20 @@ import org.springframework.web.bind.annotation.RestController;
 @RequiredArgsConstructor
 public class MessageController {
 
-    // stompConfig 에서 설정한 applicationDestinationPrefixes 와 @MessageMapping 경로가 병합
-    // /pub/chat/message/{roomId} 메세지가 오면 동작
+    private final ChatService chatService;
+
     @MessageMapping(value = "/chat/message/{roomId}")
     @SendTo(value = "/sub/chat/{roomId}")
-    public MessageDto message(@DestinationVariable Long roomId, MessageDto messageDto){
-        log.debug("메세지 전송 {}", roomId);
+    public ApiResponse<MessageDto> message(@DestinationVariable Long roomId, MessageDto messageDto){
         log.info("메세지 전송");
         log.info("{}",messageDto);
 
-        return MessageDto.builder()
-                .roomId(roomId)
+        chatService.saveMessage(roomId, messageDto);
+
+        return ApiResponse.ok(MessageDto.builder()
+                .roomId(messageDto.getRoomId())
                 .senderId(messageDto.getSenderId())
                 .content(messageDto.getContent())
-                .build();
+                .build());
     }
 }
