@@ -18,15 +18,13 @@ public class WebSocketConfig implements WebSocketMessageBrokerConfigurer {
 
     @Override
     public void registerStompEndpoints(StompEndpointRegistry registry) {
-        WebSocketMessageBrokerConfigurer.super.registerStompEndpoints(registry);
         registry.addEndpoint("/ws")
+                .addInterceptors()
                 .setAllowedOriginPatterns("*");
     }
 
     @Override
     public void configureMessageBroker(MessageBrokerRegistry registry) {
-        WebSocketMessageBrokerConfigurer.super.configureMessageBroker(registry);
-
         // 메시지를 구독하는 요청 url
         registry.enableSimpleBroker("/sub");
 
@@ -36,7 +34,6 @@ public class WebSocketConfig implements WebSocketMessageBrokerConfigurer {
 
     @Override
     public void configureClientInboundChannel(ChannelRegistration registration) {
-        WebSocketMessageBrokerConfigurer.super.configureClientInboundChannel(registration);
         registration.interceptors(stompHandler);
     }
 }
