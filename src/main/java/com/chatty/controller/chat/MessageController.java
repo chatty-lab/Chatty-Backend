@@ -1,16 +1,16 @@
 package com.chatty.controller.chat;
 import com.chatty.dto.ApiResponse;
 import com.chatty.dto.chat.request.MessageDto;
+import com.chatty.dto.chat.request.UnreadMessageDto;
 import com.chatty.service.chat.ChatService;
 import java.util.List;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.data.domain.Page;
 import org.springframework.messaging.handler.annotation.DestinationVariable;
 import org.springframework.messaging.handler.annotation.MessageMapping;
 import org.springframework.messaging.handler.annotation.SendTo;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
 @Slf4j
@@ -27,7 +27,7 @@ public class MessageController {
         log.info("{}",messageDto);
 
         chatService.saveMessage(roomId, messageDto);
-        return ApiResponse.ok(MessageDto.to(messageDto));
+        return ApiResponse.ok(messageDto);
     }
 
     @MessageMapping(value = "/readMessage/{messageId}")
@@ -36,9 +36,10 @@ public class MessageController {
         chatService.markMessageAsRead(messageId);
     }
 
-//    @GetMapping("/chat/message/{roomId}")
-//    public ApiResponse<Page<MessageDto>> getMessages(@PathVariable Long roomId){
-//
-//    }
+    @PostMapping("/chat/message")
+    public ApiResponse<List<MessageDto>> getMessages(@RequestBody UnreadMessageDto unreadMessageDto){
+
+        return ApiResponse.ok(chatService.getMessages(unreadMessageDto));
+    }
 
 }

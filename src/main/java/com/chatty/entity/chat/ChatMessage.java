@@ -36,23 +36,28 @@ public class ChatMessage {
     private User sender;
 
     @ManyToOne
+    @JoinColumn(name = "receiver_id")
+    private User receiver;
+
+    @ManyToOne
     @JoinColumn(name = "room_id")
     private ChatRoom chatRoom;
 
     @Column(nullable = false)
     private Boolean isRead;
 
-    public static ChatMessage to(ChatRoom chatRoom, User sender, String content){
+    public static ChatMessage to(ChatRoom chatRoom, User sender, User receiver, String content) {
         return ChatMessage.builder()
                 .chatRoom(chatRoom)
                 .sender(sender)
+                .receiver(receiver)
                 .content(content)
                 .sendTime(LocalDateTime.now())
                 .isRead(false)
                 .build();
     }
 
-    public void setIsRead(){
+    public void setIsRead() {
         this.isRead = !this.isRead;
     }
 }
