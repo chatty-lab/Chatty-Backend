@@ -23,4 +23,12 @@ public class MessageDto {
 
     @NotBlank
     private String content;
+
+    public static MessageDto to(MessageDto messageDto){
+        return MessageDto.builder()
+                .roomId(messageDto.roomId)
+                .senderId(messageDto.senderId)
+                .content(messageDto.content)
+                .build();
+    }
 }

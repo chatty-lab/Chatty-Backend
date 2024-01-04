@@ -39,12 +39,20 @@ public class ChatMessage {
     @JoinColumn(name = "room_id")
     private ChatRoom chatRoom;
 
+    @Column(nullable = false)
+    private Boolean isRead;
+
     public static ChatMessage to(ChatRoom chatRoom, User sender, String content){
         return ChatMessage.builder()
                 .chatRoom(chatRoom)
                 .sender(sender)
                 .content(content)
                 .sendTime(LocalDateTime.now())
+                .isRead(false)
                 .build();
+    }
+
+    public void setIsRead(){
+        this.isRead = !this.isRead;
     }
 }

@@ -2,8 +2,10 @@ package com.chatty.controller.chat;
 import com.chatty.dto.ApiResponse;
 import com.chatty.dto.chat.request.MessageDto;
 import com.chatty.service.chat.ChatService;
+import java.util.List;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.data.domain.Page;
 import org.springframework.messaging.handler.annotation.DestinationVariable;
 import org.springframework.messaging.handler.annotation.MessageMapping;
 import org.springframework.messaging.handler.annotation.SendTo;
@@ -25,17 +27,18 @@ public class MessageController {
         log.info("{}",messageDto);
 
         chatService.saveMessage(roomId, messageDto);
-
-        return ApiResponse.ok(MessageDto.builder()
-                .roomId(messageDto.getRoomId())
-                .senderId(messageDto.getSenderId())
-                .content(messageDto.getContent())
-                .build());
+        return ApiResponse.ok(MessageDto.to(messageDto));
     }
 
-    @GetMapping("/chat/message/{roomId}")
-    public ApiResponse<MessageDto> getMessages(@PathVariable Long roomId){
-
+    @MessageMapping(value = "/readMessage/{messageId}")
+    public void readMessage(@DestinationVariable Long messageId){
+        log.info("메시지 읽음 처리 - 아이디 : {}",messageId);
+        chatService.markMessageAsRead(messageId);
     }
+
+//    @GetMapping("/chat/message/{roomId}")
+//    public ApiResponse<Page<MessageDto>> getMessages(@PathVariable Long roomId){
+//
+//    }
 
 }
