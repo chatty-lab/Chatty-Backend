@@ -36,9 +36,8 @@ public class MessageController {
         chatService.markMessageAsRead(messageId);
     }
 
-    @PostMapping("/chat/message")
+    @PostMapping("/chat/messages")
     public ApiResponse<List<MessageDto>> getMessages(@RequestBody UnreadMessageDto unreadMessageDto){
-
         return ApiResponse.ok(chatService.getMessages(unreadMessageDto));
     }
 
