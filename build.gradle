@@ -37,6 +37,15 @@ dependencies {
     // hibernate-spatial
     implementation 'org.hibernate:hibernate-spatial:6.3.1.Final'
 
+    // gson
+    implementation 'com.google.code.gson:gson:2.9.0'
+
+    // websocket
+    implementation 'org.springframework.boot:spring-boot-starter-websocket'
+
+    // thyme-leaf
+    implementation 'org.springframework.boot:spring-boot-starter-thymeleaf'
+
     compileOnly 'org.projectlombok:lombok'
     runtimeOnly 'com.h2database:h2'
     runtimeOnly 'com.mysql:mysql-connector-j'
