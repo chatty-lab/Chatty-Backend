@@ -29,7 +29,7 @@ public class AuthController {
         return DataResponseDto.of(authService.reissueTokens(authRequestDto));
     }
 
-    @PostMapping("/mobile")
+    @PostMapping("/sms")
     public DataResponseDto<SmsUserResponseDto> mobile(@Valid @RequestBody UserSmsRequestDto userSmsRequestDto) throws Exception {
         log.info("번호 인증 요청");
         return DataResponseDto.of(smsService.saveSms(userSmsRequestDto));
