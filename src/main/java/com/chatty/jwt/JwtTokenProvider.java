@@ -148,12 +148,4 @@ public class JwtTokenProvider {
 
         return accessToken;
     }
-
-    public String resolvRefreshToken(AuthRequestDto authRequestDto){
-        log.info("[resolveRefreshToken] Request로 전달받은 refreshToken 분리");
-        String refreshToken = authRequestDto.getRefreshToken();
-        log.info("[resolveRefreshToken] refreshToken : {}",refreshToken);
-
-        return refreshToken;
-    }
 }
