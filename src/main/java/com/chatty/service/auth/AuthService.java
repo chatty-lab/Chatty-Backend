@@ -29,7 +29,7 @@ public class AuthService {
 
     public AuthResponseDto reissueTokens(AuthRequestDto authRequestDto) {
 
-        String refreshToken = jwtTokenProvider.resolvRefreshToken(authRequestDto);
+        String refreshToken = authRequestDto.getRefreshToken();
 
         validateRefreshToken(refreshToken);
 
