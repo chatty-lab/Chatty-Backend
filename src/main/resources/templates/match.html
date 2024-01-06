@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>WebSocket Chatting</title>
+</head>
+<body>
+<h3 id="room-name"></h3>
+<div id="conversation">
+    <div id="response"></div>
+    <form id="chat-form">
+        <h4>
+            이름: <span id="username-holder"></span>
+        </h4>
+        <input type="text" id="message" placeholder="Write a message..." value="message"/>
+        <input type="text" id="minAge" placeholder="Write a minAge..." value="25"/>
+        <input type="text" id="maxAge" placeholder="Write a maxAge..." value="30"/>
+        <input type="text" id="gender" placeholder="Write a gender..." value="MALE"/>
+        <input type="text" id="scope" placeholder="Write a scope..." value="300.0"/>
+        <input type="text" id="category" placeholder="Write a category..." value="category"/>
+<!--        <button type="submit">Send</button>-->
+        <button type="button" id="api-button">매칭하기</button>
+    </form>
+
+<!--    <form id="chat-form2">-->
+<!--        <button type="submit">Send</button>-->
+<!--    </form>-->
+</div>
+<script>
+    alert('자바스크립트 웹소켓 접속');
+    // const token = localStorage.getItem("access_token");
+    //
+    // const username = (new URLSearchParams(location.search)).get("username")
+    // const scope = (new URLSearchParams(location.search)).get("scope")
+    // document.getElementById("username-holder").innerText = username
+    // const webSocket = new WebSocket(`ws://localhost:8080/ws/match?token=${username}&scope=${scope}`)
+    // webSocket.onmessage = (msg) => {
+    //     console.log(msg)
+    //     const data = JSON.parse(msg.data)
+    //     const chatMessage = document.createElement("div")
+    //     const message = document.createElement("p")
+    //     const message2 = document.createElement("p")
+    //     const message3 = document.createElement("p")
+    //     const message4 = document.createElement("p")
+    //     // message.innerText = data.username + ": " + data.message;
+    //     message.innerText = data.nickname + ": " + data.gender;
+    //     message2.innerText = "이름: " + data.nickname;
+    //     message3.innerText = "나이: " + data.age;
+    //     message4.innerText = "mbti: " + data.mbti;
+    //
+    //     chatMessage.appendChild(message)
+    //     chatMessage.appendChild(message2)
+    //     chatMessage.appendChild(message3)
+    //     chatMessage.appendChild(message4)
+    //     document.getElementById("response").appendChild(chatMessage)
+    // }
+    // const username = (new URLSearchParams(location.search)).get("username")
+    // document.getElementById("username-holder").innerText = username
+    const webSocket = new WebSocket("ws://localhost:8080/ws/match")
+    // webSocket.onopen = (event) => {
+    //   console.log(event)
+    //   // webSocket.send(JSON.stringify({
+    //   //   username,
+    //   //   message: `${username} 입장`
+    //   // }))
+    // }
+    webSocket.onmessage = (msg) => {
+        console.log(msg)
+        const data = JSON.parse(msg.data)
+        // alert(data.age);
+        // location.href = '/match/' + data.age;
+        // const chatMessage = document.createElement("div")
+        // const message = document.createElement("p")
+        // message.innerText = data.username + ": " + data.message;
+        // alert(data.sender);
+        // message.innerText = data.sender + ": " + data.sender;
+        // alert('메세지 신청');
+
+        // chatMessage.appendChild(message)
+        // document.getElementById("response").appendChild(chatMessage)
+    }
+
+
+    webSocket.onclose = (event) => {
+        // console.log(event.code);
+        // console.log(event.message);
+        // alert(localStorage.getItem("access_token"));
+        console.log(event)
+        alert('매칭이 완료되었습니다.');
+        // location.href = '/home';
+    }
+
+    // webSocket.onclose = (event) => {
+    //     console.log(event)
+    //     alert('매칭이 완료되었습니다.');
+    //     location.href = '/home';
+    //     // webSocket.send(JSON.stringify({
+    //     //     username,
+    //     //     message: `${username} 퇴장`
+    //     // }))
+    // }
+
+    // document.getElementById("chat-form").addEventListener("submit", e => {
+    //     e.preventDefault()
+    //     const messageInput = document.getElementById("message")
+    //     const message = messageInput.value
+    //     webSocket.send("accept")
+    //     // webSocket.send(JSON.stringify({
+    //     //     username, message
+    //     // }))
+    //     messageInput.value = ""
+    // })
+
+    // document.getElementById("chat-form2").addEventListener("submit", e => {
+    //     e.preventDefault()
+    //     const messageInput = document.getElementById("message")
+    //     const message = messageInput.value
+    //     webSocket.send("reject")
+    //     messageInput.value = ""
+    // })
+////////////////////////////////////////////////////////////////////////
+
+    document.getElementById("api-button").addEventListener("click", e => {
+        // alert('event 발생!');
+        body = JSON.stringify({
+            message: document.getElementById("message").value,
+            minAge: document.getElementById("minAge").value,
+            maxAge: document.getElementById("maxAge").value,
+            category: document.getElementById("category").value,
+            scope: document.getElementById("scope").value,
+            gender: document.getElementById("gender").value
+        })
+
+        function success() {
+            alert('api 호출 완료');
+        }
+
+        function fail() {
+            alert('api 호출 !!실패!!');
+        }
+
+        httpRequest("POST", "/match", body, success, fail);
+    })
+
+    function httpRequest(method, url, body, success, fail) {
+        fetch(url, {
+            method: method,
+            headers: {
+                Authorization: "Bearer " + localStorage.getItem("access_token"),
+                "Content-Type": "application/json"
+            },
+            body: body
+        }).then(response => {
+            if (response.status === 200 || response.status === 201) {
+                response.json().then(body => {
+                    console.log(body.data.requestMinAge);
+                    console.log(body.data.requestMaxAge);
+                    console.log(body.data.requestGender);
+                    console.log(body.data.requestCategory);
+                    console.log(body.data.requestScope);
+                    const id = body.data.userId;
+                    const age = body.data.age;
+                    const requestMinAge = body.data.requestMinAge;
+                    const requestMaxAge = body.data.requestMaxAge;
+                    const requestGender = body.data.requestGender;
+                    const requestScope = body.data.requestScope;
+                    const requestCategory = body.data.requestCategory;
+                    const nickname = body.data.nickname;
+                    const gender = body.data.gender;
+
+                    webSocket.send(JSON.stringify({
+                        id,
+                        age,
+                        requestMinAge,
+                        requestMaxAge,
+                        requestGender,
+                        requestScope,
+                        requestCategory,
+                        nickname,
+                        gender,
+                    }))
+
+                })
+                return success();
+            } else {
+                return fail();
+            }
+        })
+    }
+</script>
+</body>
+</html>
