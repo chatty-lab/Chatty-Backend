@@ -34,7 +34,7 @@ public class UserController {
         return DataResponseDto.of(userService.join(userRequestDto));
     }
 
-    @PutMapping("/join")
+    @PutMapping("/update")
     public ApiResponse<UserResponse> joinComplete(@Valid @RequestBody UserJoinRequest request,
                                                   final Authentication authentication) {
 

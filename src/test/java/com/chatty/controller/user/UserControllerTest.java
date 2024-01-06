@@ -295,7 +295,7 @@ class UserControllerTest {
 
         // when // then
         mockMvc.perform(
-                        put("/users/join").with(csrf())
+                        put("/users/update").with(csrf())
                                 .contentType(MediaType.APPLICATION_JSON)
                                 .content(objectMapper.writeValueAsString(request))
                 )
@@ -320,7 +320,7 @@ class UserControllerTest {
 
         // when // then
         mockMvc.perform(
-                        put("/users/join").with(csrf())
+                        put("/users/update").with(csrf())
                                 .contentType(MediaType.APPLICATION_JSON)
                                 .content(objectMapper.writeValueAsString(request))
                 )
@@ -346,7 +346,7 @@ class UserControllerTest {
 
         // when // then
         mockMvc.perform(
-                        put("/users/join").with(csrf())
+                        put("/users/update").with(csrf())
                                 .contentType(MediaType.APPLICATION_JSON)
                                 .content(objectMapper.writeValueAsString(request))
                 )
@@ -372,7 +372,7 @@ class UserControllerTest {
 
         // when // then
         mockMvc.perform(
-                        put("/users/join").with(csrf())
+                        put("/users/update").with(csrf())
                                 .contentType(MediaType.APPLICATION_JSON)
                                 .content(objectMapper.writeValueAsString(request))
                 )
@@ -398,7 +398,7 @@ class UserControllerTest {
 
         // when // then
         mockMvc.perform(
-                        put("/users/join").with(csrf())
+                        put("/users/update").with(csrf())
                                 .contentType(MediaType.APPLICATION_JSON)
                                 .content(objectMapper.writeValueAsString(request))
                 )
@@ -424,7 +424,7 @@ class UserControllerTest {
 
         // when // then
         mockMvc.perform(
-                        put("/users/join").with(csrf())
+                        put("/users/update").with(csrf())
                                 .contentType(MediaType.APPLICATION_JSON)
                                 .content(objectMapper.writeValueAsString(request))
                 )
