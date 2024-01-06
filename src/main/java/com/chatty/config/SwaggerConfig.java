@@ -6,6 +6,8 @@ import io.swagger.v3.oas.models.info.Info;
 import io.swagger.v3.oas.models.security.SecurityRequirement;
 import io.swagger.v3.oas.models.security.SecurityScheme;
 import io.swagger.v3.oas.models.security.SecurityScheme.Type;
+import io.swagger.v3.oas.models.servers.Server;
+import java.util.List;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
@@ -16,6 +18,10 @@ public class SwaggerConfig {
 
         String jwtSchemeName = "jwt";
         SecurityRequirement securityRequirement = new SecurityRequirement().addList(jwtSchemeName);
+
+        Server server = new Server();
+        server.setUrl("https://dev.api.chattylab.org");
+
         Components components = new Components()
                 .addSecuritySchemes(jwtSchemeName, new SecurityScheme()
                         .name(jwtSchemeName)
@@ -27,7 +33,8 @@ public class SwaggerConfig {
         return new OpenAPI()
                 .info(apiInfo())
                 .addSecurityItem(securityRequirement)
-                .components(components);
+                .components(components)
+                .servers(List.of(server));
     }
 
     private Info apiInfo(){
