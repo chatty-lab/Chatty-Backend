@@ -8,7 +8,7 @@
 
     <appender name="INFO_LOG" class="ch.qos.logback.core.rolling.RollingFileAppender">
 
-        <file>./logs/info.log</file>
+        <file>/home/ubuntu/spring.log</file>
         <filter class="ch.qos.logback.classic.filter.LevelFilter">
             <level>INFO</level>
             <onMatch>ACCEPT</onMatch>
