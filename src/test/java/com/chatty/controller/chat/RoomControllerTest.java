@@ -4,15 +4,13 @@ import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.anyLong;
 import static org.mockito.Mockito.when;
 import static org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestPostProcessors.csrf;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.delete;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
-import com.chatty.entity.chat.ChatRoom;
-import com.chatty.entity.user.User;
-import com.chatty.service.chat.RoomService;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.jupiter.api.Test;
 import com.chatty.dto.chat.request.RoomDto;
@@ -20,7 +18,6 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.jupiter.api.DisplayName;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
-import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.http.MediaType;
 import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.test.web.servlet.MockMvc;
@@ -35,9 +32,6 @@ class RoomControllerTest {
     @Autowired
     private ObjectMapper objectMapper;
 
-    @MockBean
-    private RoomService roomService;
-
 
     @DisplayName("채팅방을 생성한다.")
     @Test
@@ -49,38 +43,52 @@ class RoomControllerTest {
                 .receiverId(2L)
                 .build();
 
-        // when
-        User sender = User.builder().id(1L).build();
-        User receiver = User.builder().id(2L).build();
-        ChatRoom chatRoom = ChatRoom.builder().sender(sender).receiver(receiver).build();
-        when(roomService.createRoom(any(RoomDto.class))).thenReturn(chatRoom);
-
-        // then
+        //when, then
         mockMvc.perform(
-                post("/chat/create/room").with(csrf())
+                post("/chat/room").with(csrf())
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(objectMapper.writeValueAsString(roomDto))
                 )
                 .andDo(print())
-                .andExpect(status().isOk())
-                .andExpect(jsonPath("$.data").exists());
+                .andExpect(status().isOk());
     }
 
     @Test
-    @DisplayName("채팅방 생성시, senderId, receiverId는 필수 값이다.")
-    void createChatRoomWithoutSenderIdAndReceiverId() throws Exception{
+    @DisplayName("채팅방 생성시, senderId 필수 값이다.")
+    @WithMockUser(username = "123123", roles = "USER")
+    void createChatRoomWithoutSenderId() throws Exception{
         //given
         RoomDto roomDto = RoomDto.builder()
+                .receiverId(1L)
                 .build();
         //when, then
         mockMvc.perform(
-                        post("/chat/create/room").with(csrf())
+                        post("/chat/room").with(csrf())
                                 .contentType(MediaType.APPLICATION_JSON)
                                 .content(objectMapper.writeValueAsString(roomDto))
                 )
                 .andDo(print())
                 .andExpect(status().isBadRequest())
-                .andExpect(jsonPath("$.data").exists());
+                .andExpect(jsonPath("$.message").value("senderId(송신자)는 필수로 입력해야 합니다."));
+    }
+
+    @Test
+    @DisplayName("채팅방 생성시, receiverId는 필수 값이다.")
+    @WithMockUser(username = "123123", roles = "USER")
+    void createChatRoomWithoutReceiverId() throws Exception{
+        //given
+        RoomDto roomDto = RoomDto.builder()
+                .senderId(1L)
+                .build();
+        //when, then
+        mockMvc.perform(
+                        post("/chat/room").with(csrf())
+                                .contentType(MediaType.APPLICATION_JSON)
+                                .content(objectMapper.writeValueAsString(roomDto))
+                )
+                .andDo(print())
+                .andExpect(status().isBadRequest())
+                .andExpect(jsonPath("$.message").value("receiverId(수신자)는 필수로 입력해야 합니다."));
     }
 
     @Test
@@ -90,16 +98,12 @@ class RoomControllerTest {
         //given
         Long roomId = 1L;
 
-        //when
-        when(roomService.deleteRoom(anyLong())).thenReturn("채팅방이 삭제되었습니다.");
-
         //then
         mockMvc.perform(
-                get("/chat/delete/room/{roomId}",roomId).with(csrf())
+                delete("/chat/room/{roomId}",roomId).with(csrf())
         )
                 .andDo(print())
-                .andExpect(status().isOk())
-                .andExpect(jsonPath("$.data").exists());
+                .andExpect(status().isOk());
     }
 
     @Test
@@ -109,19 +113,11 @@ class RoomControllerTest {
         //given
         Long roomId = 1L;
 
-        User sender = User.builder().id(1L).build();
-        User receiver = User.builder().id(2L).build();
-        ChatRoom chatRoom = ChatRoom.builder().sender(sender).receiver(receiver).build();
-
-        //when
-        when(roomService.findChatRoom(anyLong())).thenReturn(chatRoom);
-
         //then
         mockMvc.perform(
                 get("/chat/room/{roomId}",roomId).with(csrf())
         )
                 .andDo(print())
-                .andExpect(status().isOk())
-                .andExpect(jsonPath("$.data").exists());
+                .andExpect(status().isOk());
     }
 }

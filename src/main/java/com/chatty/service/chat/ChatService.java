@@ -27,7 +27,6 @@ public class ChatService {
     private final ChatRoomRepository chatRoomRepository;
     private final MessageRepository messageRepository;
 
-    private final RoomService roomService;
     private final UserService userService;
 
     public void saveMessage(Long roomId, MessageDto messageDto){
@@ -39,7 +38,7 @@ public class ChatService {
 
         User sender = User.builder().id(messageDto.getSenderId()).build();
         User receiver = User.builder().id(messageDto.getReceiverId()).build();
-        ChatRoom chatRoom = roomService.findChatRoom(roomId);
+        ChatRoom chatRoom = chatRoomRepository.findChatRoomByRoomId(roomId).orElseThrow(() -> new CustomException(Code.NOT_FOUND_CHAT_ROOM));
 
         messageRepository.save(ChatMessage.to(chatRoom,sender,receiver,messageDto.getContent()));
 

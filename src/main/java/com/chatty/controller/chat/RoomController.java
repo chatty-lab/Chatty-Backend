@@ -7,6 +7,7 @@ import com.chatty.service.chat.RoomService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -22,13 +23,13 @@ public class RoomController {
 
     private final RoomService roomService;
 
-    @PostMapping("/create/room")
+    @PostMapping("/room")
     public ApiResponse<RoomResponseDto> createRoom(@Valid @RequestBody RoomDto roomDto){
         log.info("채팅방 생성");
-        return ApiResponse.ok(RoomResponseDto.of(roomService.createRoom(roomDto)));
+        return ApiResponse.ok(roomService.createRoom(roomDto));
     }
 
-    @GetMapping("/delete/room/{roomId}")
+    @DeleteMapping("/room/{roomId}")
     public ApiResponse<String> deleteRoom(@PathVariable Long roomId){
         log.info("채팅방 삭제");
         return ApiResponse.ok(roomService.deleteRoom(roomId));
@@ -37,6 +38,6 @@ public class RoomController {
     @GetMapping("/room/{roomId}")
     public ApiResponse<RoomResponseDto> getRoom(@PathVariable Long roomId){
         log.info("채팅방 찾기");
-        return ApiResponse.ok(RoomResponseDto.of(roomService.findChatRoom(roomId)));
+        return ApiResponse.ok(roomService.findChatRoom(roomId));
     }
 }
