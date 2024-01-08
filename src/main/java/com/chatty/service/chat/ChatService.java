@@ -3,6 +3,9 @@ package com.chatty.service.chat;
 import com.chatty.constants.Code;
 import com.chatty.dto.chat.request.MessageDto;
 import com.chatty.dto.chat.request.UnreadMessageDto;
+import com.chatty.dto.chat.response.MessageMarkResponseDto;
+import com.chatty.dto.chat.response.MultipleMessageResponseDto;
+import com.chatty.dto.chat.response.SimpleMessageResponseDto;
 import com.chatty.entity.chat.ChatMessage;
 import com.chatty.entity.chat.ChatRoom;
 import com.chatty.entity.user.User;
@@ -12,7 +15,6 @@ import com.chatty.repository.chat.MessageRepository;
 import com.chatty.repository.user.UserRepository;
 import com.chatty.service.user.UserService;
 import java.util.List;
-import java.util.stream.Collectors;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
@@ -29,7 +31,8 @@ public class ChatService {
 
     private final UserService userService;
 
-    public void saveMessage(Long roomId, MessageDto messageDto){
+    @Transactional
+    public SimpleMessageResponseDto saveMessage(Long roomId, MessageDto messageDto){
 
         Long senderId = messageDto.getSenderId();
 
@@ -40,18 +43,21 @@ public class ChatService {
         User receiver = User.builder().id(messageDto.getReceiverId()).build();
         ChatRoom chatRoom = chatRoomRepository.findChatRoomByRoomId(roomId).orElseThrow(() -> new CustomException(Code.NOT_FOUND_CHAT_ROOM));
 
-        messageRepository.save(ChatMessage.to(chatRoom,sender,receiver,messageDto.getContent()));
+        ChatMessage chatMessage = messageRepository.save(ChatMessage.to(chatRoom, sender, receiver, messageDto.getContent()));
 
-        log.info("메시지 저장이 완료되었습니다.");
+        return SimpleMessageResponseDto.of(chatMessage);
     }
 
     @Transactional
-    public void markMessageAsRead(Long messageId){
+    public MessageMarkResponseDto markMessageAsRead(Long messageId){
         ChatMessage message = messageRepository.findChatMessagesByMessageId(messageId).orElseThrow(() -> new CustomException(Code.NOT_FOUND_CHAT_MESSAGE));
         message.setIsRead();
+
+        return MessageMarkResponseDto.of(message.getMessageId(), message.getIsRead());
     }
 
-    public List<MessageDto> getMessages(UnreadMessageDto unreadMessageDto){ // 읽지 않은 메세지 위주로
+    @Transactional
+    public MultipleMessageResponseDto getMessages(UnreadMessageDto unreadMessageDto){ // 읽지 않은 메세지 위주로
 
         log.info("{}가 읽지 않은 메시지 전송", unreadMessageDto.getReceiverId());
 
@@ -59,7 +65,7 @@ public class ChatService {
         User sender = userService.validateExistUser(unreadMessageDto.getSenderId());
         List<ChatMessage> messages = messageRepository.findByIsReadFalseAndReceiverAndSenderOrderBySendTimeDesc(receiver,sender).orElseThrow(() -> new CustomException(Code.NOT_FOUND_CHAT_MESSAGE));
 
-        return messages.stream().map(message -> MessageDto.to(message)).collect(Collectors.toList());
+        return MultipleMessageResponseDto.of(messages);
     }
 
     private void isExistedRoomByRoomId(Long roomId){
