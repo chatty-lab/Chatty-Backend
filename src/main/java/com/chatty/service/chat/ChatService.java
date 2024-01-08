@@ -60,7 +60,6 @@ public class ChatService {
     public MultipleMessageResponseDto getMessages(UnreadMessageDto unreadMessageDto){ // 읽지 않은 메세지 위주로
 
         log.info("{}가 읽지 않은 메시지 전송", unreadMessageDto.getReceiverId());
-
         User receiver = userService.validateExistUser(unreadMessageDto.getReceiverId());
         User sender = userService.validateExistUser(unreadMessageDto.getSenderId());
         List<ChatMessage> messages = messageRepository.findByIsReadFalseAndReceiverAndSenderOrderBySendTimeDesc(receiver,sender).orElseThrow(() -> new CustomException(Code.NOT_FOUND_CHAT_MESSAGE));
