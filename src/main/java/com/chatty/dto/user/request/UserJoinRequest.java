@@ -1,5 +1,6 @@
 package com.chatty.dto.user.request;
 
+import com.chatty.constants.Authority;
 import com.chatty.entity.user.*;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;

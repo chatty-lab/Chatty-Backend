@@ -1,4 +1,4 @@
-package com.chatty.config;
+package com.chatty.handler;
 
 import static com.chatty.constants.Code.*;
 

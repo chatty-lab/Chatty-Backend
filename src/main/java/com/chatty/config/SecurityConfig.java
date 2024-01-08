@@ -1,8 +1,10 @@
 package com.chatty.config;
 
+import com.chatty.handler.CustomAccessDeniedHandler;
 import com.chatty.jwt.JwtTokenFilter;
 import com.chatty.jwt.JwtTokenProvider;
 import com.chatty.service.user.UserDetailsServiceImpl;
+import com.chatty.validator.TokenValidator;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -22,6 +24,7 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 public class SecurityConfig {
 
     private final JwtTokenProvider jwtTokenProvider;
+    private final TokenValidator tokenValidator;
     private final UserDetailsServiceImpl userDetailsService;
 
     @Bean
@@ -30,17 +33,15 @@ public class SecurityConfig {
                 .httpBasic(HttpBasicConfigurer::disable)
                 .csrf(AbstractHttpConfigurer::disable)
                 .authorizeHttpRequests(authorize -> authorize
-                                .requestMatchers("/api/reviews/home").hasRole("USER")
-                                .requestMatchers("/api/reviews/**").authenticated()
-                        .anyRequest().authenticated()
+                                .requestMatchers("/reviews/home").hasRole("USER")
+                                .requestMatchers("/reviews/**").authenticated()
+                        .requestMatchers("/chat/**").authenticated()
                 )
-                .addFilterBefore(new JwtTokenFilter(jwtTokenProvider, userDetailsService), UsernamePasswordAuthenticationFilter.class)
+                .addFilterBefore(new JwtTokenFilter(jwtTokenProvider,tokenValidator,userDetailsService), UsernamePasswordAuthenticationFilter.class)
 
                 .exceptionHandling(exception -> exception
                         .authenticationEntryPoint(new HttpStatusEntryPoint(HttpStatus.UNAUTHORIZED))
                         .accessDeniedHandler(new CustomAccessDeniedHandler(HttpStatus.FORBIDDEN)))
-
-
                 .build();
     }
 
