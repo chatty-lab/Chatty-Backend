@@ -67,6 +67,23 @@ class RoomControllerTest {
     }
 
     @Test
+    @DisplayName("채팅방 생성시, senderId, receiverId는 필수 값이다.")
+    void createChatRoomWithoutSenderIdAndReceiverId() throws Exception{
+        //given
+        RoomDto roomDto = RoomDto.builder()
+                .build();
+        //when, then
+        mockMvc.perform(
+                        post("/chat/create/room").with(csrf())
+                                .contentType(MediaType.APPLICATION_JSON)
+                                .content(objectMapper.writeValueAsString(roomDto))
+                )
+                .andDo(print())
+                .andExpect(status().isBadRequest())
+                .andExpect(jsonPath("$.data").exists());
+    }
+
+    @Test
     @DisplayName("채팅방을 삭제한다.")
     @WithMockUser(username = "123123", roles = "USER")
     void removeChatRoom() throws Exception{
