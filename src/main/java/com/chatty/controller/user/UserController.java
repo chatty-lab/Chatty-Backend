@@ -13,6 +13,9 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
+
+import java.io.IOException;
 
 @Slf4j
 @RestController
@@ -72,5 +75,11 @@ public class UserController {
                                                       final Authentication authentication) {
 
         return ApiResponse.ok(userService.updateCoordinate(authentication.getName(), request));
+    }
+
+    @PutMapping("/image")
+    public ApiResponse<UserResponse> updateImage(@RequestParam("image") MultipartFile image,
+                                                 final Authentication authentication) throws IOException {
+        return ApiResponse.ok(userService.updateImage(authentication.getName(), image));
     }
 }
