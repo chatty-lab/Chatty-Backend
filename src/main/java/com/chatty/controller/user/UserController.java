@@ -25,12 +25,14 @@ public class UserController {
 
     private final UserService userService;
 
+    @Operation(summary = "로그인", description = "로그인에 필요한 정보를 입력한 후, 로그인을 완료합니다.")
     @PostMapping("/login")
     public DataResponseDto<UserResponseDto> login(@Valid @RequestBody UserRequestDto userRequestDto) {
         log.info("[UserController/login] 로그인 시작");
         return DataResponseDto.of(userService.login(userRequestDto));
     }
 
+    @Operation(summary = "회원가입", description = "sms인증으로 1차 회원가입을 완료합니다.")
     @PostMapping("/join")
     public DataResponseDto<UserResponseDto> join(@Valid @RequestBody UserRequestDto userRequestDto) {
         log.info("[UserController/join] 회원 가입 시작");
@@ -38,7 +40,6 @@ public class UserController {
     }
 
     @Operation(summary = "최종 회원가입", description = "회원가입에 필요한 정보를 입력한 후, 회원가입을 완료합니다.")
-    @Parameters()
     @PutMapping("/update")
     public ApiResponse<UserResponse> joinComplete(@Valid @RequestBody UserJoinRequest request,
                                                   final Authentication authentication) {
