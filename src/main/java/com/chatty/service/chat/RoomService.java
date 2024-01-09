@@ -34,16 +34,14 @@ public class RoomService {
         return RoomResponseDto.of(chatRoomRepository.save(chatRoom));
     }
 
-    public String deleteRoom(Long roomId) {
-        isExistedRoomByRoomId(roomId);
-        log.info("채팅방을 삭제했습니다.");
-        if(roomId == 1){
-            System.out.println("throw 탑니다.");
-            throw new CustomException(Code.NOT_FOUND_CHAT_ROOM);
-        }
-        log.info("조건문 빠져나왓다.");
+    @Transactional
+    public RoomResponseDto deleteRoom(Long roomId) {
 
-        return "채팅방 삭제 완료";
+        ChatRoom chatRoom = isExistedRoomByRoomId(roomId);
+        chatRoomRepository.delete(chatRoom);
+        log.info("채팅방을 삭제했습니다.");
+
+        return RoomResponseDto.of(chatRoom);
     }
 
     @Transactional
@@ -60,10 +58,7 @@ public class RoomService {
         }
     }
 
-    private void isExistedRoomByRoomId(Long roomId){
-        Optional<ChatRoom> optionalChatRoom = chatRoomRepository.findChatRoomByRoomId(roomId);
-        if(!optionalChatRoom.isPresent()){
-            throw new CustomException(Code.NOT_FOUND_CHAT_ROOM);
-        }
+    private ChatRoom isExistedRoomByRoomId(Long roomId){
+        return chatRoomRepository.findChatRoomByRoomId(roomId).orElseThrow(() -> new CustomException(Code.NOT_FOUND_CHAT_ROOM));
     }
 }

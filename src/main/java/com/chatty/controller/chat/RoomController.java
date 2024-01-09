@@ -30,7 +30,7 @@ public class RoomController {
     }
 
     @DeleteMapping("/room/{roomId}")
-    public ApiResponse<String> deleteRoom(@PathVariable Long roomId){
+    public ApiResponse<RoomResponseDto> deleteRoom(@PathVariable Long roomId){
         log.info("채팅방 삭제");
         return ApiResponse.ok(roomService.deleteRoom(roomId));
     }
