@@ -19,9 +19,6 @@ public class RedisConfig {
     @Value("${redis-authenticationNumber-host}")
     private String authNumberHost;
 
-    @Value("${redis-chat-host}")
-    private String chatHost;
-
     @Value("${redis-port}")
     private int port;
 
@@ -33,11 +30,6 @@ public class RedisConfig {
     @Bean
     public RedisConnectionFactory redisConnectionFactoryAuthenticationNumber(){
         return new LettuceConnectionFactory(authNumberHost,port);
-    }
-
-    @Bean
-    public RedisConnectionFactory redisConnectionFactoryChat(){
-        return new LettuceConnectionFactory(chatHost,port);
     }
 
     @Bean

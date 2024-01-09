@@ -1,5 +1,6 @@
 package com.chatty.service.user;
 
+import com.chatty.config.RedisConfig;
 import com.chatty.constants.Authority;
 import com.chatty.dto.user.request.*;
 import com.chatty.dto.user.response.UserResponse;
@@ -15,6 +16,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 
 import java.time.LocalDate;
 import java.util.List;
+import org.springframework.boot.test.mock.mockito.MockBean;
 
 import static org.assertj.core.api.Assertions.*;
 
@@ -26,6 +28,9 @@ class UserServiceTest {
 
     @Autowired
     private UserRepository userRepository;
+
+    @MockBean
+    RedisConfig redisConfig;
 
     @AfterEach
     void tearDown() {

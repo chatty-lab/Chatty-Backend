@@ -1,6 +1,5 @@
 package com.chatty.jwt;
 
-import com.chatty.dto.auth.request.AuthRequestDto;
 import com.chatty.repository.token.RefreshTokenRepository;
 import com.chatty.utils.JwtTokenUtils;
 import io.jsonwebtoken.Claims;
