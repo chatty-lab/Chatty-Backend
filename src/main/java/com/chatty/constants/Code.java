@@ -16,6 +16,7 @@ public enum Code {
     ALREADY_EXIST_USER(HttpStatus.BAD_REQUEST, "이미 존재 하는 유저 입니다."),
     ALREADY_EXIST_NICKNAME(HttpStatus.CONFLICT, "이미 존재하는 닉네임 입니다."),
     NOT_EXIST_USER(HttpStatus.BAD_REQUEST, "존재 하지 않는 유저 입니다."),
+    NOT_EXIST_MATCH(HttpStatus.BAD_REQUEST, "존재하지 않는 매치 입니다."),
     NOT_SEND_SMS(HttpStatus.BAD_REQUEST, "naver에서 sms전송 실패"),
     NOT_AUTH_NUMBER_FORMAT(HttpStatus.BAD_REQUEST, "잘못된 번호 형식 입니다."),
     INVALID_ACCESS_TOKEN(HttpStatus.BAD_REQUEST, "accessToken 유효성 검증을 실패했습니다."),
