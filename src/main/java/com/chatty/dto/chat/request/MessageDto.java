@@ -1,6 +1,5 @@
 package com.chatty.dto.chat.request;
 
-import com.chatty.entity.chat.ChatMessage;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
@@ -25,13 +24,4 @@ public class MessageDto {
 
     @NotBlank(message = "content(내용)은 필수로 입력해야 합니다.")
     private String content;
-
-    public static MessageDto to(ChatMessage chatMessage){
-        return MessageDto.builder()
-                .roomId(chatMessage.getChatRoom().getRoomId())
-                .senderId(chatMessage.getSender().getId())
-                .receiverId(chatMessage.getReceiver().getId())
-                .content(chatMessage.getContent())
-                .build();
-    }
 }

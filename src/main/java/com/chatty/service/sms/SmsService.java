@@ -105,11 +105,8 @@ public class SmsService {
     public boolean checkAuthNumber(String key, String authNumber) {
         String auth = authNumberRepository.findAuthNumber(key);
         log.info("확인이 필요한 인증번호 : {}", auth);
-        if (auth != null && auth.equals(authNumber)) {
-            return true;
-        }
 
-        return false;
+        return auth != null && auth.equals(authNumber);
     }
 
     public boolean validateNumber(String number) {
