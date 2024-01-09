@@ -3,7 +3,7 @@ package com.chatty.service.sms;
 import static com.chatty.utils.SmsUtils.makeSignature;
 
 import com.chatty.constants.Code;
-import com.chatty.dto.sms.request.MessageDto;
+import com.chatty.dto.sms.request.MessageRequestDto;
 import com.chatty.dto.sms.request.NaverSmsRequestDto;
 import com.chatty.dto.sms.request.UserSmsRequestDto;
 import com.chatty.dto.sms.response.SmsResponseDto;
@@ -54,7 +54,7 @@ public class SmsService {
 
     private final AuthNumberRepository authNumberRepository;
 
-    public SmsResponseDto sendSms(MessageDto messageDto)
+    public SmsResponseDto sendSms(MessageRequestDto messageRequestDto)
             throws JsonProcessingException, RestClientException, URISyntaxException, InvalidKeyException, NoSuchAlgorithmException, UnsupportedEncodingException {
         Long time = System.currentTimeMillis();
 
@@ -64,15 +64,15 @@ public class SmsService {
         headers.set("x-ncp-iam-access-key", accessKey);
         headers.set("x-ncp-apigw-signature-v2", makeSignature(accessKey, serviceId, secretKey, time));
 
-        List<MessageDto> messages = new ArrayList<>();
-        messages.add(messageDto);
+        List<MessageRequestDto> messages = new ArrayList<>();
+        messages.add(messageRequestDto);
 
         NaverSmsRequestDto request = NaverSmsRequestDto.builder()
                 .type("SMS")
                 .contentType("COMM")
                 .countryCode("82")
                 .from(phone)
-                .content(messageDto.getContent())
+                .content(messageRequestDto.getContent())
                 .messages(messages)
                 .build();
 
@@ -98,18 +98,15 @@ public class SmsService {
         String key = SmsUtils.makeKey(userSmsRequestDto.getMobileNumber(), userSmsRequestDto.getUuid());
         authNumberRepository.save(key, authNumber);
         log.info("번호 인증 요청 정보 저장 완료 : {}", authNumber);
-        sendSms(MessageDto.builder().to(userSmsRequestDto.getMobileNumber()).content(authNumber).build());
+        sendSms(MessageRequestDto.builder().to(userSmsRequestDto.getMobileNumber()).content(authNumber).build());
         return SmsUserResponseDto.of(authNumber);
     }
 
     public boolean checkAuthNumber(String key, String authNumber) {
         String auth = authNumberRepository.findAuthNumber(key);
         log.info("확인이 필요한 인증번호 : {}", auth);
-        if (auth != null && auth.equals(authNumber)) {
-            return true;
-        }
 
-        return false;
+        return auth != null && auth.equals(authNumber);
     }
 
     public boolean validateNumber(String number) {

@@ -4,7 +4,7 @@ import com.chatty.constants.Code;
 import com.chatty.dto.user.request.*;
 import com.chatty.dto.user.response.UserResponse;
 import com.chatty.dto.user.response.UserResponseDto;
-import com.chatty.entity.user.Authority;
+import com.chatty.constants.Authority;
 import com.chatty.entity.user.User;
 import com.chatty.exception.CustomException;
 import com.chatty.jwt.JwtTokenProvider;
@@ -65,10 +65,10 @@ public class UserService {
             throw new CustomException(Code.ALREADY_EXIST_USER);
         }
 
-        if(!smsService.checkAuthNumber(key,userRequestDto.getAuthenticationNumber())){
-            log.error("인증 번호가 일치하지 않는다.");
-            throw new CustomException(Code.INVALID_AUTH_NUMBER);
-        }
+//        if(!smsService.checkAuthNumber(key,userRequestDto.getAuthenticationNumber())){
+//            log.error("인증 번호가 일치하지 않는다.");
+//            throw new CustomException(Code.INVALID_AUTH_NUMBER);
+//        }
 
         User user = User.builder()
                 .mobileNumber(userRequestDto.getMobileNumber())
@@ -176,5 +176,10 @@ public class UserService {
     private boolean isAlreadyExistedUser(String mobileNumber){
         log.info("[UserService/isAlreadyExistedUser] 이미 가입한 유저인지 확인");
         return userRepository.existsUserByMobileNumber(mobileNumber);
+    }
+
+    public User validateExistUser(long userId) {
+        log.info("유저가 유효한지 검사");
+        return userRepository.findUserById(userId).orElseThrow(() -> new CustomException(Code.NOT_EXIST_USER));
     }
 }

@@ -26,6 +26,4 @@ public class ReviewController {
     public String test() {
         return "test";
     }
-
-
 }

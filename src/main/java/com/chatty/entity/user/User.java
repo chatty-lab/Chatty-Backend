@@ -1,6 +1,6 @@
 package com.chatty.entity.user;
 
-import com.chatty.dto.user.request.UserJoinRequest;
+import com.chatty.constants.Authority;
 import com.chatty.entity.CommonEntity;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
