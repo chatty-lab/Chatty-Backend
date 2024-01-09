@@ -124,9 +124,6 @@ public class RoomServiceTest {
     @DisplayName("채팅방을 찾을때, 채팅방이 존재하지 않는다면 예외가 발생한다.")
     void findChatRoomNotExistedChatRoom() throws Exception{
         //given
-        User sender = User.builder().id(1L).build();
-        User receiver = User.builder().id(2L).build();
-
         when(chatRoomRepository.findById(anyLong())).thenThrow(new CustomException(Code.NOT_FOUND_CHAT_ROOM));
 
         //when
