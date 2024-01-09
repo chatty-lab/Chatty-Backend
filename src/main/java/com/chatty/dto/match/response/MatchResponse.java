@@ -23,6 +23,7 @@ public class MatchResponse {
     private String imageUrl;
     private Coordinate coordinate;
     private int age;
+    private boolean isSuccess;
 
     private int requestMinAge;
     private int requestMaxAge;
@@ -31,7 +32,7 @@ public class MatchResponse {
     private Gender requestGender;
 
     @Builder
-    public MatchResponse(final Long id, final Long userId, final String nickname, final Gender gender, final Mbti mbti, final String address, final String imageUrl, final Coordinate coordinate, final int age, final int requestMinAge, final int requestMaxAge, final String requestCategory, final Double requestScope, final Gender requestGender) {
+    public MatchResponse(final Long id, final Long userId, final String nickname, final Gender gender, final Mbti mbti, final String address, final String imageUrl, final Coordinate coordinate, final int age, final boolean isSuccess, final int requestMinAge, final int requestMaxAge, final String requestCategory, final Double requestScope, final Gender requestGender) {
         this.id = id;
         this.userId = userId;
         this.nickname = nickname;
@@ -41,6 +42,7 @@ public class MatchResponse {
         this.imageUrl = imageUrl;
         this.coordinate = coordinate;
         this.age = age;
+        this.isSuccess = isSuccess;
         this.requestMinAge = requestMinAge;
         this.requestMaxAge = requestMaxAge;
         this.requestCategory = requestCategory;
@@ -62,6 +64,7 @@ public class MatchResponse {
                         .lng(match.getUser().getLocation().getX())
                         .build())
                 .age(age)
+                .isSuccess(match.isSuccess())
                 .requestScope(match.getScope())
                 .requestCategory(match.getCategory())
                 .requestGender(match.getGender())

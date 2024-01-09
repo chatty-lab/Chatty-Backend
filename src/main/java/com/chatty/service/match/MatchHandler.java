@@ -1,9 +1,11 @@
 package com.chatty.service.match;
 
 import com.chatty.dto.match.response.MatchResponse;
+import com.chatty.entity.match.Match;
 import com.chatty.entity.user.Gender;
 import com.chatty.entity.user.User;
 import com.chatty.exception.CustomException;
+import com.chatty.repository.match.MatchRepository;
 import com.chatty.repository.user.UserRepository;
 import com.google.gson.Gson;
 import lombok.RequiredArgsConstructor;
@@ -21,6 +23,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 
+import static com.chatty.constants.Code.NOT_EXIST_MATCH;
 import static com.chatty.constants.Code.NOT_EXIST_USER;
 
 @RequiredArgsConstructor
@@ -49,6 +52,7 @@ public class MatchHandler extends TextWebSocketHandler {
         log.info("message = {}", message);
 
         System.out.println("======================");
+        System.out.println("matchResponse.getId() = " + matchResponse.getId());
         System.out.println("matchResponse.getGender() = " + matchResponse.getGender());
         System.out.println("matchResponse.getGender() = " + matchResponse.getGender());
         System.out.println("matchResponse.getGender() = " + matchResponse.getGender());
@@ -156,6 +160,12 @@ public class MatchHandler extends TextWebSocketHandler {
 //            TextMessage textMessage = new TextMessage(json);
             session.sendMessage(textMessage);
             connected.sendMessage(textMessage);
+
+            Long sessionMatchId = Long.parseLong(session.getAttributes().get("matchId").toString());
+            Long connectedMatchId = Long.parseLong(connected.getAttributes().get("matchId").toString());
+
+            matchService.successMatch(sessionMatchId);
+            matchService.successMatch(connectedMatchId);
 
             sessions.remove(session);
             sessions.remove(connected);

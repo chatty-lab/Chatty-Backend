@@ -31,15 +31,27 @@ public class MatchService {
         User user = userRepository.findUserByMobileNumber(mobileNumber)
                 .orElseThrow(() -> new CustomException(Code.NOT_EXIST_USER));
 
-        int age = LocalDate.now().getYear() - user.getBirth().getYear() + 1;
+        int age = calculateUserAge(user);
         LocalDateTime now = LocalDateTime.now();
         Match match = matchRepository.save(request.toEntity(user, now));
 
         return MatchResponse.of(match, age);
     }
 
+    @Transactional
+    public MatchResponse successMatch(final Long matchId) {
+        Match match = matchRepository.findById(matchId)
+                .orElseThrow(() -> new CustomException(Code.NOT_EXIST_MATCH));
+
+        int age = calculateUserAge(match.getUser());
+        match.updateIsSuccess();
+
+        return MatchResponse.of(match, age);
+    }
+
     public void createUserSession(final WebSocketSession session, final MatchResponse matchResponse) {
         Map<String, Object> attributes = session.getAttributes();
+        attributes.put("matchId", matchResponse.getId());
         attributes.put("nickname", matchResponse.getNickname());
         attributes.put("gender", matchResponse.getGender());
         attributes.put("requestGender", matchResponse.getRequestGender());
@@ -47,5 +59,9 @@ public class MatchService {
         attributes.put("requestMinAge", matchResponse.getRequestMinAge());
         attributes.put("requestMaxAge", matchResponse.getRequestMaxAge());
         attributes.put("category", matchResponse.getRequestCategory());
+    }
+
+    private int calculateUserAge(final User user) {
+        return LocalDate.now().getYear() - user.getBirth().getYear() + 1;
     }
 }

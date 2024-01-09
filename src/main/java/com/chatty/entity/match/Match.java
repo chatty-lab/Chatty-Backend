@@ -48,4 +48,8 @@ public class Match {
         this.registeredDateTime = registeredDateTime;
         this.isSuccess = isSuccess;
     }
+
+    public void updateIsSuccess() {
+        this.isSuccess = true;
+    }
 }

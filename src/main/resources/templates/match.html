@@ -158,7 +158,8 @@
                     console.log(body.data.requestGender);
                     console.log(body.data.requestCategory);
                     console.log(body.data.requestScope);
-                    const id = body.data.userId;
+                    const id = body.data.id;
+                    const userId = body.data.userId;
                     const age = body.data.age;
                     const requestMinAge = body.data.requestMinAge;
                     const requestMaxAge = body.data.requestMaxAge;
@@ -170,6 +171,7 @@
 
                     webSocket.send(JSON.stringify({
                         id,
+                        userId,
                         age,
                         requestMinAge,
                         requestMaxAge,
