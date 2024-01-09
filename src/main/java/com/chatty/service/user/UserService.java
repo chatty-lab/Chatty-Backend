@@ -172,7 +172,12 @@ public class UserService {
         User user = userRepository.findUserByMobileNumber(mobileNumber)
                 .orElseThrow(() -> new CustomException(Code.NOT_EXIST_USER));
 
-        // TODO 확장자  validate, test 코드 작성.
+        if (image.isEmpty()) {
+            user.updateImage("profile.jpg");
+            return UserResponse.of(user);
+        }
+
+        validateExtension(image.getOriginalFilename());
         String fileUrl = s3Service.uploadFileToS3(image, "profile/" + user.getId() + ".jpg");
         user.updateImage(fileUrl);
 
@@ -193,5 +198,14 @@ public class UserService {
     private boolean isAlreadyExistedUser(String mobileNumber){
         log.info("[UserService/isAlreadyExistedUser] 이미 가입한 유저인지 확인");
         return userRepository.existsUserByMobileNumber(mobileNumber);
+    }
+
+    private void validateExtension(final String filename) {
+        String[] file = filename.split("\\.");
+        String extension = file[file.length - 1];
+
+        if (!extension.equals("jpg") && !extension.equals("jpeg") && !extension.equals("png")) {
+            throw new CustomException(Code.INVALID_EXTENSION);
+        }
     }
 }
