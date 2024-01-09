@@ -7,6 +7,7 @@ import com.chatty.dto.sms.request.UserSmsRequestDto;
 import com.chatty.dto.sms.response.SmsUserResponseDto;
 import com.chatty.service.auth.AuthService;
 import com.chatty.service.sms.SmsService;
+import io.swagger.v3.oas.annotations.Operation;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -24,11 +25,13 @@ public class AuthController {
     private final AuthService authService;
     private final SmsService smsService;
 
+    @Operation(summary = "토큰 재발급", description = "refreshToken을 사용해서 토큰을 재발급합니다.")
     @PostMapping("/refresh")
     public DataResponseDto<AuthResponseDto> refresh(@Valid @RequestBody AuthRequestDto authRequestDto) {
         return DataResponseDto.of(authService.reissueTokens(authRequestDto));
     }
 
+    @Operation(summary = "번호 인증 요청", description = "전화번호로 sms 인증요청을 합니다.")
     @PostMapping("/mobile")
     public DataResponseDto<SmsUserResponseDto> mobile(@Valid @RequestBody UserSmsRequestDto userSmsRequestDto) throws Exception {
         log.info("번호 인증 요청");
