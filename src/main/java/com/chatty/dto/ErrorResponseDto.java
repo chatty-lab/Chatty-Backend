@@ -11,6 +11,8 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @Builder
 public class ErrorResponseDto {
+
+    private Long errorCode;
     private String message;
 
     public static ErrorResponseDto of(Code code){
