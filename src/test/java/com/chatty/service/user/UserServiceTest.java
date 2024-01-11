@@ -1,5 +1,6 @@
 package com.chatty.service.user;
 
+import com.chatty.constants.Authority;
 import com.chatty.dto.user.request.*;
 import com.chatty.dto.user.response.UserResponse;
 import com.chatty.entity.user.*;

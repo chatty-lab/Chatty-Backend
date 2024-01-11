@@ -1,5 +1,6 @@
 package com.chatty.dto.user.response;
 
+import com.chatty.constants.Authority;
 import com.chatty.entity.user.*;
 import lombok.AccessLevel;
 import lombok.Builder;

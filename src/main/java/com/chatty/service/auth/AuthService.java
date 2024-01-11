@@ -7,7 +7,7 @@ import com.chatty.exception.CustomException;
 import com.chatty.jwt.JwtTokenProvider;
 import com.chatty.repository.token.RefreshTokenRepository;
 import com.chatty.service.user.UserDetailsServiceImpl;
-import com.chatty.utils.JwtTokenUtils;
+import com.chatty.validator.TokenValidator;
 import java.util.HashMap;
 import java.util.Map;
 import lombok.RequiredArgsConstructor;
@@ -26,12 +26,13 @@ public class AuthService {
     private final JwtTokenProvider jwtTokenProvider;
     private final UserDetailsServiceImpl userDetailsServiceImpl;
     private final RefreshTokenRepository refreshTokenRepository;
+    private final TokenValidator tokenValidator;
 
     public AuthResponseDto reissueTokens(AuthRequestDto authRequestDto) {
 
-        String refreshToken = jwtTokenProvider.resolvRefreshToken(authRequestDto);
+        String refreshToken = authRequestDto.getRefreshToken();
 
-        validateRefreshToken(refreshToken);
+        tokenValidator.validateRefreshToken(refreshToken);
 
         Map<String,String> tokens = createTokens(refreshToken);
 
@@ -60,28 +61,5 @@ public class AuthService {
         newTokens.put(ACCESS_TOKEN, newAccessToken);
         newTokens.put(REFRESH_TOKEN, newRefreshToken);
         return newTokens;
-    }
-
-    public void validateRefreshToken(String refreshToken) {
-
-        if (!jwtTokenProvider.isExistToken(refreshToken)) {
-            log.error("refreshToken이 존재하지 않습니다.");
-            throw new CustomException(Code.INVALID_REFRESH_TOKEN);
-        }
-
-        if(!jwtTokenProvider.isValidToken(refreshToken)){
-            log.error("유효하지 않은 토큰 입니다.");
-            throw new CustomException(Code.INVALID_REFRESH_TOKEN);
-        }
-
-        if (jwtTokenProvider.isExpiredToken(refreshToken)) {
-            log.error("refreshToken이 만료 되었습니다.");
-            throw new CustomException(Code.EXPIRED_REFRESH_TOKEN);
-        }
-
-        if (!jwtTokenProvider.isEqualRedisRefresh(refreshToken, jwtTokenProvider.getUuidByRefreshToken(refreshToken))) {
-            log.error("refreshToken이 DB에 저장된 refreshToken과 일치하지 않습니다.");
-            throw new CustomException(Code.INVALID_REFRESH_TOKEN);
-        }
     }
 }

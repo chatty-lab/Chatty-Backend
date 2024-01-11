@@ -4,7 +4,7 @@ import com.chatty.constants.Code;
 import com.chatty.dto.user.request.*;
 import com.chatty.dto.user.response.UserResponse;
 import com.chatty.dto.user.response.UserResponseDto;
-import com.chatty.entity.user.Authority;
+import com.chatty.constants.Authority;
 import com.chatty.entity.user.User;
 import com.chatty.exception.CustomException;
 import com.chatty.jwt.JwtTokenProvider;
@@ -207,5 +207,9 @@ public class UserService {
         if (!extension.equals("jpg") && !extension.equals("jpeg") && !extension.equals("png")) {
             throw new CustomException(Code.INVALID_EXTENSION);
         }
+
+    public User validateExistUser(long userId) {
+        log.info("유저가 유효한지 검사");
+        return userRepository.findUserById(userId).orElseThrow(() -> new CustomException(Code.NOT_EXIST_USER));
     }
 }

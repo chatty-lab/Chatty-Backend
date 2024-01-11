@@ -1,6 +1,5 @@
 package com.chatty.jwt;
 
-import com.chatty.dto.auth.request.AuthRequestDto;
 import com.chatty.repository.token.RefreshTokenRepository;
 import com.chatty.utils.JwtTokenUtils;
 import io.jsonwebtoken.Claims;
@@ -145,15 +144,6 @@ public class JwtTokenProvider {
 
     public String resolveAccessToken(HttpServletRequest request) {
         String accessToken = request.getHeader(AUTHORIZATION);
-
         return accessToken;
-    }
-
-    public String resolvRefreshToken(AuthRequestDto authRequestDto){
-        log.info("[resolveRefreshToken] Request로 전달받은 refreshToken 분리");
-        String refreshToken = authRequestDto.getRefreshToken();
-        log.info("[resolveRefreshToken] refreshToken : {}",refreshToken);
-
-        return refreshToken;
     }
 }
