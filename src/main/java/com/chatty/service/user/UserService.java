@@ -207,6 +207,7 @@ public class UserService {
         if (!extension.equals("jpg") && !extension.equals("jpeg") && !extension.equals("png")) {
             throw new CustomException(Code.INVALID_EXTENSION);
         }
+    }
 
     public User validateExistUser(long userId) {
         log.info("유저가 유효한지 검사");
