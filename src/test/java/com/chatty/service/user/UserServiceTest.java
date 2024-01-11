@@ -1,5 +1,6 @@
 package com.chatty.service.user;
 
+import com.chatty.constants.Authority;
 import com.chatty.dto.user.request.*;
 import com.chatty.dto.user.response.UserResponse;
 import com.chatty.entity.user.*;
@@ -9,7 +10,6 @@ import com.chatty.utils.S3Service;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
-import org.locationtech.jts.geom.Point;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;

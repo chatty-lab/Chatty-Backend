@@ -3,7 +3,7 @@ package com.chatty.service.match;
 import com.chatty.dto.match.request.MatchRequest;
 import com.chatty.dto.match.response.MatchResponse;
 import com.chatty.entity.match.Match;
-import com.chatty.entity.user.Authority;
+import com.chatty.constants.Authority;
 import com.chatty.entity.user.Coordinate;
 import com.chatty.entity.user.Gender;
 import com.chatty.entity.user.User;
