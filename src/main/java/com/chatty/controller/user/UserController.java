@@ -1,19 +1,16 @@
 package com.chatty.controller.user;
 
-import com.chatty.constants.Code;
 import com.chatty.dto.ApiResponse;
-import com.chatty.dto.DataResponseDto;
 import com.chatty.dto.user.request.*;
 import com.chatty.dto.user.response.UserResponse;
 import com.chatty.dto.user.response.UserResponseDto;
 import com.chatty.service.user.UserService;
 import io.swagger.v3.oas.annotations.Operation;
-import io.swagger.v3.oas.annotations.Parameter;
-import io.swagger.v3.oas.annotations.Parameters;
+import io.swagger.v3.oas.annotations.media.Content;
+import io.swagger.v3.oas.annotations.media.ExampleObject;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.*;
 
@@ -26,17 +23,58 @@ public class UserController {
     private final UserService userService;
 
     @Operation(summary = "로그인", description = "로그인에 필요한 정보를 입력한 후, 로그인을 완료합니다.")
+    @io.swagger.v3.oas.annotations.responses.ApiResponse(responseCode = "400", description = "회원가입 실패",
+            content = @Content(mediaType = "application/json",
+                    examples = {
+                            @ExampleObject(name = "E-004", value = """
+                                    {
+                                        "errorCode": "004",
+                                        "status": "400",
+                                        "message": "존재하지 않는 유저 입니다."
+                                    }
+                                    """),
+                            @ExampleObject(name = "E-003", value = """
+                                    {
+                                        "errorCode": "001",
+                                        "status": "400",
+                                        "message": "유효하지 않은 인증 번호 입니다."
+                                    }
+                                    """),
+                    }
+            )
+    )
     @PostMapping("/login")
-    public DataResponseDto<UserResponseDto> login(@Valid @RequestBody UserRequestDto userRequestDto) {
+    public ApiResponse<UserResponseDto> login(@Valid @RequestBody UserRequestDto userRequestDto) {
         log.info("[UserController/login] 로그인 시작");
-        return DataResponseDto.of(userService.login(userRequestDto));
+        return ApiResponse.ok(userService.login(userRequestDto));
     }
 
+
     @Operation(summary = "회원가입", description = "sms인증으로 1차 회원가입을 완료합니다.")
+    @io.swagger.v3.oas.annotations.responses.ApiResponse(responseCode = "400", description = "회원가입 실패",
+            content = @Content(mediaType = "application/json",
+                    examples = {
+                            @ExampleObject(name = "E-001", value = """
+                                    {
+                                        "errorCode": "001",
+                                        "status": "400",
+                                        "message": "유효하지 않은 인증 번호입니다."
+                                    }
+                                    """),
+                            @ExampleObject(name = "E-003", value = """
+                                    {
+                                        "errorCode": "002",
+                                        "status": "400",
+                                        "message": "이미 존재하는 유저 입니다."
+                                    }
+                                    """),
+                    }
+            )
+    )
     @PostMapping("/join")
-    public DataResponseDto<UserResponseDto> join(@Valid @RequestBody UserRequestDto userRequestDto) {
+    public ApiResponse<UserResponseDto> join(@Valid @RequestBody UserRequestDto userRequestDto) {
         log.info("[UserController/join] 회원 가입 시작");
-        return DataResponseDto.of(userService.join(userRequestDto));
+        return ApiResponse.ok(userService.join(userRequestDto));
     }
 
     @Operation(summary = "최종 회원가입", description = "회원가입에 필요한 정보를 입력한 후, 회원가입을 완료합니다.")
