@@ -1,6 +1,6 @@
 package com.chatty.controller.auth;
 
-import com.chatty.dto.DataResponseDto;
+import com.chatty.dto.ApiResponse;
 import com.chatty.dto.auth.request.AuthRequestDto;
 import com.chatty.dto.auth.response.AuthResponseDto;
 import com.chatty.dto.sms.request.UserSmsRequestDto;
@@ -27,14 +27,14 @@ public class AuthController {
 
     @Operation(summary = "토큰 재발급", description = "refreshToken을 사용해서 토큰을 재발급합니다.")
     @PostMapping("/refresh")
-    public DataResponseDto<AuthResponseDto> refresh(@Valid @RequestBody AuthRequestDto authRequestDto) {
-        return DataResponseDto.of(authService.reissueTokens(authRequestDto));
+    public ApiResponse<AuthResponseDto> refresh(@Valid @RequestBody AuthRequestDto authRequestDto) {
+        return ApiResponse.ok(authService.reissueTokens(authRequestDto));
     }
 
     @Operation(summary = "번호 인증 요청", description = "전화번호로 sms 인증요청을 합니다.")
     @PostMapping("/mobile")
-    public DataResponseDto<SmsUserResponseDto> mobile(@Valid @RequestBody UserSmsRequestDto userSmsRequestDto) throws Exception {
+    public ApiResponse<SmsUserResponseDto> mobile(@Valid @RequestBody UserSmsRequestDto userSmsRequestDto) throws Exception {
         log.info("번호 인증 요청");
-        return DataResponseDto.of(smsService.saveSms(userSmsRequestDto));
+        return ApiResponse.ok(smsService.saveSms(userSmsRequestDto));
     }
 }

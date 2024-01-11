@@ -3,7 +3,7 @@ package com.chatty.handler;
 import static com.chatty.constants.Code.*;
 
 import com.chatty.dto.ApiResponse;
-import com.chatty.dto.ErrorResponseDto;
+import com.chatty.dto.ErrorResponse;
 import com.chatty.exception.CustomException;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import java.io.UnsupportedEncodingException;
@@ -24,12 +24,8 @@ import org.springframework.web.client.RestClientException;
 public class GlobalExceptionHandler {
 
     @ExceptionHandler({CustomException.class})
-    protected ApiResponse<Object> handleNormalException(CustomException e){
-        return ApiResponse.of(
-                HttpStatus.BAD_REQUEST,
-                e.getMessage(),
-                null
-        );
+    protected ErrorResponse handleNormalException(CustomException e){
+        return ErrorResponse.of(e.getCode());
     }
 
 
@@ -55,14 +51,14 @@ public class GlobalExceptionHandler {
 //    }
 
     @ExceptionHandler({JsonProcessingException.class, RestClientException.class, URISyntaxException.class, InvalidKeyException.class, NoSuchAlgorithmException.class, UnsupportedEncodingException.class})
-    public ResponseEntity<ErrorResponseDto> sendSmsException(Exception e){
+    public ResponseEntity<ErrorResponse> sendSmsException(Exception e){
         //TODO: LocalDate에 값을 어떻게 검증할 것인지? 이상하게 넣으면 Parsing 예외 발생한다.
         e.printStackTrace();
-        return ResponseEntity.status(NOT_SEND_SMS.getHttpStatus()).body(ErrorResponseDto.of(e.getMessage()));
+        return ResponseEntity.status(NOT_SEND_SMS.getHttpStatus()).body(ErrorResponse.of(e.getMessage()));
     }
 
     @ExceptionHandler(UsernameNotFoundException.class)
-    public ResponseEntity<ErrorResponseDto> userException(UsernameNotFoundException e){
-        return ResponseEntity.status(NOT_EXIST_USER.getHttpStatus()).body(ErrorResponseDto.of(NOT_EXIST_USER));
+    public ResponseEntity<ErrorResponse> userException(UsernameNotFoundException e){
+        return ResponseEntity.status(NOT_EXIST_USER.getHttpStatus()).body(ErrorResponse.of(NOT_EXIST_USER));
     }
 }

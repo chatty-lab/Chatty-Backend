@@ -10,19 +10,20 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-public class ErrorResponseDto {
+public class ErrorResponse {
 
-    private Long errorCode;
+    private String errorCode;
     private String message;
 
-    public static ErrorResponseDto of(Code code){
-        return ErrorResponseDto.builder()
+    public static ErrorResponse of(Code code){
+        return ErrorResponse.builder()
+                .errorCode(code.getErrorCode())
                 .message(code.getMessage())
                 .build();
     }
 
-    public static ErrorResponseDto of(final String message) {
-        return ErrorResponseDto.builder()
+    public static ErrorResponse of(final String message){
+        return ErrorResponse.builder()
                 .message(message)
                 .build();
     }
