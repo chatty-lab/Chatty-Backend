@@ -1,4 +1,4 @@
-package com.chatty.config;
+package com.chatty.handler;
 
 import static com.chatty.constants.Code.*;
 
@@ -24,8 +24,12 @@ import org.springframework.web.client.RestClientException;
 public class GlobalExceptionHandler {
 
     @ExceptionHandler({CustomException.class})
-    protected ResponseEntity<ErrorResponseDto> handleNormalException(CustomException e){
-        return ResponseEntity.status(e.getCode().getHttpStatus()).body(ErrorResponseDto.of(e.getCode()));
+    protected ApiResponse<Object> handleNormalException(CustomException e){
+        return ApiResponse.of(
+                HttpStatus.BAD_REQUEST,
+                e.getMessage(),
+                null
+        );
     }
 
 

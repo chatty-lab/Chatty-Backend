@@ -16,5 +16,5 @@ public class NaverSmsRequestDto {
     private String countryCode;
     private String from;
     private String content;
-    private List<MessageDto> messages;
+    private List<MessageRequestDto> messages;
 }

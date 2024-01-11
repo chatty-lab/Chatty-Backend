@@ -208,4 +208,9 @@ public class UserService {
             throw new CustomException(Code.INVALID_EXTENSION);
         }
     }
+
+    public User validateExistUser(long userId) {
+        log.info("유저가 유효한지 검사");
+        return userRepository.findUserById(userId).orElseThrow(() -> new CustomException(Code.NOT_EXIST_USER));
+    }
 }
