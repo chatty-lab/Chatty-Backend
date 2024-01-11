@@ -34,3 +34,15 @@ naver-cloud-sms-sender-phone-number: 01062585055
 redis-token-host: localhost
 redis-authenticationNumber-host: localhost
 redis-port: 6379
+
+cloud:
+  aws:
+    credentials:
+      accessKey: ZXCASDQWEZXCASDQWEZXC
+      secretKey: ZXCASDQWEZXCASDQWEZXCASDQWEZXCASDQWEZXC
+    s3:
+      bucket: bucket-image
+    region:
+      static: ap-northeast-2
+    stack:
+      auto: false
