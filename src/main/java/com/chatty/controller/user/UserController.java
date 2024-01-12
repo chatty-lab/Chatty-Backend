@@ -5,6 +5,7 @@ import com.chatty.dto.user.request.*;
 import com.chatty.dto.user.response.UserResponse;
 import com.chatty.dto.user.response.UserResponseDto;
 import com.chatty.service.user.UserService;
+import io.swagger.v3.oas.annotations.Hidden;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.media.ExampleObject;
@@ -78,6 +79,26 @@ public class UserController {
     }
 
     @Operation(summary = "최종 회원가입", description = "회원가입에 필요한 정보를 입력한 후, 회원가입을 완료합니다.")
+    @io.swagger.v3.oas.annotations.responses.ApiResponse(responseCode = "400", description = "회원가입 실패",
+            content = @Content(mediaType = "application/json",
+                    examples = {
+                            @ExampleObject(name = "E-004", value = """
+                                    {
+                                        "errorCode": "004",
+                                        "status": "400",
+                                        "message": "존재하지 않는 유저 입니다."
+                                    }
+                                    """),
+                            @ExampleObject(name = "E-003", value = """
+                                    {
+                                        "errorCode": "003",
+                                        "status": "400",
+                                        "message": "이미 존재하는 닉네임입니다."
+                                    }
+                                    """)
+                    }
+            )
+    )
     @PutMapping("/update")
     public ApiResponse<UserResponse> joinComplete(@Valid @RequestBody UserJoinRequest request,
                                                   final Authentication authentication) {
@@ -86,18 +107,33 @@ public class UserController {
     }
 
     @Operation(summary = "닉네임 변경", description = "닉네임을 변경합니다.")
+    @io.swagger.v3.oas.annotations.responses.ApiResponse(responseCode = "400", description = "회원가입 실패",
+            content = @Content(mediaType = "application/json",
+                    examples = {
+                            @ExampleObject(name = "E-003", value = """
+                                    {
+                                        "errorCode": "003",
+                                        "status": "400",
+                                        "message": "이미 존재하는 닉네임입니다."
+                                    }
+                                    """),
+                    }
+            )
+    )
     @PutMapping("/nickname")
     public ApiResponse<UserResponse> updateNickname(@Valid @RequestBody UserNicknameRequest request,
                                                     final Authentication authentication) {
         return ApiResponse.ok(userService.updateNickname(authentication.getName(), request));
     }
 
+    @Hidden
     @PutMapping("/gender")
     public ApiResponse<UserResponse> updateGender(@Valid @RequestBody UserGenderRequest request,
                                                   final Authentication authentication) {
         return ApiResponse.ok(userService.updateGender(authentication.getName(), request));
     }
 
+    @Hidden
     @PutMapping("/birth")
     public ApiResponse<UserResponse> updateBirth(@Valid @RequestBody UserBirthRequest request,
                                                  final Authentication authentication) {
@@ -106,6 +142,19 @@ public class UserController {
     }
 
     @Operation(summary = "MBTI 변경", description = "MBTI를 변경합니다.")
+    @io.swagger.v3.oas.annotations.responses.ApiResponse(responseCode = "400", description = "회원가입 실패",
+            content = @Content(mediaType = "application/json",
+                    examples = {
+                            @ExampleObject(name = "E-004", value = """
+                                    {
+                                        "errorCode": "004",
+                                        "status": "400",
+                                        "message": "존재하지 않는 유저 입니다."
+                                    }
+                                    """),
+                    }
+            )
+    )
     @PutMapping("/mbti")
     public ApiResponse<UserResponse> updateMbti(@Valid @RequestBody UserMbtiRequest request,
                                                 final Authentication authentication) {
@@ -113,6 +162,7 @@ public class UserController {
         return ApiResponse.ok(userService.updateMbti(authentication.getName(), request));
     }
 
+    @Hidden
     @Operation(summary = "주소 변경", description = "주소를 변경합니다.")
     @PutMapping("/coordinate")
     public ApiResponse<UserResponse> updateCoordinate(@Valid @RequestBody UserCoordinateRequest request,
