@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<!--<form id="enter-form">-->
+<label for="username">
+    이름:
+    <input id="username" type="text">
+    <input id="scope" type="text">
+</label>
+<button id="enter-button" type="button">입장</button>
+<!--</form>-->
+<script>
+    document.getElementById("enter-form").addEventListener("submit", event => {
+        event.preventDefault();
+        body = JSON.stringify({
+            scope: document.getElementById("scope").value
+        })
+        location.href = `/chat/match`
+    })
+    const enterButton = document.getElementById("enter-button");
+
+    if (enterButton) {
+//     document.getElementById("enter-form").addEventListener("submit", event => {
+        enterButton.addEventListener("click", e => {
+            // event.preventDefault();
+            body = JSON.stringify({
+                scope: document.getElementById("scope").value
+            })
+
+            function success() {
+                alert('매칭 요청 완료!!');
+                alert(body.scope)
+                console.log(body.scope)
+                // location.replace('/chat/match');
+                window.location.href = '/chat/match';
+            }
+
+            function fail() {
+                alert('매칭 요청 !!실패!!');
+            }
+
+            httpRequest("POST", "/match", body, success, fail);
+        })
+    }
+
+
+    alert(localStorage.getItem("access_token"));
+    function httpRequest(method, url, body, success, fail) {
+        fetch(url, {
+            method: method,
+            headers: {
+                Authorization: "Bearer " + localStorage.getItem("access_token"),
+                "Content-Type": "application/json"
+            },
+            body: body
+        }).then(response => {
+            if (response.status === 200 || response.status === 201) {
+                return success();
+            } else {
+                return fail();
+            }
+        })
+    }
+
+</script>
+</body>
+</html>

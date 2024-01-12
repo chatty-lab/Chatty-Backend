@@ -11,7 +11,7 @@ import java.util.stream.Stream;
 @Getter
 public enum Gender {
 
-    MALE("남"), FEMALE("여");
+    MALE("남"), FEMALE("여"), ALL("남/여");
 
     private final String gender;
 

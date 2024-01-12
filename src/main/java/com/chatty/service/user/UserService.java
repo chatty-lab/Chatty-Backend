@@ -12,13 +12,17 @@ import com.chatty.repository.token.RefreshTokenRepository;
 import com.chatty.repository.user.UserRepository;
 import com.chatty.service.sms.SmsService;
 import com.chatty.utils.JwtTokenUtils;
+import com.chatty.utils.S3Service;
 import com.chatty.utils.SmsUtils;
+
+import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.multipart.MultipartFile;
 
 @Service
 @Slf4j
@@ -29,6 +33,7 @@ public class UserService {
     private final UserRepository userRepository;
     private final RefreshTokenRepository refreshTokenRepository;
     private final SmsService smsService;
+    private final S3Service s3Service;
 
     private static final String ACCESS_TOKEN = "accessToken";
     private static final String REFRESH_TOKEN = "refreshToken";
@@ -68,6 +73,11 @@ public class UserService {
         if(isAlreadyExistedUser(userRequestDto.getMobileNumber())){
             log.error("이미 존재 하는 유저 입니다.");
             throw new CustomException(Code.ALREADY_EXIST_USER);
+        }
+
+        if(!smsService.checkAuthNumber(key,userRequestDto.getAuthenticationNumber())){
+            log.error("인증 번호가 일치하지 않는다.");
+            throw new CustomException(Code.INVALID_AUTH_NUMBER);
         }
 
         User user = User.builder()
@@ -162,6 +172,23 @@ public class UserService {
         return UserResponse.of(user);
     }
 
+    @Transactional
+    public UserResponse updateImage(final String mobileNumber, final MultipartFile image) throws IOException {
+        User user = userRepository.findUserByMobileNumber(mobileNumber)
+                .orElseThrow(() -> new CustomException(Code.NOT_EXIST_USER));
+
+        if (image.isEmpty()) {
+            user.updateImage("profile.jpg");
+            return UserResponse.of(user);
+        }
+
+        validateExtension(image.getOriginalFilename());
+        String fileUrl = s3Service.uploadFileToS3(image, "profile/" + user.getId() + ".jpg");
+        user.updateImage(fileUrl);
+
+        return UserResponse.of(user);
+    }
+
     private void validateDuplicateNickname(final UserNicknameRequest request) {
         userRepository.findByNickname(request.getNickname())
                 .ifPresent(findUser -> {
@@ -176,6 +203,15 @@ public class UserService {
     private boolean isAlreadyExistedUser(String mobileNumber){
         log.info("[UserService/isAlreadyExistedUser] 이미 가입한 유저인지 확인");
         return userRepository.existsUserByMobileNumber(mobileNumber);
+    }
+
+    private void validateExtension(final String filename) {
+        String[] file = filename.split("\\.");
+        String extension = file[file.length - 1];
+
+        if (!extension.equals("jpg") && !extension.equals("jpeg") && !extension.equals("png")) {
+            throw new CustomException(Code.INVALID_EXTENSION);
+        }
     }
 
     public User validateExistUser(long userId) {

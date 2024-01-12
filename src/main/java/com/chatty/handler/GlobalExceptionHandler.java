@@ -33,8 +33,8 @@ public class GlobalExceptionHandler {
     @ExceptionHandler(BindException.class)
     public ErrorResponse validationException(BindException e){
         return ErrorResponse.of(
-                INVALID_PARAMETER.getErrorCode(),
-                e.getBindingResult().getAllErrors().get(0).getDefaultMessage()
+                e.getBindingResult().getAllErrors().get(0).getDefaultMessage(),
+                INVALID_PARAMETER.getErrorCode()
         );
     }
 

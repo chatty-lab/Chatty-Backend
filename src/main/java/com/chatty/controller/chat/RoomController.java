@@ -1,6 +1,7 @@
 package com.chatty.controller.chat;
 
 import com.chatty.dto.ApiResponse;
+import com.chatty.dto.chat.request.DeleteRoomDto;
 import com.chatty.dto.chat.request.RoomDto;
 import com.chatty.dto.chat.response.RoomResponseDto;
 import com.chatty.service.chat.RoomService;
@@ -78,13 +79,20 @@ public class RoomController {
                                         "message": "채팅방이 존재하지 않습니다."
                                     }
                                     """),
+                            @ExampleObject(name = "E-015", value = """
+                                    {
+                                        "errorCode": "015",
+                                        "status": "400",
+                                        "message": "유저가 채팅방에 존재하지 않습니다."
+                                    }
+                                    """)
                     }
             )
     )
-    @DeleteMapping("/room/{roomId}")
-    public ApiResponse<RoomResponseDto> deleteRoom(@PathVariable Long roomId){
+    @DeleteMapping("/room")
+    public ApiResponse<RoomResponseDto> deleteRoom(@Valid @RequestBody DeleteRoomDto deleteRoomDto){
         log.info("채팅방 삭제");
-        return ApiResponse.ok(roomService.deleteRoom(roomId));
+        return ApiResponse.ok(roomService.deleteRoom(deleteRoomDto));
     }
 
     @Operation(summary = "채팅방 찾기", description = "채팅방을 찾아 채팅방에 대한 정보를 획득합니다.")
