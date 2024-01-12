@@ -96,6 +96,10 @@ public class User  extends CommonEntity implements UserDetails{
         this.location = createPoint(coordinate);
     }
 
+    public void updateImage(final String imageUrl) {
+        this.imageUrl = imageUrl;
+    }
+
     public static Point createPoint(final Coordinate coordinate) {
         GeometryFactory geometryFactory = new GeometryFactory(new PrecisionModel(), 4326);
         return geometryFactory.createPoint(new org.locationtech.jts.geom.Coordinate(coordinate.getLng(), coordinate.getLat()));
