@@ -1,6 +1,7 @@
 package com.chatty.service.chat;
 
 import com.chatty.constants.Code;
+import com.chatty.dto.chat.request.DeleteMessageDto;
 import com.chatty.dto.chat.request.RoomDto;
 import com.chatty.dto.chat.response.RoomResponseDto;
 import com.chatty.entity.chat.ChatRoom;
@@ -35,9 +36,12 @@ public class RoomService {
     }
 
     @Transactional
-    public RoomResponseDto deleteRoom(Long roomId) {
+    public RoomResponseDto deleteRoom(DeleteMessageDto deleteMessageDto) {
 
-        ChatRoom chatRoom = isExistedRoomByRoomId(roomId);
+        ChatRoom chatRoom = isExistedRoomByRoomId(deleteMessageDto.getRoomId());
+
+        isValidUserInRoom(deleteMessageDto.getUserId(), chatRoom);
+
         chatRoomRepository.delete(chatRoom);
         log.info("채팅방을 삭제했습니다.");
 
@@ -47,6 +51,12 @@ public class RoomService {
     @Transactional
     public RoomResponseDto findChatRoom(long roomId){
         return RoomResponseDto.of(chatRoomRepository.findById(roomId).orElseThrow(() -> new CustomException(Code.NOT_FOUND_CHAT_ROOM)));
+    }
+
+    private void isValidUserInRoom(Long userId, ChatRoom chatRoom){
+        if(!(chatRoom.getReceiver().getId() == userId || chatRoom.getSender().getId() == userId)){
+            throw new CustomException(Code.NOT_IN_USER_ROOM);
+        }
     }
 
     private void isExistedRoomByUserId(User sender, User receiver){

@@ -1,6 +1,7 @@
 package com.chatty.controller.chat;
 
 import com.chatty.dto.ApiResponse;
+import com.chatty.dto.chat.request.DeleteMessageDto;
 import com.chatty.dto.chat.request.RoomDto;
 import com.chatty.dto.chat.response.RoomResponseDto;
 import com.chatty.service.chat.RoomService;
@@ -32,10 +33,10 @@ public class RoomController {
     }
 
     @Operation(summary = "채팅방 삭제", description = "채팅방을 삭제해줍니다.")
-    @DeleteMapping("/room/{roomId}")
-    public ApiResponse<RoomResponseDto> deleteRoom(@PathVariable Long roomId){
+    @DeleteMapping("/room")
+    public ApiResponse<RoomResponseDto> deleteRoom(@Valid @RequestBody DeleteMessageDto deleteMessageDto){
         log.info("채팅방 삭제");
-        return ApiResponse.ok(roomService.deleteRoom(roomId));
+        return ApiResponse.ok(roomService.deleteRoom(deleteMessageDto));
     }
 
     @Operation(summary = "채팅방 찾기", description = "채팅방을 찾아 채팅방에 대한 정보를 획득합니다.")
