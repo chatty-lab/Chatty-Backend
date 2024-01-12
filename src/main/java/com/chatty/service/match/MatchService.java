@@ -52,6 +52,7 @@ public class MatchService {
     public void createUserSession(final WebSocketSession session, final MatchResponse matchResponse) {
         Map<String, Object> attributes = session.getAttributes();
         attributes.put("matchId", matchResponse.getId());
+        attributes.put("userId", matchResponse.getUserId());
         attributes.put("nickname", matchResponse.getNickname());
         attributes.put("gender", matchResponse.getGender());
         attributes.put("requestGender", matchResponse.getRequestGender());

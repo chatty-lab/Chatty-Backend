@@ -36,6 +36,8 @@ public class SecurityConfig {
                                 .requestMatchers("/reviews/home").hasRole("USER")
                                 .requestMatchers("/reviews/**").authenticated()
                         .requestMatchers("/chat/**").authenticated()
+                        .requestMatchers("/matching/**").permitAll()
+                        .requestMatchers("/match/**").authenticated()
                 )
                 .addFilterBefore(new JwtTokenFilter(jwtTokenProvider,tokenValidator,userDetailsService), UsernamePasswordAuthenticationFilter.class)
 
@@ -51,11 +53,11 @@ public class SecurityConfig {
                 "/users/join",
                 "/users/login",
                 "/ws",
+                "/ws/**",
                 "/auth/**",
                 "/swagger-ui/**",
                 "/v3/api-docs/**",
-                "/index.html",
-                "/matching/**"
+                "/index.html"
         );
     }
 }
