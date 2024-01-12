@@ -113,9 +113,9 @@ public class RoomServiceTest {
     void deleteRoomNotExistedChatRoom() throws Exception{
         //given
 
-        DeleteRoomDto deleteRoomDto = DeleteRoomDto.builder().roomId(anyLong()).userId(anyLong()).build();
+        DeleteRoomDto deleteRoomDto = DeleteRoomDto.builder().roomId(1L).userId(1L).build();
 
-        when(chatRoomRepository.findChatRoomByRoomId(anyLong())).thenThrow(new CustomException(Code.NOT_FOUND_CHAT_ROOM));
+        when(chatRoomRepository.findChatRoomByRoomId(1L)).thenThrow(new CustomException(Code.NOT_FOUND_CHAT_ROOM));
 
         //when, then
         assertThatThrownBy(() -> roomService.deleteRoom(deleteRoomDto))
