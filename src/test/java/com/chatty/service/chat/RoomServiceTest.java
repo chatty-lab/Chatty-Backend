@@ -77,7 +77,7 @@ public class RoomServiceTest {
         User receiver = User.builder().id(2L).build();
         ChatRoom chatRoom = ChatRoom.builder().roomId(1L).sender(sender).receiver(receiver).build();
 
-        DeleteRoomDto deleteRoomDto = DeleteRoomDto.builder().roomId(anyLong()).userId(1L).build();
+        DeleteRoomDto deleteRoomDto = DeleteRoomDto.builder().roomId(1L).userId(1L).build();
 
         when(chatRoomRepository.findChatRoomByRoomId(1L)).thenReturn(Optional.of(chatRoom));
 
@@ -98,7 +98,7 @@ public class RoomServiceTest {
         User receiver = User.builder().id(2L).build();
         ChatRoom chatRoom = ChatRoom.builder().roomId(1L).sender(sender).receiver(receiver).build();
 
-        DeleteRoomDto deleteRoomDto = DeleteRoomDto.builder().roomId(anyLong()).userId(3L).build();
+        DeleteRoomDto deleteRoomDto = DeleteRoomDto.builder().roomId(1L).userId(3L).build();
 
         when(chatRoomRepository.findChatRoomByRoomId(1L)).thenReturn(Optional.of(chatRoom));
 
