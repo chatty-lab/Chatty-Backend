@@ -79,6 +79,13 @@ public class RoomController {
                                         "message": "채팅방이 존재하지 않습니다."
                                     }
                                     """),
+                            @ExampleObject(name = "E-015", value = """
+                                    {
+                                        "errorCode": "015",
+                                        "status": "400",
+                                        "message": "유저가 채팅방에 존재하지 않습니다."
+                                    }
+                                    """)
                     }
             )
     )

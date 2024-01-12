@@ -75,14 +75,11 @@ public class UserService {
             throw new CustomException(Code.ALREADY_EXIST_USER);
         }
 
-<<<<<<< HEAD
-=======
         if(!smsService.checkAuthNumber(key,userRequestDto.getAuthenticationNumber())){
             log.error("인증 번호가 일치하지 않는다.");
             throw new CustomException(Code.INVALID_AUTH_NUMBER);
         }
 
->>>>>>> develop
         User user = User.builder()
                 .mobileNumber(userRequestDto.getMobileNumber())
                 .authority(Authority.ANONYMOUS)

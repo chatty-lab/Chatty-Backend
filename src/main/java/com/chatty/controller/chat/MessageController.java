@@ -42,13 +42,6 @@ public class MessageController {
                                         "status": "400",
                                         "message": "accessToken 유효성 검증을 실패했습니다."
                                     }
-                                    """),
-                            @ExampleObject(name = "E-011", value = """
-                                    {
-                                        "errorCode": "011",
-                                        "status": "400",
-                                        "message": "채팅방이 존재하지 않습니다."
-                                    }
                                     """)
                     }
             )
