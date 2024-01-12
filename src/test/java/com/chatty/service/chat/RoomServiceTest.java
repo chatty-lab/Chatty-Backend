@@ -5,6 +5,7 @@ import static org.mockito.ArgumentMatchers.anyLong;
 import static org.mockito.Mockito.*;
 
 import com.chatty.constants.Code;
+import com.chatty.dto.chat.request.DeleteRoomDto;
 import com.chatty.dto.chat.request.RoomDto;
 import com.chatty.dto.chat.response.RoomResponseDto;
 import com.chatty.entity.chat.ChatRoom;
@@ -57,8 +58,6 @@ public class RoomServiceTest {
     @DisplayName("채팅방을 만들때. 유저가 존재하지 않으면 예외가 발생한다.")
     void createRoomNotExistedUser() throws Exception{
         //given
-        User sender = User.builder().id(1L).build();
-        User receiver = User.builder().id(2L).build();
         RoomDto roomDto = RoomDto.builder().senderId(1L).receiverId(2L).build();
 
         when(userService.validateExistUser(anyLong())).thenThrow(new CustomException(Code.NOT_EXIST_USER));
@@ -78,10 +77,12 @@ public class RoomServiceTest {
         User receiver = User.builder().id(2L).build();
         ChatRoom chatRoom = ChatRoom.builder().roomId(1L).sender(sender).receiver(receiver).build();
 
-        when(chatRoomRepository.findChatRoomByRoomId(anyLong())).thenReturn(Optional.of(chatRoom));
+        DeleteRoomDto deleteRoomDto = DeleteRoomDto.builder().roomId(anyLong()).userId(1L).build();
+
+        when(chatRoomRepository.findChatRoomByRoomId(1L)).thenReturn(Optional.of(chatRoom));
 
         //when
-        RoomResponseDto roomResponseDto = roomService.deleteRoom(anyLong());
+        RoomResponseDto roomResponseDto = roomService.deleteRoom(deleteRoomDto);
 
         //then
         assertThat(roomResponseDto.getRoomId()).isEqualTo(chatRoom.getRoomId());
@@ -90,13 +91,34 @@ public class RoomServiceTest {
     }
 
     @Test
+    @DisplayName("채팅방을 삭제할때, 채팅방에 존재하는 유저가 아니라면 예외가 발생한다.")
+    void deleteRoomNotInChatRoom() throws Exception{
+        //given
+        User sender = User.builder().id(1L).build();
+        User receiver = User.builder().id(2L).build();
+        ChatRoom chatRoom = ChatRoom.builder().roomId(1L).sender(sender).receiver(receiver).build();
+
+        DeleteRoomDto deleteRoomDto = DeleteRoomDto.builder().roomId(anyLong()).userId(3L).build();
+
+        when(chatRoomRepository.findChatRoomByRoomId(1L)).thenReturn(Optional.of(chatRoom));
+
+        //when,then
+        assertThatThrownBy(() ->roomService.deleteRoom(deleteRoomDto))
+                .isInstanceOf(CustomException.class)
+                .hasMessage("유저가 채팅방에 존재하지 않습니다.");
+    }
+
+    @Test
     @DisplayName("채팅방을 삭제할때, 채팅방이 존재하지 않는다면 예외가 발생한다.")
     void deleteRoomNotExistedChatRoom() throws Exception{
         //given
+
+        DeleteRoomDto deleteRoomDto = DeleteRoomDto.builder().roomId(anyLong()).userId(anyLong()).build();
+
         when(chatRoomRepository.findChatRoomByRoomId(anyLong())).thenThrow(new CustomException(Code.NOT_FOUND_CHAT_ROOM));
 
         //when, then
-        assertThatThrownBy(() -> roomService.deleteRoom(anyLong()))
+        assertThatThrownBy(() -> roomService.deleteRoom(deleteRoomDto))
                 .isInstanceOf(CustomException.class)
                 .hasMessage("채팅방이 존재하지 않습니다.");
     }

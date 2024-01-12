@@ -1,7 +1,7 @@
 package com.chatty.service.chat;
 
 import com.chatty.constants.Code;
-import com.chatty.dto.chat.request.DeleteMessageDto;
+import com.chatty.dto.chat.request.DeleteRoomDto;
 import com.chatty.dto.chat.request.RoomDto;
 import com.chatty.dto.chat.response.RoomResponseDto;
 import com.chatty.entity.chat.ChatRoom;
@@ -36,11 +36,11 @@ public class RoomService {
     }
 
     @Transactional
-    public RoomResponseDto deleteRoom(DeleteMessageDto deleteMessageDto) {
+    public RoomResponseDto deleteRoom(DeleteRoomDto deleteRoomDto) {
 
-        ChatRoom chatRoom = isExistedRoomByRoomId(deleteMessageDto.getRoomId());
+        ChatRoom chatRoom = isExistedRoomByRoomId(deleteRoomDto.getRoomId());
 
-        isValidUserInRoom(deleteMessageDto.getUserId(), chatRoom);
+        isValidUserInRoom(deleteRoomDto.getUserId(), chatRoom);
 
         chatRoomRepository.delete(chatRoom);
         log.info("채팅방을 삭제했습니다.");

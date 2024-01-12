@@ -1,10 +1,16 @@
 package com.chatty.dto.chat.request;
 
 import jakarta.validation.constraints.NotBlank;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 
 @Getter
-public class DeleteMessageDto {
+@NoArgsConstructor
+@AllArgsConstructor
+@Builder
+public class DeleteRoomDto {
 
     @NotBlank
     private Long roomId;
