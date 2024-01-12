@@ -37,6 +37,13 @@ public class RoomController {
                                         "message": "존재하지 않는 유저 입니다."
                                     }
                                     """),
+                            @ExampleObject(name = "E-007", value = """
+                                    {
+                                        "errorCode": "007",
+                                        "status": "400",
+                                        "message": "accessToken 유효성 검증을 실패했습니다."
+                                    }
+                                    """),
                             @ExampleObject(name = "E-012", value = """
                                     {
                                         "errorCode": "012",
@@ -57,6 +64,13 @@ public class RoomController {
     @io.swagger.v3.oas.annotations.responses.ApiResponse(responseCode = "400", description = "회원가입 실패",
             content = @Content(mediaType = "application/json",
                     examples = {
+                            @ExampleObject(name = "E-007", value = """
+                                    {
+                                        "errorCode": "007",
+                                        "status": "400",
+                                        "message": "accessToken 유효성 검증을 실패했습니다."
+                                    }
+                                    """),
                             @ExampleObject(name = "E-011", value = """
                                     {
                                         "errorCode": "011",
@@ -77,6 +91,13 @@ public class RoomController {
     @io.swagger.v3.oas.annotations.responses.ApiResponse(responseCode = "400", description = "회원가입 실패",
             content = @Content(mediaType = "application/json",
                     examples = {
+                            @ExampleObject(name = "E-007", value = """
+                                    {
+                                        "errorCode": "007",
+                                        "status": "400",
+                                        "message": "accessToken 유효성 검증을 실패했습니다."
+                                    }
+                                    """),
                             @ExampleObject(name = "E-011", value = """
                                     {
                                         "errorCode": "011",
