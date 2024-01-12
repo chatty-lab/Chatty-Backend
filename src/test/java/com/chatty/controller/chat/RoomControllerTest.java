@@ -8,6 +8,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
+import com.chatty.dto.chat.request.DeleteRoomDto;
 import com.chatty.service.chat.RoomService;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.jupiter.api.Test;
@@ -98,14 +99,59 @@ class RoomControllerTest {
     @WithMockUser(username = "123123", roles = "USER")
     void removeChatRoom() throws Exception{
         //given
-        Long roomId = 1L;
+        DeleteRoomDto deleteRoomDto = DeleteRoomDto.builder()
+                        .roomId(1L)
+                                .userId(1L)
+                                        .build();
 
         //then
         mockMvc.perform(
-                delete("/chat/room/{roomId}",roomId).with(csrf())
+                delete("/chat/room").with(csrf())
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content(objectMapper.writeValueAsString(deleteRoomDto))
         )
                 .andDo(print())
                 .andExpect(status().isOk());
+    }
+
+    @Test
+    @DisplayName("채팅방을 삭제시, 방 id는 필수 값이다.")
+    @WithMockUser(username = "123123", roles = "USER")
+    void removeChatRoomWithoutRoomId() throws Exception{
+        //given
+        DeleteRoomDto deleteRoomDto = DeleteRoomDto.builder()
+                .userId(1L)
+                .build();
+
+        //then
+        mockMvc.perform(
+                        delete("/chat/room").with(csrf())
+                                .contentType(MediaType.APPLICATION_JSON)
+                                .content(objectMapper.writeValueAsString(deleteRoomDto))
+                )
+                .andDo(print())
+                .andExpect(status().isBadRequest())
+                .andExpect(jsonPath("$.message").value("roomId(방 아이디)는 필수로 입력해야 합니다."));
+    }
+
+    @Test
+    @DisplayName("채팅방을 삭제시, user id는 필수 값이다.")
+    @WithMockUser(username = "123123", roles = "USER")
+    void removeChatRoomWithoutUserId() throws Exception{
+        //given
+        DeleteRoomDto deleteRoomDto = DeleteRoomDto.builder()
+                .roomId(1L)
+                .build();
+
+        //then
+        mockMvc.perform(
+                        delete("/chat/room").with(csrf())
+                                .contentType(MediaType.APPLICATION_JSON)
+                                .content(objectMapper.writeValueAsString(deleteRoomDto))
+                )
+                .andDo(print())
+                .andExpect(status().isBadRequest())
+                .andExpect(jsonPath("$.message").value("userId(송신자) 는 필수로 입력해야 합니다."));
     }
 
     @Test
