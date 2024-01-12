@@ -1,6 +1,6 @@
 package com.chatty.controller.auth;
 
-import com.chatty.dto.DataResponseDto;
+import com.chatty.dto.ApiResponse;
 import com.chatty.dto.auth.request.AuthRequestDto;
 import com.chatty.dto.auth.response.AuthResponseDto;
 import com.chatty.dto.sms.request.UserSmsRequestDto;
@@ -8,6 +8,8 @@ import com.chatty.dto.sms.response.SmsUserResponseDto;
 import com.chatty.service.auth.AuthService;
 import com.chatty.service.sms.SmsService;
 import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.media.Content;
+import io.swagger.v3.oas.annotations.media.ExampleObject;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -26,15 +28,48 @@ public class AuthController {
     private final SmsService smsService;
 
     @Operation(summary = "토큰 재발급", description = "refreshToken을 사용해서 토큰을 재발급합니다.")
+    @io.swagger.v3.oas.annotations.responses.ApiResponse(responseCode = "400", description = "토큰 재발급 실패",
+            content = @Content(mediaType = "application/json",
+                    examples = {
+                            @ExampleObject(name = "E-008", value = """
+                                    {
+                                        "errorCode": "008",
+                                        "status": "400",
+                                        "message": "refreshToken이 유효성 검증을 실패했습니다."
+                                    }
+                                    """),
+                            @ExampleObject(name = "E-009", value = """
+                                    {
+                                        "errorCode": "009",
+                                        "status": "400",
+                                        "message": "refreshToken이 만료되었습니다."
+                                    }
+                                    """),
+                    }
+            )
+    )
     @PostMapping("/refresh")
-    public DataResponseDto<AuthResponseDto> refresh(@Valid @RequestBody AuthRequestDto authRequestDto) {
-        return DataResponseDto.of(authService.reissueTokens(authRequestDto));
+    public ApiResponse<AuthResponseDto> refresh(@Valid @RequestBody AuthRequestDto authRequestDto) {
+        return ApiResponse.ok(authService.reissueTokens(authRequestDto));
     }
 
     @Operation(summary = "번호 인증 요청", description = "전화번호로 sms 인증요청을 합니다.")
+    @io.swagger.v3.oas.annotations.responses.ApiResponse(responseCode = "400", description = "번호 인증 실패",
+            content = @Content(mediaType = "application/json",
+                    examples = {
+                            @ExampleObject(name = "E-005", value = """
+                                    {
+                                        "errorCode": "005",
+                                        "status": "400",
+                                        "message": "naver에서 sms전송을 실패했습니다."
+                                    }
+                                    """),
+                    }
+            )
+    )
     @PostMapping("/mobile")
-    public DataResponseDto<SmsUserResponseDto> mobile(@Valid @RequestBody UserSmsRequestDto userSmsRequestDto) throws Exception {
+    public ApiResponse<SmsUserResponseDto> mobile(@Valid @RequestBody UserSmsRequestDto userSmsRequestDto) throws Exception {
         log.info("번호 인증 요청");
-        return DataResponseDto.of(smsService.saveSms(userSmsRequestDto));
+        return ApiResponse.ok(smsService.saveSms(userSmsRequestDto));
     }
 }

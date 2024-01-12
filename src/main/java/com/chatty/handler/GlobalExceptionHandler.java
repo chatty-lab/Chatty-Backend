@@ -2,8 +2,7 @@ package com.chatty.handler;
 
 import static com.chatty.constants.Code.*;
 
-import com.chatty.dto.ApiResponse;
-import com.chatty.dto.ErrorResponseDto;
+import com.chatty.dto.ErrorResponse;
 import com.chatty.exception.CustomException;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import java.io.UnsupportedEncodingException;
@@ -12,7 +11,6 @@ import java.security.InvalidKeyException;
 import java.security.NoSuchAlgorithmException;
 
 import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.validation.BindException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
@@ -24,45 +22,31 @@ import org.springframework.web.client.RestClientException;
 public class GlobalExceptionHandler {
 
     @ExceptionHandler({CustomException.class})
-    protected ApiResponse<Object> handleNormalException(CustomException e){
-        return ApiResponse.of(
-                HttpStatus.BAD_REQUEST,
-                e.getMessage(),
-                null
+    protected ErrorResponse handleNormalException(CustomException e){
+        return ErrorResponse.of(
+                e.getCode().getErrorCode(),
+                e.getMessage()
         );
     }
-
 
     @ResponseStatus(HttpStatus.BAD_REQUEST)
     @ExceptionHandler(BindException.class)
-    public ApiResponse<Object> validationException(BindException e){
-        return ApiResponse.of(
-                HttpStatus.BAD_REQUEST,
-                e.getBindingResult().getAllErrors().get(0).getDefaultMessage(),
-                null
+    public ErrorResponse validationException(BindException e){
+        return ErrorResponse.of(
+                INVALID_PARAMETER.getErrorCode(),
+                e.getBindingResult().getAllErrors().get(0).getDefaultMessage()
         );
     }
 
-//    @ExceptionHandler(BindException.class)
-//    public ResponseEntity<ErrorResponseDto> validationException(BindException e){
-//        return ResponseEntity.status(INVALID_PARAMETER.getHttpStatus())
-//                .body(ErrorResponseDto.of(e.getBindingResult().getAllErrors().get(0).getDefaultMessage()));
-//    }
-
-//    @ExceptionHandler(BindException.class)
-//    public ResponseEntity<ErrorResponseDto> validationException(BindException e){
-//        return ResponseEntity.status(INVALID_PARAMETER.getHttpStatus()).body(ErrorResponseDto.of(INVALID_PARAMETER));
-//    }
-
     @ExceptionHandler({JsonProcessingException.class, RestClientException.class, URISyntaxException.class, InvalidKeyException.class, NoSuchAlgorithmException.class, UnsupportedEncodingException.class})
-    public ResponseEntity<ErrorResponseDto> sendSmsException(Exception e){
+    public ErrorResponse sendSmsException(Exception e){
         //TODO: LocalDate에 값을 어떻게 검증할 것인지? 이상하게 넣으면 Parsing 예외 발생한다.
         e.printStackTrace();
-        return ResponseEntity.status(NOT_SEND_SMS.getHttpStatus()).body(ErrorResponseDto.of(e.getMessage()));
+        return ErrorResponse.of(NOT_SEND_SMS.getErrorCode(),e.getMessage());
     }
 
     @ExceptionHandler(UsernameNotFoundException.class)
-    public ResponseEntity<ErrorResponseDto> userException(UsernameNotFoundException e){
-        return ResponseEntity.status(NOT_EXIST_USER.getHttpStatus()).body(ErrorResponseDto.of(NOT_EXIST_USER));
+    public ErrorResponse userException(UsernameNotFoundException e){
+        return ErrorResponse.of(NOT_EXIST_USER.getErrorCode(),e.getMessage());
     }
 }
