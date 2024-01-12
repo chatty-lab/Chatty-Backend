@@ -6,17 +6,24 @@ import com.chatty.dto.user.response.UserResponse;
 import com.chatty.entity.user.*;
 import com.chatty.exception.CustomException;
 import com.chatty.repository.user.UserRepository;
+import com.chatty.utils.S3Service;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
-import org.locationtech.jts.geom.Point;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.boot.test.mock.mockito.MockBean;
+import org.springframework.mock.web.MockMultipartFile;
+import org.springframework.web.multipart.MultipartFile;
 
+import java.io.IOException;
 import java.time.LocalDate;
 import java.util.List;
 
 import static org.assertj.core.api.Assertions.*;
+import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.ArgumentMatchers.anyString;
+import static org.mockito.Mockito.when;
 
 @SpringBootTest
 class UserServiceTest {
@@ -26,6 +33,9 @@ class UserServiceTest {
 
     @Autowired
     private UserRepository userRepository;
+
+    @MockBean
+    private S3Service s3Service;
 
     @AfterEach
     void tearDown() {
@@ -185,6 +195,57 @@ class UserServiceTest {
                 .containsExactly(
                         37.1, 127.1
                 );
+    }
+
+    @DisplayName("프로필 이미지를 수정한다.")
+    @Test
+    void updateImage() throws IOException {
+        // given
+        User user = createUser("닉네임", "01012345678");
+        userRepository.save(user);
+
+        MockMultipartFile image = new MockMultipartFile("image", "image.jpg", "image/jpeg", new byte[]{123, 123});
+        when(s3Service.uploadFileToS3(any(MultipartFile.class), anyString()))
+                .thenReturn("image.jpg");
+
+        // when
+        UserResponse userResponse = userService.updateImage(user.getMobileNumber(), image);
+
+        // then
+        assertThat(userResponse.getId()).isNotNull();
+        assertThat(userResponse.getImageUrl()).isEqualTo("image.jpg");
+    }
+
+    @DisplayName("프로필 이미지를 수정할 때, 이미지 파일을 넣지 않으면 기본 이미지로 저장이 된다.")
+    @Test
+    void updateImageWithoutFile() throws IOException {
+        // given
+        User user = createUser("닉네임", "01012345678");
+        userRepository.save(user);
+
+        MockMultipartFile image = new MockMultipartFile("image", "image.jpg", "image/jpeg", new byte[]{});
+
+        // when
+        UserResponse userResponse = userService.updateImage(user.getMobileNumber(), image);
+
+        // then
+        assertThat(userResponse.getId()).isNotNull();
+        assertThat(userResponse.getImageUrl()).isEqualTo("profile.jpg");
+    }
+
+    @DisplayName("프로필 이미지를 수정할 때, 파일 확장자가 jpg, png, jpeg가 아니면 예외가 발생한다.")
+    @Test
+    void updateImageWithInvalidExtension() throws IOException {
+        // given
+        User user = createUser("닉네임", "01012345678");
+        userRepository.save(user);
+
+        MockMultipartFile image = new MockMultipartFile("image", "image.pdf", "image/jpeg", new byte[]{123});
+
+        // when // then
+        assertThatThrownBy(() -> userService.updateImage(user.getMobileNumber(), image))
+                .isInstanceOf(CustomException.class)
+                .hasMessage("올바르지 않은 확장자입니다.");
     }
 
     private User notCompleteJoinUser(final String mobileNumber) {
