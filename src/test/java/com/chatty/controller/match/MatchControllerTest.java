@@ -86,7 +86,7 @@ class MatchControllerTest {
         )
                 .andDo(print())
                 .andExpect(status().isBadRequest())
-                .andExpect(jsonPath("$.code").value("400"))
+                .andExpect(jsonPath("$.errorCode").value("000"))
                 .andExpect(jsonPath("$.status").value("BAD_REQUEST"))
                 .andExpect(jsonPath("$.message").value("최소 나이는 양수여야 합니다."));
     }
@@ -110,7 +110,7 @@ class MatchControllerTest {
         )
                 .andDo(print())
                 .andExpect(status().isBadRequest())
-                .andExpect(jsonPath("$.code").value("400"))
+                .andExpect(jsonPath("$.errorCode").value("000"))
                 .andExpect(jsonPath("$.status").value("BAD_REQUEST"))
                 .andExpect(jsonPath("$.message").value("최대 나이는 양수여야 합니다."));
     }
@@ -134,7 +134,7 @@ class MatchControllerTest {
         )
                 .andDo(print())
                 .andExpect(status().isBadRequest())
-                .andExpect(jsonPath("$.code").value("400"))
+                .andExpect(jsonPath("$.errorCode").value("000"))
                 .andExpect(jsonPath("$.status").value("BAD_REQUEST"))
                 .andExpect(jsonPath("$.message").value("관심사는 필수로 선택해야 합니다."));
     }
@@ -158,7 +158,7 @@ class MatchControllerTest {
         )
                 .andDo(print())
                 .andExpect(status().isBadRequest())
-                .andExpect(jsonPath("$.code").value("400"))
+                .andExpect(jsonPath("$.errorCode").value("000"))
                 .andExpect(jsonPath("$.status").value("BAD_REQUEST"))
                 .andExpect(jsonPath("$.message").value("성별은 필수로 선택해야 합니다."));
     }
