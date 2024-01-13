@@ -81,6 +81,7 @@ public class UserController {
         return ApiResponse.ok(userService.join(userRequestDto));
     }
 
+    @Hidden
     @Operation(summary = "최종 회원가입", description = "회원가입에 필요한 정보를 입력한 후, 회원가입을 완료합니다.")
     @io.swagger.v3.oas.annotations.responses.ApiResponse(responseCode = "400", description = "회원가입 실패",
             content = @Content(mediaType = "application/json",
