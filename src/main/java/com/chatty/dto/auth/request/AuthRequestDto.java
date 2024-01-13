@@ -5,6 +5,6 @@ import lombok.Getter;
 
 @Getter
 public class AuthRequestDto {
-    @NotBlank
+    @NotBlank(message = "accessToken은 필수로 입력해야 합니다.")
     private String refreshToken;
 }

@@ -76,7 +76,7 @@ public class AuthController {
             )
     )
     @PostMapping("/token")
-    public ApiResponse<String> access(@Valid @RequestBody CheckTokenDto checkTokenDto){
+    public ApiResponse<String> token(@Valid @RequestBody CheckTokenDto checkTokenDto){
         return ApiResponse.ok(authService.checkAccessToken(checkTokenDto));
     }
 
