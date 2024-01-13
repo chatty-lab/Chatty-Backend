@@ -42,7 +42,9 @@ class MatchServiceTest {
     @Test
     void createMatch() {
         // given
-        LocalDate birth = LocalDate.of(2000, 1, 1);
+        LocalDate birth = LocalDate.of(1999, 1, 1);
+        int calculateAge = LocalDate.now().getYear() - birth.getYear() + 1;
+
         User user = createUser("박지성", "01012345678", birth);
         userRepository.save(user);
 
@@ -61,7 +63,7 @@ class MatchServiceTest {
         assertThat(matchResponse.getId()).isNotNull();
         assertThat(matchResponse)
                 .extracting("nickname", "gender", "age", "requestMinAge", "requestMaxAge")
-                .containsExactlyInAnyOrder("박지성", Gender.MALE, 25, 25, 30);
+                .containsExactlyInAnyOrder("박지성", Gender.MALE, calculateAge, 25, 30);
     }
 
     @DisplayName("매칭이 완료되었을 때, isSuccess 값이 true로 바뀐다.")
