@@ -2,6 +2,7 @@ package com.chatty.controller.auth;
 
 import com.chatty.dto.ApiResponse;
 import com.chatty.dto.auth.request.AuthRequestDto;
+import com.chatty.dto.auth.request.CheckTokenDto;
 import com.chatty.dto.auth.response.AuthResponseDto;
 import com.chatty.dto.sms.request.UserSmsRequestDto;
 import com.chatty.dto.sms.response.SmsUserResponseDto;
@@ -51,6 +52,32 @@ public class AuthController {
     @PostMapping("/refresh")
     public ApiResponse<AuthResponseDto> refresh(@Valid @RequestBody AuthRequestDto authRequestDto) {
         return ApiResponse.ok(authService.reissueTokens(authRequestDto));
+    }
+
+    @Operation(summary = "accessToken 유효성 확인", description = "accessToken 유효성을 검증 합니다.")
+    @io.swagger.v3.oas.annotations.responses.ApiResponse(responseCode = "400", description = "accessToken 검증 실패",
+            content = @Content(mediaType = "application/json",
+                    examples = {
+                            @ExampleObject(name = "E-007", value = """
+                                    {
+                                        "errorCode": "007",
+                                        "status": "400",
+                                        "message": "유효성 검증을 실패했습니다."
+                                    }
+                                    """),
+                            @ExampleObject(name = "E-010", value = """
+                                    {
+                                        "errorCode": "010",
+                                        "status": "400",
+                                        "message": "accessToken이 만료되었습니다."
+                                    }
+                                    """),
+                    }
+            )
+    )
+    @PostMapping("/token")
+    public ApiResponse<String> token(@Valid @RequestBody CheckTokenDto checkTokenDto){
+        return ApiResponse.ok(authService.checkAccessToken(checkTokenDto));
     }
 
     @Operation(summary = "번호 인증 요청", description = "전화번호로 sms 인증요청을 합니다.")

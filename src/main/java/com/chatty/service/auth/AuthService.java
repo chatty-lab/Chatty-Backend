@@ -1,9 +1,8 @@
 package com.chatty.service.auth;
 
-import com.chatty.constants.Code;
 import com.chatty.dto.auth.request.AuthRequestDto;
+import com.chatty.dto.auth.request.CheckTokenDto;
 import com.chatty.dto.auth.response.AuthResponseDto;
-import com.chatty.exception.CustomException;
 import com.chatty.jwt.JwtTokenProvider;
 import com.chatty.repository.token.RefreshTokenRepository;
 import com.chatty.service.user.UserDetailsServiceImpl;
@@ -22,6 +21,7 @@ public class AuthService {
 
     private static final String ACCESS_TOKEN = "accessToken";
     private static final String REFRESH_TOKEN = "refreshToken";
+    private static final String PREFIX_ACCESS_TOKEN = "Bearer ";
 
     private final JwtTokenProvider jwtTokenProvider;
     private final UserDetailsServiceImpl userDetailsServiceImpl;
@@ -37,6 +37,11 @@ public class AuthService {
         Map<String,String> tokens = createTokens(refreshToken);
 
         return AuthResponseDto.of(tokens.get(ACCESS_TOKEN), tokens.get(REFRESH_TOKEN));
+    }
+
+    public String checkAccessToken(CheckTokenDto checkTokenDto){
+        tokenValidator.validateAccessToken(PREFIX_ACCESS_TOKEN + checkTokenDto.getAccessToken());
+        return "유효한 accessToken 입니다.";
     }
 
     private HashMap<String, String> createTokens(String refreshToken) {
