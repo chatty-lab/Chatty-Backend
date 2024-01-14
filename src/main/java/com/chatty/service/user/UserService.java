@@ -42,7 +42,7 @@ public class UserService {
 
         log.info("[UserService/login] 로그인 시작");
 
-        String key = SmsUtils.makeKey(userRequestDto.getMobileNumber(), userRequestDto.getUuid());
+        String key = SmsUtils.makeKey(userRequestDto.getMobileNumber(), userRequestDto.getDeviceId());
         String authNumber = userRequestDto.getAuthenticationNumber();
 
         if(!isAlreadyExistedUser(userRequestDto.getMobileNumber())){
@@ -55,15 +55,15 @@ public class UserService {
             throw new CustomException(Code.INVALID_AUTH_NUMBER);
         }
 
-        deleteToken(JwtTokenUtils.getRefreshTokenUuid(userRequestDto.getMobileNumber(),userRequestDto.getUuid()));
-        Map<String,String> tokens = createTokens(userRequestDto.getMobileNumber(), userRequestDto.getUuid());
+        deleteToken(JwtTokenUtils.getRefreshTokenUuid(userRequestDto.getMobileNumber(),userRequestDto.getDeviceId()));
+        Map<String,String> tokens = createTokens(userRequestDto.getMobileNumber(), userRequestDto.getDeviceId());
         return UserResponseDto.of(tokens.get(ACCESS_TOKEN), tokens.get(REFRESH_TOKEN));
     }
 
     public UserResponseDto join(UserRequestDto userRequestDto) {
 
         log.info("[UserService/join] 회원 가입 시작");
-        String key = SmsUtils.makeKey(userRequestDto.getMobileNumber(),userRequestDto.getUuid());
+        String key = SmsUtils.makeKey(userRequestDto.getMobileNumber(),userRequestDto.getDeviceId());
 
         if(!smsService.checkAuthNumber(key,userRequestDto.getAuthenticationNumber())){
             log.error("인증 번호가 일치하지 않는다.");
@@ -75,21 +75,16 @@ public class UserService {
             throw new CustomException(Code.ALREADY_EXIST_USER);
         }
 
-        if(!smsService.checkAuthNumber(key,userRequestDto.getAuthenticationNumber())){
-            log.error("인증 번호가 일치하지 않는다.");
-            throw new CustomException(Code.INVALID_AUTH_NUMBER);
-        }
-
         User user = User.builder()
                 .mobileNumber(userRequestDto.getMobileNumber())
                 .authority(Authority.ANONYMOUS)
-                .uuid(userRequestDto.getUuid())
+                .deviceId(userRequestDto.getDeviceId())
                 .build();
 
         userRepository.save(user);
         log.info("[UserService/join] 회원 가입 완료");
 
-        Map<String,String> tokens = createTokens(userRequestDto.getMobileNumber(), userRequestDto.getUuid());
+        Map<String,String> tokens = createTokens(userRequestDto.getMobileNumber(), userRequestDto.getDeviceId());
         return UserResponseDto.of(tokens.get(ACCESS_TOKEN), tokens.get(REFRESH_TOKEN));
     }
 

@@ -16,7 +16,7 @@ public class UserRequestDto {
     private String mobileNumber;
 
     @NotBlank
-    private String uuid;
+    private String deviceId;
 
     @NotBlank
     private String authenticationNumber;

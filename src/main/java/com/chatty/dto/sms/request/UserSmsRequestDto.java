@@ -10,5 +10,5 @@ public class UserSmsRequestDto {
     private String mobileNumber;
 
     @NotBlank
-    private String uuid;
+    private String deviceId;
 }
