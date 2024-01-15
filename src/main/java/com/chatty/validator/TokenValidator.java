@@ -22,17 +22,17 @@ public class TokenValidator {
 
         if(!jwtTokenProvider.isExistToken(accessToken)){ // 토큰 존재 여부
             log.error("accessToken 토큰이 존재하지 않습니다.");
-            throw new CustomException(Code.INVALID_ACCESS_TOKEN);
+            throw new CustomException(Code.INVALID_TOKEN);
         }
 
         if(!jwtTokenProvider.isRightFormat(accessToken)){ // 토큰 형식 여부
             log.error("올바른 토큰의 형식을 입력해주세요.");
-            throw new CustomException(Code.INVALID_ACCESS_TOKEN);
+            throw new CustomException(Code.INVALID_TOKEN);
         }
 
         if(!jwtTokenProvider.isValidToken(JwtTokenUtils.getAccessToken(accessToken))){
             log.error("유효한 accessToken이 아닙니다.");
-            throw new CustomException(Code.INVALID_ACCESS_TOKEN);
+            throw new CustomException(Code.INVALID_TOKEN);
         }
 
         if(jwtTokenProvider.isExpiredToken(JwtTokenUtils.getAccessToken(accessToken))){ // 토큰이 만료된 경우
@@ -46,12 +46,12 @@ public class TokenValidator {
 
         if (!jwtTokenProvider.isExistToken(refreshToken)) {
             log.error("refreshToken이 존재하지 않습니다.");
-            throw new CustomException(Code.INVALID_REFRESH_TOKEN);
+            throw new CustomException(Code.INVALID_TOKEN);
         }
 
         if(!jwtTokenProvider.isValidToken(refreshToken)){
             log.error("유효하지 않은 토큰 입니다.");
-            throw new CustomException(Code.INVALID_REFRESH_TOKEN);
+            throw new CustomException(Code.INVALID_TOKEN);
         }
 
         if (jwtTokenProvider.isExpiredToken(refreshToken)) {
@@ -61,7 +61,7 @@ public class TokenValidator {
 
         if (!jwtTokenProvider.isEqualRedisRefresh(refreshToken, jwtTokenProvider.getUuidByRefreshToken(refreshToken))) {
             log.error("refreshToken이 DB에 저장된 refreshToken과 일치하지 않습니다.");
-            throw new CustomException(Code.INVALID_REFRESH_TOKEN);
+            throw new CustomException(Code.INVALID_TOKEN);
         }
     }
 }

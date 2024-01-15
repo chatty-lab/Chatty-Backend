@@ -2,13 +2,11 @@ package com.chatty.service.sms;
 
 import static com.chatty.utils.SmsUtils.makeSignature;
 
-import com.chatty.constants.Code;
 import com.chatty.dto.sms.request.MessageRequestDto;
 import com.chatty.dto.sms.request.NaverSmsRequestDto;
 import com.chatty.dto.sms.request.UserSmsRequestDto;
 import com.chatty.dto.sms.response.SmsResponseDto;
 import com.chatty.dto.sms.response.SmsUserResponseDto;
-import com.chatty.exception.CustomException;
 import com.chatty.repository.auth.AuthNumberRepository;
 import com.chatty.utils.SmsUtils;
 import com.fasterxml.jackson.core.JsonProcessingException;
@@ -35,10 +33,6 @@ import org.springframework.web.client.RestTemplate;
 @Service
 @RequiredArgsConstructor
 public class SmsService {
-
-    private static final String PREFIX_NUMBER = "010";
-    private static final String REGEX = "^[0-9]*$";
-    private static final int MOBILE_NUMBER_LENGTH = 11;
 
     @Value("${naver-cloud-sms-access-key}")
     private String accessKey;
@@ -90,9 +84,6 @@ public class SmsService {
     }
 
     public SmsUserResponseDto saveSms(UserSmsRequestDto userSmsRequestDto) throws UnsupportedEncodingException, URISyntaxException, NoSuchAlgorithmException, InvalidKeyException, JsonProcessingException {
-        if (!validateNumber(userSmsRequestDto.getMobileNumber())) {
-            throw new CustomException(Code.NOT_AUTH_NUMBER_FORMAT);
-        }
 
         String authNumber = SmsUtils.generateNumber();
         String key = SmsUtils.makeKey(userSmsRequestDto.getMobileNumber(), userSmsRequestDto.getDeviceId());
@@ -107,21 +98,5 @@ public class SmsService {
         log.info("확인이 필요한 인증번호 : {}", auth);
 
         return auth != null && auth.equals(authNumber);
-    }
-
-    public boolean validateNumber(String number) {
-        if (!number.startsWith(PREFIX_NUMBER)) {
-            return false;
-        }
-
-        if (!number.matches(REGEX)) {
-            return false;
-        }
-
-        if (number.length() != MOBILE_NUMBER_LENGTH) {
-            return false;
-        }
-
-        return true;
     }
 }
