@@ -95,7 +95,7 @@ public class SmsService {
         }
 
         String authNumber = SmsUtils.generateNumber();
-        String key = SmsUtils.makeKey(userSmsRequestDto.getMobileNumber(), userSmsRequestDto.getUuid());
+        String key = SmsUtils.makeKey(userSmsRequestDto.getMobileNumber(), userSmsRequestDto.getDeviceId());
         authNumberRepository.save(key, authNumber);
         log.info("번호 인증 요청 정보 저장 완료 : {}", authNumber);
         sendSms(MessageRequestDto.builder().to(userSmsRequestDto.getMobileNumber()).content(authNumber).build());

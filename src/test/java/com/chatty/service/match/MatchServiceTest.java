@@ -154,7 +154,7 @@ class MatchServiceTest {
     private User createUser(final String nickname, final String mobileNumber, final LocalDate birth, final Gender gender) {
         return User.builder()
                 .mobileNumber(mobileNumber)
-                .uuid("123456")
+                .deviceId("123456")
                 .authority(Authority.USER)
 //                .mbti(Mbti.ENFJ)
                 .birth(birth)

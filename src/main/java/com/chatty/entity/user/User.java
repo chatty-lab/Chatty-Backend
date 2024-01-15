@@ -43,7 +43,7 @@ public class User  extends CommonEntity implements UserDetails{
 
     @Column(name = "device_id")
     @NotBlank
-    private String uuid;
+    private String deviceId;
 
     private String nickname;
 
@@ -110,7 +110,7 @@ public class User  extends CommonEntity implements UserDetails{
 
     @Override
     public String getPassword() {
-        return uuid;
+        return deviceId;
     }
 
     @Override
