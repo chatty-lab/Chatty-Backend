@@ -74,6 +74,7 @@ public class UserService {
                 .mobileNumber(userRequestDto.getMobileNumber())
                 .authority(Authority.ANONYMOUS)
                 .deviceId(userRequestDto.getDeviceId())
+                .deviceToken(userRequestDto.getDeviceToken())
                 .build();
 
         userRepository.save(user);
@@ -177,6 +178,13 @@ public class UserService {
         user.updateImage(fileUrl);
 
         return UserResponse.of(user);
+    }
+
+    @Transactional
+    public String updateDeviceToken(final String mobileNumber, final UserDeviceTokenRequest request) {
+        User user = userRepository.findUserByMobileNumber(mobileNumber).orElseThrow(() -> new CustomException(Code.NOT_EXIST_USER));
+        user.updateDeviceToken(request.getDeviceToken());
+        return "deviceToken이 업데이트 되었습니다.";
     }
 
     private void validateDuplicateNickname(final UserNicknameRequest request) {

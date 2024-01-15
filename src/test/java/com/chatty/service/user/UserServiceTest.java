@@ -248,6 +248,34 @@ class UserServiceTest {
                 .hasMessage("올바르지 않은 확장자입니다.");
     }
 
+    @Test
+    @DisplayName("deviceToken을 수정한다.")
+    void updateDeviceToken() throws Exception{
+        //given
+        User user = createUser("닉네임", "01012345678");
+        userRepository.save(user);
+
+        UserDeviceTokenRequest request = UserDeviceTokenRequest.builder().deviceToken("abcdefg").build();
+
+        //when
+        String message = userService.updateDeviceToken(user.getMobileNumber(), request);
+
+        //then
+        assertThat(message).isEqualTo("deviceToken이 업데이트 되었습니다.");
+    }
+
+    @Test
+    @DisplayName("deviceToken을 수정할때, 유저가 존재하지 않는 경우 예외가 발생한다.")
+    void updateDeviceTokenWithoutUser() throws Exception{
+        //given
+        User user = createUser("닉네임", "01012345678");
+        UserDeviceTokenRequest request = UserDeviceTokenRequest.builder().deviceToken("abcdefg").build();
+        //when,then
+        assertThatThrownBy(() -> userService.updateDeviceToken(user.getMobileNumber(), request))
+                .isInstanceOf(CustomException.class)
+                .hasMessage("존재 하지 않는 유저 입니다.");
+    }
+
     private User notCompleteJoinUser(final String mobileNumber) {
         return User.builder()
                 .mobileNumber(mobileNumber)

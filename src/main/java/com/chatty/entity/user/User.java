@@ -65,6 +65,8 @@ public class User  extends CommonEntity implements UserDetails{
 
     private String imageUrl;
 
+    private String deviceToken;
+
     public void joinComplete(final User request) {
         this.nickname = request.getNickname();
         this.location = request.getLocation();
@@ -96,6 +98,10 @@ public class User  extends CommonEntity implements UserDetails{
 
     public void updateImage(final String imageUrl) {
         this.imageUrl = imageUrl;
+    }
+
+    public void updateDeviceToken(final String deviceToken) {
+        this.deviceToken = deviceToken;
     }
 
     public static Point createPoint(final Coordinate coordinate) {

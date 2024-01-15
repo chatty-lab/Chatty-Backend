@@ -141,7 +141,7 @@ class UserControllerTest {
                 )
                 .andDo(print())
                 .andExpect(status().isBadRequest())
-                .andExpect(jsonPath("$.errorCode").value("000"))
+                .andExpect(jsonPath("$.errorCode").value("E-000"))
                 .andExpect(jsonPath("$.status").value("BAD_REQUEST"))
                 .andExpect(jsonPath("$.message").value("성별은 필수로 선택해야 됩니다."));
     }
@@ -183,7 +183,7 @@ class UserControllerTest {
         )
                 .andDo(print())
                 .andExpect(status().isBadRequest())
-                .andExpect(jsonPath("$.errorCode").value("000"))
+                .andExpect(jsonPath("$.errorCode").value("E-000"))
                 .andExpect(jsonPath("$.status").value("BAD_REQUEST"))
                 .andExpect(jsonPath("$.message").value("생년월일은 필수로 입력해야 됩니다."));
     }
@@ -225,7 +225,7 @@ class UserControllerTest {
                 )
                 .andDo(print())
                 .andExpect(status().isBadRequest())
-                .andExpect(jsonPath("$.errorCode").value("000"))
+                .andExpect(jsonPath("$.errorCode").value("E-000"))
                 .andExpect(jsonPath("$.status").value("BAD_REQUEST"))
                 .andExpect(jsonPath("$.message").value("MBTI는 필수로 입력해야 됩니다."));
     }
@@ -271,9 +271,47 @@ class UserControllerTest {
                 )
                 .andDo(print())
                 .andExpect(status().isBadRequest())
-                .andExpect(jsonPath("$.errorCode").value("000"))
+                .andExpect(jsonPath("$.errorCode").value("E-000"))
                 .andExpect(jsonPath("$.status").value("BAD_REQUEST"))
                 .andExpect(jsonPath("$.message").value("좌표는 필수로 입력해야 합니다."));
+    }
+
+    @Test
+    @DisplayName("deviceToken을 수정한다.")
+    void updateDeviceToken() throws Exception{
+        //given
+        UserDeviceTokenRequest request = UserDeviceTokenRequest.builder()
+                .deviceToken("abcdefg")
+                .build();
+        //when, then
+        mockMvc.perform(
+                put("/users/deviceToken").with(csrf())
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content(objectMapper.writeValueAsString(request))
+                )
+                .andDo(print())
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$.code").value("200"))
+                .andExpect(jsonPath("$.status").value("OK"));
+    }
+
+    @Test
+    @DisplayName("deviceToken을 수정할때, deviceToken 값은 필수이다.")
+    void updateDeviceTokenWithoutDeviceToken() throws Exception{
+        //given
+        UserDeviceTokenRequest request = UserDeviceTokenRequest.builder()
+                .build();
+        //when, then
+        mockMvc.perform(
+                        put("/users/deviceToken").with(csrf())
+                                .contentType(MediaType.APPLICATION_JSON)
+                                .content(objectMapper.writeValueAsString(request))
+                )
+                .andDo(print())
+                .andExpect(status().isBadRequest())
+                .andExpect(jsonPath("$.errorCode").value("E-000"))
+                .andExpect(jsonPath("$.status").value("BAD_REQUEST"))
+                .andExpect(jsonPath("$.message").value("deviceToken은 필수로 입력해야 합니다."));
     }
 
     @DisplayName("회원가입에 필요한 정보를 입력 후, 회원 가입을 완료한다.")
@@ -322,7 +360,7 @@ class UserControllerTest {
                 )
                 .andDo(print())
                 .andExpect(status().isBadRequest())
-                .andExpect(jsonPath("$.errorCode").value("000"))
+                .andExpect(jsonPath("$.errorCode").value("E-000"))
                 .andExpect(jsonPath("$.status").value("BAD_REQUEST"))
                 .andExpect(jsonPath("$.message").value("좌표는 필수로 입력해야 합니다."));
     }
@@ -348,7 +386,7 @@ class UserControllerTest {
                 )
                 .andDo(print())
                 .andExpect(status().isBadRequest())
-                .andExpect(jsonPath("$.errorCode").value("000"))
+                .andExpect(jsonPath("$.errorCode").value("E-000"))
                 .andExpect(jsonPath("$.status").value("BAD_REQUEST"))
                 .andExpect(jsonPath("$.message").value("닉네임은 필수로 입력해야 합니다."));
     }
@@ -374,7 +412,7 @@ class UserControllerTest {
                 )
                 .andDo(print())
                 .andExpect(status().isBadRequest())
-                .andExpect(jsonPath("$.errorCode").value("000"))
+                .andExpect(jsonPath("$.errorCode").value("E-000"))
                 .andExpect(jsonPath("$.status").value("BAD_REQUEST"))
                 .andExpect(jsonPath("$.message").value("성별은 필수로 선택해야 됩니다."));
     }
@@ -400,7 +438,7 @@ class UserControllerTest {
                 )
                 .andDo(print())
                 .andExpect(status().isBadRequest())
-                .andExpect(jsonPath("$.errorCode").value("000"))
+                .andExpect(jsonPath("$.errorCode").value("E-000"))
                 .andExpect(jsonPath("$.status").value("BAD_REQUEST"))
                 .andExpect(jsonPath("$.message").value("MBTI는 필수로 입력해야 됩니다."));
     }
@@ -426,7 +464,7 @@ class UserControllerTest {
                 )
                 .andDo(print())
                 .andExpect(status().isBadRequest())
-                .andExpect(jsonPath("$.errorCode").value("000"))
+                .andExpect(jsonPath("$.errorCode").value("E-000"))
                 .andExpect(jsonPath("$.status").value("BAD_REQUEST"))
                 .andExpect(jsonPath("$.message").value("생년월일은 필수로 입력해야 됩니다."));
     }
