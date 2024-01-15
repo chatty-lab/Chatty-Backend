@@ -45,8 +45,6 @@ public class User  extends CommonEntity implements UserDetails{
     @NotBlank
     private String deviceId;
 
-    private String username;
-
     private String nickname;
 
     private LocalDate birth;

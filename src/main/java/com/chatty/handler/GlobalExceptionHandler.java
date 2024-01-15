@@ -11,6 +11,7 @@ import java.security.InvalidKeyException;
 import java.security.NoSuchAlgorithmException;
 
 import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.validation.BindException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
@@ -22,11 +23,13 @@ import org.springframework.web.client.RestClientException;
 public class GlobalExceptionHandler {
 
     @ExceptionHandler({CustomException.class})
-    protected ErrorResponse handleNormalException(CustomException e){
-        return ErrorResponse.of(
-                e.getCode().getErrorCode(),
-                e.getMessage()
-        );
+    protected ResponseEntity<ErrorResponse> handleNormalException(CustomException e){
+        return ResponseEntity.status(e.getCode().getHttpStatus())
+                .body(ErrorResponse.builder()
+                        .errorCode(e.getCode().getErrorCode())
+                        .status(e.getCode().getHttpStatus())
+                        .message(e.getMessage())
+                        .build());
     }
 
     @ResponseStatus(HttpStatus.BAD_REQUEST)

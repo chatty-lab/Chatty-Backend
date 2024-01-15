@@ -5,6 +5,7 @@ import com.chatty.dto.match.request.MatchRequest;
 import com.chatty.dto.match.response.MatchResponse;
 import com.chatty.dto.user.response.UserResponse;
 import com.chatty.entity.match.Match;
+import com.chatty.entity.user.Gender;
 import com.chatty.entity.user.User;
 import com.chatty.exception.CustomException;
 import com.chatty.repository.match.MatchRepository;
@@ -31,8 +32,11 @@ public class MatchService {
         User user = userRepository.findUserByMobileNumber(mobileNumber)
                 .orElseThrow(() -> new CustomException(Code.NOT_EXIST_USER));
 
-        int age = calculateUserAge(user);
         LocalDateTime now = LocalDateTime.now();
+
+        validateDailyMatchingLimit(user, now);
+
+        int age = calculateUserAge(user);
         Match match = matchRepository.save(request.toEntity(user, now));
 
         return MatchResponse.of(match, age);
@@ -52,6 +56,7 @@ public class MatchService {
     public void createUserSession(final WebSocketSession session, final MatchResponse matchResponse) {
         Map<String, Object> attributes = session.getAttributes();
         attributes.put("matchId", matchResponse.getId());
+        attributes.put("userId", matchResponse.getUserId());
         attributes.put("nickname", matchResponse.getNickname());
         attributes.put("gender", matchResponse.getGender());
         attributes.put("requestGender", matchResponse.getRequestGender());
@@ -63,5 +68,24 @@ public class MatchService {
 
     private int calculateUserAge(final User user) {
         return LocalDate.now().getYear() - user.getBirth().getYear() + 1;
+    }
+
+    private void validateDailyMatchingLimit(final User user, final LocalDateTime now) {
+        Long matchesCount = matchRepository.countMatchesBy(
+                user.getId(),
+                now.toLocalDate().atStartOfDay(),
+                now.toLocalDate().plusDays(1).atStartOfDay(),
+                true
+        );
+
+        if (user.getGender().equals(Gender.MALE)) {
+            if (matchesCount >= 5) {
+                throw new CustomException(Code.MATCH_LIMIT_EXCEEDED);
+            }
+        } else if (user.getGender().equals(Gender.FEMALE)) {
+            if (matchesCount >= 10) {
+                throw new CustomException(Code.MATCH_LIMIT_EXCEEDED);
+            }
+        }
     }
 }

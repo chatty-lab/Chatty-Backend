@@ -65,11 +65,6 @@ public class UserService {
         log.info("[UserService/join] 회원 가입 시작");
         String key = SmsUtils.makeKey(userRequestDto.getMobileNumber(),userRequestDto.getDeviceId());
 
-        if(!smsService.checkAuthNumber(key,userRequestDto.getAuthenticationNumber())){
-            log.error("인증 번호가 일치하지 않는다.");
-            throw new CustomException(Code.INVALID_AUTH_NUMBER);
-        }
-
         if(isAlreadyExistedUser(userRequestDto.getMobileNumber())){
             log.error("이미 존재 하는 유저 입니다.");
             throw new CustomException(Code.ALREADY_EXIST_USER);

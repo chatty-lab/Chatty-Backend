@@ -26,8 +26,9 @@ public enum Code {
     NOT_FOUND_CHAT_MESSAGE(HttpStatus.BAD_REQUEST, "채팅 내용이 존재하지 않습니다.","013"),
     SMS_NOT_SEND(HttpStatus.BAD_GATEWAY, "sms전송을 실패했습니다.","014"),
     NOT_IN_USER_ROOM(HttpStatus.BAD_REQUEST, "유저가 채팅방에 존재하지 않습니다.","015"),
-    INVALID_EXTENSION(HttpStatus.BAD_REQUEST, "올바르지 않은 확장자입니다.", null), // 형이 작성한 Code null로 해놓을게
-    NOT_EXIST_MATCH(HttpStatus.BAD_REQUEST, "존재하지 않는 매치 입니다.", null);
+    INVALID_EXTENSION(HttpStatus.BAD_REQUEST, "올바르지 않은 확장자입니다.", "016"), // 형이 작성한 Code null로 해놓을게
+    NOT_EXIST_MATCH(HttpStatus.BAD_REQUEST, "존재하지 않는 매치입니다.", "017"),
+    MATCH_LIMIT_EXCEEDED(HttpStatus.BAD_REQUEST, "일일 매칭 횟수 제한을 초과했습니다.", "018");
 
     private final HttpStatus httpStatus;
     private final String message;

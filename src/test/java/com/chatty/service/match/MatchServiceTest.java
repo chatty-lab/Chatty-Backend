@@ -7,6 +7,7 @@ import com.chatty.constants.Authority;
 import com.chatty.entity.user.Coordinate;
 import com.chatty.entity.user.Gender;
 import com.chatty.entity.user.User;
+import com.chatty.exception.CustomException;
 import com.chatty.repository.match.MatchRepository;
 import com.chatty.repository.user.UserRepository;
 import org.junit.jupiter.api.AfterEach;
@@ -17,6 +18,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.util.List;
 
 import static org.assertj.core.api.Assertions.*;
 
@@ -42,8 +44,10 @@ class MatchServiceTest {
     @Test
     void createMatch() {
         // given
-        LocalDate birth = LocalDate.of(2000, 1, 1);
-        User user = createUser("박지성", "01012345678", birth);
+        LocalDate birth = LocalDate.of(1999, 1, 1);
+        int calculateAge = LocalDate.now().getYear() - birth.getYear() + 1;
+
+        User user = createUser("박지성", "01012345678", birth, Gender.MALE);
         userRepository.save(user);
 
         MatchRequest request = MatchRequest.builder()
@@ -61,7 +65,7 @@ class MatchServiceTest {
         assertThat(matchResponse.getId()).isNotNull();
         assertThat(matchResponse)
                 .extracting("nickname", "gender", "age", "requestMinAge", "requestMaxAge")
-                .containsExactlyInAnyOrder("박지성", Gender.MALE, 25, 25, 30);
+                .containsExactlyInAnyOrder("박지성", Gender.MALE, calculateAge, 25, 30);
     }
 
     @DisplayName("매칭이 완료되었을 때, isSuccess 값이 true로 바뀐다.")
@@ -69,10 +73,10 @@ class MatchServiceTest {
     void updateIsSuccess() {
         // given
         LocalDate birth = LocalDate.of(2000, 1, 1);
-        User user = createUser("박지성", "01022222222", birth);
+        User user = createUser("박지성", "01022222222", birth, Gender.MALE);
         userRepository.save(user);
 
-        Match match = createMatch(user, LocalDateTime.now(), 25, 30, 30.0, Gender.FEMALE);
+        Match match = createMatch(user, LocalDateTime.now(), 25, 30, 30.0, Gender.FEMALE, false);
         matchRepository.save(match);
 
         // when
@@ -82,7 +86,72 @@ class MatchServiceTest {
         assertThat(matchResponse.isSuccess()).isTrue();
     }
 
-    private User createUser(final String nickname, final String mobileNumber, final LocalDate birth) {
+    @DisplayName("남성은 하루 매칭 제한 횟수 5번을 초과하였을 때, 예외가 발생한다.")
+    @Test
+    void createMatchWithLimitExceededForMale() {
+        // given
+        LocalDate birth = LocalDate.of(2000, 1, 1);
+        User user = createUser("박지성", "01022222222", birth, Gender.MALE);
+        userRepository.save(user);
+
+        LocalDateTime localDateTime = LocalDateTime.now();
+        Match match1 = createMatch(user, localDateTime, 25, 30, 300.0, Gender.FEMALE, true);
+        Match match2 = createMatch(user, localDateTime, 25, 30, 300.0, Gender.FEMALE, true);
+        Match match3 = createMatch(user, localDateTime, 25, 30, 300.0, Gender.FEMALE, true);
+        Match match4 = createMatch(user, localDateTime, 25, 30, 300.0, Gender.FEMALE, true);
+        Match match5 = createMatch(user, localDateTime, 25, 30, 300.0, Gender.FEMALE, true);
+        matchRepository.saveAll(List.of(match1, match2, match3, match4, match5));
+
+        MatchRequest request = MatchRequest.builder()
+                .minAge(25)
+                .maxAge(30)
+                .scope(300.0)
+                .category("category")
+                .gender(Gender.FEMALE)
+                .build();
+
+        // when // then
+        assertThatThrownBy(() -> matchService.createMatch(user.getMobileNumber(), request))
+                .isInstanceOf(CustomException.class)
+                .hasMessage("일일 매칭 횟수 제한을 초과했습니다.");
+    }
+
+    @DisplayName("여성은 하루 매칭 제한 횟수 10번을 초과하였을 때, 예외가 발생한다.")
+    @Test
+    void createMatchWithLimitExceededForFemale() {
+        // given
+        LocalDate birth = LocalDate.of(2000, 1, 1);
+        User user = createUser("김연아", "01033333333", birth, Gender.FEMALE);
+        userRepository.save(user);
+
+        LocalDateTime localDateTime = LocalDateTime.now();
+        Match match1 = createMatch(user, localDateTime, 25, 30, 300.0, Gender.MALE, true);
+        Match match2 = createMatch(user, localDateTime, 25, 30, 300.0, Gender.MALE, true);
+        Match match3 = createMatch(user, localDateTime, 25, 30, 300.0, Gender.MALE, true);
+        Match match4 = createMatch(user, localDateTime, 25, 30, 300.0, Gender.MALE, true);
+        Match match5 = createMatch(user, localDateTime, 25, 30, 300.0, Gender.MALE, true);
+        Match match6 = createMatch(user, localDateTime, 25, 30, 300.0, Gender.MALE, true);
+        Match match7 = createMatch(user, localDateTime, 25, 30, 300.0, Gender.MALE, true);
+        Match match8 = createMatch(user, localDateTime, 25, 30, 300.0, Gender.MALE, true);
+        Match match9 = createMatch(user, localDateTime, 25, 30, 300.0, Gender.MALE, true);
+        Match match10 = createMatch(user, localDateTime, 25, 30, 300.0, Gender.MALE, true);
+        matchRepository.saveAll(List.of(match1, match2, match3, match4, match5, match6, match7, match8, match9, match10));
+
+        MatchRequest request = MatchRequest.builder()
+                .minAge(25)
+                .maxAge(30)
+                .scope(300.0)
+                .category("category")
+                .gender(Gender.MALE)
+                .build();
+
+        // when // then
+        assertThatThrownBy(() -> matchService.createMatch(user.getMobileNumber(), request))
+                .isInstanceOf(CustomException.class)
+                .hasMessage("일일 매칭 횟수 제한을 초과했습니다.");
+    }
+
+    private User createUser(final String nickname, final String mobileNumber, final LocalDate birth, final Gender gender) {
         return User.builder()
                 .mobileNumber(mobileNumber)
                 .deviceId("123456")
@@ -91,7 +160,7 @@ class MatchServiceTest {
                 .birth(birth)
                 .imageUrl("이미지")
                 .address("주소")
-                .gender(Gender.MALE)
+                .gender(gender)
                 .nickname(nickname)
                 .location(User.createPoint(
                         Coordinate.builder()
@@ -102,7 +171,7 @@ class MatchServiceTest {
                 .build();
     }
 
-    private Match createMatch(final User user, final LocalDateTime localDateTime, final int minAge, final int maxAge, final double scope, final Gender gender) {
+    private Match createMatch(final User user, final LocalDateTime localDateTime, final int minAge, final int maxAge, final double scope, final Gender gender, final boolean matchStatus) {
         return Match.builder()
                 .user(user)
                 .minAge(minAge)
@@ -111,7 +180,7 @@ class MatchServiceTest {
                 .gender(gender)
                 .category("category")
                 .registeredDateTime(localDateTime)
-                .isSuccess(false)
+                .isSuccess(matchStatus)
                 .build();
     }
 }

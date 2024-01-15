@@ -9,9 +9,11 @@ import io.swagger.v3.oas.annotations.Hidden;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.media.ExampleObject;
+import io.swagger.v3.oas.annotations.media.Schema;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.http.MediaType;
 import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
@@ -81,6 +83,7 @@ public class UserController {
         return ApiResponse.ok(userService.join(userRequestDto));
     }
 
+    @Hidden
     @Operation(summary = "최종 회원가입", description = "회원가입에 필요한 정보를 입력한 후, 회원가입을 완료합니다.")
     @io.swagger.v3.oas.annotations.responses.ApiResponse(responseCode = "400", description = "회원가입 실패",
             content = @Content(mediaType = "application/json",
@@ -110,7 +113,7 @@ public class UserController {
     }
 
     @Operation(summary = "닉네임 변경", description = "닉네임을 변경합니다.")
-    @io.swagger.v3.oas.annotations.responses.ApiResponse(responseCode = "400", description = "회원가입 실패",
+    @io.swagger.v3.oas.annotations.responses.ApiResponse(responseCode = "400", description = "닉네임 변경 실패",
             content = @Content(mediaType = "application/json",
                     examples = {
                             @ExampleObject(name = "E-003", value = """
@@ -129,14 +132,40 @@ public class UserController {
         return ApiResponse.ok(userService.updateNickname(authentication.getName(), request));
     }
 
-    @Hidden
+    @Operation(summary = "성별 변경", description = "성별을 변경합니다.")
+    @io.swagger.v3.oas.annotations.responses.ApiResponse(responseCode = "400", description = "성별 변경 실패",
+            content = @Content(
+                    examples = {
+                            @ExampleObject(name = "E-004", value = """
+                                    {
+                                        "errorCode": "004",
+                                        "status": "400",
+                                        "message": "존재 하지 않는 유저입니다."
+                                    }
+                                    """),
+                    }
+            )
+    )
     @PutMapping("/gender")
     public ApiResponse<UserResponse> updateGender(@Valid @RequestBody UserGenderRequest request,
                                                   final Authentication authentication) {
         return ApiResponse.ok(userService.updateGender(authentication.getName(), request));
     }
 
-    @Hidden
+    @Operation(summary = "생년월일 변경", description = "생년월일을 변경합니다.")
+    @io.swagger.v3.oas.annotations.responses.ApiResponse(responseCode = "400", description = "생년월일 변경 실패",
+            content = @Content(mediaType = "application/json",
+                    examples = {
+                            @ExampleObject(name = "E-004", value = """
+                                    {
+                                        "errorCode": "004",
+                                        "status": "400",
+                                        "message": "존재 하지 않는 유저입니다."
+                                    }
+                                    """),
+                    }
+            )
+    )
     @PutMapping("/birth")
     public ApiResponse<UserResponse> updateBirth(@Valid @RequestBody UserBirthRequest request,
                                                  final Authentication authentication) {
@@ -145,7 +174,7 @@ public class UserController {
     }
 
     @Operation(summary = "MBTI 변경", description = "MBTI를 변경합니다.")
-    @io.swagger.v3.oas.annotations.responses.ApiResponse(responseCode = "400", description = "회원가입 실패",
+    @io.swagger.v3.oas.annotations.responses.ApiResponse(responseCode = "400", description = "MBTI변경 실패",
             content = @Content(mediaType = "application/json",
                     examples = {
                             @ExampleObject(name = "E-004", value = """
@@ -174,7 +203,28 @@ public class UserController {
         return ApiResponse.ok(userService.updateCoordinate(authentication.getName(), request));
     }
 
-    @PutMapping("/image")
+    @Operation(summary = "프로필 이미지 변경", description = "프로필 이미지를 변경합니다.")
+    @io.swagger.v3.oas.annotations.responses.ApiResponse(responseCode = "400", description = "프로필 이미지 변경 실패",
+            content = @Content(mediaType = "application/json",
+                    examples = {
+                            @ExampleObject(name = "E-004", description = "존재하지 않는 유저일 때", value = """
+                                    {
+                                        "errorCode": "004",
+                                        "status": "400",
+                                        "message": "존재하지 않는 유저 입니다."
+                                    }
+                                    """),
+                            @ExampleObject(name = "E-016", description = "jpg, png, jpeg 확장자가 아닐 때", value = """
+                                    {
+                                        "errorCode": "016",
+                                        "status": "400",
+                                        "message": "올바르지 않은 확장자입니다."
+                                    }
+                                    """)
+                    }
+            )
+    )
+    @PutMapping(value = "/image", consumes = MediaType.MULTIPART_FORM_DATA_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
     public ApiResponse<UserResponse> updateImage(@RequestParam("image") MultipartFile image,
                                                  final Authentication authentication) throws IOException {
         return ApiResponse.ok(userService.updateImage(authentication.getName(), image));
