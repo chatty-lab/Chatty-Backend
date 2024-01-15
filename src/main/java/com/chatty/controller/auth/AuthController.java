@@ -32,9 +32,9 @@ public class AuthController {
     @io.swagger.v3.oas.annotations.responses.ApiResponse(responseCode = "400", description = "토큰 재발급 실패",
             content = @Content(mediaType = "application/json",
                     examples = {
-                            @ExampleObject(name = "E-008", value = """
+                            @ExampleObject(name = "E-001", value = """
                                     {
-                                        "errorCode": "008",
+                                        "errorCode": "001",
                                         "status": "400",
                                         "message": "refreshToken이 유효성 검증을 실패했습니다."
                                     }
@@ -58,16 +58,16 @@ public class AuthController {
     @io.swagger.v3.oas.annotations.responses.ApiResponse(responseCode = "400", description = "accessToken 검증 실패",
             content = @Content(mediaType = "application/json",
                     examples = {
-                            @ExampleObject(name = "E-007", value = """
+                            @ExampleObject(name = "E-001", value = """
                                     {
-                                        "errorCode": "007",
+                                        "errorCode": "001",
                                         "status": "400",
                                         "message": "유효성 검증을 실패했습니다."
                                     }
                                     """),
-                            @ExampleObject(name = "E-010", value = """
+                            @ExampleObject(name = "E-002", value = """
                                     {
-                                        "errorCode": "010",
+                                        "errorCode": "002",
                                         "status": "400",
                                         "message": "accessToken이 만료되었습니다."
                                     }

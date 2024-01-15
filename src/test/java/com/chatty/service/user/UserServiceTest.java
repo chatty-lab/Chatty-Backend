@@ -112,7 +112,7 @@ class UserServiceTest {
         // when // then
         assertThatThrownBy(() -> userService.updateNickname(newUser.getMobileNumber(), request))
                 .isInstanceOf(CustomException.class)
-                .hasMessage("이미 존재하는 닉네임 입니다.");
+                .hasMessage("이미 존재 하는 닉네임 입니다.");
     }
 
     @DisplayName("성별을 수정한다.")

@@ -9,7 +9,6 @@ import io.swagger.v3.oas.annotations.Hidden;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.media.ExampleObject;
-import io.swagger.v3.oas.annotations.media.Schema;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -32,16 +31,16 @@ public class UserController {
     @io.swagger.v3.oas.annotations.responses.ApiResponse(responseCode = "400", description = "회원가입 실패",
             content = @Content(mediaType = "application/json",
                     examples = {
-                            @ExampleObject(name = "E-004", value = """
+                            @ExampleObject(name = "E-003", value = """
                                     {
-                                        "errorCode": "004",
+                                        "errorCode": "003",
                                         "status": "400",
                                         "message": "존재하지 않는 유저 입니다."
                                     }
                                     """),
-                            @ExampleObject(name = "E-003", value = """
+                            @ExampleObject(name = "E-007", value = """
                                     {
-                                        "errorCode": "001",
+                                        "errorCode": "007",
                                         "status": "400",
                                         "message": "유효하지 않은 인증 번호 입니다."
                                     }
@@ -60,16 +59,16 @@ public class UserController {
     @io.swagger.v3.oas.annotations.responses.ApiResponse(responseCode = "400", description = "회원가입 실패",
             content = @Content(mediaType = "application/json",
                     examples = {
-                            @ExampleObject(name = "E-001", value = """
+                            @ExampleObject(name = "E-007", value = """
                                     {
-                                        "errorCode": "001",
+                                        "errorCode": "007",
                                         "status": "400",
                                         "message": "유효하지 않은 인증 번호입니다."
                                     }
                                     """),
-                            @ExampleObject(name = "E-003", value = """
+                            @ExampleObject(name = "E-008", value = """
                                     {
-                                        "errorCode": "002",
+                                        "errorCode": "008",
                                         "status": "400",
                                         "message": "이미 존재하는 유저 입니다."
                                     }
@@ -88,16 +87,16 @@ public class UserController {
     @io.swagger.v3.oas.annotations.responses.ApiResponse(responseCode = "400", description = "회원가입 실패",
             content = @Content(mediaType = "application/json",
                     examples = {
-                            @ExampleObject(name = "E-004", value = """
+                            @ExampleObject(name = "E-003", value = """
                                     {
-                                        "errorCode": "004",
+                                        "errorCode": "003",
                                         "status": "400",
                                         "message": "존재하지 않는 유저 입니다."
                                     }
                                     """),
-                            @ExampleObject(name = "E-003", value = """
+                            @ExampleObject(name = "E-006", value = """
                                     {
-                                        "errorCode": "003",
+                                        "errorCode": "006",
                                         "status": "400",
                                         "message": "이미 존재하는 닉네임입니다."
                                     }
@@ -116,9 +115,9 @@ public class UserController {
     @io.swagger.v3.oas.annotations.responses.ApiResponse(responseCode = "400", description = "닉네임 변경 실패",
             content = @Content(mediaType = "application/json",
                     examples = {
-                            @ExampleObject(name = "E-003", value = """
+                            @ExampleObject(name = "E-006", value = """
                                     {
-                                        "errorCode": "003",
+                                        "errorCode": "006",
                                         "status": "400",
                                         "message": "이미 존재하는 닉네임입니다."
                                     }
@@ -136,9 +135,9 @@ public class UserController {
     @io.swagger.v3.oas.annotations.responses.ApiResponse(responseCode = "400", description = "성별 변경 실패",
             content = @Content(
                     examples = {
-                            @ExampleObject(name = "E-004", value = """
+                            @ExampleObject(name = "E-003", value = """
                                     {
-                                        "errorCode": "004",
+                                        "errorCode": "003",
                                         "status": "400",
                                         "message": "존재 하지 않는 유저입니다."
                                     }
@@ -156,9 +155,9 @@ public class UserController {
     @io.swagger.v3.oas.annotations.responses.ApiResponse(responseCode = "400", description = "생년월일 변경 실패",
             content = @Content(mediaType = "application/json",
                     examples = {
-                            @ExampleObject(name = "E-004", value = """
+                            @ExampleObject(name = "E-003", value = """
                                     {
-                                        "errorCode": "004",
+                                        "errorCode": "003",
                                         "status": "400",
                                         "message": "존재 하지 않는 유저입니다."
                                     }
@@ -177,9 +176,9 @@ public class UserController {
     @io.swagger.v3.oas.annotations.responses.ApiResponse(responseCode = "400", description = "MBTI변경 실패",
             content = @Content(mediaType = "application/json",
                     examples = {
-                            @ExampleObject(name = "E-004", value = """
+                            @ExampleObject(name = "E-003", value = """
                                     {
-                                        "errorCode": "004",
+                                        "errorCode": "003",
                                         "status": "400",
                                         "message": "존재하지 않는 유저 입니다."
                                     }
@@ -207,9 +206,9 @@ public class UserController {
     @io.swagger.v3.oas.annotations.responses.ApiResponse(responseCode = "400", description = "프로필 이미지 변경 실패",
             content = @Content(mediaType = "application/json",
                     examples = {
-                            @ExampleObject(name = "E-004", description = "존재하지 않는 유저일 때", value = """
+                            @ExampleObject(name = "E-003", description = "존재하지 않는 유저일 때", value = """
                                     {
-                                        "errorCode": "004",
+                                        "errorCode": "003",
                                         "status": "400",
                                         "message": "존재하지 않는 유저 입니다."
                                     }
@@ -230,6 +229,20 @@ public class UserController {
         return ApiResponse.ok(userService.updateImage(authentication.getName(), image));
     }
 
+    @Operation(summary = "디바이스 토큰 변경", description = "디바이스 토큰을 변경합니다.")
+    @io.swagger.v3.oas.annotations.responses.ApiResponse(responseCode = "400", description = "디바이스 토큰 변경 실패",
+            content = @Content(mediaType = "application/json",
+                    examples = {
+                            @ExampleObject(name = "E-003", description = "존재하지 않는 유저일 때", value = """
+                                    {
+                                        "errorCode": "003",
+                                        "status": "400",
+                                        "message": "존재하지 않는 유저 입니다."
+                                    }
+                                    """)
+                    }
+            )
+    )
     @PutMapping("/deviceToken")
     public ApiResponse<String> updateDeviceToken(@RequestBody @Valid UserDeviceTokenRequest request, final Authentication authentication) {
         return ApiResponse.ok(userService.updateDeviceToken(authentication.getName(), request));
