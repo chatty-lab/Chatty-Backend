@@ -60,7 +60,7 @@ class MatchRepositoryTest {
     private User createUser(final String nickname, final String mobileNumber) {
         return User.builder()
                 .mobileNumber(mobileNumber)
-                .uuid("123456")
+                .deviceId("123456")
                 .authority(Authority.USER)
 //                .mbti(Mbti.ENFJ)
                 .birth(LocalDate.now())
