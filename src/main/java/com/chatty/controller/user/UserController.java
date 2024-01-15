@@ -230,6 +230,20 @@ public class UserController {
         return ApiResponse.ok(userService.updateImage(authentication.getName(), image));
     }
 
+    @Operation(summary = "디바이스 토큰 변경", description = "디바이스 토큰을 변경합니다.")
+    @io.swagger.v3.oas.annotations.responses.ApiResponse(responseCode = "400", description = "디바이스 토큰 변경 실패",
+            content = @Content(mediaType = "application/json",
+                    examples = {
+                            @ExampleObject(name = "E-004", description = "존재하지 않는 유저일 때", value = """
+                                    {
+                                        "errorCode": "004",
+                                        "status": "400",
+                                        "message": "존재하지 않는 유저 입니다."
+                                    }
+                                    """)
+                    }
+            )
+    )
     @PutMapping("/deviceToken")
     public ApiResponse<String> updateDeviceToken(@RequestBody @Valid UserDeviceTokenRequest request, final Authentication authentication) {
         return ApiResponse.ok(userService.updateDeviceToken(authentication.getName(), request));
