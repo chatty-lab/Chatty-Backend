@@ -1,5 +1,7 @@
 package com.chatty.service.match;
 
+import com.chatty.dto.chat.request.RoomDto;
+import com.chatty.dto.chat.response.RoomResponseDto;
 import com.chatty.dto.match.response.MatchResponse;
 import com.chatty.entity.match.Match;
 import com.chatty.entity.user.Gender;
@@ -7,6 +9,7 @@ import com.chatty.entity.user.User;
 import com.chatty.exception.CustomException;
 import com.chatty.repository.match.MatchRepository;
 import com.chatty.repository.user.UserRepository;
+import com.chatty.service.chat.RoomService;
 import com.google.gson.Gson;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -35,6 +38,7 @@ public class MatchHandler extends TextWebSocketHandler {
     private final Gson gson;
     private final UserRepository userRepository;
     private final MatchService matchService;
+    private final RoomService roomService;
 
     @Override
     public void afterConnectionEstablished(final WebSocketSession session) throws Exception {
@@ -154,18 +158,29 @@ public class MatchHandler extends TextWebSocketHandler {
             }
 
             System.out.println("카테고리 값이 일치합니다. 매칭되었습니다.");
-//            sessions.remove(session);
-            TextMessage textMessage = new TextMessage(payload);
-//            String json = gson.toJson("test");
-//            TextMessage textMessage = new TextMessage(json);
-            session.sendMessage(textMessage);
-            connected.sendMessage(textMessage);
 
             Long sessionMatchId = Long.parseLong(session.getAttributes().get("matchId").toString());
             Long connectedMatchId = Long.parseLong(connected.getAttributes().get("matchId").toString());
 
+            Long sessionUserId = Long.parseLong(session.getAttributes().get("userId").toString());
+            Long connectedUserId = Long.parseLong(connected.getAttributes().get("userId").toString());
+
+            // 채팅방 생성
+            RoomDto request = RoomDto.builder()
+                    .senderId(sessionUserId)
+                    .receiverId(connectedUserId)
+                    .build();
+            RoomResponseDto room = roomService.createRoom(request);
+            String json = gson.toJson(room);
+            TextMessage textMessage2 = new TextMessage(json);
+            session.sendMessage(textMessage2);
+            connected.sendMessage(textMessage2);
+            //
+
+            // 매치 성공하면 true
             matchService.successMatch(sessionMatchId);
             matchService.successMatch(connectedMatchId);
+            //
 
             sessions.remove(session);
             sessions.remove(connected);
