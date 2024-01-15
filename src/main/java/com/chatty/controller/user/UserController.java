@@ -179,4 +179,9 @@ public class UserController {
                                                  final Authentication authentication) throws IOException {
         return ApiResponse.ok(userService.updateImage(authentication.getName(), image));
     }
+
+    @PutMapping("/deviceToken")
+    public ApiResponse<String> updateDeviceToken(@RequestBody @Valid UserDeviceTokenRequest request, final Authentication authentication) {
+        return ApiResponse.ok(userService.updateDeviceToken(authentication.getName(), request));
+    }
 }

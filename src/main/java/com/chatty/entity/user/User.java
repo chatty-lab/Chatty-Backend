@@ -102,6 +102,10 @@ public class User  extends CommonEntity implements UserDetails{
         this.imageUrl = imageUrl;
     }
 
+    public void updateDeviceToken(final String deviceToken) {
+        this.deviceToken = deviceToken;
+    }
+
     public static Point createPoint(final Coordinate coordinate) {
         GeometryFactory geometryFactory = new GeometryFactory(new PrecisionModel(), 4326);
         return geometryFactory.createPoint(new org.locationtech.jts.geom.Coordinate(coordinate.getLng(), coordinate.getLat()));
