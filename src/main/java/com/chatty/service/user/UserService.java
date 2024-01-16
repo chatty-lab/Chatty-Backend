@@ -38,6 +38,7 @@ public class UserService {
     private static final String ACCESS_TOKEN = "accessToken";
     private static final String REFRESH_TOKEN = "refreshToken";
 
+    @Transactional
     public UserResponseDto login(UserRequestDto userRequestDto) {
 
         log.info("[UserService/login] 로그인 시작");
@@ -60,14 +61,19 @@ public class UserService {
         return UserResponseDto.of(tokens.get(ACCESS_TOKEN), tokens.get(REFRESH_TOKEN));
     }
 
+    @Transactional
     public UserResponseDto join(UserRequestDto userRequestDto) {
 
         log.info("[UserService/join] 회원 가입 시작");
-        String key = SmsUtils.makeKey(userRequestDto.getMobileNumber(),userRequestDto.getDeviceId());
 
         if(isAlreadyExistedUser(userRequestDto.getMobileNumber())){
             log.error("이미 존재 하는 유저 입니다.");
-            throw new CustomException(Code.ALREADY_EXIST_USER);
+            User user = userRepository.findUserByMobileNumber(userRequestDto.getMobileNumber()).get();
+
+            if(!user.getDeviceId().equals(userRequestDto.getDeviceId())){
+                log.error("이미 등록된 계정이 존재합니다.");
+                throw new CustomException(Code.ALREADY_EXIST_USER);
+            }
         }
 
         User user = User.builder()
@@ -194,8 +200,8 @@ public class UserService {
                 });
     }
 
-    private void deleteToken(String uuid){
-        refreshTokenRepository.delete(uuid);
+    private void deleteToken(String id){
+        refreshTokenRepository.delete(id);
     }
 
     private boolean isAlreadyExistedUser(String mobileNumber){
