@@ -46,17 +46,21 @@ public class UserService {
         String key = SmsUtils.makeKey(userRequestDto.getMobileNumber(), userRequestDto.getDeviceId());
         String authNumber = userRequestDto.getAuthenticationNumber();
 
-        if(!isAlreadyExistedUser(userRequestDto.getMobileNumber())){
+        if(!smsService.checkAuthNumber(key,authNumber)){
+            log.error("인증 번호가 일치하지 않는다.");
+            throw new CustomException(Code.INVALID_AUTH_NUMBER);
+        }
+
+        if(!isAlreadyExistedUser(userRequestDto.getMobileNumber())) {
             log.error("존재 하지 않는 유저 입니다.");
             throw new CustomException(Code.NOT_EXIST_USER);
         }
 
-        if(!smsService.checkAuthNumber(key,authNumber)){
-            log.error("인증 번호가 일치하지 않는다.");
+        User user = userRepository.findUserByMobileNumber(userRequestDto.getMobileNumber()).get();
 
-
-
-            throw new CustomException(Code.INVALID_AUTH_NUMBER);
+        if(!user.getDeviceId().equals(userRequestDto.getDeviceId())){
+            log.error("기기 번호가 일치하지 않습니다.");
+            throw new CustomException(Code.ALREADY_EXIST_USER);
         }
 
         deleteToken(JwtTokenUtils.getRefreshTokenUuid(userRequestDto.getMobileNumber(),userRequestDto.getDeviceId()));
