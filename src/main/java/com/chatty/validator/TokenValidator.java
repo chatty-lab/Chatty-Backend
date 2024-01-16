@@ -15,7 +15,7 @@ public class TokenValidator {
 
     private final JwtTokenProvider jwtTokenProvider;
 
-    public void validateAccessToken(String accessToken){
+    public void  validateAccessToken(String accessToken){
 
         log.info("[JwtTokenFilter] accessToken 유효 여부 확인");
         log.info("입력된 토큰 : {}",accessToken);

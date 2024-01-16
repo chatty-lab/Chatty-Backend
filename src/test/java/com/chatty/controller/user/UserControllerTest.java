@@ -141,7 +141,7 @@ class UserControllerTest {
                 )
                 .andDo(print())
                 .andExpect(status().isBadRequest())
-                .andExpect(jsonPath("$.errorCode").value("E-000"))
+                .andExpect(jsonPath("$.errorCode").value("E000"))
                 .andExpect(jsonPath("$.status").value("BAD_REQUEST"))
                 .andExpect(jsonPath("$.message").value("성별은 필수로 선택해야 됩니다."));
     }
@@ -183,7 +183,7 @@ class UserControllerTest {
         )
                 .andDo(print())
                 .andExpect(status().isBadRequest())
-                .andExpect(jsonPath("$.errorCode").value("E-000"))
+                .andExpect(jsonPath("$.errorCode").value("E000"))
                 .andExpect(jsonPath("$.status").value("BAD_REQUEST"))
                 .andExpect(jsonPath("$.message").value("생년월일은 필수로 입력해야 됩니다."));
     }
@@ -225,7 +225,7 @@ class UserControllerTest {
                 )
                 .andDo(print())
                 .andExpect(status().isBadRequest())
-                .andExpect(jsonPath("$.errorCode").value("E-000"))
+                .andExpect(jsonPath("$.errorCode").value("E000"))
                 .andExpect(jsonPath("$.status").value("BAD_REQUEST"))
                 .andExpect(jsonPath("$.message").value("MBTI는 필수로 입력해야 됩니다."));
     }
@@ -271,7 +271,7 @@ class UserControllerTest {
                 )
                 .andDo(print())
                 .andExpect(status().isBadRequest())
-                .andExpect(jsonPath("$.errorCode").value("E-000"))
+                .andExpect(jsonPath("$.errorCode").value("E000"))
                 .andExpect(jsonPath("$.status").value("BAD_REQUEST"))
                 .andExpect(jsonPath("$.message").value("좌표는 필수로 입력해야 합니다."));
     }
@@ -309,7 +309,7 @@ class UserControllerTest {
                 )
                 .andDo(print())
                 .andExpect(status().isBadRequest())
-                .andExpect(jsonPath("$.errorCode").value("E-000"))
+                .andExpect(jsonPath("$.errorCode").value("E000"))
                 .andExpect(jsonPath("$.status").value("BAD_REQUEST"))
                 .andExpect(jsonPath("$.message").value("deviceToken은 필수로 입력해야 합니다."));
     }
@@ -360,7 +360,7 @@ class UserControllerTest {
                 )
                 .andDo(print())
                 .andExpect(status().isBadRequest())
-                .andExpect(jsonPath("$.errorCode").value("E-000"))
+                .andExpect(jsonPath("$.errorCode").value("E000"))
                 .andExpect(jsonPath("$.status").value("BAD_REQUEST"))
                 .andExpect(jsonPath("$.message").value("좌표는 필수로 입력해야 합니다."));
     }
@@ -386,7 +386,7 @@ class UserControllerTest {
                 )
                 .andDo(print())
                 .andExpect(status().isBadRequest())
-                .andExpect(jsonPath("$.errorCode").value("E-000"))
+                .andExpect(jsonPath("$.errorCode").value("E000"))
                 .andExpect(jsonPath("$.status").value("BAD_REQUEST"))
                 .andExpect(jsonPath("$.message").value("닉네임은 필수로 입력해야 합니다."));
     }
@@ -412,7 +412,7 @@ class UserControllerTest {
                 )
                 .andDo(print())
                 .andExpect(status().isBadRequest())
-                .andExpect(jsonPath("$.errorCode").value("E-000"))
+                .andExpect(jsonPath("$.errorCode").value("E000"))
                 .andExpect(jsonPath("$.status").value("BAD_REQUEST"))
                 .andExpect(jsonPath("$.message").value("성별은 필수로 선택해야 됩니다."));
     }
@@ -438,7 +438,7 @@ class UserControllerTest {
                 )
                 .andDo(print())
                 .andExpect(status().isBadRequest())
-                .andExpect(jsonPath("$.errorCode").value("E-000"))
+                .andExpect(jsonPath("$.errorCode").value("E000"))
                 .andExpect(jsonPath("$.status").value("BAD_REQUEST"))
                 .andExpect(jsonPath("$.message").value("MBTI는 필수로 입력해야 됩니다."));
     }
@@ -464,7 +464,7 @@ class UserControllerTest {
                 )
                 .andDo(print())
                 .andExpect(status().isBadRequest())
-                .andExpect(jsonPath("$.errorCode").value("E-000"))
+                .andExpect(jsonPath("$.errorCode").value("E000"))
                 .andExpect(jsonPath("$.status").value("BAD_REQUEST"))
                 .andExpect(jsonPath("$.message").value("생년월일은 필수로 입력해야 됩니다."));
     }
