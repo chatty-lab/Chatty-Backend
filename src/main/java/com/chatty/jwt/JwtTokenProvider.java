@@ -54,8 +54,8 @@ public class JwtTokenProvider {
         return Jwts.parser().verifyWith(key).build().parseSignedClaims(accessToken).getPayload().get(DEVICEID, String.class);
     }
 
-    public String getUuidByRefreshToken(String refreshToken){
-        return Jwts.parser().verifyWith(key).build().parseSignedClaims(refreshToken).getPayload().get(UUID,String.class);
+    public String getDeviceIdByRefreshToken(String refreshToken){
+        return Jwts.parser().verifyWith(key).build().parseSignedClaims(refreshToken).getPayload().get(DEVICEID,String.class);
     }
 
     public String createAccessToken(String mobileNumber, String uuid) {

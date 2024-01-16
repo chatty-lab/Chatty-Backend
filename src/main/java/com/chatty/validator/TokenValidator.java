@@ -59,7 +59,7 @@ public class TokenValidator {
             throw new CustomException(Code.EXPIRED_REFRESH_TOKEN);
         }
 
-        if (!jwtTokenProvider.isEqualRedisRefresh(refreshToken, jwtTokenProvider.getUuidByRefreshToken(refreshToken))) {
+        if (!jwtTokenProvider.isEqualRedisRefresh(refreshToken, jwtTokenProvider.getDeviceIdByRefreshToken(refreshToken))) {
             log.error("refreshToken이 DB에 저장된 refreshToken과 일치하지 않습니다.");
             throw new CustomException(Code.INVALID_TOKEN);
         }

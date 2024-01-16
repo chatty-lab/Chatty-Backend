@@ -111,7 +111,7 @@ public class UserService {
         tokens.put(REFRESH_TOKEN, refreshToken);
 
         log.info("[UserService/createTokens] RefreshToken Redis 저장");
-        refreshTokenRepository.save(jwtTokenProvider.getUuidByRefreshToken(refreshToken),refreshToken);
+        refreshTokenRepository.save(jwtTokenProvider.getDeviceIdByRefreshToken(refreshToken),refreshToken);
 
         return tokens;
     }
