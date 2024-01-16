@@ -1,6 +1,7 @@
 package com.chatty.config;
 
 import com.chatty.handler.CustomAccessDeniedHandler;
+import com.chatty.handler.CustomHttpStatusEntryPoint;
 import com.chatty.jwt.JwtTokenFilter;
 import com.chatty.jwt.JwtTokenProvider;
 import com.chatty.service.user.UserDetailsServiceImpl;
@@ -41,7 +42,7 @@ public class SecurityConfig {
                 .addFilterBefore(new JwtTokenFilter(jwtTokenProvider,tokenValidator,userDetailsService), UsernamePasswordAuthenticationFilter.class)
 
                 .exceptionHandling(exception -> exception
-                        .authenticationEntryPoint(new HttpStatusEntryPoint(HttpStatus.UNAUTHORIZED))
+                        .authenticationEntryPoint(new CustomHttpStatusEntryPoint())
                         .accessDeniedHandler(new CustomAccessDeniedHandler(HttpStatus.FORBIDDEN)))
                 .build();
     }
