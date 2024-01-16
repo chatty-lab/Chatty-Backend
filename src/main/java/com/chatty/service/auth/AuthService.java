@@ -46,16 +46,16 @@ public class AuthService {
 
     private HashMap<String, String> createTokens(String refreshToken) {
 
-        UserDetails userDetails = userDetailsServiceImpl.loadUserByUsername(jwtTokenProvider.getUuidByRefreshToken(refreshToken).split(" ")[0]);
+        UserDetails userDetails = userDetailsServiceImpl.loadUserByUsername(jwtTokenProvider.getDeviceIdByRefreshToken(refreshToken).split(" ")[0]);
 
         log.info("[AuthService/createTokens] 새로운 토큰 발급 시작");
         // refreshToken은 Redis에 기존에 저장되어 있던 것 지우고 새로 발급
-        refreshTokenRepository.delete(jwtTokenProvider.getUuidByRefreshToken(refreshToken));
+        refreshTokenRepository.delete(jwtTokenProvider.getDeviceIdByRefreshToken(refreshToken));
         log.info("[AuthService/createTokens] Redis에 존재하는 기존 refresh Token 제거");
 
         String newAccessToken = jwtTokenProvider.createAccessToken(userDetails.getUsername(), userDetails.getPassword());
         String newRefreshToken = jwtTokenProvider.createRefreshToken(userDetails.getUsername(), userDetails.getPassword());
-        refreshTokenRepository.save(jwtTokenProvider.getUuidByRefreshToken(newRefreshToken), newRefreshToken);
+        refreshTokenRepository.save(jwtTokenProvider.getDeviceIdByRefreshToken(newRefreshToken), newRefreshToken);
         log.info("[AuthService/createToken] 새로 발급한 refresh Token redis 저장");
 
         return getTokens(newAccessToken, newRefreshToken);

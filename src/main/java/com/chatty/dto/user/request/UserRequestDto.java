@@ -1,6 +1,7 @@
 package com.chatty.dto.user.request;
 
 import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.Pattern;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
@@ -13,6 +14,7 @@ import lombok.NoArgsConstructor;
 public class UserRequestDto {
 
     @NotBlank(message = "휴대폰 번호 입력은 필수입니다.")
+    @Pattern(regexp = "^\\d{11}$", message = "올바른 번호 형식을 입력해주세요.")
     private String mobileNumber;
 
     @NotBlank(message = "기기 번호 입력은 필수입니다.")

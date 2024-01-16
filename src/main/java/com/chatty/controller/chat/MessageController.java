@@ -25,27 +25,6 @@ public class MessageController {
 
     private final ChatService chatService;
 
-    @Operation(summary = "메시지 전송", description = "구독자들에게 메시지를 전송합니다. 경로 맨앞에 pub을 붙여주어야 합니다. ex) /pub/chat/message/{roomId}")
-    @io.swagger.v3.oas.annotations.responses.ApiResponse(responseCode = "400", description = "회원가입 실패",
-            content = @Content(mediaType = "application/json",
-                    examples = {
-                            @ExampleObject(name = "E-004", value = """
-                                    {
-                                        "errorCode": "004",
-                                        "status": "400",
-                                        "message": "존재하지 않는 유저 입니다."
-                                    }
-                                    """),
-                            @ExampleObject(name = "E-007", value = """
-                                    {
-                                        "errorCode": "007",
-                                        "status": "400",
-                                        "message": "accessToken 유효성 검증을 실패했습니다."
-                                    }
-                                    """)
-                    }
-            )
-    )
     @MessageMapping(value = "/chat/message/{roomId}")
     @SendTo(value = "/sub/chat/{roomId}")
     public ApiResponse<SimpleMessageResponseDto> message(@DestinationVariable Long roomId, MessageDto messageDto){
@@ -53,27 +32,6 @@ public class MessageController {
         return ApiResponse.ok(chatService.saveMessage(roomId, messageDto));
     }
 
-    @Operation(summary = "메시지 읽음처리", description = "메시지를 읽음 처리합니다.")
-    @io.swagger.v3.oas.annotations.responses.ApiResponse(responseCode = "400", description = "회원가입 실패",
-            content = @Content(mediaType = "application/json",
-                    examples = {
-                            @ExampleObject(name = "E-007", value = """
-                                    {
-                                        "errorCode": "007",
-                                        "status": "400",
-                                        "message": "accessToken 유효성 검증을 실패했습니다."
-                                    }
-                                    """),
-                            @ExampleObject(name = "E-013", value = """
-                                    {
-                                        "errorCode": "013",
-                                        "status": "400",
-                                        "message": "채팅내용이 존재하지 않습니다."
-                                    }
-                                    """),
-                    }
-            )
-    )
     @MessageMapping(value = "/readMessage/{messageId}")
     public ApiResponse<MessageMarkResponseDto> readMessage(@DestinationVariable Long messageId){
         log.info("메시지 읽음 처리 - 아이디 : {}",messageId);
@@ -84,16 +42,16 @@ public class MessageController {
     @io.swagger.v3.oas.annotations.responses.ApiResponse(responseCode = "400", description = "회원가입 실패",
             content = @Content(mediaType = "application/json",
                     examples = {
-                            @ExampleObject(name = "E-007", value = """
+                            @ExampleObject(name = "E-001", value = """
                                     {
-                                        "errorCode": "007",
+                                        "errorCode": "001",
                                         "status": "400",
                                         "message": "accessToken 유효성 검증을 실패했습니다."
                                     }
                                     """),
-                            @ExampleObject(name = "E-004", value = """
+                            @ExampleObject(name = "E-003", value = """
                                     {
-                                        "errorCode": "004",
+                                        "errorCode": "003",
                                         "status": "400",
                                         "message": "존재하지 않는 유저 입니다."
                                     }

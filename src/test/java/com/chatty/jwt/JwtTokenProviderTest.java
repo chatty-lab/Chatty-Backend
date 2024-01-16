@@ -14,7 +14,7 @@ import org.mockito.MockitoAnnotations;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.util.ReflectionTestUtils;
-import com.chatty.utils.JwtTokenUtils;
+import com.chatty.utils.Jwt.JwtTokenUtils;
 
 @SpringBootTest
 class JwtTokenProviderTest {
@@ -98,7 +98,7 @@ class JwtTokenProviderTest {
         String refreshToken = jwtTokenProvider.createRefreshToken(mobileNumber1, uuid);
 
         //when
-        String uuid2 = jwtTokenProvider.getUuidByRefreshToken(refreshToken);
+        String uuid2 = jwtTokenProvider.getDeviceIdByRefreshToken(refreshToken);
 
         //then
         assertThat(key).isEqualTo(uuid2);

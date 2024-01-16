@@ -31,16 +31,16 @@ public class RoomController {
     @io.swagger.v3.oas.annotations.responses.ApiResponse(responseCode = "400", description = "회원가입 실패",
             content = @Content(mediaType = "application/json",
                     examples = {
-                            @ExampleObject(name = "E-004", value = """
+                            @ExampleObject(name = "E-003", value = """
                                     {
-                                        "errorCode": "004",
+                                        "errorCode": "003",
                                         "status": "400",
                                         "message": "존재하지 않는 유저 입니다."
                                     }
                                     """),
-                            @ExampleObject(name = "E-007", value = """
+                            @ExampleObject(name = "E-001", value = """
                                     {
-                                        "errorCode": "007",
+                                        "errorCode": "001",
                                         "status": "400",
                                         "message": "accessToken 유효성 검증을 실패했습니다."
                                     }
@@ -65,9 +65,9 @@ public class RoomController {
     @io.swagger.v3.oas.annotations.responses.ApiResponse(responseCode = "400", description = "회원가입 실패",
             content = @Content(mediaType = "application/json",
                     examples = {
-                            @ExampleObject(name = "E-007", value = """
+                            @ExampleObject(name = "E-001", value = """
                                     {
-                                        "errorCode": "007",
+                                        "errorCode": "001",
                                         "status": "400",
                                         "message": "accessToken 유효성 검증을 실패했습니다."
                                     }
@@ -99,9 +99,9 @@ public class RoomController {
     @io.swagger.v3.oas.annotations.responses.ApiResponse(responseCode = "400", description = "회원가입 실패",
             content = @Content(mediaType = "application/json",
                     examples = {
-                            @ExampleObject(name = "E-007", value = """
+                            @ExampleObject(name = "E-001", value = """
                                     {
-                                        "errorCode": "007",
+                                        "errorCode": "001",
                                         "status": "400",
                                         "message": "accessToken 유효성 검증을 실패했습니다."
                                     }
