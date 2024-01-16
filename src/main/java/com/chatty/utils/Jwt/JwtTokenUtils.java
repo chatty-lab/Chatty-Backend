@@ -1,4 +1,4 @@
-package com.chatty.utils;
+package com.chatty.utils.Jwt;
 
 public class JwtTokenUtils {
 

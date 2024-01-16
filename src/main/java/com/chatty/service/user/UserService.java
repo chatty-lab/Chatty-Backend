@@ -11,9 +11,9 @@ import com.chatty.jwt.JwtTokenProvider;
 import com.chatty.repository.token.RefreshTokenRepository;
 import com.chatty.repository.user.UserRepository;
 import com.chatty.service.sms.SmsService;
-import com.chatty.utils.JwtTokenUtils;
+import com.chatty.utils.Jwt.JwtTokenUtils;
 import com.chatty.utils.S3Service;
-import com.chatty.utils.SmsUtils;
+import com.chatty.utils.Sms.SmsUtils;
 
 import java.io.IOException;
 import java.util.HashMap;
@@ -74,6 +74,14 @@ public class UserService {
         log.info("[UserService/join] 회원 가입 시작");
 
         boolean isExistedUser = isAlreadyExistedUser(userRequestDto.getMobileNumber());
+
+        String key = SmsUtils.makeKey(userRequestDto.getMobileNumber(), userRequestDto.getDeviceId());
+        String authNumber = userRequestDto.getAuthenticationNumber();
+
+        if(!smsService.checkAuthNumber(key,authNumber)){
+            log.error("인증 번호가 일치하지 않는다.");
+            throw new CustomException(Code.INVALID_AUTH_NUMBER);
+        }
 
         if(isExistedUser){
             log.error("이미 존재 하는 유저 입니다.");
