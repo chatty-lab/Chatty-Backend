@@ -98,7 +98,7 @@ class JwtTokenProviderTest {
         String refreshToken = jwtTokenProvider.createRefreshToken(mobileNumber1, uuid);
 
         //when
-        String uuid2 = jwtTokenProvider.getUuidByRefreshToken(refreshToken);
+        String uuid2 = jwtTokenProvider.getDeviceIdByRefreshToken(refreshToken);
 
         //then
         assertThat(key).isEqualTo(uuid2);
