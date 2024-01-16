@@ -4,9 +4,11 @@ import com.chatty.dto.chat.request.RoomDto;
 import com.chatty.dto.chat.response.RoomResponseDto;
 import com.chatty.dto.match.response.MatchResponse;
 import com.chatty.entity.match.Match;
+import com.chatty.entity.match.MatchHistory;
 import com.chatty.entity.user.Gender;
 import com.chatty.entity.user.User;
 import com.chatty.exception.CustomException;
+import com.chatty.repository.match.MatchHistoryRepository;
 import com.chatty.repository.match.MatchRepository;
 import com.chatty.repository.user.UserRepository;
 import com.chatty.service.chat.RoomService;
@@ -39,6 +41,7 @@ public class MatchHandler extends TextWebSocketHandler {
     private final UserRepository userRepository;
     private final MatchService matchService;
     private final RoomService roomService;
+    private final MatchHistoryRepository matchHistoryRepository;
 
     @Override
     public void afterConnectionEstablished(final WebSocketSession session) throws Exception {
@@ -180,6 +183,20 @@ public class MatchHandler extends TextWebSocketHandler {
             // 매치 성공하면 true
             matchService.successMatch(sessionMatchId);
             matchService.successMatch(connectedMatchId);
+            //
+
+
+            // 매치 성공하면 history에 저장
+            User sender = userRepository.findById(sessionUserId)
+                    .orElseThrow(() -> new CustomException(NOT_EXIST_USER));
+            User receiver = userRepository.findById(connectedUserId)
+                    .orElseThrow(() -> new CustomException(NOT_EXIST_USER));
+
+            MatchHistory matchHistory = MatchHistory.builder()
+                    .sender(sender)
+                    .receiver(receiver)
+                    .build();
+            matchHistoryRepository.save(matchHistory);
             //
 
             sessions.remove(session);
