@@ -1,7 +1,7 @@
 package com.chatty.jwt;
 
 import com.chatty.repository.token.RefreshTokenRepository;
-import com.chatty.utils.Jwt.JwtTokenUtils;
+import com.chatty.utils.jwt.JwtTokenUtils;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.ExpiredJwtException;
 import io.jsonwebtoken.Jwts;
