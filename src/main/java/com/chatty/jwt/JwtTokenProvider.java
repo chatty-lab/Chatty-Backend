@@ -25,6 +25,7 @@ public class JwtTokenProvider {
     private static final String BEARER_TYPE = "Bearer ";
     private static final String MOBILE_NUMBER = "mobileNumber";
     private static final String UUID = "uuid";
+    private static final String DEVICEID = "deviceId";
 
     @Value("${jwt-secret-key}")
     private String secretKey;
@@ -49,6 +50,10 @@ public class JwtTokenProvider {
                 .get(MOBILE_NUMBER, String.class);
     }
 
+    public String getDeviceId(String accessToken) {
+        return Jwts.parser().verifyWith(key).build().parseSignedClaims(accessToken).getPayload().get(DEVICEID, String.class);
+    }
+
     public String getUuidByRefreshToken(String refreshToken){
         return Jwts.parser().verifyWith(key).build().parseSignedClaims(refreshToken).getPayload().get(UUID,String.class);
     }
@@ -57,7 +62,7 @@ public class JwtTokenProvider {
 
         Claims claims = Jwts.claims()
                 .add(MOBILE_NUMBER, mobileNumber)
-                .add(UUID, uuid)
+                .add(DEVICEID, uuid)
                 .build();
 
         return Jwts.builder()
@@ -71,7 +76,7 @@ public class JwtTokenProvider {
     public String createRefreshToken(String mobileNumber, String uuid) {
 
         Claims claims = Jwts.claims()
-                .add(UUID, JwtTokenUtils.getRefreshTokenUuid(mobileNumber,uuid))
+                .add(DEVICEID, JwtTokenUtils.getRefreshTokenUuid(mobileNumber,uuid))
                 .build();
 
         return Jwts.builder()

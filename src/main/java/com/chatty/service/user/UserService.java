@@ -53,6 +53,9 @@ public class UserService {
 
         if(!smsService.checkAuthNumber(key,authNumber)){
             log.error("인증 번호가 일치하지 않는다.");
+
+
+
             throw new CustomException(Code.INVALID_AUTH_NUMBER);
         }
 
@@ -66,7 +69,9 @@ public class UserService {
 
         log.info("[UserService/join] 회원 가입 시작");
 
-        if(isAlreadyExistedUser(userRequestDto.getMobileNumber())){
+        boolean isExistedUser = isAlreadyExistedUser(userRequestDto.getMobileNumber());
+
+        if(isExistedUser){
             log.error("이미 존재 하는 유저 입니다.");
             User user = userRepository.findUserByMobileNumber(userRequestDto.getMobileNumber()).get();
 
@@ -83,7 +88,7 @@ public class UserService {
                 .deviceToken(userRequestDto.getDeviceToken())
                 .build();
 
-        userRepository.save(user);
+        if(!isExistedUser) userRepository.save(user);
         log.info("[UserService/join] 회원 가입 완료");
 
         Map<String,String> tokens = createTokens(userRequestDto.getMobileNumber(), userRequestDto.getDeviceId());
