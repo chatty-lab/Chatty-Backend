@@ -84,6 +84,16 @@ public class MatchHandler extends TextWebSocketHandler {
                 continue;
             }
 
+            Long senderId = Long.parseLong(session.getAttributes().get("userId").toString());
+            Long receiverId = Long.parseLong(connected.getAttributes().get("userId").toString());
+
+            // 이미 매칭 기록이 존재하면 Skip
+            if (matchHistoryRepository.existsBySenderIdAndReceiverId(senderId, receiverId) ||
+                    matchHistoryRepository.existsBySenderIdAndReceiverId(receiverId, senderId)) {
+                continue;
+            }
+            //
+
             // 1. 내가 원하는 성별이 ALL일 경우
             if (myRequestGender.equals(Gender.ALL)) {
                 // 상대방이 원하는 성별이 ALL이 아니거나, 상대방이 원하는 성별이 내 성별과 다르면 매칭이 될 수 없다.
