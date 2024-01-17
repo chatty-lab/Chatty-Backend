@@ -3,7 +3,7 @@ package com.chatty.jwt;
 import com.chatty.constants.Code;
 import com.chatty.exception.CustomException;
 import com.chatty.service.user.UserDetailsServiceImpl;
-import com.chatty.utils.Jwt.JwtTokenUtils;
+import com.chatty.utils.jwt.JwtTokenUtils;
 import com.chatty.validator.TokenValidator;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;

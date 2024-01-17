@@ -11,9 +11,9 @@ import com.chatty.jwt.JwtTokenProvider;
 import com.chatty.repository.token.RefreshTokenRepository;
 import com.chatty.repository.user.UserRepository;
 import com.chatty.service.sms.SmsService;
-import com.chatty.utils.Jwt.JwtTokenUtils;
+import com.chatty.utils.jwt.JwtTokenUtils;
 import com.chatty.utils.S3Service;
-import com.chatty.utils.Sms.SmsUtils;
+import com.chatty.utils.sms.SmsUtils;
 
 import java.io.IOException;
 import java.util.HashMap;
