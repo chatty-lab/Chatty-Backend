@@ -2,7 +2,6 @@ package com.chatty.dto.ratelimit;
 
 import static com.chatty.constants.Code.TOO_MANY_REQUESTS;
 
-import com.chatty.constants.Code;
 import com.chatty.dto.ErrorResponse;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import jakarta.servlet.http.HttpServletResponse;
