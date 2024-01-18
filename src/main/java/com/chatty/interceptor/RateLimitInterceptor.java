@@ -2,7 +2,6 @@ package com.chatty.interceptor;
 
 import static com.chatty.constants.RateLimit.*;
 
-import com.chatty.constants.RateLimit;
 import com.chatty.dto.ratelimit.RateLimitResponse;
 import com.chatty.utils.rateLimit.RateLimitRefillChecker;
 import com.chatty.utils.rateLimit.RateLimitUtil;

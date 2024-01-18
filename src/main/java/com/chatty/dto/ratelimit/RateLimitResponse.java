@@ -16,5 +16,6 @@ public class RateLimitResponse {
         response.setHeader("X-RateLimit-Limit", bucketCapacity + ";w=" + callsInSeconds.getSeconds());
 
         response.setStatus(Code.TOO_MANY_REQUESTS.getHttpStatus().value());
+        response.getWriter().write();
     }
 }
