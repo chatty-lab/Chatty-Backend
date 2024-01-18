@@ -1,6 +1,6 @@
 package com.chatty.service.sms;
 
-import static com.chatty.utils.Sms.SmsUtils.makeSignature;
+import static com.chatty.utils.sms.SmsUtils.makeSignature;
 
 import com.chatty.dto.sms.request.MessageRequestDto;
 import com.chatty.dto.sms.request.NaverSmsRequestDto;
@@ -8,7 +8,7 @@ import com.chatty.dto.sms.request.UserSmsRequestDto;
 import com.chatty.dto.sms.response.SmsResponseDto;
 import com.chatty.dto.sms.response.SmsUserResponseDto;
 import com.chatty.repository.auth.AuthNumberRepository;
-import com.chatty.utils.Sms.SmsUtils;
+import com.chatty.utils.sms.SmsUtils;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import java.io.UnsupportedEncodingException;

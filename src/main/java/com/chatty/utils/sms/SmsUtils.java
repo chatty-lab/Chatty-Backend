@@ -1,4 +1,4 @@
-package com.chatty.utils.Sms;
+package com.chatty.utils.sms;
 
 import java.io.UnsupportedEncodingException;
 import java.security.InvalidKeyException;

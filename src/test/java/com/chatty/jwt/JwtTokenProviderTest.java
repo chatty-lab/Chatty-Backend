@@ -14,7 +14,7 @@ import org.mockito.MockitoAnnotations;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.util.ReflectionTestUtils;
-import com.chatty.utils.Jwt.JwtTokenUtils;
+import com.chatty.utils.jwt.JwtTokenUtils;
 
 @SpringBootTest
 class JwtTokenProviderTest {
