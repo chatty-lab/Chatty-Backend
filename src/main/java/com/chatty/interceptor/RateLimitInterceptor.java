@@ -11,6 +11,7 @@ import io.github.bucket4j.ConsumptionProbe;
 import io.github.bucket4j.Refill;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import java.io.IOException;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 import lombok.RequiredArgsConstructor;
@@ -41,7 +42,8 @@ public class RateLimitInterceptor implements HandlerInterceptor {
     }
 
     // 속도 제한 초과 여부를 확인하고, 응답을 설정하는 메서드
-    private boolean isRateLimitExceeded(HttpServletRequest request, HttpServletResponse response, String clientIp, ConsumptionProbe consumptionProbe){
+    private boolean isRateLimitExceeded(HttpServletRequest request, HttpServletResponse response, String clientIp, ConsumptionProbe consumptionProbe)
+            throws IOException {
         if(!consumptionProbe.isConsumed()){
             // 토큰이 소진되었을 경우 재충전까지 대기해야 하는 시간 계산
             float waitForRefill = RateLimitRefillChecker.getRoundedSecondsToWaitForRefill(consumptionProbe);
