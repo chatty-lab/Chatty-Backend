@@ -22,10 +22,9 @@ public class UserResponse {
     private String address;
     private Authority authority;
     private String imageUrl;
-    private Coordinate coordinate;
 
     @Builder
-    public UserResponse(final Long id, final String mobileNumber, final String nickname, final LocalDate birth, final Gender gender, final Mbti mbti, final String address, final Authority authority, final String imageUrl, final Coordinate coordinate) {
+    public UserResponse(final Long id, final String mobileNumber, final String nickname, final LocalDate birth, final Gender gender, final Mbti mbti, final String address, final Authority authority, final String imageUrl) {
         this.id = id;
         this.mobileNumber = mobileNumber;
         this.nickname = nickname;
@@ -35,7 +34,6 @@ public class UserResponse {
         this.address = address;
         this.authority = authority;
         this.imageUrl = imageUrl;
-        this.coordinate = coordinate;
     }
 
     public static UserResponse of(final User user) {
@@ -49,10 +47,6 @@ public class UserResponse {
                 .address(user.getAddress())
                 .authority(user.getAuthority())
                 .imageUrl(user.getImageUrl())
-                .coordinate(Coordinate.builder()
-                        .lat(user.getLocation().getY())
-                        .lng(user.getLocation().getX())
-                        .build())
                 .build();
     }
 }

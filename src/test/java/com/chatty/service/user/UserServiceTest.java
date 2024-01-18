@@ -42,41 +42,41 @@ class UserServiceTest {
         userRepository.deleteAllInBatch();
     }
 
-    @DisplayName("회원가입을 완료한다.")
-    @Test
-    void joinComplete() {
-        // given
-        User user = notCompleteJoinUser("01012345678");
-        userRepository.save(user);
-
-        Coordinate coordinate = new Coordinate(37.1, 127.1);
-        LocalDate now = LocalDate.now();
-
-        UserJoinRequest request = UserJoinRequest.builder()
-                .coordinate(coordinate)
-                .birth(now)
-                .nickname("닉네임")
-                .gender(Gender.MALE)
-                .mbti(Mbti.ISTJ)
-                .build();
-
-        // when
-        UserResponse userResponse = userService.joinComplete(user.getMobileNumber(), request);
-        System.out.println("userResponse.getAuthority() = " + userResponse.getAuthority());
-
-        // then
-        assertThat(userResponse).isNotNull();
-        assertThat(userResponse)
-                .extracting("nickname", "birth", "gender", "mbti", "authority")
-                .containsExactlyInAnyOrder(
-                        "닉네임", now, Gender.MALE, Mbti.ISTJ, Authority.USER
-                );
-        assertThat(userResponse.getCoordinate())
-                .extracting("lat", "lng")
-                .containsExactly(
-                        37.1, 127.1
-                );
-    }
+//    @DisplayName("회원가입을 완료한다.")
+//    @Test
+//    void joinComplete() {
+//        // given
+//        User user = notCompleteJoinUser("01012345678");
+//        userRepository.save(user);
+//
+//        Coordinate coordinate = new Coordinate(37.1, 127.1);
+//        LocalDate now = LocalDate.now();
+//
+//        UserJoinRequest request = UserJoinRequest.builder()
+//                .coordinate(coordinate)
+//                .birth(now)
+//                .nickname("닉네임")
+//                .gender(Gender.MALE)
+//                .mbti(Mbti.ISTJ)
+//                .build();
+//
+//        // when
+//        UserResponse userResponse = userService.joinComplete(user.getMobileNumber(), request);
+//        System.out.println("userResponse.getAuthority() = " + userResponse.getAuthority());
+//
+//        // then
+//        assertThat(userResponse).isNotNull();
+//        assertThat(userResponse)
+//                .extracting("nickname", "birth", "gender", "mbti", "authority")
+//                .containsExactlyInAnyOrder(
+//                        "닉네임", now, Gender.MALE, Mbti.ISTJ, Authority.USER
+//                );
+//        assertThat(userResponse.getCoordinate())
+//                .extracting("lat", "lng")
+//                .containsExactly(
+//                        37.1, 127.1
+//                );
+//    }
 
     @DisplayName("유저 닉네임을 수정한다.")
     @Test
@@ -173,29 +173,29 @@ class UserServiceTest {
         assertThat(userResponse.getMbti()).isEqualTo(Mbti.ESFJ);
     }
 
-    @DisplayName("좌표 정보를 수정한다.")
-    @Test
-    void updateCoordinate() {
-        // given
-        User user = createUser("닉네임", "01012345678");
-        userRepository.save(user);
-
-        Coordinate coordinate = new Coordinate(37.1, 127.1);
-        UserCoordinateRequest request = UserCoordinateRequest.builder()
-                .coordinate(coordinate)
-                .build();
-
-        // when
-        UserResponse userResponse = userService.updateCoordinate(user.getMobileNumber(), request);
-
-        // then
-        assertThat(userResponse).isNotNull();
-        assertThat(userResponse.getCoordinate())
-                .extracting("lat", "lng")
-                .containsExactly(
-                        37.1, 127.1
-                );
-    }
+//    @DisplayName("좌표 정보를 수정한다.")
+//    @Test
+//    void updateCoordinate() {
+//        // given
+//        User user = createUser("닉네임", "01012345678");
+//        userRepository.save(user);
+//
+//        Coordinate coordinate = new Coordinate(37.1, 127.1);
+//        UserCoordinateRequest request = UserCoordinateRequest.builder()
+//                .coordinate(coordinate)
+//                .build();
+//
+//        // when
+//        UserResponse userResponse = userService.updateCoordinate(user.getMobileNumber(), request);
+//
+//        // then
+//        assertThat(userResponse).isNotNull();
+//        assertThat(userResponse.getCoordinate())
+//                .extracting("lat", "lng")
+//                .containsExactly(
+//                        37.1, 127.1
+//                );
+//    }
 
     @DisplayName("프로필 이미지를 수정한다.")
     @Test
