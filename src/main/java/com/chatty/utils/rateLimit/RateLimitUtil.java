@@ -3,7 +3,7 @@ package com.chatty.utils.rateLimit;
 import jakarta.servlet.http.HttpServletRequest;
 import java.util.Arrays;
 
-public class rateLimitUtil {
+public class RateLimitUtil {
     private static final String[] IP_HEADER = {
             "X-Forwarded-For",
             "Proxy-Client-IP",
