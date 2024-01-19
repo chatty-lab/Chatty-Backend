@@ -21,7 +21,7 @@ public class MatchResponse {
     private Mbti mbti;
     private String address;
     private String imageUrl;
-    private Coordinate coordinate;
+//    private Coordinate coordinate;
     private int age;
     private boolean isSuccess;
 
@@ -32,7 +32,7 @@ public class MatchResponse {
     private Gender requestGender;
 
     @Builder
-    public MatchResponse(final Long id, final Long userId, final String nickname, final Gender gender, final Mbti mbti, final String address, final String imageUrl, final Coordinate coordinate, final int age, final boolean isSuccess, final int requestMinAge, final int requestMaxAge, final String requestCategory, final Double requestScope, final Gender requestGender) {
+    public MatchResponse(final Long id, final Long userId, final String nickname, final Gender gender, final Mbti mbti, final String address, final String imageUrl, final int age, final boolean isSuccess, final int requestMinAge, final int requestMaxAge, final String requestCategory, final Double requestScope, final Gender requestGender) {
         this.id = id;
         this.userId = userId;
         this.nickname = nickname;
@@ -40,7 +40,7 @@ public class MatchResponse {
         this.mbti = mbti;
         this.address = address;
         this.imageUrl = imageUrl;
-        this.coordinate = coordinate;
+//        this.coordinate = coordinate;
         this.age = age;
         this.isSuccess = isSuccess;
         this.requestMinAge = requestMinAge;
@@ -59,10 +59,10 @@ public class MatchResponse {
                 .mbti(match.getUser().getMbti())
                 .address(match.getUser().getAddress())
                 .imageUrl(match.getUser().getImageUrl())
-                .coordinate(Coordinate.builder()
-                        .lat(match.getUser().getLocation().getY())
-                        .lng(match.getUser().getLocation().getX())
-                        .build())
+//                .coordinate(Coordinate.builder()
+//                        .lat(match.getUser().getLocation().getY())
+//                        .lng(match.getUser().getLocation().getX())
+//                        .build())
                 .age(age)
                 .isSuccess(match.isSuccess())
                 .requestScope(match.getScope())

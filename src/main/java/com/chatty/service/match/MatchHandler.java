@@ -1,12 +1,17 @@
 package com.chatty.service.match;
 
+import com.chatty.dto.chat.request.RoomDto;
+import com.chatty.dto.chat.response.RoomResponseDto;
 import com.chatty.dto.match.response.MatchResponse;
 import com.chatty.entity.match.Match;
+import com.chatty.entity.match.MatchHistory;
 import com.chatty.entity.user.Gender;
 import com.chatty.entity.user.User;
 import com.chatty.exception.CustomException;
+import com.chatty.repository.match.MatchHistoryRepository;
 import com.chatty.repository.match.MatchRepository;
 import com.chatty.repository.user.UserRepository;
+import com.chatty.service.chat.RoomService;
 import com.google.gson.Gson;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -35,6 +40,8 @@ public class MatchHandler extends TextWebSocketHandler {
     private final Gson gson;
     private final UserRepository userRepository;
     private final MatchService matchService;
+    private final RoomService roomService;
+    private final MatchHistoryRepository matchHistoryRepository;
 
     @Override
     public void afterConnectionEstablished(final WebSocketSession session) throws Exception {
@@ -76,6 +83,16 @@ public class MatchHandler extends TextWebSocketHandler {
             if (session == connected || connected.getAttributes().get("nickname") == null) {
                 continue;
             }
+
+            Long senderId = Long.parseLong(session.getAttributes().get("userId").toString());
+            Long receiverId = Long.parseLong(connected.getAttributes().get("userId").toString());
+
+            // 이미 매칭 기록이 존재하면 Skip
+            if (matchHistoryRepository.existsBySenderIdAndReceiverId(senderId, receiverId) ||
+                    matchHistoryRepository.existsBySenderIdAndReceiverId(receiverId, senderId)) {
+                continue;
+            }
+            //
 
             // 1. 내가 원하는 성별이 ALL일 경우
             if (myRequestGender.equals(Gender.ALL)) {
@@ -154,18 +171,43 @@ public class MatchHandler extends TextWebSocketHandler {
             }
 
             System.out.println("카테고리 값이 일치합니다. 매칭되었습니다.");
-//            sessions.remove(session);
-            TextMessage textMessage = new TextMessage(payload);
-//            String json = gson.toJson("test");
-//            TextMessage textMessage = new TextMessage(json);
-            session.sendMessage(textMessage);
-            connected.sendMessage(textMessage);
 
             Long sessionMatchId = Long.parseLong(session.getAttributes().get("matchId").toString());
             Long connectedMatchId = Long.parseLong(connected.getAttributes().get("matchId").toString());
 
+            Long sessionUserId = Long.parseLong(session.getAttributes().get("userId").toString());
+            Long connectedUserId = Long.parseLong(connected.getAttributes().get("userId").toString());
+
+            // 채팅방 생성
+            RoomDto request = RoomDto.builder()
+                    .senderId(sessionUserId)
+                    .receiverId(connectedUserId)
+                    .build();
+            RoomResponseDto room = roomService.createRoom(request);
+            String json = gson.toJson(room);
+            TextMessage textMessage2 = new TextMessage(json);
+            session.sendMessage(textMessage2);
+            connected.sendMessage(textMessage2);
+            //
+
+            // 매치 성공하면 true
             matchService.successMatch(sessionMatchId);
             matchService.successMatch(connectedMatchId);
+            //
+
+
+            // 매치 성공하면 history에 저장
+            User sender = userRepository.findById(sessionUserId)
+                    .orElseThrow(() -> new CustomException(NOT_EXIST_USER));
+            User receiver = userRepository.findById(connectedUserId)
+                    .orElseThrow(() -> new CustomException(NOT_EXIST_USER));
+
+            MatchHistory matchHistory = MatchHistory.builder()
+                    .sender(sender)
+                    .receiver(receiver)
+                    .build();
+            matchHistoryRepository.save(matchHistory);
+            //
 
             sessions.remove(session);
             sessions.remove(connected);
