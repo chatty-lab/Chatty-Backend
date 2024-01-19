@@ -1,8 +1,9 @@
 package com.chatty.jwt;
+
 import com.chatty.constants.Code;
 import com.chatty.exception.CustomException;
 import com.chatty.service.user.UserDetailsServiceImpl;
-import com.chatty.utils.Jwt.JwtTokenUtils;
+import com.chatty.utils.jwt.JwtTokenUtils;
 import com.chatty.validator.TokenValidator;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
@@ -30,7 +31,12 @@ public class JwtTokenFilter extends OncePerRequestFilter {
 
         String accessToken = jwtTokenProvider.resolveAccessToken(request);
 
-        tokenValidator.validateAccessToken(accessToken);
+        try {
+            tokenValidator.validateAccessToken(accessToken);
+        }catch (CustomException e){
+            log.error("valid 에러 코드 발생");
+            request.setAttribute("errorCode",e);
+        }
 
         accessToken = JwtTokenUtils.getAccessToken(accessToken);
 
@@ -40,6 +46,7 @@ public class JwtTokenFilter extends OncePerRequestFilter {
 
         if(!userDetails.getPassword().equals(deviceId)){ // 기기번호 검증도 같이 해준다.
             log.error("기기번호가 일치하지 않아 유효하지 않은 토큰입니다.");
+            request.setAttribute("exception",Code.INVALID_TOKEN);
             throw new CustomException(Code.INVALID_TOKEN);
         }
 

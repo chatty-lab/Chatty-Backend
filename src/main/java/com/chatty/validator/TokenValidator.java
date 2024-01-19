@@ -3,7 +3,8 @@ package com.chatty.validator;
 import com.chatty.constants.Code;
 import com.chatty.exception.CustomException;
 import com.chatty.jwt.JwtTokenProvider;
-import com.chatty.utils.Jwt.JwtTokenUtils;
+
+import com.chatty.utils.jwt.JwtTokenUtils;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
@@ -15,7 +16,7 @@ public class TokenValidator {
 
     private final JwtTokenProvider jwtTokenProvider;
 
-    public void validateAccessToken(String accessToken){
+    public void  validateAccessToken(String accessToken){
 
         log.info("[JwtTokenFilter] accessToken 유효 여부 확인");
         log.info("입력된 토큰 : {}",accessToken);
