@@ -20,4 +20,16 @@ public class CheckUtilsTest {
 
         Assertions.assertThat(problems.size()).isEqualTo(5);
     }
+
+    @Test
+    @DisplayName("랜덤 닉네임 생성")
+    void getRandomName() throws Exception{
+        //given
+        String answer = "무야호";
+
+        //whenm, then
+        List<String> problems = CheckUtils.createNicknameProblem(answer);
+
+        System.out.println(problems);
+    }
 }

@@ -15,8 +15,8 @@ public class CheckUtils {
         problems.add(answer);
         for (int i = 0; i < 4; i++) {
             while(true){
-                String selectedValue = nicknames.get(new Random().nextInt(10));
-                if(!nicknames.contains(selectedValue)){
+                String selectedValue = nicknames.get(new Random().nextInt(99));
+                if(!problems.contains(selectedValue)){
                     problems.add(selectedValue);
                     break;
                 }
