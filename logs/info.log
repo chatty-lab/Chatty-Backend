@@ -1,542 +1,555 @@
-2024-01-19 14:36:11.101 [MessageBroker-1] INFO org.springframework.web.socket.config.WebSocketMessageBrokerStats - WebSocketSession[0 current WS(0)-HttpStream(0)-HttpPoll(0), 0 total, 0 closed abnormally (0 connect failure, 0 send limit, 0 transport error)], stompSubProtocol[processed CONNECT(0)-CONNECTED(0)-DISCONNECT(0)], stompBrokerRelay[null], inboundChannel[pool size = 0, active threads = 0, queued tasks = 0, completed tasks = 0], outboundChannel[pool size = 0, active threads = 0, queued tasks = 0, completed tasks = 0], sockJsScheduler[pool size = 2, active threads = 1, queued tasks = 0, completed tasks = 1]
-2024-01-19 14:58:28.442 [background-preinit] INFO org.hibernate.validator.internal.util.Version - HV000001: Hibernate Validator 8.0.1.Final
-2024-01-19 14:58:28.491 [main] INFO com.chatty.ChattyApplication - Starting ChattyApplication using Java 18.0.2 with PID 63390 (/Users/developer/IdeaProjects/Chatty-Backend/build/classes/java/main started by developer in /Users/developer/IdeaProjects/Chatty-Backend)
-2024-01-19 14:58:28.494 [main] INFO com.chatty.ChattyApplication - No active profile set, falling back to 1 default profile: "default"
-2024-01-19 14:58:29.898 [main] INFO org.springframework.data.repository.config.RepositoryConfigurationDelegate - Multiple Spring Data modules found, entering strict repository configuration mode
-2024-01-19 14:58:29.899 [main] INFO org.springframework.data.repository.config.RepositoryConfigurationDelegate - Bootstrapping Spring Data Redis repositories in DEFAULT mode.
-2024-01-19 14:58:29.923 [main] INFO org.springframework.data.repository.config.RepositoryConfigurationDelegate - Finished Spring Data repository scanning in 9 ms. Found 0 Redis repository interfaces.
-2024-01-19 14:58:30.320 [main] INFO org.springframework.data.repository.config.RepositoryConfigurationDelegate - Multiple Spring Data modules found, entering strict repository configuration mode
-2024-01-19 14:58:30.321 [main] INFO org.springframework.data.repository.config.RepositoryConfigurationDelegate - Bootstrapping Spring Data JPA repositories in DEFAULT mode.
-2024-01-19 14:58:30.513 [main] INFO org.springframework.data.repository.config.RepositoryConfigurationDelegate - Finished Spring Data repository scanning in 189 ms. Found 4 JPA repository interfaces.
-2024-01-19 14:58:30.533 [main] INFO org.springframework.data.repository.config.RepositoryConfigurationDelegate - Multiple Spring Data modules found, entering strict repository configuration mode
-2024-01-19 14:58:30.533 [main] INFO org.springframework.data.repository.config.RepositoryConfigurationDelegate - Bootstrapping Spring Data Redis repositories in DEFAULT mode.
-2024-01-19 14:58:30.552 [main] INFO org.springframework.data.repository.config.RepositoryConfigurationExtensionSupport - Spring Data Redis - Could not safely identify store assignment for repository candidate interface com.chatty.repository.chat.ChatRoomRepository; If you want this repository to be a Redis repository, consider annotating your entities with one of these annotations: org.springframework.data.redis.core.RedisHash (preferred), or consider extending one of the following types with your repository: org.springframework.data.keyvalue.repository.KeyValueRepository
-2024-01-19 14:58:30.553 [main] INFO org.springframework.data.repository.config.RepositoryConfigurationExtensionSupport - Spring Data Redis - Could not safely identify store assignment for repository candidate interface com.chatty.repository.chat.MessageRepository; If you want this repository to be a Redis repository, consider annotating your entities with one of these annotations: org.springframework.data.redis.core.RedisHash (preferred), or consider extending one of the following types with your repository: org.springframework.data.keyvalue.repository.KeyValueRepository
-2024-01-19 14:58:30.555 [main] INFO org.springframework.data.repository.config.RepositoryConfigurationExtensionSupport - Spring Data Redis - Could not safely identify store assignment for repository candidate interface com.chatty.repository.match.MatchRepository; If you want this repository to be a Redis repository, consider annotating your entities with one of these annotations: org.springframework.data.redis.core.RedisHash (preferred), or consider extending one of the following types with your repository: org.springframework.data.keyvalue.repository.KeyValueRepository
-2024-01-19 14:58:30.557 [main] INFO org.springframework.data.repository.config.RepositoryConfigurationExtensionSupport - Spring Data Redis - Could not safely identify store assignment for repository candidate interface com.chatty.repository.user.UserRepository; If you want this repository to be a Redis repository, consider annotating your entities with one of these annotations: org.springframework.data.redis.core.RedisHash (preferred), or consider extending one of the following types with your repository: org.springframework.data.keyvalue.repository.KeyValueRepository
-2024-01-19 14:58:30.557 [main] INFO org.springframework.data.repository.config.RepositoryConfigurationDelegate - Finished Spring Data repository scanning in 23 ms. Found 0 Redis repository interfaces.
-2024-01-19 14:58:31.614 [main] INFO org.springframework.boot.web.embedded.tomcat.TomcatWebServer - Tomcat initialized with port 8080 (http)
-2024-01-19 14:58:31.628 [main] INFO org.apache.coyote.http11.Http11NioProtocol - Initializing ProtocolHandler ["http-nio-8080"]
-2024-01-19 14:58:31.630 [main] INFO org.apache.catalina.core.StandardService - Starting service [Tomcat]
-2024-01-19 14:58:31.630 [main] INFO org.apache.catalina.core.StandardEngine - Starting Servlet engine: [Apache Tomcat/10.1.16]
-2024-01-19 14:58:31.739 [main] INFO org.apache.catalina.core.ContainerBase.[Tomcat].[localhost].[/] - Initializing Spring embedded WebApplicationContext
-2024-01-19 14:58:31.742 [main] INFO org.springframework.boot.web.servlet.context.ServletWebServerApplicationContext - Root WebApplicationContext: initialization completed in 3165 ms
-2024-01-19 14:58:31.979 [main] INFO org.hibernate.jpa.internal.util.LogHelper - HHH000204: Processing PersistenceUnitInfo [name: default]
-2024-01-19 14:58:32.031 [main] INFO org.hibernate.Version - HHH000412: Hibernate ORM core version 6.3.1.Final
-2024-01-19 14:58:32.043 [main] INFO org.hibernate.spatial.integration.SpatialService - HHH80000001: hibernate-spatial integration enabled : true
-2024-01-19 14:58:32.065 [main] INFO org.hibernate.cache.internal.RegionFactoryInitiator - HHH000026: Second-level cache disabled
-2024-01-19 14:58:32.164 [main] INFO com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Starting...
-2024-01-19 14:58:32.703 [main] INFO com.zaxxer.hikari.pool.HikariPool - HikariPool-1 - Added connection com.mysql.cj.jdbc.ConnectionImpl@f01fc6d
-2024-01-19 14:58:32.705 [main] INFO com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Start completed.
-2024-01-19 14:58:32.829 [main] INFO org.hibernate.spatial - HHH80000003: hibernate-spatial adding type contributions from : org.hibernate.spatial.dialect.mysql.MySQLDialectContributor
-2024-01-19 14:58:33.005 [main] INFO org.springframework.orm.jpa.persistenceunit.SpringPersistenceUnitInfo - No LoadTimeWeaver setup: ignoring JPA class transformer
-2024-01-19 14:58:33.026 [main] INFO org.hibernate.spatial - HHH80000003: hibernate-spatial adding type contributions from : org.hibernate.spatial.dialect.mysql.MySQLDialectContributor
-2024-01-19 14:58:33.371 [main] INFO org.hibernate.spatial - HHH80000004: hibernate-spatial adding function contributions from : org.hibernate.spatial.dialect.mysql.MySQLDialectContributor
-2024-01-19 14:58:34.245 [main] INFO org.hibernate.engine.transaction.jta.platform.internal.JtaPlatformInitiator - HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
-2024-01-19 14:58:34.789 [main] INFO org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean - Initialized JPA EntityManagerFactory for persistence unit 'default'
-2024-01-19 14:58:35.556 [main] INFO org.springframework.data.jpa.repository.query.QueryEnhancerFactory - Hibernate is in classpath; If applicable, HQL parser will be used.
-2024-01-19 14:58:37.403 [main] INFO org.springframework.boot.autoconfigure.web.servlet.WelcomePageHandlerMapping - Adding welcome page: class path resource [static/index.html]
-2024-01-19 14:58:38.836 [main] INFO org.springframework.security.web.DefaultSecurityFilterChain - Will secure any request with [org.springframework.security.web.session.DisableEncodeUrlFilter@472cf6af, org.springframework.security.web.context.request.async.WebAsyncManagerIntegrationFilter@1fab1909, org.springframework.security.web.context.SecurityContextHolderFilter@4a1a9f57, org.springframework.security.web.header.HeaderWriterFilter@18ea91d7, org.springframework.web.filter.CorsFilter@67807d9a, org.springframework.security.web.authentication.logout.LogoutFilter@6317f6d, com.chatty.jwt.JwtTokenFilter@27523869, org.springframework.security.web.savedrequest.RequestCacheAwareFilter@6bd0047f, org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestFilter@41116c0e, org.springframework.security.web.authentication.AnonymousAuthenticationFilter@7eb3ba2, org.springframework.security.web.access.ExceptionTranslationFilter@745690d7, org.springframework.security.web.access.intercept.AuthorizationFilter@1b5860fb]
-2024-01-19 14:58:38.857 [main] INFO org.springframework.security.web.DefaultSecurityFilterChain - Will not secure Mvc [pattern='/users/join']
-2024-01-19 14:58:38.857 [main] INFO org.springframework.security.web.DefaultSecurityFilterChain - Will not secure Mvc [pattern='/users/login']
-2024-01-19 14:58:38.857 [main] INFO org.springframework.security.web.DefaultSecurityFilterChain - Will not secure Mvc [pattern='/ws']
-2024-01-19 14:58:38.857 [main] INFO org.springframework.security.web.DefaultSecurityFilterChain - Will not secure Mvc [pattern='/auth/**']
-2024-01-19 14:58:38.857 [main] INFO org.springframework.security.web.DefaultSecurityFilterChain - Will not secure Mvc [pattern='/swagger-ui/**']
-2024-01-19 14:58:38.857 [main] INFO org.springframework.security.web.DefaultSecurityFilterChain - Will not secure Mvc [pattern='/v3/api-docs/**']
-2024-01-19 14:58:38.857 [main] INFO org.springframework.security.web.DefaultSecurityFilterChain - Will not secure Mvc [pattern='/index.html']
-2024-01-19 14:58:38.857 [main] INFO org.springframework.security.web.DefaultSecurityFilterChain - Will not secure Mvc [pattern='/matching/**']
-2024-01-19 14:58:39.408 [main] INFO org.apache.coyote.http11.Http11NioProtocol - Starting ProtocolHandler ["http-nio-8080"]
-2024-01-19 14:58:39.437 [main] INFO org.springframework.boot.web.embedded.tomcat.TomcatWebServer - Tomcat started on port 8080 (http) with context path ''
-2024-01-19 14:58:39.440 [main] INFO org.springframework.messaging.simp.broker.SimpleBrokerMessageHandler - Starting...
-2024-01-19 14:58:39.444 [main] INFO org.springframework.messaging.simp.broker.SimpleBrokerMessageHandler - BrokerAvailabilityEvent[available=true, SimpleBrokerMessageHandler [org.springframework.messaging.simp.broker.DefaultSubscriptionRegistry@4fde13d0]]
-2024-01-19 14:58:39.444 [main] INFO org.springframework.messaging.simp.broker.SimpleBrokerMessageHandler - Started.
-2024-01-19 14:58:39.464 [main] INFO com.chatty.ChattyApplication - Started ChattyApplication in 12.034 seconds (process running for 13.115)
-2024-01-19 14:59:39.431 [MessageBroker-1] INFO org.springframework.web.socket.config.WebSocketMessageBrokerStats - WebSocketSession[0 current WS(0)-HttpStream(0)-HttpPoll(0), 0 total, 0 closed abnormally (0 connect failure, 0 send limit, 0 transport error)], stompSubProtocol[processed CONNECT(0)-CONNECTED(0)-DISCONNECT(0)], stompBrokerRelay[null], inboundChannel[pool size = 0, active threads = 0, queued tasks = 0, completed tasks = 0], outboundChannel[pool size = 0, active threads = 0, queued tasks = 0, completed tasks = 0], sockJsScheduler[pool size = 1, active threads = 1, queued tasks = 0, completed tasks = 0]
-2024-01-19 15:00:45.215 [http-nio-8080-exec-1] INFO org.apache.catalina.core.ContainerBase.[Tomcat].[localhost].[/] - Initializing Spring DispatcherServlet 'dispatcherServlet'
-2024-01-19 15:00:45.216 [http-nio-8080-exec-1] INFO org.springframework.web.servlet.DispatcherServlet - Initializing Servlet 'dispatcherServlet'
-2024-01-19 15:00:45.224 [http-nio-8080-exec-1] INFO org.springframework.web.servlet.DispatcherServlet - Completed initialization in 7 ms
-2024-01-19 15:00:45.282 [http-nio-8080-exec-1] INFO com.chatty.interceptor.RateLimitInterceptor - remaining token : 9
-2024-01-19 15:00:45.634 [http-nio-8080-exec-1] INFO com.chatty.controller.auth.AuthController - 번호 인증 요청
-2024-01-19 15:00:46.198 [http-nio-8080-exec-1] INFO com.chatty.service.sms.SmsService - 번호 인증 요청 정보 저장 완료 : 364871
-2024-01-19 15:11:27.271 [http-nio-8080-exec-4] INFO com.chatty.interceptor.RateLimitInterceptor - remaining token : 9
-2024-01-19 15:11:27.315 [http-nio-8080-exec-4] INFO com.chatty.controller.auth.AuthController - 번호 인증 요청
-2024-01-19 15:11:27.326 [http-nio-8080-exec-4] INFO com.chatty.service.sms.SmsService - 번호 인증 요청 정보 저장 완료 : 835736
-2024-01-19 15:29:39.461 [MessageBroker-1] INFO org.springframework.web.socket.config.WebSocketMessageBrokerStats - WebSocketSession[0 current WS(0)-HttpStream(0)-HttpPoll(0), 0 total, 0 closed abnormally (0 connect failure, 0 send limit, 0 transport error)], stompSubProtocol[processed CONNECT(0)-CONNECTED(0)-DISCONNECT(0)], stompBrokerRelay[null], inboundChannel[pool size = 0, active threads = 0, queued tasks = 0, completed tasks = 0], outboundChannel[pool size = 0, active threads = 0, queued tasks = 0, completed tasks = 0], sockJsScheduler[pool size = 2, active threads = 1, queued tasks = 0, completed tasks = 1]
-2024-01-19 15:51:58.001 [SpringApplicationShutdownHook] INFO org.springframework.messaging.simp.broker.SimpleBrokerMessageHandler - Stopping...
-2024-01-19 15:51:58.012 [SpringApplicationShutdownHook] INFO org.springframework.messaging.simp.broker.SimpleBrokerMessageHandler - BrokerAvailabilityEvent[available=false, SimpleBrokerMessageHandler [org.springframework.messaging.simp.broker.DefaultSubscriptionRegistry@4fde13d0]]
-2024-01-19 15:51:58.013 [SpringApplicationShutdownHook] INFO org.springframework.messaging.simp.broker.SimpleBrokerMessageHandler - Stopped.
-2024-01-19 16:01:28.807 [background-preinit] INFO org.hibernate.validator.internal.util.Version - HV000001: Hibernate Validator 8.0.1.Final
-2024-01-19 16:01:28.849 [main] INFO com.chatty.ChattyApplication - Starting ChattyApplication using Java 18.0.2 with PID 67984 (/Users/developer/IdeaProjects/Chatty-Backend/build/classes/java/main started by developer in /Users/developer/IdeaProjects/Chatty-Backend)
-2024-01-19 16:01:28.853 [main] INFO com.chatty.ChattyApplication - No active profile set, falling back to 1 default profile: "default"
-2024-01-19 16:01:30.189 [main] INFO org.springframework.data.repository.config.RepositoryConfigurationDelegate - Multiple Spring Data modules found, entering strict repository configuration mode
-2024-01-19 16:01:30.190 [main] INFO org.springframework.data.repository.config.RepositoryConfigurationDelegate - Bootstrapping Spring Data Redis repositories in DEFAULT mode.
-2024-01-19 16:01:30.214 [main] INFO org.springframework.data.repository.config.RepositoryConfigurationDelegate - Finished Spring Data repository scanning in 10 ms. Found 0 Redis repository interfaces.
-2024-01-19 16:01:30.636 [main] INFO org.springframework.data.repository.config.RepositoryConfigurationDelegate - Multiple Spring Data modules found, entering strict repository configuration mode
-2024-01-19 16:01:30.637 [main] INFO org.springframework.data.repository.config.RepositoryConfigurationDelegate - Bootstrapping Spring Data JPA repositories in DEFAULT mode.
-2024-01-19 16:01:30.830 [main] INFO org.springframework.data.repository.config.RepositoryConfigurationDelegate - Finished Spring Data repository scanning in 190 ms. Found 4 JPA repository interfaces.
-2024-01-19 16:01:30.850 [main] INFO org.springframework.data.repository.config.RepositoryConfigurationDelegate - Multiple Spring Data modules found, entering strict repository configuration mode
-2024-01-19 16:01:30.851 [main] INFO org.springframework.data.repository.config.RepositoryConfigurationDelegate - Bootstrapping Spring Data Redis repositories in DEFAULT mode.
-2024-01-19 16:01:30.868 [main] INFO org.springframework.data.repository.config.RepositoryConfigurationExtensionSupport - Spring Data Redis - Could not safely identify store assignment for repository candidate interface com.chatty.repository.chat.ChatRoomRepository; If you want this repository to be a Redis repository, consider annotating your entities with one of these annotations: org.springframework.data.redis.core.RedisHash (preferred), or consider extending one of the following types with your repository: org.springframework.data.keyvalue.repository.KeyValueRepository
-2024-01-19 16:01:30.870 [main] INFO org.springframework.data.repository.config.RepositoryConfigurationExtensionSupport - Spring Data Redis - Could not safely identify store assignment for repository candidate interface com.chatty.repository.chat.MessageRepository; If you want this repository to be a Redis repository, consider annotating your entities with one of these annotations: org.springframework.data.redis.core.RedisHash (preferred), or consider extending one of the following types with your repository: org.springframework.data.keyvalue.repository.KeyValueRepository
-2024-01-19 16:01:30.872 [main] INFO org.springframework.data.repository.config.RepositoryConfigurationExtensionSupport - Spring Data Redis - Could not safely identify store assignment for repository candidate interface com.chatty.repository.match.MatchRepository; If you want this repository to be a Redis repository, consider annotating your entities with one of these annotations: org.springframework.data.redis.core.RedisHash (preferred), or consider extending one of the following types with your repository: org.springframework.data.keyvalue.repository.KeyValueRepository
-2024-01-19 16:01:30.873 [main] INFO org.springframework.data.repository.config.RepositoryConfigurationExtensionSupport - Spring Data Redis - Could not safely identify store assignment for repository candidate interface com.chatty.repository.user.UserRepository; If you want this repository to be a Redis repository, consider annotating your entities with one of these annotations: org.springframework.data.redis.core.RedisHash (preferred), or consider extending one of the following types with your repository: org.springframework.data.keyvalue.repository.KeyValueRepository
-2024-01-19 16:01:30.873 [main] INFO org.springframework.data.repository.config.RepositoryConfigurationDelegate - Finished Spring Data repository scanning in 22 ms. Found 0 Redis repository interfaces.
-2024-01-19 16:01:31.848 [main] INFO org.springframework.boot.web.embedded.tomcat.TomcatWebServer - Tomcat initialized with port 8080 (http)
-2024-01-19 16:01:31.862 [main] INFO org.apache.coyote.http11.Http11NioProtocol - Initializing ProtocolHandler ["http-nio-8080"]
-2024-01-19 16:01:31.864 [main] INFO org.apache.catalina.core.StandardService - Starting service [Tomcat]
-2024-01-19 16:01:31.865 [main] INFO org.apache.catalina.core.StandardEngine - Starting Servlet engine: [Apache Tomcat/10.1.16]
-2024-01-19 16:01:31.997 [main] INFO org.apache.catalina.core.ContainerBase.[Tomcat].[localhost].[/] - Initializing Spring embedded WebApplicationContext
-2024-01-19 16:01:31.998 [main] INFO org.springframework.boot.web.servlet.context.ServletWebServerApplicationContext - Root WebApplicationContext: initialization completed in 3045 ms
-2024-01-19 16:01:32.241 [main] INFO org.hibernate.jpa.internal.util.LogHelper - HHH000204: Processing PersistenceUnitInfo [name: default]
-2024-01-19 16:01:32.293 [main] INFO org.hibernate.Version - HHH000412: Hibernate ORM core version 6.3.1.Final
-2024-01-19 16:01:32.305 [main] INFO org.hibernate.spatial.integration.SpatialService - HHH80000001: hibernate-spatial integration enabled : true
-2024-01-19 16:01:32.330 [main] INFO org.hibernate.cache.internal.RegionFactoryInitiator - HHH000026: Second-level cache disabled
-2024-01-19 16:01:32.441 [main] INFO com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Starting...
-2024-01-19 16:01:32.948 [main] INFO com.zaxxer.hikari.pool.HikariPool - HikariPool-1 - Added connection com.mysql.cj.jdbc.ConnectionImpl@688d2a5d
-2024-01-19 16:01:32.950 [main] INFO com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Start completed.
-2024-01-19 16:01:33.076 [main] INFO org.hibernate.spatial - HHH80000003: hibernate-spatial adding type contributions from : org.hibernate.spatial.dialect.mysql.MySQLDialectContributor
-2024-01-19 16:01:33.264 [main] INFO org.springframework.orm.jpa.persistenceunit.SpringPersistenceUnitInfo - No LoadTimeWeaver setup: ignoring JPA class transformer
-2024-01-19 16:01:33.284 [main] INFO org.hibernate.spatial - HHH80000003: hibernate-spatial adding type contributions from : org.hibernate.spatial.dialect.mysql.MySQLDialectContributor
-2024-01-19 16:01:33.626 [main] INFO org.hibernate.spatial - HHH80000004: hibernate-spatial adding function contributions from : org.hibernate.spatial.dialect.mysql.MySQLDialectContributor
-2024-01-19 16:01:34.468 [main] INFO org.hibernate.engine.transaction.jta.platform.internal.JtaPlatformInitiator - HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
-2024-01-19 16:01:34.863 [main] INFO org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean - Initialized JPA EntityManagerFactory for persistence unit 'default'
-2024-01-19 16:01:35.626 [main] INFO org.springframework.data.jpa.repository.query.QueryEnhancerFactory - Hibernate is in classpath; If applicable, HQL parser will be used.
-2024-01-19 16:01:37.360 [main] WARN org.springframework.boot.autoconfigure.orm.jpa.JpaBaseConfiguration$JpaWebConfiguration - spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
-2024-01-19 16:01:37.604 [main] INFO org.springframework.boot.autoconfigure.web.servlet.WelcomePageHandlerMapping - Adding welcome page: class path resource [static/index.html]
-2024-01-19 16:01:38.859 [main] INFO org.springframework.security.web.DefaultSecurityFilterChain - Will secure any request with [org.springframework.security.web.session.DisableEncodeUrlFilter@1fab1909, org.springframework.security.web.context.request.async.WebAsyncManagerIntegrationFilter@67807d9a, org.springframework.security.web.context.SecurityContextHolderFilter@6b2cbea, org.springframework.security.web.header.HeaderWriterFilter@33cbd883, org.springframework.web.filter.CorsFilter@27523869, org.springframework.security.web.authentication.logout.LogoutFilter@37a53e65, com.chatty.jwt.JwtTokenFilter@7eb3ba2, org.springframework.security.web.savedrequest.RequestCacheAwareFilter@41116c0e, org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestFilter@5fefb35c, org.springframework.security.web.authentication.AnonymousAuthenticationFilter@404f1907, org.springframework.security.web.access.ExceptionTranslationFilter@2603ff76, org.springframework.security.web.access.intercept.AuthorizationFilter@5575b4c2]
-2024-01-19 16:01:38.879 [main] WARN org.springframework.security.config.annotation.web.builders.WebSecurity - You are asking Spring Security to ignore Mvc [pattern='/users/join']. This is not recommended -- please use permitAll via HttpSecurity#authorizeHttpRequests instead.
-2024-01-19 16:01:38.880 [main] INFO org.springframework.security.web.DefaultSecurityFilterChain - Will not secure Mvc [pattern='/users/join']
-2024-01-19 16:01:38.880 [main] WARN org.springframework.security.config.annotation.web.builders.WebSecurity - You are asking Spring Security to ignore Mvc [pattern='/users/login']. This is not recommended -- please use permitAll via HttpSecurity#authorizeHttpRequests instead.
-2024-01-19 16:01:38.880 [main] INFO org.springframework.security.web.DefaultSecurityFilterChain - Will not secure Mvc [pattern='/users/login']
-2024-01-19 16:01:38.880 [main] WARN org.springframework.security.config.annotation.web.builders.WebSecurity - You are asking Spring Security to ignore Mvc [pattern='/ws']. This is not recommended -- please use permitAll via HttpSecurity#authorizeHttpRequests instead.
-2024-01-19 16:01:38.880 [main] INFO org.springframework.security.web.DefaultSecurityFilterChain - Will not secure Mvc [pattern='/ws']
-2024-01-19 16:01:38.880 [main] WARN org.springframework.security.config.annotation.web.builders.WebSecurity - You are asking Spring Security to ignore Mvc [pattern='/auth/**']. This is not recommended -- please use permitAll via HttpSecurity#authorizeHttpRequests instead.
-2024-01-19 16:01:38.881 [main] INFO org.springframework.security.web.DefaultSecurityFilterChain - Will not secure Mvc [pattern='/auth/**']
-2024-01-19 16:01:38.881 [main] WARN org.springframework.security.config.annotation.web.builders.WebSecurity - You are asking Spring Security to ignore Mvc [pattern='/swagger-ui/**']. This is not recommended -- please use permitAll via HttpSecurity#authorizeHttpRequests instead.
-2024-01-19 16:01:38.881 [main] INFO org.springframework.security.web.DefaultSecurityFilterChain - Will not secure Mvc [pattern='/swagger-ui/**']
-2024-01-19 16:01:38.881 [main] WARN org.springframework.security.config.annotation.web.builders.WebSecurity - You are asking Spring Security to ignore Mvc [pattern='/v3/api-docs/**']. This is not recommended -- please use permitAll via HttpSecurity#authorizeHttpRequests instead.
-2024-01-19 16:01:38.881 [main] INFO org.springframework.security.web.DefaultSecurityFilterChain - Will not secure Mvc [pattern='/v3/api-docs/**']
-2024-01-19 16:01:38.881 [main] WARN org.springframework.security.config.annotation.web.builders.WebSecurity - You are asking Spring Security to ignore Mvc [pattern='/index.html']. This is not recommended -- please use permitAll via HttpSecurity#authorizeHttpRequests instead.
-2024-01-19 16:01:38.881 [main] INFO org.springframework.security.web.DefaultSecurityFilterChain - Will not secure Mvc [pattern='/index.html']
-2024-01-19 16:01:38.881 [main] WARN org.springframework.security.config.annotation.web.builders.WebSecurity - You are asking Spring Security to ignore Mvc [pattern='/matching/**']. This is not recommended -- please use permitAll via HttpSecurity#authorizeHttpRequests instead.
-2024-01-19 16:01:38.881 [main] INFO org.springframework.security.web.DefaultSecurityFilterChain - Will not secure Mvc [pattern='/matching/**']
-2024-01-19 16:01:39.452 [main] INFO org.apache.coyote.http11.Http11NioProtocol - Starting ProtocolHandler ["http-nio-8080"]
-2024-01-19 16:01:39.481 [main] INFO org.springframework.boot.web.embedded.tomcat.TomcatWebServer - Tomcat started on port 8080 (http) with context path ''
-2024-01-19 16:01:39.483 [main] INFO org.springframework.messaging.simp.broker.SimpleBrokerMessageHandler - Starting...
-2024-01-19 16:01:39.485 [main] INFO org.springframework.messaging.simp.broker.SimpleBrokerMessageHandler - BrokerAvailabilityEvent[available=true, SimpleBrokerMessageHandler [org.springframework.messaging.simp.broker.DefaultSubscriptionRegistry@21f9d977]]
-2024-01-19 16:01:39.485 [main] INFO org.springframework.messaging.simp.broker.SimpleBrokerMessageHandler - Started.
-2024-01-19 16:01:39.511 [main] INFO com.chatty.ChattyApplication - Started ChattyApplication in 11.671 seconds (process running for 12.887)
-2024-01-19 16:01:50.679 [http-nio-8080-exec-1] INFO org.apache.catalina.core.ContainerBase.[Tomcat].[localhost].[/] - Initializing Spring DispatcherServlet 'dispatcherServlet'
-2024-01-19 16:01:50.680 [http-nio-8080-exec-1] INFO org.springframework.web.servlet.DispatcherServlet - Initializing Servlet 'dispatcherServlet'
-2024-01-19 16:01:50.684 [http-nio-8080-exec-1] INFO org.springframework.web.servlet.DispatcherServlet - Completed initialization in 4 ms
-2024-01-19 16:01:50.695 [http-nio-8080-exec-1] WARN org.springframework.web.servlet.handler.HandlerMappingIntrospector - Cache miss for REQUEST dispatch to '/auth/mobile' (previous null). Performing MatchableHandlerMapping lookup. This is logged once only at WARN level, and every time at TRACE.
-2024-01-19 16:01:50.729 [http-nio-8080-exec-1] INFO com.chatty.interceptor.RateLimitInterceptor - remaining token : 9
-2024-01-19 16:01:50.980 [http-nio-8080-exec-1] INFO com.chatty.controller.auth.AuthController - 번호 인증 요청
-2024-01-19 16:01:51.456 [http-nio-8080-exec-1] INFO com.chatty.service.sms.SmsService - 번호 인증 요청 정보 저장 완료 : 038801
-2024-01-19 16:02:16.405 [background-preinit] INFO org.hibernate.validator.internal.util.Version - HV000001: Hibernate Validator 8.0.1.Final
-2024-01-19 16:02:16.463 [Test worker] INFO com.chatty.controller.auth.AuthControllerTest - Starting AuthControllerTest using Java 18.0.2 with PID 68050 (started by developer in /Users/developer/IdeaProjects/Chatty-Backend)
-2024-01-19 16:02:16.465 [Test worker] INFO com.chatty.controller.auth.AuthControllerTest - No active profile set, falling back to 1 default profile: "default"
-2024-01-19 16:02:21.923 [Test worker] INFO org.springframework.boot.autoconfigure.web.servlet.WelcomePageHandlerMapping - Adding welcome page: class path resource [static/index.html]
-2024-01-19 16:02:24.860 [Test worker] WARN org.springframework.boot.autoconfigure.security.servlet.UserDetailsServiceAutoConfiguration - 
-
-Using generated security password: d62fc6e9-918c-4560-963c-470934ae18e5
-
-This generated password is for development use only. Your security configuration must be updated before running your application in production.
-
-2024-01-19 16:02:25.181 [Test worker] INFO org.springframework.security.web.DefaultSecurityFilterChain - Will secure any request with [org.springframework.security.web.session.DisableEncodeUrlFilter@2a504ea7, org.springframework.security.web.context.request.async.WebAsyncManagerIntegrationFilter@10f397d0, org.springframework.security.web.context.SecurityContextHolderFilter@1805ca5c, org.springframework.security.web.header.HeaderWriterFilter@29a1ec65, org.springframework.web.filter.CorsFilter@33a3e5db, org.springframework.security.web.csrf.CsrfFilter@2d8087da, org.springframework.security.web.authentication.logout.LogoutFilter@1be52113, org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter@240f2efd, org.springframework.security.web.authentication.ui.DefaultLoginPageGeneratingFilter@25e796fe, org.springframework.security.web.authentication.ui.DefaultLogoutPageGeneratingFilter@4f9213d2, org.springframework.security.web.authentication.www.BasicAuthenticationFilter@7eebb316, org.springframework.security.web.savedrequest.RequestCacheAwareFilter@3134b261, org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestFilter@aa633e6, org.springframework.security.web.authentication.AnonymousAuthenticationFilter@679f59f1, org.springframework.security.web.access.ExceptionTranslationFilter@647af13d, org.springframework.security.web.access.intercept.AuthorizationFilter@204c5ddf]
-2024-01-19 16:02:25.302 [Test worker] INFO org.springframework.boot.test.mock.web.SpringBootMockServletContext - Initializing Spring TestDispatcherServlet ''
-2024-01-19 16:02:25.307 [Test worker] INFO org.springframework.test.web.servlet.TestDispatcherServlet - Initializing Servlet ''
-2024-01-19 16:02:25.311 [Test worker] INFO org.springframework.test.web.servlet.TestDispatcherServlet - Completed initialization in 3 ms
-2024-01-19 16:02:25.392 [Test worker] INFO com.chatty.controller.auth.AuthControllerTest - Started AuthControllerTest in 9.972 seconds (process running for 13.014)
-2024-01-19 16:02:25.628 [Test worker] WARN org.springframework.web.servlet.handler.HandlerMappingIntrospector - Cache miss for REQUEST dispatch to '/auth/token' (previous null). Performing CorsConfiguration lookup. This is logged once only at WARN level, and every time at TRACE.
-2024-01-19 16:02:25.680 [Test worker] INFO com.chatty.interceptor.RateLimitInterceptor - remaining token : 9
-2024-01-19 16:02:26.076 [Test worker] INFO com.chatty.interceptor.RateLimitInterceptor - remaining token : 8
-2024-01-19 16:02:26.246 [Test worker] INFO org.springframework.test.context.support.AnnotationConfigContextLoaderUtils - Could not detect default configuration classes for test class [com.chatty.controller.chat.RoomControllerTest]: RoomControllerTest does not declare any static, non-private, non-final, nested classes annotated with @Configuration.
-2024-01-19 16:02:26.414 [Test worker] INFO org.springframework.boot.test.context.SpringBootTestContextBootstrapper - Found @SpringBootConfiguration com.chatty.ChattyApplication for test class com.chatty.controller.chat.RoomControllerTest
-2024-01-19 16:02:26.618 [Test worker] INFO com.chatty.controller.chat.RoomControllerTest - Starting RoomControllerTest using Java 18.0.2 with PID 68050 (started by developer in /Users/developer/IdeaProjects/Chatty-Backend)
-2024-01-19 16:02:26.621 [Test worker] INFO com.chatty.controller.chat.RoomControllerTest - No active profile set, falling back to 1 default profile: "default"
-2024-01-19 16:02:27.731 [Test worker] INFO org.springframework.boot.autoconfigure.web.servlet.WelcomePageHandlerMapping - Adding welcome page: class path resource [static/index.html]
-2024-01-19 16:02:28.947 [Test worker] WARN org.springframework.boot.autoconfigure.security.servlet.UserDetailsServiceAutoConfiguration - 
-
-Using generated security password: 4cfde870-cdb6-4e1f-9a00-0d2550291b39
-
-This generated password is for development use only. Your security configuration must be updated before running your application in production.
-
-2024-01-19 16:02:28.979 [Test worker] INFO org.springframework.security.web.DefaultSecurityFilterChain - Will secure any request with [org.springframework.security.web.session.DisableEncodeUrlFilter@5e643402, org.springframework.security.web.context.request.async.WebAsyncManagerIntegrationFilter@ff12b53, org.springframework.security.web.context.SecurityContextHolderFilter@4626f584, org.springframework.security.web.header.HeaderWriterFilter@7575f7e1, org.springframework.web.filter.CorsFilter@78141c58, org.springframework.security.web.csrf.CsrfFilter@46146832, org.springframework.security.web.authentication.logout.LogoutFilter@4a65c40, org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter@5274acd1, org.springframework.security.web.authentication.ui.DefaultLoginPageGeneratingFilter@64de9fa4, org.springframework.security.web.authentication.ui.DefaultLogoutPageGeneratingFilter@9863ed5, org.springframework.security.web.authentication.www.BasicAuthenticationFilter@5fd5d6d1, org.springframework.security.web.savedrequest.RequestCacheAwareFilter@2396408a, org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestFilter@3e4ead73, org.springframework.security.web.authentication.AnonymousAuthenticationFilter@763ddfc3, org.springframework.security.web.access.ExceptionTranslationFilter@1d6014a7, org.springframework.security.web.access.intercept.AuthorizationFilter@6406b84d]
-2024-01-19 16:02:29.004 [Test worker] INFO org.springframework.boot.test.mock.web.SpringBootMockServletContext - Initializing Spring TestDispatcherServlet ''
-2024-01-19 16:02:29.006 [Test worker] INFO org.springframework.test.web.servlet.TestDispatcherServlet - Initializing Servlet ''
-2024-01-19 16:02:29.007 [Test worker] INFO org.springframework.test.web.servlet.TestDispatcherServlet - Completed initialization in 1 ms
-2024-01-19 16:02:29.031 [Test worker] INFO com.chatty.controller.chat.RoomControllerTest - Started RoomControllerTest in 2.594 seconds (process running for 16.653)
-2024-01-19 16:02:29.092 [Test worker] WARN org.springframework.web.servlet.handler.HandlerMappingIntrospector - Cache miss for REQUEST dispatch to '/chat/room' (previous null). Performing CorsConfiguration lookup. This is logged once only at WARN level, and every time at TRACE.
-2024-01-19 16:02:29.096 [Test worker] INFO com.chatty.interceptor.RateLimitInterceptor - remaining token : 9
-2024-01-19 16:02:29.116 [Test worker] INFO com.chatty.controller.chat.RoomController - 채팅방 생성
-2024-01-19 16:02:29.198 [Test worker] INFO com.chatty.interceptor.RateLimitInterceptor - remaining token : 8
-2024-01-19 16:02:29.241 [Test worker] INFO com.chatty.interceptor.RateLimitInterceptor - remaining token : 7
-2024-01-19 16:02:29.257 [Test worker] INFO com.chatty.controller.chat.RoomController - 채팅방 삭제
-2024-01-19 16:02:29.300 [Test worker] INFO com.chatty.interceptor.RateLimitInterceptor - remaining token : 6
-2024-01-19 16:02:29.304 [Test worker] INFO com.chatty.controller.chat.RoomController - 채팅방 찾기
-2024-01-19 16:02:29.351 [Test worker] INFO com.chatty.interceptor.RateLimitInterceptor - remaining token : 5
-2024-01-19 16:02:29.394 [Test worker] INFO com.chatty.interceptor.RateLimitInterceptor - remaining token : 4
-2024-01-19 16:02:29.421 [Test worker] INFO com.chatty.interceptor.RateLimitInterceptor - remaining token : 3
-2024-01-19 16:02:29.526 [Test worker] INFO org.springframework.test.context.support.AnnotationConfigContextLoaderUtils - Could not detect default configuration classes for test class [com.chatty.controller.match.MatchControllerTest]: MatchControllerTest does not declare any static, non-private, non-final, nested classes annotated with @Configuration.
-2024-01-19 16:02:29.638 [Test worker] INFO org.springframework.boot.test.context.SpringBootTestContextBootstrapper - Found @SpringBootConfiguration com.chatty.ChattyApplication for test class com.chatty.controller.match.MatchControllerTest
-2024-01-19 16:02:29.851 [Test worker] INFO com.chatty.controller.match.MatchControllerTest - Starting MatchControllerTest using Java 18.0.2 with PID 68050 (started by developer in /Users/developer/IdeaProjects/Chatty-Backend)
-2024-01-19 16:02:29.856 [Test worker] INFO com.chatty.controller.match.MatchControllerTest - No active profile set, falling back to 1 default profile: "default"
-2024-01-19 16:02:30.805 [Test worker] INFO org.springframework.boot.autoconfigure.web.servlet.WelcomePageHandlerMapping - Adding welcome page: class path resource [static/index.html]
-2024-01-19 16:02:31.641 [Test worker] WARN org.springframework.boot.autoconfigure.security.servlet.UserDetailsServiceAutoConfiguration - 
-
-Using generated security password: 95e3ee05-d22f-46cb-b2b1-c3faaf9c3a60
-
-This generated password is for development use only. Your security configuration must be updated before running your application in production.
-
-2024-01-19 16:02:31.669 [Test worker] INFO org.springframework.security.web.DefaultSecurityFilterChain - Will secure any request with [org.springframework.security.web.session.DisableEncodeUrlFilter@7a25f8ee, org.springframework.security.web.context.request.async.WebAsyncManagerIntegrationFilter@6e161cea, org.springframework.security.web.context.SecurityContextHolderFilter@31ecd003, org.springframework.security.web.header.HeaderWriterFilter@61c11339, org.springframework.web.filter.CorsFilter@673e1cf2, org.springframework.security.web.csrf.CsrfFilter@50b78155, org.springframework.security.web.authentication.logout.LogoutFilter@8b71052, org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter@1dc28c66, org.springframework.security.web.authentication.ui.DefaultLoginPageGeneratingFilter@6894436e, org.springframework.security.web.authentication.ui.DefaultLogoutPageGeneratingFilter@27a23d87, org.springframework.security.web.authentication.www.BasicAuthenticationFilter@7f97e963, org.springframework.security.web.savedrequest.RequestCacheAwareFilter@5d3d5242, org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestFilter@1a5c0b8, org.springframework.security.web.authentication.AnonymousAuthenticationFilter@72155315, org.springframework.security.web.access.ExceptionTranslationFilter@1e284d90, org.springframework.security.web.access.intercept.AuthorizationFilter@2dc72c0c]
-2024-01-19 16:02:31.691 [Test worker] INFO org.springframework.boot.test.mock.web.SpringBootMockServletContext - Initializing Spring TestDispatcherServlet ''
-2024-01-19 16:02:31.692 [Test worker] INFO org.springframework.test.web.servlet.TestDispatcherServlet - Initializing Servlet ''
-2024-01-19 16:02:31.693 [Test worker] INFO org.springframework.test.web.servlet.TestDispatcherServlet - Completed initialization in 1 ms
-2024-01-19 16:02:31.726 [Test worker] INFO com.chatty.controller.match.MatchControllerTest - Started MatchControllerTest in 2.061 seconds (process running for 19.348)
-2024-01-19 16:02:31.835 [Test worker] WARN org.springframework.web.servlet.handler.HandlerMappingIntrospector - Cache miss for REQUEST dispatch to '/match' (previous null). Performing CorsConfiguration lookup. This is logged once only at WARN level, and every time at TRACE.
-2024-01-19 16:02:31.840 [Test worker] INFO com.chatty.interceptor.RateLimitInterceptor - remaining token : 9
-2024-01-19 16:02:31.970 [Test worker] INFO com.chatty.interceptor.RateLimitInterceptor - remaining token : 8
-2024-01-19 16:02:32.026 [Test worker] INFO com.chatty.interceptor.RateLimitInterceptor - remaining token : 7
-2024-01-19 16:02:32.066 [Test worker] INFO com.chatty.interceptor.RateLimitInterceptor - remaining token : 6
-2024-01-19 16:02:32.084 [Test worker] INFO com.chatty.interceptor.RateLimitInterceptor - remaining token : 5
-2024-01-19 16:02:32.103 [Test worker] INFO org.springframework.test.context.support.AnnotationConfigContextLoaderUtils - Could not detect default configuration classes for test class [com.chatty.controller.user.UserControllerTest]: UserControllerTest does not declare any static, non-private, non-final, nested classes annotated with @Configuration.
-2024-01-19 16:02:32.141 [Test worker] INFO org.springframework.boot.test.context.SpringBootTestContextBootstrapper - Found @SpringBootConfiguration com.chatty.ChattyApplication for test class com.chatty.controller.user.UserControllerTest
-2024-01-19 16:02:32.233 [Test worker] INFO com.chatty.controller.user.UserControllerTest - Starting UserControllerTest using Java 18.0.2 with PID 68050 (started by developer in /Users/developer/IdeaProjects/Chatty-Backend)
-2024-01-19 16:02:32.234 [Test worker] INFO com.chatty.controller.user.UserControllerTest - No active profile set, falling back to 1 default profile: "default"
-2024-01-19 16:02:32.803 [Test worker] INFO org.springframework.boot.autoconfigure.web.servlet.WelcomePageHandlerMapping - Adding welcome page: class path resource [static/index.html]
-2024-01-19 16:02:33.636 [Test worker] WARN org.springframework.boot.autoconfigure.security.servlet.UserDetailsServiceAutoConfiguration - 
-
-Using generated security password: 702f0e2c-9b37-4fa2-ae1b-3bdb5651ed9a
-
-This generated password is for development use only. Your security configuration must be updated before running your application in production.
-
-2024-01-19 16:02:33.660 [Test worker] INFO org.springframework.security.web.DefaultSecurityFilterChain - Will secure any request with [org.springframework.security.web.session.DisableEncodeUrlFilter@a642c54, org.springframework.security.web.context.request.async.WebAsyncManagerIntegrationFilter@11c372e9, org.springframework.security.web.context.SecurityContextHolderFilter@38816a6c, org.springframework.security.web.header.HeaderWriterFilter@51d50b5f, org.springframework.web.filter.CorsFilter@4b59a1c1, org.springframework.security.web.csrf.CsrfFilter@359f3401, org.springframework.security.web.authentication.logout.LogoutFilter@2c914364, org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter@3e8c9981, org.springframework.security.web.authentication.ui.DefaultLoginPageGeneratingFilter@78977b59, org.springframework.security.web.authentication.ui.DefaultLogoutPageGeneratingFilter@73418044, org.springframework.security.web.authentication.www.BasicAuthenticationFilter@21e32876, org.springframework.security.web.savedrequest.RequestCacheAwareFilter@74727e41, org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestFilter@16117d9, org.springframework.security.web.authentication.AnonymousAuthenticationFilter@58ec04f4, org.springframework.security.web.access.ExceptionTranslationFilter@242a3997, org.springframework.security.web.access.intercept.AuthorizationFilter@18206382]
-2024-01-19 16:02:33.677 [Test worker] INFO org.springframework.boot.test.mock.web.SpringBootMockServletContext - Initializing Spring TestDispatcherServlet ''
-2024-01-19 16:02:33.677 [Test worker] INFO org.springframework.test.web.servlet.TestDispatcherServlet - Initializing Servlet ''
-2024-01-19 16:02:33.680 [Test worker] INFO org.springframework.test.web.servlet.TestDispatcherServlet - Completed initialization in 3 ms
-2024-01-19 16:02:33.706 [Test worker] INFO com.chatty.controller.user.UserControllerTest - Started UserControllerTest in 1.558 seconds (process running for 21.328)
-2024-01-19 16:02:33.789 [Test worker] WARN org.springframework.web.servlet.handler.HandlerMappingIntrospector - Cache miss for REQUEST dispatch to '/users/update' (previous null). Performing CorsConfiguration lookup. This is logged once only at WARN level, and every time at TRACE.
-2024-01-19 16:02:33.795 [Test worker] INFO com.chatty.interceptor.RateLimitInterceptor - remaining token : 9
-2024-01-19 16:02:33.906 [Test worker] INFO com.chatty.interceptor.RateLimitInterceptor - remaining token : 8
-2024-01-19 16:02:33.936 [Test worker] INFO com.chatty.interceptor.RateLimitInterceptor - remaining token : 7
-2024-01-19 16:02:33.953 [Test worker] INFO com.chatty.interceptor.RateLimitInterceptor - remaining token : 6
-2024-01-19 16:02:34.061 [Test worker] INFO com.chatty.interceptor.RateLimitInterceptor - remaining token : 5
-2024-01-19 16:02:34.092 [Test worker] INFO com.chatty.interceptor.RateLimitInterceptor - remaining token : 4
-2024-01-19 16:02:34.119 [Test worker] INFO com.chatty.interceptor.RateLimitInterceptor - remaining token : 3
-2024-01-19 16:02:34.150 [Test worker] INFO com.chatty.interceptor.RateLimitInterceptor - remaining token : 2
-2024-01-19 16:02:34.185 [Test worker] INFO com.chatty.interceptor.RateLimitInterceptor - remaining token : 1
-2024-01-19 16:02:34.212 [Test worker] INFO com.chatty.interceptor.RateLimitInterceptor - remaining token : 0
-2024-01-19 16:02:34.268 [Test worker] WARN com.chatty.interceptor.RateLimitInterceptor - rate limit exceeded for client IP :127.0.0.1 Refill in 59.5 seconds Request details: method = PUT URI = /users/birth
-2024-01-19 16:02:34.321 [Test worker] WARN com.chatty.interceptor.RateLimitInterceptor - rate limit exceeded for client IP :127.0.0.1 Refill in 59.5 seconds Request details: method = PUT URI = /users/update
-2024-01-19 16:02:34.361 [Test worker] WARN com.chatty.interceptor.RateLimitInterceptor - rate limit exceeded for client IP :127.0.0.1 Refill in 59.4 seconds Request details: method = PUT URI = /users/update
-2024-01-19 16:02:34.429 [Test worker] WARN com.chatty.interceptor.RateLimitInterceptor - rate limit exceeded for client IP :127.0.0.1 Refill in 59.4 seconds Request details: method = PUT URI = /users/mbti
-2024-01-19 16:02:34.474 [Test worker] WARN com.chatty.interceptor.RateLimitInterceptor - rate limit exceeded for client IP :127.0.0.1 Refill in 59.3 seconds Request details: method = PUT URI = /users/mbti
-2024-01-19 16:02:34.535 [Test worker] WARN com.chatty.interceptor.RateLimitInterceptor - rate limit exceeded for client IP :127.0.0.1 Refill in 59.3 seconds Request details: method = PUT URI = /users/nickname
-2024-01-19 16:02:34.571 [Test worker] WARN com.chatty.interceptor.RateLimitInterceptor - rate limit exceeded for client IP :127.0.0.1 Refill in 59.2 seconds Request details: method = PUT URI = /users/update
-2024-01-19 16:02:34.593 [Test worker] WARN com.chatty.interceptor.RateLimitInterceptor - rate limit exceeded for client IP :127.0.0.1 Refill in 59.2 seconds Request details: method = PUT URI = /users/nickname
-2024-01-19 16:02:34.645 [Test worker] WARN com.chatty.interceptor.RateLimitInterceptor - rate limit exceeded for client IP :127.0.0.1 Refill in 59.2 seconds Request details: method = PUT URI = /users/gender
-2024-01-19 16:02:34.693 [Test worker] WARN com.chatty.interceptor.RateLimitInterceptor - rate limit exceeded for client IP :127.0.0.1 Refill in 59.1 seconds Request details: method = PUT URI = /users/deviceToken
-2024-01-19 16:02:34.743 [Test worker] WARN com.chatty.interceptor.RateLimitInterceptor - rate limit exceeded for client IP :127.0.0.1 Refill in 59.1 seconds Request details: method = PUT URI = /users/birth
-2024-01-19 16:02:35.153 [Test worker] INFO org.springframework.test.context.support.AnnotationConfigContextLoaderUtils - Could not detect default configuration classes for test class [com.chatty.jwt.JwtTokenProviderTest]: JwtTokenProviderTest does not declare any static, non-private, non-final, nested classes annotated with @Configuration.
-2024-01-19 16:02:35.215 [Test worker] INFO org.springframework.boot.test.context.SpringBootTestContextBootstrapper - Found @SpringBootConfiguration com.chatty.ChattyApplication for test class com.chatty.jwt.JwtTokenProviderTest
-2024-01-19 16:02:35.437 [Test worker] INFO com.chatty.jwt.JwtTokenProviderTest - Starting JwtTokenProviderTest using Java 18.0.2 with PID 68050 (started by developer in /Users/developer/IdeaProjects/Chatty-Backend)
-2024-01-19 16:02:35.440 [Test worker] INFO com.chatty.jwt.JwtTokenProviderTest - No active profile set, falling back to 1 default profile: "default"
-2024-01-19 16:02:36.197 [Test worker] INFO org.springframework.data.repository.config.RepositoryConfigurationDelegate - Multiple Spring Data modules found, entering strict repository configuration mode
-2024-01-19 16:02:36.206 [Test worker] INFO org.springframework.data.repository.config.RepositoryConfigurationDelegate - Bootstrapping Spring Data Redis repositories in DEFAULT mode.
-2024-01-19 16:02:36.236 [Test worker] INFO org.springframework.data.repository.config.RepositoryConfigurationDelegate - Finished Spring Data repository scanning in 16 ms. Found 0 Redis repository interfaces.
-2024-01-19 16:02:36.661 [Test worker] INFO org.springframework.data.repository.config.RepositoryConfigurationDelegate - Multiple Spring Data modules found, entering strict repository configuration mode
-2024-01-19 16:02:36.663 [Test worker] INFO org.springframework.data.repository.config.RepositoryConfigurationDelegate - Bootstrapping Spring Data JPA repositories in DEFAULT mode.
-2024-01-19 16:02:36.756 [Test worker] INFO org.springframework.data.repository.config.RepositoryConfigurationDelegate - Finished Spring Data repository scanning in 89 ms. Found 4 JPA repository interfaces.
-2024-01-19 16:02:36.775 [Test worker] INFO org.springframework.data.repository.config.RepositoryConfigurationDelegate - Multiple Spring Data modules found, entering strict repository configuration mode
-2024-01-19 16:02:36.776 [Test worker] INFO org.springframework.data.repository.config.RepositoryConfigurationDelegate - Bootstrapping Spring Data Redis repositories in DEFAULT mode.
-2024-01-19 16:02:36.794 [Test worker] INFO org.springframework.data.repository.config.RepositoryConfigurationExtensionSupport - Spring Data Redis - Could not safely identify store assignment for repository candidate interface com.chatty.repository.chat.ChatRoomRepository; If you want this repository to be a Redis repository, consider annotating your entities with one of these annotations: org.springframework.data.redis.core.RedisHash (preferred), or consider extending one of the following types with your repository: org.springframework.data.keyvalue.repository.KeyValueRepository
-2024-01-19 16:02:36.795 [Test worker] INFO org.springframework.data.repository.config.RepositoryConfigurationExtensionSupport - Spring Data Redis - Could not safely identify store assignment for repository candidate interface com.chatty.repository.chat.MessageRepository; If you want this repository to be a Redis repository, consider annotating your entities with one of these annotations: org.springframework.data.redis.core.RedisHash (preferred), or consider extending one of the following types with your repository: org.springframework.data.keyvalue.repository.KeyValueRepository
-2024-01-19 16:02:36.796 [Test worker] INFO org.springframework.data.repository.config.RepositoryConfigurationExtensionSupport - Spring Data Redis - Could not safely identify store assignment for repository candidate interface com.chatty.repository.match.MatchRepository; If you want this repository to be a Redis repository, consider annotating your entities with one of these annotations: org.springframework.data.redis.core.RedisHash (preferred), or consider extending one of the following types with your repository: org.springframework.data.keyvalue.repository.KeyValueRepository
-2024-01-19 16:02:36.797 [Test worker] INFO org.springframework.data.repository.config.RepositoryConfigurationExtensionSupport - Spring Data Redis - Could not safely identify store assignment for repository candidate interface com.chatty.repository.user.UserRepository; If you want this repository to be a Redis repository, consider annotating your entities with one of these annotations: org.springframework.data.redis.core.RedisHash (preferred), or consider extending one of the following types with your repository: org.springframework.data.keyvalue.repository.KeyValueRepository
-2024-01-19 16:02:36.797 [Test worker] INFO org.springframework.data.repository.config.RepositoryConfigurationDelegate - Finished Spring Data repository scanning in 21 ms. Found 0 Redis repository interfaces.
-2024-01-19 16:02:37.590 [Test worker] INFO org.hibernate.jpa.internal.util.LogHelper - HHH000204: Processing PersistenceUnitInfo [name: default]
-2024-01-19 16:02:37.666 [Test worker] INFO org.hibernate.Version - HHH000412: Hibernate ORM core version 6.3.1.Final
-2024-01-19 16:02:37.685 [Test worker] INFO org.hibernate.spatial.integration.SpatialService - HHH80000001: hibernate-spatial integration enabled : true
-2024-01-19 16:02:37.731 [Test worker] INFO org.hibernate.cache.internal.RegionFactoryInitiator - HHH000026: Second-level cache disabled
-2024-01-19 16:02:37.883 [Test worker] INFO com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Starting...
-2024-01-19 16:02:38.126 [Test worker] INFO com.zaxxer.hikari.pool.HikariPool - HikariPool-1 - Added connection conn0: url=jdbc:h2:mem:testdb user=SA
-2024-01-19 16:02:38.132 [Test worker] INFO com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Start completed.
-2024-01-19 16:02:38.250 [Test worker] INFO org.hibernate.spatial - HHH80000003: hibernate-spatial adding type contributions from : org.hibernate.spatial.dialect.h2gis.H2GisDialectContributor
-2024-01-19 16:02:38.351 [Test worker] INFO org.springframework.orm.jpa.persistenceunit.SpringPersistenceUnitInfo - No LoadTimeWeaver setup: ignoring JPA class transformer
-2024-01-19 16:02:38.396 [Test worker] INFO org.hibernate.spatial - HHH80000003: hibernate-spatial adding type contributions from : org.hibernate.spatial.dialect.h2gis.H2GisDialectContributor
-2024-01-19 16:02:39.124 [Test worker] INFO org.hibernate.spatial - HHH80000004: hibernate-spatial adding function contributions from : org.hibernate.spatial.dialect.h2gis.H2GisDialectContributor
-2024-01-19 16:02:39.460 [MessageBroker-1] INFO org.springframework.web.socket.config.WebSocketMessageBrokerStats - WebSocketSession[0 current WS(0)-HttpStream(0)-HttpPoll(0), 0 total, 0 closed abnormally (0 connect failure, 0 send limit, 0 transport error)], stompSubProtocol[processed CONNECT(0)-CONNECTED(0)-DISCONNECT(0)], stompBrokerRelay[null], inboundChannel[pool size = 0, active threads = 0, queued tasks = 0, completed tasks = 0], outboundChannel[pool size = 0, active threads = 0, queued tasks = 0, completed tasks = 0], sockJsScheduler[pool size = 1, active threads = 1, queued tasks = 0, completed tasks = 0]
-2024-01-19 16:02:39.954 [Test worker] INFO org.hibernate.engine.transaction.jta.platform.internal.JtaPlatformInitiator - HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
-2024-01-19 16:02:40.058 [Test worker] INFO org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean - Initialized JPA EntityManagerFactory for persistence unit 'default'
-2024-01-19 16:02:41.376 [Test worker] INFO org.springframework.data.jpa.repository.query.QueryEnhancerFactory - Hibernate is in classpath; If applicable, HQL parser will be used.
-2024-01-19 16:02:43.809 [Test worker] INFO org.springframework.boot.autoconfigure.web.servlet.WelcomePageHandlerMapping - Adding welcome page: class path resource [static/index.html]
-2024-01-19 16:02:45.036 [Test worker] INFO org.springframework.security.web.DefaultSecurityFilterChain - Will secure any request with [org.springframework.security.web.session.DisableEncodeUrlFilter@448dcc13, org.springframework.security.web.context.request.async.WebAsyncManagerIntegrationFilter@496ce170, org.springframework.security.web.context.SecurityContextHolderFilter@55343a34, org.springframework.security.web.header.HeaderWriterFilter@3e0032f, org.springframework.web.filter.CorsFilter@7809027c, org.springframework.security.web.authentication.logout.LogoutFilter@21e5812b, com.chatty.jwt.JwtTokenFilter@1b5a8687, org.springframework.security.web.savedrequest.RequestCacheAwareFilter@133420f8, org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestFilter@560e6cbe, org.springframework.security.web.authentication.AnonymousAuthenticationFilter@311d3cab, org.springframework.security.web.access.ExceptionTranslationFilter@5c333991, org.springframework.security.web.access.intercept.AuthorizationFilter@36aab341]
-2024-01-19 16:02:45.086 [Test worker] WARN org.springframework.security.config.annotation.web.builders.WebSecurity - You are asking Spring Security to ignore Ant [pattern='/users/join']. This is not recommended -- please use permitAll via HttpSecurity#authorizeHttpRequests instead.
-2024-01-19 16:02:45.087 [Test worker] INFO org.springframework.security.web.DefaultSecurityFilterChain - Will not secure Ant [pattern='/users/join']
-2024-01-19 16:02:45.087 [Test worker] WARN org.springframework.security.config.annotation.web.builders.WebSecurity - You are asking Spring Security to ignore Ant [pattern='/users/login']. This is not recommended -- please use permitAll via HttpSecurity#authorizeHttpRequests instead.
-2024-01-19 16:02:45.087 [Test worker] INFO org.springframework.security.web.DefaultSecurityFilterChain - Will not secure Ant [pattern='/users/login']
-2024-01-19 16:02:45.088 [Test worker] WARN org.springframework.security.config.annotation.web.builders.WebSecurity - You are asking Spring Security to ignore Ant [pattern='/ws']. This is not recommended -- please use permitAll via HttpSecurity#authorizeHttpRequests instead.
-2024-01-19 16:02:45.088 [Test worker] INFO org.springframework.security.web.DefaultSecurityFilterChain - Will not secure Ant [pattern='/ws']
-2024-01-19 16:02:45.088 [Test worker] WARN org.springframework.security.config.annotation.web.builders.WebSecurity - You are asking Spring Security to ignore Ant [pattern='/auth/**']. This is not recommended -- please use permitAll via HttpSecurity#authorizeHttpRequests instead.
-2024-01-19 16:02:45.088 [Test worker] INFO org.springframework.security.web.DefaultSecurityFilterChain - Will not secure Ant [pattern='/auth/**']
-2024-01-19 16:02:45.088 [Test worker] WARN org.springframework.security.config.annotation.web.builders.WebSecurity - You are asking Spring Security to ignore Ant [pattern='/swagger-ui/**']. This is not recommended -- please use permitAll via HttpSecurity#authorizeHttpRequests instead.
-2024-01-19 16:02:45.088 [Test worker] INFO org.springframework.security.web.DefaultSecurityFilterChain - Will not secure Ant [pattern='/swagger-ui/**']
-2024-01-19 16:02:45.089 [Test worker] WARN org.springframework.security.config.annotation.web.builders.WebSecurity - You are asking Spring Security to ignore Ant [pattern='/v3/api-docs/**']. This is not recommended -- please use permitAll via HttpSecurity#authorizeHttpRequests instead.
-2024-01-19 16:02:45.089 [Test worker] INFO org.springframework.security.web.DefaultSecurityFilterChain - Will not secure Ant [pattern='/v3/api-docs/**']
-2024-01-19 16:02:45.089 [Test worker] WARN org.springframework.security.config.annotation.web.builders.WebSecurity - You are asking Spring Security to ignore Ant [pattern='/index.html']. This is not recommended -- please use permitAll via HttpSecurity#authorizeHttpRequests instead.
-2024-01-19 16:02:45.089 [Test worker] INFO org.springframework.security.web.DefaultSecurityFilterChain - Will not secure Ant [pattern='/index.html']
-2024-01-19 16:02:45.089 [Test worker] WARN org.springframework.security.config.annotation.web.builders.WebSecurity - You are asking Spring Security to ignore Ant [pattern='/matching/**']. This is not recommended -- please use permitAll via HttpSecurity#authorizeHttpRequests instead.
-2024-01-19 16:02:45.091 [Test worker] INFO org.springframework.security.web.DefaultSecurityFilterChain - Will not secure Ant [pattern='/matching/**']
-2024-01-19 16:02:45.726 [Test worker] INFO org.springframework.messaging.simp.broker.SimpleBrokerMessageHandler - Starting...
-2024-01-19 16:02:45.732 [Test worker] INFO org.springframework.messaging.simp.broker.SimpleBrokerMessageHandler - BrokerAvailabilityEvent[available=true, SimpleBrokerMessageHandler [org.springframework.messaging.simp.broker.DefaultSubscriptionRegistry@17f192fb]]
-2024-01-19 16:02:45.739 [Test worker] INFO org.springframework.messaging.simp.broker.SimpleBrokerMessageHandler - Started.
-2024-01-19 16:02:45.754 [Test worker] INFO com.chatty.jwt.JwtTokenProviderTest - Started JwtTokenProviderTest in 10.5 seconds (process running for 33.376)
-2024-01-19 16:02:46.626 [Test worker] INFO com.chatty.jwt.JwtTokenProvider - [isEqualRedisRefresh] refreshToken과 Redis에 저장된 refreshToken과 일치여부 확인
-2024-01-19 16:02:46.637 [Test worker] INFO com.chatty.jwt.JwtTokenProvider - [isEqualRedisRefresh] 전달받은 refreshToken이 현재 refreshToken과 일치합니다.
-2024-01-19 16:02:46.672 [Test worker] INFO com.chatty.jwt.JwtTokenProvider - [JwtTokenProvider/isExpiredToken] 만료된 도큰인지 확인
-2024-01-19 16:02:46.677 [Test worker] INFO com.chatty.jwt.JwtTokenProvider - 만료되었습니다.
-2024-01-19 16:02:46.690 [Test worker] INFO com.chatty.jwt.JwtTokenProvider - [JwtTokenProvider/isExpiredToken] 만료된 도큰인지 확인
-2024-01-19 16:02:46.692 [Test worker] INFO com.chatty.jwt.JwtTokenProvider - 만료되지 않았습니다.
-2024-01-19 16:02:46.754 [Test worker] INFO com.chatty.jwt.JwtTokenProvider - [JwtTokenProvider/isValidToken] 비밀키를 통해 유효한 토큰인지 확인
-2024-01-19 16:02:46.754 [Test worker] INFO com.chatty.jwt.JwtTokenProvider - eyJhbGciOiJIUzI1NiJ9.eyJtb2JpbGVOdW1iZXIiOiIwMTAxMjM0NTY3OCIsImRldmljZUlkIjoiMTIzIiwiaWF0IjoxNzA1NjQ3NzY2LCJleHAiOjE3MDU2NDc3Njl9.C0X_dLgFEm9ewCALqSk71xTXhy0OsumScfO2_WyqtVk
-2024-01-19 16:02:46.784 [Test worker] INFO org.springframework.test.context.support.AnnotationConfigContextLoaderUtils - Could not detect default configuration classes for test class [com.chatty.repository.match.MatchRepositoryTest]: MatchRepositoryTest does not declare any static, non-private, non-final, nested classes annotated with @Configuration.
-2024-01-19 16:02:46.828 [Test worker] INFO org.springframework.boot.test.context.SpringBootTestContextBootstrapper - Found @SpringBootConfiguration com.chatty.ChattyApplication for test class com.chatty.repository.match.MatchRepositoryTest
-2024-01-19 16:02:49.148 [Test worker] INFO com.chatty.service.chat.ChatService - 2가 읽지 않은 메시지 전송
-2024-01-19 16:02:49.195 [Test worker] INFO com.chatty.service.chat.ChatService - 2가 읽지 않은 메시지 전송
-2024-01-19 16:02:49.232 [Test worker] INFO com.chatty.service.chat.ChatService - 2가 읽지 않은 메시지 전송
-2024-01-19 16:02:49.270 [Test worker] INFO com.chatty.service.chat.RoomService - 채팅방을 생성했습니다.
-2024-01-19 16:02:49.288 [Test worker] INFO com.chatty.service.chat.RoomService - 채팅방을 삭제했습니다.
-2024-01-19 16:02:49.321 [Test worker] INFO org.springframework.test.context.support.AnnotationConfigContextLoaderUtils - Could not detect default configuration classes for test class [com.chatty.service.match.MatchServiceTest]: MatchServiceTest does not declare any static, non-private, non-final, nested classes annotated with @Configuration.
-2024-01-19 16:02:49.430 [Test worker] INFO org.springframework.boot.test.context.SpringBootTestContextBootstrapper - Found @SpringBootConfiguration com.chatty.ChattyApplication for test class com.chatty.service.match.MatchServiceTest
-2024-01-19 16:02:50.091 [Test worker] INFO org.springframework.test.context.support.AnnotationConfigContextLoaderUtils - Could not detect default configuration classes for test class [com.chatty.service.user.UserServiceTest]: UserServiceTest does not declare any static, non-private, non-final, nested classes annotated with @Configuration.
-2024-01-19 16:02:50.148 [Test worker] INFO org.springframework.boot.test.context.SpringBootTestContextBootstrapper - Found @SpringBootConfiguration com.chatty.ChattyApplication for test class com.chatty.service.user.UserServiceTest
-2024-01-19 16:02:50.339 [Test worker] INFO com.chatty.service.user.UserServiceTest - Starting UserServiceTest using Java 18.0.2 with PID 68050 (started by developer in /Users/developer/IdeaProjects/Chatty-Backend)
-2024-01-19 16:02:50.344 [Test worker] INFO com.chatty.service.user.UserServiceTest - No active profile set, falling back to 1 default profile: "default"
-2024-01-19 16:02:50.935 [Test worker] INFO org.springframework.data.repository.config.RepositoryConfigurationDelegate - Multiple Spring Data modules found, entering strict repository configuration mode
-2024-01-19 16:02:50.947 [Test worker] INFO org.springframework.data.repository.config.RepositoryConfigurationDelegate - Bootstrapping Spring Data Redis repositories in DEFAULT mode.
-2024-01-19 16:02:50.969 [Test worker] INFO org.springframework.data.repository.config.RepositoryConfigurationDelegate - Finished Spring Data repository scanning in 20 ms. Found 0 Redis repository interfaces.
-2024-01-19 16:02:51.095 [Test worker] INFO org.springframework.data.repository.config.RepositoryConfigurationDelegate - Multiple Spring Data modules found, entering strict repository configuration mode
-2024-01-19 16:02:51.096 [Test worker] INFO org.springframework.data.repository.config.RepositoryConfigurationDelegate - Bootstrapping Spring Data JPA repositories in DEFAULT mode.
-2024-01-19 16:02:51.170 [Test worker] INFO org.springframework.data.repository.config.RepositoryConfigurationDelegate - Finished Spring Data repository scanning in 73 ms. Found 4 JPA repository interfaces.
-2024-01-19 16:02:51.177 [Test worker] INFO org.springframework.data.repository.config.RepositoryConfigurationDelegate - Multiple Spring Data modules found, entering strict repository configuration mode
-2024-01-19 16:02:51.177 [Test worker] INFO org.springframework.data.repository.config.RepositoryConfigurationDelegate - Bootstrapping Spring Data Redis repositories in DEFAULT mode.
-2024-01-19 16:02:51.189 [Test worker] INFO org.springframework.data.repository.config.RepositoryConfigurationExtensionSupport - Spring Data Redis - Could not safely identify store assignment for repository candidate interface com.chatty.repository.chat.ChatRoomRepository; If you want this repository to be a Redis repository, consider annotating your entities with one of these annotations: org.springframework.data.redis.core.RedisHash (preferred), or consider extending one of the following types with your repository: org.springframework.data.keyvalue.repository.KeyValueRepository
-2024-01-19 16:02:51.189 [Test worker] INFO org.springframework.data.repository.config.RepositoryConfigurationExtensionSupport - Spring Data Redis - Could not safely identify store assignment for repository candidate interface com.chatty.repository.chat.MessageRepository; If you want this repository to be a Redis repository, consider annotating your entities with one of these annotations: org.springframework.data.redis.core.RedisHash (preferred), or consider extending one of the following types with your repository: org.springframework.data.keyvalue.repository.KeyValueRepository
-2024-01-19 16:02:51.190 [Test worker] INFO org.springframework.data.repository.config.RepositoryConfigurationExtensionSupport - Spring Data Redis - Could not safely identify store assignment for repository candidate interface com.chatty.repository.match.MatchRepository; If you want this repository to be a Redis repository, consider annotating your entities with one of these annotations: org.springframework.data.redis.core.RedisHash (preferred), or consider extending one of the following types with your repository: org.springframework.data.keyvalue.repository.KeyValueRepository
-2024-01-19 16:02:51.190 [Test worker] INFO org.springframework.data.repository.config.RepositoryConfigurationExtensionSupport - Spring Data Redis - Could not safely identify store assignment for repository candidate interface com.chatty.repository.user.UserRepository; If you want this repository to be a Redis repository, consider annotating your entities with one of these annotations: org.springframework.data.redis.core.RedisHash (preferred), or consider extending one of the following types with your repository: org.springframework.data.keyvalue.repository.KeyValueRepository
-2024-01-19 16:02:51.190 [Test worker] INFO org.springframework.data.repository.config.RepositoryConfigurationDelegate - Finished Spring Data repository scanning in 12 ms. Found 0 Redis repository interfaces.
-2024-01-19 16:02:51.543 [Test worker] INFO org.hibernate.jpa.internal.util.LogHelper - HHH000204: Processing PersistenceUnitInfo [name: default]
-2024-01-19 16:02:51.560 [Test worker] INFO org.hibernate.spatial.integration.SpatialService - HHH80000001: hibernate-spatial integration enabled : true
-2024-01-19 16:02:51.566 [Test worker] INFO org.hibernate.cache.internal.RegionFactoryInitiator - HHH000026: Second-level cache disabled
-2024-01-19 16:02:51.581 [Test worker] INFO com.zaxxer.hikari.HikariDataSource - HikariPool-2 - Starting...
-2024-01-19 16:02:51.595 [Test worker] INFO com.zaxxer.hikari.pool.HikariPool - HikariPool-2 - Added connection conn10: url=jdbc:h2:mem:testdb user=SA
-2024-01-19 16:02:51.596 [Test worker] INFO com.zaxxer.hikari.HikariDataSource - HikariPool-2 - Start completed.
-2024-01-19 16:02:51.600 [Test worker] INFO org.hibernate.spatial - HHH80000003: hibernate-spatial adding type contributions from : org.hibernate.spatial.dialect.h2gis.H2GisDialectContributor
-2024-01-19 16:02:51.604 [Test worker] INFO org.springframework.orm.jpa.persistenceunit.SpringPersistenceUnitInfo - No LoadTimeWeaver setup: ignoring JPA class transformer
-2024-01-19 16:02:51.607 [Test worker] INFO org.hibernate.spatial - HHH80000003: hibernate-spatial adding type contributions from : org.hibernate.spatial.dialect.h2gis.H2GisDialectContributor
-2024-01-19 16:02:51.697 [Test worker] INFO org.hibernate.spatial - HHH80000004: hibernate-spatial adding function contributions from : org.hibernate.spatial.dialect.h2gis.H2GisDialectContributor
-2024-01-19 16:02:51.939 [Test worker] INFO org.hibernate.engine.transaction.jta.platform.internal.JtaPlatformInitiator - HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
-2024-01-19 16:02:51.998 [Test worker] INFO org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean - Initialized JPA EntityManagerFactory for persistence unit 'default'
-2024-01-19 16:02:52.442 [Test worker] INFO org.springframework.boot.autoconfigure.web.servlet.WelcomePageHandlerMapping - Adding welcome page: class path resource [static/index.html]
-2024-01-19 16:02:53.148 [Test worker] INFO org.springframework.security.web.DefaultSecurityFilterChain - Will secure any request with [org.springframework.security.web.session.DisableEncodeUrlFilter@5354a59, org.springframework.security.web.context.request.async.WebAsyncManagerIntegrationFilter@4882a2cd, org.springframework.security.web.context.SecurityContextHolderFilter@38e3f098, org.springframework.security.web.header.HeaderWriterFilter@415d5554, org.springframework.web.filter.CorsFilter@54aac0c1, org.springframework.security.web.authentication.logout.LogoutFilter@31ef92a0, com.chatty.jwt.JwtTokenFilter@5e2023af, org.springframework.security.web.savedrequest.RequestCacheAwareFilter@6c127107, org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestFilter@3df3c2d2, org.springframework.security.web.authentication.AnonymousAuthenticationFilter@71e8cdb0, org.springframework.security.web.access.ExceptionTranslationFilter@6786d6c9, org.springframework.security.web.access.intercept.AuthorizationFilter@6d4cf992]
-2024-01-19 16:02:53.184 [Test worker] WARN org.springframework.security.config.annotation.web.builders.WebSecurity - You are asking Spring Security to ignore Ant [pattern='/users/join']. This is not recommended -- please use permitAll via HttpSecurity#authorizeHttpRequests instead.
-2024-01-19 16:02:53.185 [Test worker] INFO org.springframework.security.web.DefaultSecurityFilterChain - Will not secure Ant [pattern='/users/join']
-2024-01-19 16:02:53.185 [Test worker] WARN org.springframework.security.config.annotation.web.builders.WebSecurity - You are asking Spring Security to ignore Ant [pattern='/users/login']. This is not recommended -- please use permitAll via HttpSecurity#authorizeHttpRequests instead.
-2024-01-19 16:02:53.185 [Test worker] INFO org.springframework.security.web.DefaultSecurityFilterChain - Will not secure Ant [pattern='/users/login']
-2024-01-19 16:02:53.185 [Test worker] WARN org.springframework.security.config.annotation.web.builders.WebSecurity - You are asking Spring Security to ignore Ant [pattern='/ws']. This is not recommended -- please use permitAll via HttpSecurity#authorizeHttpRequests instead.
-2024-01-19 16:02:53.185 [Test worker] INFO org.springframework.security.web.DefaultSecurityFilterChain - Will not secure Ant [pattern='/ws']
-2024-01-19 16:02:53.185 [Test worker] WARN org.springframework.security.config.annotation.web.builders.WebSecurity - You are asking Spring Security to ignore Ant [pattern='/auth/**']. This is not recommended -- please use permitAll via HttpSecurity#authorizeHttpRequests instead.
-2024-01-19 16:02:53.185 [Test worker] INFO org.springframework.security.web.DefaultSecurityFilterChain - Will not secure Ant [pattern='/auth/**']
-2024-01-19 16:02:53.185 [Test worker] WARN org.springframework.security.config.annotation.web.builders.WebSecurity - You are asking Spring Security to ignore Ant [pattern='/swagger-ui/**']. This is not recommended -- please use permitAll via HttpSecurity#authorizeHttpRequests instead.
-2024-01-19 16:02:53.185 [Test worker] INFO org.springframework.security.web.DefaultSecurityFilterChain - Will not secure Ant [pattern='/swagger-ui/**']
-2024-01-19 16:02:53.186 [Test worker] WARN org.springframework.security.config.annotation.web.builders.WebSecurity - You are asking Spring Security to ignore Ant [pattern='/v3/api-docs/**']. This is not recommended -- please use permitAll via HttpSecurity#authorizeHttpRequests instead.
-2024-01-19 16:02:53.186 [Test worker] INFO org.springframework.security.web.DefaultSecurityFilterChain - Will not secure Ant [pattern='/v3/api-docs/**']
-2024-01-19 16:02:53.186 [Test worker] WARN org.springframework.security.config.annotation.web.builders.WebSecurity - You are asking Spring Security to ignore Ant [pattern='/index.html']. This is not recommended -- please use permitAll via HttpSecurity#authorizeHttpRequests instead.
-2024-01-19 16:02:53.186 [Test worker] INFO org.springframework.security.web.DefaultSecurityFilterChain - Will not secure Ant [pattern='/index.html']
-2024-01-19 16:02:53.186 [Test worker] WARN org.springframework.security.config.annotation.web.builders.WebSecurity - You are asking Spring Security to ignore Ant [pattern='/matching/**']. This is not recommended -- please use permitAll via HttpSecurity#authorizeHttpRequests instead.
-2024-01-19 16:02:53.186 [Test worker] INFO org.springframework.security.web.DefaultSecurityFilterChain - Will not secure Ant [pattern='/matching/**']
-2024-01-19 16:02:53.433 [Test worker] INFO org.springframework.messaging.simp.broker.SimpleBrokerMessageHandler - Starting...
-2024-01-19 16:02:53.437 [Test worker] INFO org.springframework.messaging.simp.broker.SimpleBrokerMessageHandler - BrokerAvailabilityEvent[available=true, SimpleBrokerMessageHandler [org.springframework.messaging.simp.broker.DefaultSubscriptionRegistry@1ad2f5da]]
-2024-01-19 16:02:53.443 [Test worker] INFO org.springframework.messaging.simp.broker.SimpleBrokerMessageHandler - Started.
-2024-01-19 16:02:53.450 [Test worker] INFO com.chatty.service.user.UserServiceTest - Started UserServiceTest in 3.274 seconds (process running for 41.072)
-2024-01-19 16:02:53.948 [SpringApplicationShutdownHook] INFO org.springframework.messaging.simp.broker.SimpleBrokerMessageHandler - Stopping...
-2024-01-19 16:02:53.949 [SpringApplicationShutdownHook] INFO org.springframework.messaging.simp.broker.SimpleBrokerMessageHandler - BrokerAvailabilityEvent[available=false, SimpleBrokerMessageHandler [org.springframework.messaging.simp.broker.DefaultSubscriptionRegistry@17f192fb]]
-2024-01-19 16:02:53.950 [SpringApplicationShutdownHook] INFO org.springframework.messaging.simp.broker.SimpleBrokerMessageHandler - Stopped.
-2024-01-19 16:02:54.207 [SpringApplicationShutdownHook] INFO org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean - Closing JPA EntityManagerFactory for persistence unit 'default'
-2024-01-19 16:02:54.215 [SpringApplicationShutdownHook] INFO com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Shutdown initiated...
-2024-01-19 16:02:54.220 [SpringApplicationShutdownHook] INFO com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Shutdown completed.
-2024-01-19 16:02:54.226 [SpringApplicationShutdownHook] INFO org.springframework.messaging.simp.broker.SimpleBrokerMessageHandler - Stopping...
-2024-01-19 16:02:54.226 [SpringApplicationShutdownHook] INFO org.springframework.messaging.simp.broker.SimpleBrokerMessageHandler - BrokerAvailabilityEvent[available=false, SimpleBrokerMessageHandler [org.springframework.messaging.simp.broker.DefaultSubscriptionRegistry@1ad2f5da]]
-2024-01-19 16:02:54.227 [SpringApplicationShutdownHook] INFO org.springframework.messaging.simp.broker.SimpleBrokerMessageHandler - Stopped.
-2024-01-19 16:02:54.452 [SpringApplicationShutdownHook] INFO org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean - Closing JPA EntityManagerFactory for persistence unit 'default'
-2024-01-19 16:02:54.453 [SpringApplicationShutdownHook] INFO com.zaxxer.hikari.HikariDataSource - HikariPool-2 - Shutdown initiated...
-2024-01-19 16:02:54.456 [SpringApplicationShutdownHook] INFO com.zaxxer.hikari.HikariDataSource - HikariPool-2 - Shutdown completed.
-2024-01-19 16:03:36.416 [background-preinit] INFO org.hibernate.validator.internal.util.Version - HV000001: Hibernate Validator 8.0.1.Final
-2024-01-19 16:03:36.487 [Test worker] INFO com.chatty.controller.user.UserControllerTest - Starting UserControllerTest using Java 18.0.2 with PID 68181 (started by developer in /Users/developer/IdeaProjects/Chatty-Backend)
-2024-01-19 16:03:36.489 [Test worker] INFO com.chatty.controller.user.UserControllerTest - No active profile set, falling back to 1 default profile: "default"
-2024-01-19 16:03:41.913 [Test worker] INFO org.springframework.boot.autoconfigure.web.servlet.WelcomePageHandlerMapping - Adding welcome page: class path resource [static/index.html]
-2024-01-19 16:03:45.084 [Test worker] WARN org.springframework.boot.autoconfigure.security.servlet.UserDetailsServiceAutoConfiguration - 
-
-Using generated security password: cb843f63-125d-4e85-8aa7-1e641dd025b3
-
-This generated password is for development use only. Your security configuration must be updated before running your application in production.
-
-2024-01-19 16:03:45.318 [Test worker] INFO org.springframework.security.web.DefaultSecurityFilterChain - Will secure any request with [org.springframework.security.web.session.DisableEncodeUrlFilter@18be3205, org.springframework.security.web.context.request.async.WebAsyncManagerIntegrationFilter@6fd97fd1, org.springframework.security.web.context.SecurityContextHolderFilter@3700994c, org.springframework.security.web.header.HeaderWriterFilter@7891cf3, org.springframework.web.filter.CorsFilter@12c78f36, org.springframework.security.web.csrf.CsrfFilter@9499643, org.springframework.security.web.authentication.logout.LogoutFilter@c7673ae, org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter@77e6053, org.springframework.security.web.authentication.ui.DefaultLoginPageGeneratingFilter@7d47b021, org.springframework.security.web.authentication.ui.DefaultLogoutPageGeneratingFilter@7bdb4d69, org.springframework.security.web.authentication.www.BasicAuthenticationFilter@65930e02, org.springframework.security.web.savedrequest.RequestCacheAwareFilter@4eb48298, org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestFilter@2d3bb944, org.springframework.security.web.authentication.AnonymousAuthenticationFilter@129c760d, org.springframework.security.web.access.ExceptionTranslationFilter@3c4c7e51, org.springframework.security.web.access.intercept.AuthorizationFilter@1700d089]
-2024-01-19 16:03:45.431 [Test worker] INFO org.springframework.boot.test.mock.web.SpringBootMockServletContext - Initializing Spring TestDispatcherServlet ''
-2024-01-19 16:03:45.434 [Test worker] INFO org.springframework.test.web.servlet.TestDispatcherServlet - Initializing Servlet ''
-2024-01-19 16:03:45.439 [Test worker] INFO org.springframework.test.web.servlet.TestDispatcherServlet - Completed initialization in 4 ms
-2024-01-19 16:03:45.519 [Test worker] INFO com.chatty.controller.user.UserControllerTest - Started UserControllerTest in 9.987 seconds (process running for 13.08)
-2024-01-19 16:03:45.913 [Test worker] WARN org.springframework.web.servlet.handler.HandlerMappingIntrospector - Cache miss for REQUEST dispatch to '/users/update' (previous null). Performing CorsConfiguration lookup. This is logged once only at WARN level, and every time at TRACE.
-2024-01-19 16:03:45.962 [Test worker] INFO com.chatty.interceptor.RateLimitInterceptor - remaining token : 20
-2024-01-19 16:03:46.383 [Test worker] INFO com.chatty.interceptor.RateLimitInterceptor - remaining token : 19
-2024-01-19 16:03:46.458 [Test worker] INFO com.chatty.interceptor.RateLimitInterceptor - remaining token : 18
-2024-01-19 16:03:46.505 [Test worker] INFO com.chatty.interceptor.RateLimitInterceptor - remaining token : 17
-2024-01-19 16:03:46.680 [Test worker] INFO com.chatty.interceptor.RateLimitInterceptor - remaining token : 16
-2024-01-19 16:03:46.745 [Test worker] INFO com.chatty.interceptor.RateLimitInterceptor - remaining token : 15
-2024-01-19 16:03:46.791 [Test worker] INFO com.chatty.interceptor.RateLimitInterceptor - remaining token : 14
-2024-01-19 16:03:46.841 [Test worker] INFO com.chatty.interceptor.RateLimitInterceptor - remaining token : 13
-2024-01-19 16:03:46.898 [Test worker] INFO com.chatty.interceptor.RateLimitInterceptor - remaining token : 12
-2024-01-19 16:03:46.953 [Test worker] INFO com.chatty.interceptor.RateLimitInterceptor - remaining token : 11
-2024-01-19 16:03:47.005 [Test worker] INFO com.chatty.interceptor.RateLimitInterceptor - remaining token : 10
-2024-01-19 16:03:47.038 [Test worker] INFO com.chatty.interceptor.RateLimitInterceptor - remaining token : 9
-2024-01-19 16:03:47.081 [Test worker] INFO com.chatty.interceptor.RateLimitInterceptor - remaining token : 8
-2024-01-19 16:03:47.112 [Test worker] INFO com.chatty.interceptor.RateLimitInterceptor - remaining token : 7
-2024-01-19 16:03:47.146 [Test worker] INFO com.chatty.interceptor.RateLimitInterceptor - remaining token : 6
-2024-01-19 16:03:47.175 [Test worker] INFO com.chatty.interceptor.RateLimitInterceptor - remaining token : 5
-2024-01-19 16:03:47.199 [Test worker] INFO com.chatty.interceptor.RateLimitInterceptor - remaining token : 4
-2024-01-19 16:03:47.237 [Test worker] INFO com.chatty.interceptor.RateLimitInterceptor - remaining token : 3
-2024-01-19 16:03:47.260 [Test worker] INFO com.chatty.interceptor.RateLimitInterceptor - remaining token : 2
-2024-01-19 16:03:47.295 [Test worker] INFO com.chatty.interceptor.RateLimitInterceptor - remaining token : 1
-2024-01-19 16:03:47.325 [Test worker] INFO com.chatty.interceptor.RateLimitInterceptor - remaining token : 0
-2024-01-19 16:03:47.367 [Test worker] INFO org.springframework.test.context.support.AnnotationConfigContextLoaderUtils - Could not detect default configuration classes for test class [com.chatty.controller.auth.AuthControllerTest]: AuthControllerTest does not declare any static, non-private, non-final, nested classes annotated with @Configuration.
-2024-01-19 16:03:47.512 [Test worker] INFO org.springframework.boot.test.context.SpringBootTestContextBootstrapper - Found @SpringBootConfiguration com.chatty.ChattyApplication for test class com.chatty.controller.auth.AuthControllerTest
-2024-01-19 16:03:47.720 [Test worker] INFO com.chatty.controller.auth.AuthControllerTest - Starting AuthControllerTest using Java 18.0.2 with PID 68181 (started by developer in /Users/developer/IdeaProjects/Chatty-Backend)
-2024-01-19 16:03:47.723 [Test worker] INFO com.chatty.controller.auth.AuthControllerTest - No active profile set, falling back to 1 default profile: "default"
-2024-01-19 16:03:48.986 [Test worker] INFO org.springframework.boot.autoconfigure.web.servlet.WelcomePageHandlerMapping - Adding welcome page: class path resource [static/index.html]
-2024-01-19 16:03:49.978 [Test worker] WARN org.springframework.boot.autoconfigure.security.servlet.UserDetailsServiceAutoConfiguration - 
-
-Using generated security password: b1594bf4-f7cc-4159-a5e7-aeff20b5848d
-
-This generated password is for development use only. Your security configuration must be updated before running your application in production.
-
-2024-01-19 16:03:50.025 [Test worker] INFO org.springframework.security.web.DefaultSecurityFilterChain - Will secure any request with [org.springframework.security.web.session.DisableEncodeUrlFilter@7e24a2e2, org.springframework.security.web.context.request.async.WebAsyncManagerIntegrationFilter@38318d67, org.springframework.security.web.context.SecurityContextHolderFilter@7343d843, org.springframework.security.web.header.HeaderWriterFilter@561c031, org.springframework.web.filter.CorsFilter@3af6c672, org.springframework.security.web.csrf.CsrfFilter@309d54ac, org.springframework.security.web.authentication.logout.LogoutFilter@20cf3ab3, org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter@4c89c98a, org.springframework.security.web.authentication.ui.DefaultLoginPageGeneratingFilter@6af0407c, org.springframework.security.web.authentication.ui.DefaultLogoutPageGeneratingFilter@12948e7a, org.springframework.security.web.authentication.www.BasicAuthenticationFilter@28200d43, org.springframework.security.web.savedrequest.RequestCacheAwareFilter@29a1dab3, org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestFilter@619b7436, org.springframework.security.web.authentication.AnonymousAuthenticationFilter@497c1d78, org.springframework.security.web.access.ExceptionTranslationFilter@390978, org.springframework.security.web.access.intercept.AuthorizationFilter@15ca7322]
-2024-01-19 16:03:50.051 [Test worker] INFO org.springframework.boot.test.mock.web.SpringBootMockServletContext - Initializing Spring TestDispatcherServlet ''
-2024-01-19 16:03:50.052 [Test worker] INFO org.springframework.test.web.servlet.TestDispatcherServlet - Initializing Servlet ''
-2024-01-19 16:03:50.053 [Test worker] INFO org.springframework.test.web.servlet.TestDispatcherServlet - Completed initialization in 1 ms
-2024-01-19 16:03:50.074 [Test worker] INFO com.chatty.controller.auth.AuthControllerTest - Started AuthControllerTest in 2.536 seconds (process running for 17.635)
-2024-01-19 16:03:50.140 [Test worker] WARN org.springframework.web.servlet.handler.HandlerMappingIntrospector - Cache miss for REQUEST dispatch to '/auth/token' (previous null). Performing CorsConfiguration lookup. This is logged once only at WARN level, and every time at TRACE.
-2024-01-19 16:03:50.144 [Test worker] INFO com.chatty.interceptor.RateLimitInterceptor - remaining token : 20
-2024-01-19 16:03:50.214 [Test worker] INFO com.chatty.interceptor.RateLimitInterceptor - remaining token : 19
-2024-01-19 16:03:50.260 [Test worker] INFO org.springframework.test.context.support.AnnotationConfigContextLoaderUtils - Could not detect default configuration classes for test class [com.chatty.controller.chat.RoomControllerTest]: RoomControllerTest does not declare any static, non-private, non-final, nested classes annotated with @Configuration.
-2024-01-19 16:03:50.369 [Test worker] INFO org.springframework.boot.test.context.SpringBootTestContextBootstrapper - Found @SpringBootConfiguration com.chatty.ChattyApplication for test class com.chatty.controller.chat.RoomControllerTest
-2024-01-19 16:03:50.557 [Test worker] INFO com.chatty.controller.chat.RoomControllerTest - Starting RoomControllerTest using Java 18.0.2 with PID 68181 (started by developer in /Users/developer/IdeaProjects/Chatty-Backend)
-2024-01-19 16:03:50.561 [Test worker] INFO com.chatty.controller.chat.RoomControllerTest - No active profile set, falling back to 1 default profile: "default"
-2024-01-19 16:03:51.618 [Test worker] INFO org.springframework.boot.autoconfigure.web.servlet.WelcomePageHandlerMapping - Adding welcome page: class path resource [static/index.html]
-2024-01-19 16:03:52.265 [Test worker] WARN org.springframework.boot.autoconfigure.security.servlet.UserDetailsServiceAutoConfiguration - 
-
-Using generated security password: 6f1d8b30-150a-496d-83a3-e4641381113c
-
-This generated password is for development use only. Your security configuration must be updated before running your application in production.
-
-2024-01-19 16:03:52.280 [Test worker] INFO org.springframework.security.web.DefaultSecurityFilterChain - Will secure any request with [org.springframework.security.web.session.DisableEncodeUrlFilter@3abd7b20, org.springframework.security.web.context.request.async.WebAsyncManagerIntegrationFilter@329a27ae, org.springframework.security.web.context.SecurityContextHolderFilter@80081d7, org.springframework.security.web.header.HeaderWriterFilter@44bb6856, org.springframework.web.filter.CorsFilter@589a82af, org.springframework.security.web.csrf.CsrfFilter@1cc878e6, org.springframework.security.web.authentication.logout.LogoutFilter@72ae1007, org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter@5ae6119b, org.springframework.security.web.authentication.ui.DefaultLoginPageGeneratingFilter@2f16c21f, org.springframework.security.web.authentication.ui.DefaultLogoutPageGeneratingFilter@5edce7da, org.springframework.security.web.authentication.www.BasicAuthenticationFilter@31b6eec8, org.springframework.security.web.savedrequest.RequestCacheAwareFilter@57d0c779, org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestFilter@3070f59f, org.springframework.security.web.authentication.AnonymousAuthenticationFilter@f69e35a, org.springframework.security.web.access.ExceptionTranslationFilter@247877f3, org.springframework.security.web.access.intercept.AuthorizationFilter@58ca1cad]
-2024-01-19 16:03:52.295 [Test worker] INFO org.springframework.boot.test.mock.web.SpringBootMockServletContext - Initializing Spring TestDispatcherServlet ''
-2024-01-19 16:03:52.295 [Test worker] INFO org.springframework.test.web.servlet.TestDispatcherServlet - Initializing Servlet ''
-2024-01-19 16:03:52.297 [Test worker] INFO org.springframework.test.web.servlet.TestDispatcherServlet - Completed initialization in 2 ms
-2024-01-19 16:03:52.309 [Test worker] INFO com.chatty.controller.chat.RoomControllerTest - Started RoomControllerTest in 1.911 seconds (process running for 19.87)
-2024-01-19 16:03:52.349 [Test worker] WARN org.springframework.web.servlet.handler.HandlerMappingIntrospector - Cache miss for REQUEST dispatch to '/chat/room' (previous null). Performing CorsConfiguration lookup. This is logged once only at WARN level, and every time at TRACE.
-2024-01-19 16:03:52.354 [Test worker] INFO com.chatty.interceptor.RateLimitInterceptor - remaining token : 20
-2024-01-19 16:03:52.374 [Test worker] INFO com.chatty.controller.chat.RoomController - 채팅방 생성
-2024-01-19 16:03:52.421 [Test worker] INFO com.chatty.interceptor.RateLimitInterceptor - remaining token : 19
-2024-01-19 16:03:52.446 [Test worker] INFO com.chatty.interceptor.RateLimitInterceptor - remaining token : 18
-2024-01-19 16:03:52.456 [Test worker] INFO com.chatty.controller.chat.RoomController - 채팅방 삭제
-2024-01-19 16:03:52.487 [Test worker] INFO com.chatty.interceptor.RateLimitInterceptor - remaining token : 17
-2024-01-19 16:03:52.491 [Test worker] INFO com.chatty.controller.chat.RoomController - 채팅방 찾기
-2024-01-19 16:03:52.506 [Test worker] INFO com.chatty.interceptor.RateLimitInterceptor - remaining token : 16
-2024-01-19 16:03:52.521 [Test worker] INFO com.chatty.interceptor.RateLimitInterceptor - remaining token : 15
-2024-01-19 16:03:52.543 [Test worker] INFO com.chatty.interceptor.RateLimitInterceptor - remaining token : 14
-2024-01-19 16:03:52.566 [Test worker] INFO org.springframework.test.context.support.AnnotationConfigContextLoaderUtils - Could not detect default configuration classes for test class [com.chatty.controller.match.MatchControllerTest]: MatchControllerTest does not declare any static, non-private, non-final, nested classes annotated with @Configuration.
-2024-01-19 16:03:52.601 [Test worker] INFO org.springframework.boot.test.context.SpringBootTestContextBootstrapper - Found @SpringBootConfiguration com.chatty.ChattyApplication for test class com.chatty.controller.match.MatchControllerTest
-2024-01-19 16:03:52.688 [Test worker] INFO com.chatty.controller.match.MatchControllerTest - Starting MatchControllerTest using Java 18.0.2 with PID 68181 (started by developer in /Users/developer/IdeaProjects/Chatty-Backend)
-2024-01-19 16:03:52.688 [Test worker] INFO com.chatty.controller.match.MatchControllerTest - No active profile set, falling back to 1 default profile: "default"
-2024-01-19 16:03:53.110 [Test worker] INFO org.springframework.boot.autoconfigure.web.servlet.WelcomePageHandlerMapping - Adding welcome page: class path resource [static/index.html]
-2024-01-19 16:03:53.874 [Test worker] WARN org.springframework.boot.autoconfigure.security.servlet.UserDetailsServiceAutoConfiguration - 
-
-Using generated security password: dbb1d74c-f03e-447a-b7bc-af8fcab34a23
-
-This generated password is for development use only. Your security configuration must be updated before running your application in production.
-
-2024-01-19 16:03:53.894 [Test worker] INFO org.springframework.security.web.DefaultSecurityFilterChain - Will secure any request with [org.springframework.security.web.session.DisableEncodeUrlFilter@3db48e6, org.springframework.security.web.context.request.async.WebAsyncManagerIntegrationFilter@38f2342b, org.springframework.security.web.context.SecurityContextHolderFilter@68bef3df, org.springframework.security.web.header.HeaderWriterFilter@77e42cbf, org.springframework.web.filter.CorsFilter@68312b85, org.springframework.security.web.csrf.CsrfFilter@7aaf0f0a, org.springframework.security.web.authentication.logout.LogoutFilter@2972b493, org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter@20a533b, org.springframework.security.web.authentication.ui.DefaultLoginPageGeneratingFilter@7234db3, org.springframework.security.web.authentication.ui.DefaultLogoutPageGeneratingFilter@5ab0168, org.springframework.security.web.authentication.www.BasicAuthenticationFilter@5db6083b, org.springframework.security.web.savedrequest.RequestCacheAwareFilter@6aeb769d, org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestFilter@51f412e6, org.springframework.security.web.authentication.AnonymousAuthenticationFilter@5c6ee543, org.springframework.security.web.access.ExceptionTranslationFilter@638b05fb, org.springframework.security.web.access.intercept.AuthorizationFilter@3e60be48]
-2024-01-19 16:03:53.910 [Test worker] INFO org.springframework.boot.test.mock.web.SpringBootMockServletContext - Initializing Spring TestDispatcherServlet ''
-2024-01-19 16:03:53.911 [Test worker] INFO org.springframework.test.web.servlet.TestDispatcherServlet - Initializing Servlet ''
-2024-01-19 16:03:53.913 [Test worker] INFO org.springframework.test.web.servlet.TestDispatcherServlet - Completed initialization in 2 ms
-2024-01-19 16:03:53.928 [Test worker] INFO com.chatty.controller.match.MatchControllerTest - Started MatchControllerTest in 1.32 seconds (process running for 21.49)
-2024-01-19 16:03:53.998 [Test worker] WARN org.springframework.web.servlet.handler.HandlerMappingIntrospector - Cache miss for REQUEST dispatch to '/match' (previous null). Performing CorsConfiguration lookup. This is logged once only at WARN level, and every time at TRACE.
-2024-01-19 16:03:54.003 [Test worker] INFO com.chatty.interceptor.RateLimitInterceptor - remaining token : 20
-2024-01-19 16:03:54.098 [Test worker] INFO com.chatty.interceptor.RateLimitInterceptor - remaining token : 19
-2024-01-19 16:03:54.121 [Test worker] INFO com.chatty.interceptor.RateLimitInterceptor - remaining token : 18
-2024-01-19 16:03:54.134 [Test worker] INFO com.chatty.interceptor.RateLimitInterceptor - remaining token : 17
-2024-01-19 16:03:54.145 [Test worker] INFO com.chatty.interceptor.RateLimitInterceptor - remaining token : 16
-2024-01-19 16:03:54.371 [Test worker] INFO org.springframework.test.context.support.AnnotationConfigContextLoaderUtils - Could not detect default configuration classes for test class [com.chatty.jwt.JwtTokenProviderTest]: JwtTokenProviderTest does not declare any static, non-private, non-final, nested classes annotated with @Configuration.
-2024-01-19 16:03:54.430 [Test worker] INFO org.springframework.boot.test.context.SpringBootTestContextBootstrapper - Found @SpringBootConfiguration com.chatty.ChattyApplication for test class com.chatty.jwt.JwtTokenProviderTest
-2024-01-19 16:03:54.545 [Test worker] INFO com.chatty.jwt.JwtTokenProviderTest - Starting JwtTokenProviderTest using Java 18.0.2 with PID 68181 (started by developer in /Users/developer/IdeaProjects/Chatty-Backend)
-2024-01-19 16:03:54.546 [Test worker] INFO com.chatty.jwt.JwtTokenProviderTest - No active profile set, falling back to 1 default profile: "default"
-2024-01-19 16:03:55.227 [Test worker] INFO org.springframework.data.repository.config.RepositoryConfigurationDelegate - Multiple Spring Data modules found, entering strict repository configuration mode
-2024-01-19 16:03:55.230 [Test worker] INFO org.springframework.data.repository.config.RepositoryConfigurationDelegate - Bootstrapping Spring Data Redis repositories in DEFAULT mode.
-2024-01-19 16:03:55.257 [Test worker] INFO org.springframework.data.repository.config.RepositoryConfigurationDelegate - Finished Spring Data repository scanning in 13 ms. Found 0 Redis repository interfaces.
-2024-01-19 16:03:55.616 [Test worker] INFO org.springframework.data.repository.config.RepositoryConfigurationDelegate - Multiple Spring Data modules found, entering strict repository configuration mode
-2024-01-19 16:03:55.617 [Test worker] INFO org.springframework.data.repository.config.RepositoryConfigurationDelegate - Bootstrapping Spring Data JPA repositories in DEFAULT mode.
-2024-01-19 16:03:55.713 [Test worker] INFO org.springframework.data.repository.config.RepositoryConfigurationDelegate - Finished Spring Data repository scanning in 91 ms. Found 4 JPA repository interfaces.
-2024-01-19 16:03:55.775 [Test worker] INFO org.springframework.data.repository.config.RepositoryConfigurationDelegate - Multiple Spring Data modules found, entering strict repository configuration mode
-2024-01-19 16:03:55.778 [Test worker] INFO org.springframework.data.repository.config.RepositoryConfigurationDelegate - Bootstrapping Spring Data Redis repositories in DEFAULT mode.
-2024-01-19 16:03:55.834 [Test worker] INFO org.springframework.data.repository.config.RepositoryConfigurationExtensionSupport - Spring Data Redis - Could not safely identify store assignment for repository candidate interface com.chatty.repository.chat.ChatRoomRepository; If you want this repository to be a Redis repository, consider annotating your entities with one of these annotations: org.springframework.data.redis.core.RedisHash (preferred), or consider extending one of the following types with your repository: org.springframework.data.keyvalue.repository.KeyValueRepository
-2024-01-19 16:03:55.836 [Test worker] INFO org.springframework.data.repository.config.RepositoryConfigurationExtensionSupport - Spring Data Redis - Could not safely identify store assignment for repository candidate interface com.chatty.repository.chat.MessageRepository; If you want this repository to be a Redis repository, consider annotating your entities with one of these annotations: org.springframework.data.redis.core.RedisHash (preferred), or consider extending one of the following types with your repository: org.springframework.data.keyvalue.repository.KeyValueRepository
-2024-01-19 16:03:55.839 [Test worker] INFO org.springframework.data.repository.config.RepositoryConfigurationExtensionSupport - Spring Data Redis - Could not safely identify store assignment for repository candidate interface com.chatty.repository.match.MatchRepository; If you want this repository to be a Redis repository, consider annotating your entities with one of these annotations: org.springframework.data.redis.core.RedisHash (preferred), or consider extending one of the following types with your repository: org.springframework.data.keyvalue.repository.KeyValueRepository
-2024-01-19 16:03:55.841 [Test worker] INFO org.springframework.data.repository.config.RepositoryConfigurationExtensionSupport - Spring Data Redis - Could not safely identify store assignment for repository candidate interface com.chatty.repository.user.UserRepository; If you want this repository to be a Redis repository, consider annotating your entities with one of these annotations: org.springframework.data.redis.core.RedisHash (preferred), or consider extending one of the following types with your repository: org.springframework.data.keyvalue.repository.KeyValueRepository
-2024-01-19 16:03:55.841 [Test worker] INFO org.springframework.data.repository.config.RepositoryConfigurationDelegate - Finished Spring Data repository scanning in 62 ms. Found 0 Redis repository interfaces.
-2024-01-19 16:03:56.820 [Test worker] INFO org.hibernate.jpa.internal.util.LogHelper - HHH000204: Processing PersistenceUnitInfo [name: default]
-2024-01-19 16:03:56.920 [Test worker] INFO org.hibernate.Version - HHH000412: Hibernate ORM core version 6.3.1.Final
-2024-01-19 16:03:56.946 [Test worker] INFO org.hibernate.spatial.integration.SpatialService - HHH80000001: hibernate-spatial integration enabled : true
-2024-01-19 16:03:56.983 [Test worker] INFO org.hibernate.cache.internal.RegionFactoryInitiator - HHH000026: Second-level cache disabled
-2024-01-19 16:03:57.144 [Test worker] INFO com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Starting...
-2024-01-19 16:03:57.404 [Test worker] INFO com.zaxxer.hikari.pool.HikariPool - HikariPool-1 - Added connection conn0: url=jdbc:h2:mem:testdb user=SA
-2024-01-19 16:03:57.410 [Test worker] INFO com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Start completed.
-2024-01-19 16:03:57.521 [Test worker] INFO org.hibernate.spatial - HHH80000003: hibernate-spatial adding type contributions from : org.hibernate.spatial.dialect.h2gis.H2GisDialectContributor
-2024-01-19 16:03:57.581 [Test worker] INFO org.springframework.orm.jpa.persistenceunit.SpringPersistenceUnitInfo - No LoadTimeWeaver setup: ignoring JPA class transformer
-2024-01-19 16:03:57.607 [Test worker] INFO org.hibernate.spatial - HHH80000003: hibernate-spatial adding type contributions from : org.hibernate.spatial.dialect.h2gis.H2GisDialectContributor
-2024-01-19 16:03:58.162 [Test worker] INFO org.hibernate.spatial - HHH80000004: hibernate-spatial adding function contributions from : org.hibernate.spatial.dialect.h2gis.H2GisDialectContributor
-2024-01-19 16:03:59.098 [Test worker] INFO org.hibernate.engine.transaction.jta.platform.internal.JtaPlatformInitiator - HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
-2024-01-19 16:03:59.303 [Test worker] INFO org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean - Initialized JPA EntityManagerFactory for persistence unit 'default'
-2024-01-19 16:04:01.249 [Test worker] INFO org.springframework.data.jpa.repository.query.QueryEnhancerFactory - Hibernate is in classpath; If applicable, HQL parser will be used.
-2024-01-19 16:04:05.535 [Test worker] INFO org.springframework.boot.autoconfigure.web.servlet.WelcomePageHandlerMapping - Adding welcome page: class path resource [static/index.html]
-2024-01-19 16:04:06.952 [Test worker] INFO org.springframework.security.web.DefaultSecurityFilterChain - Will secure any request with [org.springframework.security.web.session.DisableEncodeUrlFilter@1fd42c99, org.springframework.security.web.context.request.async.WebAsyncManagerIntegrationFilter@2ffed7fd, org.springframework.security.web.context.SecurityContextHolderFilter@1364560f, org.springframework.security.web.header.HeaderWriterFilter@21e5812b, org.springframework.web.filter.CorsFilter@605f023b, org.springframework.security.web.authentication.logout.LogoutFilter@7809027c, com.chatty.jwt.JwtTokenFilter@38ff82ff, org.springframework.security.web.savedrequest.RequestCacheAwareFilter@36aab341, org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestFilter@448dcc13, org.springframework.security.web.authentication.AnonymousAuthenticationFilter@6f1c19d, org.springframework.security.web.access.ExceptionTranslationFilter@5574f42b, org.springframework.security.web.access.intercept.AuthorizationFilter@311d3cab]
-2024-01-19 16:04:07.007 [Test worker] WARN org.springframework.security.config.annotation.web.builders.WebSecurity - You are asking Spring Security to ignore Ant [pattern='/users/join']. This is not recommended -- please use permitAll via HttpSecurity#authorizeHttpRequests instead.
-2024-01-19 16:04:07.008 [Test worker] INFO org.springframework.security.web.DefaultSecurityFilterChain - Will not secure Ant [pattern='/users/join']
-2024-01-19 16:04:07.010 [Test worker] WARN org.springframework.security.config.annotation.web.builders.WebSecurity - You are asking Spring Security to ignore Ant [pattern='/users/login']. This is not recommended -- please use permitAll via HttpSecurity#authorizeHttpRequests instead.
-2024-01-19 16:04:07.010 [Test worker] INFO org.springframework.security.web.DefaultSecurityFilterChain - Will not secure Ant [pattern='/users/login']
-2024-01-19 16:04:07.010 [Test worker] WARN org.springframework.security.config.annotation.web.builders.WebSecurity - You are asking Spring Security to ignore Ant [pattern='/ws']. This is not recommended -- please use permitAll via HttpSecurity#authorizeHttpRequests instead.
-2024-01-19 16:04:07.010 [Test worker] INFO org.springframework.security.web.DefaultSecurityFilterChain - Will not secure Ant [pattern='/ws']
-2024-01-19 16:04:07.010 [Test worker] WARN org.springframework.security.config.annotation.web.builders.WebSecurity - You are asking Spring Security to ignore Ant [pattern='/auth/**']. This is not recommended -- please use permitAll via HttpSecurity#authorizeHttpRequests instead.
-2024-01-19 16:04:07.010 [Test worker] INFO org.springframework.security.web.DefaultSecurityFilterChain - Will not secure Ant [pattern='/auth/**']
-2024-01-19 16:04:07.010 [Test worker] WARN org.springframework.security.config.annotation.web.builders.WebSecurity - You are asking Spring Security to ignore Ant [pattern='/swagger-ui/**']. This is not recommended -- please use permitAll via HttpSecurity#authorizeHttpRequests instead.
-2024-01-19 16:04:07.013 [Test worker] INFO org.springframework.security.web.DefaultSecurityFilterChain - Will not secure Ant [pattern='/swagger-ui/**']
-2024-01-19 16:04:07.016 [Test worker] WARN org.springframework.security.config.annotation.web.builders.WebSecurity - You are asking Spring Security to ignore Ant [pattern='/v3/api-docs/**']. This is not recommended -- please use permitAll via HttpSecurity#authorizeHttpRequests instead.
-2024-01-19 16:04:07.019 [Test worker] INFO org.springframework.security.web.DefaultSecurityFilterChain - Will not secure Ant [pattern='/v3/api-docs/**']
-2024-01-19 16:04:07.019 [Test worker] WARN org.springframework.security.config.annotation.web.builders.WebSecurity - You are asking Spring Security to ignore Ant [pattern='/index.html']. This is not recommended -- please use permitAll via HttpSecurity#authorizeHttpRequests instead.
-2024-01-19 16:04:07.019 [Test worker] INFO org.springframework.security.web.DefaultSecurityFilterChain - Will not secure Ant [pattern='/index.html']
-2024-01-19 16:04:07.019 [Test worker] WARN org.springframework.security.config.annotation.web.builders.WebSecurity - You are asking Spring Security to ignore Ant [pattern='/matching/**']. This is not recommended -- please use permitAll via HttpSecurity#authorizeHttpRequests instead.
-2024-01-19 16:04:07.019 [Test worker] INFO org.springframework.security.web.DefaultSecurityFilterChain - Will not secure Ant [pattern='/matching/**']
-2024-01-19 16:04:07.926 [Test worker] INFO org.springframework.messaging.simp.broker.SimpleBrokerMessageHandler - Starting...
-2024-01-19 16:04:07.960 [Test worker] INFO org.springframework.messaging.simp.broker.SimpleBrokerMessageHandler - BrokerAvailabilityEvent[available=true, SimpleBrokerMessageHandler [org.springframework.messaging.simp.broker.DefaultSubscriptionRegistry@1c9515db]]
-2024-01-19 16:04:07.975 [Test worker] INFO org.springframework.messaging.simp.broker.SimpleBrokerMessageHandler - Started.
-2024-01-19 16:04:08.026 [Test worker] INFO com.chatty.jwt.JwtTokenProviderTest - Started JwtTokenProviderTest in 13.543 seconds (process running for 35.588)
-2024-01-19 16:04:09.322 [Test worker] INFO com.chatty.jwt.JwtTokenProvider - [isEqualRedisRefresh] refreshToken과 Redis에 저장된 refreshToken과 일치여부 확인
-2024-01-19 16:04:09.338 [Test worker] INFO com.chatty.jwt.JwtTokenProvider - [isEqualRedisRefresh] 전달받은 refreshToken이 현재 refreshToken과 일치합니다.
-2024-01-19 16:04:09.396 [Test worker] INFO com.chatty.jwt.JwtTokenProvider - [JwtTokenProvider/isExpiredToken] 만료된 도큰인지 확인
-2024-01-19 16:04:09.406 [Test worker] INFO com.chatty.jwt.JwtTokenProvider - 만료되었습니다.
-2024-01-19 16:04:09.422 [Test worker] INFO com.chatty.jwt.JwtTokenProvider - [JwtTokenProvider/isExpiredToken] 만료된 도큰인지 확인
-2024-01-19 16:04:09.425 [Test worker] INFO com.chatty.jwt.JwtTokenProvider - 만료되지 않았습니다.
-2024-01-19 16:04:09.644 [Test worker] INFO com.chatty.jwt.JwtTokenProvider - [JwtTokenProvider/isValidToken] 비밀키를 통해 유효한 토큰인지 확인
-2024-01-19 16:04:09.644 [Test worker] INFO com.chatty.jwt.JwtTokenProvider - eyJhbGciOiJIUzI1NiJ9.eyJtb2JpbGVOdW1iZXIiOiIwMTAxMjM0NTY3OCIsImRldmljZUlkIjoiMTIzIiwiaWF0IjoxNzA1NjQ3ODQ5LCJleHAiOjE3MDU2NDc4NTJ9.Nxz-Rr57R4Y8chhptaqwvPoNNIqW5y-uM7FxDbTOuMo
-2024-01-19 16:04:09.717 [Test worker] INFO org.springframework.test.context.support.AnnotationConfigContextLoaderUtils - Could not detect default configuration classes for test class [com.chatty.repository.match.MatchRepositoryTest]: MatchRepositoryTest does not declare any static, non-private, non-final, nested classes annotated with @Configuration.
-2024-01-19 16:04:09.812 [Test worker] INFO org.springframework.boot.test.context.SpringBootTestContextBootstrapper - Found @SpringBootConfiguration com.chatty.ChattyApplication for test class com.chatty.repository.match.MatchRepositoryTest
+2024-01-23 15:42:45.779 [background-preinit] INFO org.hibernate.validator.internal.util.Version - HV000001: Hibernate Validator 8.0.1.Final
+2024-01-23 15:42:45.832 [main] INFO com.chatty.ChattyApplication - Starting ChattyApplication using Java 18.0.2 with PID 87863 (/Users/developer/IdeaProjects/Chatty-Backend/build/classes/java/main started by developer in /Users/developer/IdeaProjects/Chatty-Backend)
+2024-01-23 15:42:45.833 [main] INFO com.chatty.ChattyApplication - No active profile set, falling back to 1 default profile: "default"
+2024-01-23 15:42:47.087 [main] INFO org.springframework.data.repository.config.RepositoryConfigurationDelegate - Multiple Spring Data modules found, entering strict repository configuration mode
+2024-01-23 15:42:47.088 [main] INFO org.springframework.data.repository.config.RepositoryConfigurationDelegate - Bootstrapping Spring Data Redis repositories in DEFAULT mode.
+2024-01-23 15:42:47.119 [main] INFO org.springframework.data.repository.config.RepositoryConfigurationDelegate - Finished Spring Data repository scanning in 12 ms. Found 0 Redis repository interfaces.
+2024-01-23 15:42:47.524 [main] INFO org.springframework.data.repository.config.RepositoryConfigurationDelegate - Multiple Spring Data modules found, entering strict repository configuration mode
+2024-01-23 15:42:47.525 [main] INFO org.springframework.data.repository.config.RepositoryConfigurationDelegate - Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2024-01-23 15:42:47.711 [main] INFO org.springframework.data.repository.config.RepositoryConfigurationDelegate - Finished Spring Data repository scanning in 183 ms. Found 5 JPA repository interfaces.
+2024-01-23 15:42:47.727 [main] INFO org.springframework.data.repository.config.RepositoryConfigurationDelegate - Multiple Spring Data modules found, entering strict repository configuration mode
+2024-01-23 15:42:47.727 [main] INFO org.springframework.data.repository.config.RepositoryConfigurationDelegate - Bootstrapping Spring Data Redis repositories in DEFAULT mode.
+2024-01-23 15:42:47.740 [main] INFO org.springframework.data.repository.config.RepositoryConfigurationExtensionSupport - Spring Data Redis - Could not safely identify store assignment for repository candidate interface com.chatty.repository.chat.ChatRoomRepository; If you want this repository to be a Redis repository, consider annotating your entities with one of these annotations: org.springframework.data.redis.core.RedisHash (preferred), or consider extending one of the following types with your repository: org.springframework.data.keyvalue.repository.KeyValueRepository
+2024-01-23 15:42:47.740 [main] INFO org.springframework.data.repository.config.RepositoryConfigurationExtensionSupport - Spring Data Redis - Could not safely identify store assignment for repository candidate interface com.chatty.repository.chat.MessageRepository; If you want this repository to be a Redis repository, consider annotating your entities with one of these annotations: org.springframework.data.redis.core.RedisHash (preferred), or consider extending one of the following types with your repository: org.springframework.data.keyvalue.repository.KeyValueRepository
+2024-01-23 15:42:47.740 [main] INFO org.springframework.data.repository.config.RepositoryConfigurationExtensionSupport - Spring Data Redis - Could not safely identify store assignment for repository candidate interface com.chatty.repository.match.MatchHistoryRepository; If you want this repository to be a Redis repository, consider annotating your entities with one of these annotations: org.springframework.data.redis.core.RedisHash (preferred), or consider extending one of the following types with your repository: org.springframework.data.keyvalue.repository.KeyValueRepository
+2024-01-23 15:42:47.743 [main] INFO org.springframework.data.repository.config.RepositoryConfigurationExtensionSupport - Spring Data Redis - Could not safely identify store assignment for repository candidate interface com.chatty.repository.match.MatchRepository; If you want this repository to be a Redis repository, consider annotating your entities with one of these annotations: org.springframework.data.redis.core.RedisHash (preferred), or consider extending one of the following types with your repository: org.springframework.data.keyvalue.repository.KeyValueRepository
+2024-01-23 15:42:47.743 [main] INFO org.springframework.data.repository.config.RepositoryConfigurationExtensionSupport - Spring Data Redis - Could not safely identify store assignment for repository candidate interface com.chatty.repository.user.UserRepository; If you want this repository to be a Redis repository, consider annotating your entities with one of these annotations: org.springframework.data.redis.core.RedisHash (preferred), or consider extending one of the following types with your repository: org.springframework.data.keyvalue.repository.KeyValueRepository
+2024-01-23 15:42:47.743 [main] INFO org.springframework.data.repository.config.RepositoryConfigurationDelegate - Finished Spring Data repository scanning in 15 ms. Found 0 Redis repository interfaces.
+2024-01-23 15:42:48.722 [main] INFO org.springframework.boot.web.embedded.tomcat.TomcatWebServer - Tomcat initialized with port 8080 (http)
+2024-01-23 15:42:48.735 [main] INFO org.apache.coyote.http11.Http11NioProtocol - Initializing ProtocolHandler ["http-nio-8080"]
+2024-01-23 15:42:48.738 [main] INFO org.apache.catalina.core.StandardService - Starting service [Tomcat]
+2024-01-23 15:42:48.738 [main] INFO org.apache.catalina.core.StandardEngine - Starting Servlet engine: [Apache Tomcat/10.1.16]
+2024-01-23 15:42:48.827 [main] INFO org.apache.catalina.core.ContainerBase.[Tomcat].[localhost].[/] - Initializing Spring embedded WebApplicationContext
+2024-01-23 15:42:48.828 [main] INFO org.springframework.boot.web.servlet.context.ServletWebServerApplicationContext - Root WebApplicationContext: initialization completed in 2925 ms
+2024-01-23 15:42:49.065 [main] INFO org.hibernate.jpa.internal.util.LogHelper - HHH000204: Processing PersistenceUnitInfo [name: default]
+2024-01-23 15:42:49.112 [main] INFO org.hibernate.Version - HHH000412: Hibernate ORM core version 6.3.1.Final
+2024-01-23 15:42:49.122 [main] INFO org.hibernate.spatial.integration.SpatialService - HHH80000001: hibernate-spatial integration enabled : true
+2024-01-23 15:42:49.145 [main] INFO org.hibernate.cache.internal.RegionFactoryInitiator - HHH000026: Second-level cache disabled
+2024-01-23 15:42:49.253 [main] INFO com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Starting...
+2024-01-23 15:42:49.746 [main] INFO com.zaxxer.hikari.pool.HikariPool - HikariPool-1 - Added connection com.mysql.cj.jdbc.ConnectionImpl@417446d9
+2024-01-23 15:42:49.748 [main] INFO com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Start completed.
+2024-01-23 15:42:49.906 [main] INFO org.hibernate.spatial - HHH80000003: hibernate-spatial adding type contributions from : org.hibernate.spatial.dialect.mysql.MySQLDialectContributor
+2024-01-23 15:42:50.085 [main] INFO org.springframework.orm.jpa.persistenceunit.SpringPersistenceUnitInfo - No LoadTimeWeaver setup: ignoring JPA class transformer
+2024-01-23 15:42:50.103 [main] INFO org.hibernate.spatial - HHH80000003: hibernate-spatial adding type contributions from : org.hibernate.spatial.dialect.mysql.MySQLDialectContributor
+2024-01-23 15:42:50.435 [main] INFO org.hibernate.spatial - HHH80000004: hibernate-spatial adding function contributions from : org.hibernate.spatial.dialect.mysql.MySQLDialectContributor
+2024-01-23 15:42:51.257 [main] INFO org.hibernate.engine.transaction.jta.platform.internal.JtaPlatformInitiator - HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+2024-01-23 15:42:51.295 [main] WARN org.hibernate.tool.schema.internal.ExceptionHandlerLoggedImpl - GenerationTarget encountered exception accepting command : Error executing DDL "
+    alter table chat_message 
+       drop 
+       foreign key FKfvbc4wvhk51y0qtnjrbminxfu" via JDBC [Table 'chatty.chat_message' doesn't exist]
+org.hibernate.tool.schema.spi.CommandAcceptanceException: Error executing DDL "
+    alter table chat_message 
+       drop 
+       foreign key FKfvbc4wvhk51y0qtnjrbminxfu" via JDBC [Table 'chatty.chat_message' doesn't exist]
+	at org.hibernate.tool.schema.internal.exec.GenerationTargetToDatabase.accept(GenerationTargetToDatabase.java:94)
+	at org.hibernate.tool.schema.internal.Helper.applySqlString(Helper.java:233)
+	at org.hibernate.tool.schema.internal.Helper.applySqlStrings(Helper.java:217)
+	at org.hibernate.tool.schema.internal.SchemaDropperImpl.applyConstraintDropping(SchemaDropperImpl.java:470)
+	at org.hibernate.tool.schema.internal.SchemaDropperImpl.dropConstraintsTablesSequences(SchemaDropperImpl.java:242)
+	at org.hibernate.tool.schema.internal.SchemaDropperImpl.dropFromMetadata(SchemaDropperImpl.java:215)
+	at org.hibernate.tool.schema.internal.SchemaDropperImpl.performDrop(SchemaDropperImpl.java:185)
+	at org.hibernate.tool.schema.internal.SchemaDropperImpl.doDrop(SchemaDropperImpl.java:155)
+	at org.hibernate.tool.schema.internal.SchemaDropperImpl.doDrop(SchemaDropperImpl.java:115)
+	at org.hibernate.tool.schema.spi.SchemaManagementToolCoordinator.performDatabaseAction(SchemaManagementToolCoordinator.java:244)
+	at org.hibernate.tool.schema.spi.SchemaManagementToolCoordinator.lambda$process$5(SchemaManagementToolCoordinator.java:145)
+	at java.base/java.util.HashMap.forEach(HashMap.java:1421)
+	at org.hibernate.tool.schema.spi.SchemaManagementToolCoordinator.process(SchemaManagementToolCoordinator.java:142)
+	at org.hibernate.boot.internal.SessionFactoryObserverForSchemaExport.sessionFactoryCreated(SessionFactoryObserverForSchemaExport.java:37)
+	at org.hibernate.internal.SessionFactoryObserverChain.sessionFactoryCreated(SessionFactoryObserverChain.java:35)
+	at org.hibernate.internal.SessionFactoryImpl.<init>(SessionFactoryImpl.java:295)
+	at org.hibernate.boot.internal.SessionFactoryBuilderImpl.build(SessionFactoryBuilderImpl.java:450)
+	at org.hibernate.jpa.boot.internal.EntityManagerFactoryBuilderImpl.build(EntityManagerFactoryBuilderImpl.java:1507)
+	at org.springframework.orm.jpa.vendor.SpringHibernateJpaPersistenceProvider.createContainerEntityManagerFactory(SpringHibernateJpaPersistenceProvider.java:75)
+	at org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean.createNativeEntityManagerFactory(LocalContainerEntityManagerFactoryBean.java:376)
+	at org.springframework.orm.jpa.AbstractEntityManagerFactoryBean.buildNativeEntityManagerFactory(AbstractEntityManagerFactoryBean.java:409)
+	at org.springframework.orm.jpa.AbstractEntityManagerFactoryBean.afterPropertiesSet(AbstractEntityManagerFactoryBean.java:396)
+	at org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean.afterPropertiesSet(LocalContainerEntityManagerFactoryBean.java:352)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.invokeInitMethods(AbstractAutowireCapableBeanFactory.java:1822)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.initializeBean(AbstractAutowireCapableBeanFactory.java:1771)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.doCreateBean(AbstractAutowireCapableBeanFactory.java:601)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.createBean(AbstractAutowireCapableBeanFactory.java:523)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.lambda$doGetBean$0(AbstractBeanFactory.java:325)
+	at org.springframework.beans.factory.support.DefaultSingletonBeanRegistry.getSingleton(DefaultSingletonBeanRegistry.java:234)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.doGetBean(AbstractBeanFactory.java:323)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.getBean(AbstractBeanFactory.java:199)
+	at org.springframework.context.support.AbstractApplicationContext.getBean(AbstractApplicationContext.java:1173)
+	at org.springframework.context.support.AbstractApplicationContext.finishBeanFactoryInitialization(AbstractApplicationContext.java:936)
+	at org.springframework.context.support.AbstractApplicationContext.refresh(AbstractApplicationContext.java:616)
+	at org.springframework.boot.web.servlet.context.ServletWebServerApplicationContext.refresh(ServletWebServerApplicationContext.java:146)
+	at org.springframework.boot.SpringApplication.refresh(SpringApplication.java:753)
+	at org.springframework.boot.SpringApplication.refreshContext(SpringApplication.java:455)
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:323)
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:1342)
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:1331)
+	at com.chatty.ChattyApplication.main(ChattyApplication.java:10)
+Caused by: java.sql.SQLSyntaxErrorException: Table 'chatty.chat_message' doesn't exist
+	at com.mysql.cj.jdbc.exceptions.SQLError.createSQLException(SQLError.java:121)
+	at com.mysql.cj.jdbc.exceptions.SQLExceptionsMapping.translateException(SQLExceptionsMapping.java:122)
+	at com.mysql.cj.jdbc.StatementImpl.executeInternal(StatementImpl.java:763)
+	at com.mysql.cj.jdbc.StatementImpl.execute(StatementImpl.java:648)
+	at com.zaxxer.hikari.pool.ProxyStatement.execute(ProxyStatement.java:94)
+	at com.zaxxer.hikari.pool.HikariProxyStatement.execute(HikariProxyStatement.java)
+	at org.hibernate.tool.schema.internal.exec.GenerationTargetToDatabase.accept(GenerationTargetToDatabase.java:80)
+	... 40 common frames omitted
+2024-01-23 15:42:51.298 [main] WARN org.hibernate.tool.schema.internal.ExceptionHandlerLoggedImpl - GenerationTarget encountered exception accepting command : Error executing DDL "
+    alter table chat_message 
+       drop 
+       foreign key FK46s59psfyf53qh0ayebjnn6tu" via JDBC [Table 'chatty.chat_message' doesn't exist]
+org.hibernate.tool.schema.spi.CommandAcceptanceException: Error executing DDL "
+    alter table chat_message 
+       drop 
+       foreign key FK46s59psfyf53qh0ayebjnn6tu" via JDBC [Table 'chatty.chat_message' doesn't exist]
+	at org.hibernate.tool.schema.internal.exec.GenerationTargetToDatabase.accept(GenerationTargetToDatabase.java:94)
+	at org.hibernate.tool.schema.internal.Helper.applySqlString(Helper.java:233)
+	at org.hibernate.tool.schema.internal.Helper.applySqlStrings(Helper.java:217)
+	at org.hibernate.tool.schema.internal.SchemaDropperImpl.applyConstraintDropping(SchemaDropperImpl.java:470)
+	at org.hibernate.tool.schema.internal.SchemaDropperImpl.dropConstraintsTablesSequences(SchemaDropperImpl.java:242)
+	at org.hibernate.tool.schema.internal.SchemaDropperImpl.dropFromMetadata(SchemaDropperImpl.java:215)
+	at org.hibernate.tool.schema.internal.SchemaDropperImpl.performDrop(SchemaDropperImpl.java:185)
+	at org.hibernate.tool.schema.internal.SchemaDropperImpl.doDrop(SchemaDropperImpl.java:155)
+	at org.hibernate.tool.schema.internal.SchemaDropperImpl.doDrop(SchemaDropperImpl.java:115)
+	at org.hibernate.tool.schema.spi.SchemaManagementToolCoordinator.performDatabaseAction(SchemaManagementToolCoordinator.java:244)
+	at org.hibernate.tool.schema.spi.SchemaManagementToolCoordinator.lambda$process$5(SchemaManagementToolCoordinator.java:145)
+	at java.base/java.util.HashMap.forEach(HashMap.java:1421)
+	at org.hibernate.tool.schema.spi.SchemaManagementToolCoordinator.process(SchemaManagementToolCoordinator.java:142)
+	at org.hibernate.boot.internal.SessionFactoryObserverForSchemaExport.sessionFactoryCreated(SessionFactoryObserverForSchemaExport.java:37)
+	at org.hibernate.internal.SessionFactoryObserverChain.sessionFactoryCreated(SessionFactoryObserverChain.java:35)
+	at org.hibernate.internal.SessionFactoryImpl.<init>(SessionFactoryImpl.java:295)
+	at org.hibernate.boot.internal.SessionFactoryBuilderImpl.build(SessionFactoryBuilderImpl.java:450)
+	at org.hibernate.jpa.boot.internal.EntityManagerFactoryBuilderImpl.build(EntityManagerFactoryBuilderImpl.java:1507)
+	at org.springframework.orm.jpa.vendor.SpringHibernateJpaPersistenceProvider.createContainerEntityManagerFactory(SpringHibernateJpaPersistenceProvider.java:75)
+	at org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean.createNativeEntityManagerFactory(LocalContainerEntityManagerFactoryBean.java:376)
+	at org.springframework.orm.jpa.AbstractEntityManagerFactoryBean.buildNativeEntityManagerFactory(AbstractEntityManagerFactoryBean.java:409)
+	at org.springframework.orm.jpa.AbstractEntityManagerFactoryBean.afterPropertiesSet(AbstractEntityManagerFactoryBean.java:396)
+	at org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean.afterPropertiesSet(LocalContainerEntityManagerFactoryBean.java:352)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.invokeInitMethods(AbstractAutowireCapableBeanFactory.java:1822)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.initializeBean(AbstractAutowireCapableBeanFactory.java:1771)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.doCreateBean(AbstractAutowireCapableBeanFactory.java:601)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.createBean(AbstractAutowireCapableBeanFactory.java:523)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.lambda$doGetBean$0(AbstractBeanFactory.java:325)
+	at org.springframework.beans.factory.support.DefaultSingletonBeanRegistry.getSingleton(DefaultSingletonBeanRegistry.java:234)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.doGetBean(AbstractBeanFactory.java:323)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.getBean(AbstractBeanFactory.java:199)
+	at org.springframework.context.support.AbstractApplicationContext.getBean(AbstractApplicationContext.java:1173)
+	at org.springframework.context.support.AbstractApplicationContext.finishBeanFactoryInitialization(AbstractApplicationContext.java:936)
+	at org.springframework.context.support.AbstractApplicationContext.refresh(AbstractApplicationContext.java:616)
+	at org.springframework.boot.web.servlet.context.ServletWebServerApplicationContext.refresh(ServletWebServerApplicationContext.java:146)
+	at org.springframework.boot.SpringApplication.refresh(SpringApplication.java:753)
+	at org.springframework.boot.SpringApplication.refreshContext(SpringApplication.java:455)
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:323)
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:1342)
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:1331)
+	at com.chatty.ChattyApplication.main(ChattyApplication.java:10)
+Caused by: java.sql.SQLSyntaxErrorException: Table 'chatty.chat_message' doesn't exist
+	at com.mysql.cj.jdbc.exceptions.SQLError.createSQLException(SQLError.java:121)
+	at com.mysql.cj.jdbc.exceptions.SQLExceptionsMapping.translateException(SQLExceptionsMapping.java:122)
+	at com.mysql.cj.jdbc.StatementImpl.executeInternal(StatementImpl.java:763)
+	at com.mysql.cj.jdbc.StatementImpl.execute(StatementImpl.java:648)
+	at com.zaxxer.hikari.pool.ProxyStatement.execute(ProxyStatement.java:94)
+	at com.zaxxer.hikari.pool.HikariProxyStatement.execute(HikariProxyStatement.java)
+	at org.hibernate.tool.schema.internal.exec.GenerationTargetToDatabase.accept(GenerationTargetToDatabase.java:80)
+	... 40 common frames omitted
+2024-01-23 15:42:51.300 [main] WARN org.hibernate.tool.schema.internal.ExceptionHandlerLoggedImpl - GenerationTarget encountered exception accepting command : Error executing DDL "
+    alter table chat_message 
+       drop 
+       foreign key FK5f82aoyy0jiwpj08qapfrxbh6" via JDBC [Table 'chatty.chat_message' doesn't exist]
+org.hibernate.tool.schema.spi.CommandAcceptanceException: Error executing DDL "
+    alter table chat_message 
+       drop 
+       foreign key FK5f82aoyy0jiwpj08qapfrxbh6" via JDBC [Table 'chatty.chat_message' doesn't exist]
+	at org.hibernate.tool.schema.internal.exec.GenerationTargetToDatabase.accept(GenerationTargetToDatabase.java:94)
+	at org.hibernate.tool.schema.internal.Helper.applySqlString(Helper.java:233)
+	at org.hibernate.tool.schema.internal.Helper.applySqlStrings(Helper.java:217)
+	at org.hibernate.tool.schema.internal.SchemaDropperImpl.applyConstraintDropping(SchemaDropperImpl.java:470)
+	at org.hibernate.tool.schema.internal.SchemaDropperImpl.dropConstraintsTablesSequences(SchemaDropperImpl.java:242)
+	at org.hibernate.tool.schema.internal.SchemaDropperImpl.dropFromMetadata(SchemaDropperImpl.java:215)
+	at org.hibernate.tool.schema.internal.SchemaDropperImpl.performDrop(SchemaDropperImpl.java:185)
+	at org.hibernate.tool.schema.internal.SchemaDropperImpl.doDrop(SchemaDropperImpl.java:155)
+	at org.hibernate.tool.schema.internal.SchemaDropperImpl.doDrop(SchemaDropperImpl.java:115)
+	at org.hibernate.tool.schema.spi.SchemaManagementToolCoordinator.performDatabaseAction(SchemaManagementToolCoordinator.java:244)
+	at org.hibernate.tool.schema.spi.SchemaManagementToolCoordinator.lambda$process$5(SchemaManagementToolCoordinator.java:145)
+	at java.base/java.util.HashMap.forEach(HashMap.java:1421)
+	at org.hibernate.tool.schema.spi.SchemaManagementToolCoordinator.process(SchemaManagementToolCoordinator.java:142)
+	at org.hibernate.boot.internal.SessionFactoryObserverForSchemaExport.sessionFactoryCreated(SessionFactoryObserverForSchemaExport.java:37)
+	at org.hibernate.internal.SessionFactoryObserverChain.sessionFactoryCreated(SessionFactoryObserverChain.java:35)
+	at org.hibernate.internal.SessionFactoryImpl.<init>(SessionFactoryImpl.java:295)
+	at org.hibernate.boot.internal.SessionFactoryBuilderImpl.build(SessionFactoryBuilderImpl.java:450)
+	at org.hibernate.jpa.boot.internal.EntityManagerFactoryBuilderImpl.build(EntityManagerFactoryBuilderImpl.java:1507)
+	at org.springframework.orm.jpa.vendor.SpringHibernateJpaPersistenceProvider.createContainerEntityManagerFactory(SpringHibernateJpaPersistenceProvider.java:75)
+	at org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean.createNativeEntityManagerFactory(LocalContainerEntityManagerFactoryBean.java:376)
+	at org.springframework.orm.jpa.AbstractEntityManagerFactoryBean.buildNativeEntityManagerFactory(AbstractEntityManagerFactoryBean.java:409)
+	at org.springframework.orm.jpa.AbstractEntityManagerFactoryBean.afterPropertiesSet(AbstractEntityManagerFactoryBean.java:396)
+	at org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean.afterPropertiesSet(LocalContainerEntityManagerFactoryBean.java:352)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.invokeInitMethods(AbstractAutowireCapableBeanFactory.java:1822)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.initializeBean(AbstractAutowireCapableBeanFactory.java:1771)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.doCreateBean(AbstractAutowireCapableBeanFactory.java:601)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.createBean(AbstractAutowireCapableBeanFactory.java:523)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.lambda$doGetBean$0(AbstractBeanFactory.java:325)
+	at org.springframework.beans.factory.support.DefaultSingletonBeanRegistry.getSingleton(DefaultSingletonBeanRegistry.java:234)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.doGetBean(AbstractBeanFactory.java:323)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.getBean(AbstractBeanFactory.java:199)
+	at org.springframework.context.support.AbstractApplicationContext.getBean(AbstractApplicationContext.java:1173)
+	at org.springframework.context.support.AbstractApplicationContext.finishBeanFactoryInitialization(AbstractApplicationContext.java:936)
+	at org.springframework.context.support.AbstractApplicationContext.refresh(AbstractApplicationContext.java:616)
+	at org.springframework.boot.web.servlet.context.ServletWebServerApplicationContext.refresh(ServletWebServerApplicationContext.java:146)
+	at org.springframework.boot.SpringApplication.refresh(SpringApplication.java:753)
+	at org.springframework.boot.SpringApplication.refreshContext(SpringApplication.java:455)
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:323)
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:1342)
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:1331)
+	at com.chatty.ChattyApplication.main(ChattyApplication.java:10)
+Caused by: java.sql.SQLSyntaxErrorException: Table 'chatty.chat_message' doesn't exist
+	at com.mysql.cj.jdbc.exceptions.SQLError.createSQLException(SQLError.java:121)
+	at com.mysql.cj.jdbc.exceptions.SQLExceptionsMapping.translateException(SQLExceptionsMapping.java:122)
+	at com.mysql.cj.jdbc.StatementImpl.executeInternal(StatementImpl.java:763)
+	at com.mysql.cj.jdbc.StatementImpl.execute(StatementImpl.java:648)
+	at com.zaxxer.hikari.pool.ProxyStatement.execute(ProxyStatement.java:94)
+	at com.zaxxer.hikari.pool.HikariProxyStatement.execute(HikariProxyStatement.java)
+	at org.hibernate.tool.schema.internal.exec.GenerationTargetToDatabase.accept(GenerationTargetToDatabase.java:80)
+	... 40 common frames omitted
+2024-01-23 15:42:51.306 [main] WARN org.hibernate.tool.schema.internal.ExceptionHandlerLoggedImpl - GenerationTarget encountered exception accepting command : Error executing DDL "
+    alter table chat_room 
+       drop 
+       foreign key FKkfadsbc5rfoyb1yiueteb9e4v" via JDBC [Table 'chatty.chat_room' doesn't exist]
+org.hibernate.tool.schema.spi.CommandAcceptanceException: Error executing DDL "
+    alter table chat_room 
+       drop 
+       foreign key FKkfadsbc5rfoyb1yiueteb9e4v" via JDBC [Table 'chatty.chat_room' doesn't exist]
+	at org.hibernate.tool.schema.internal.exec.GenerationTargetToDatabase.accept(GenerationTargetToDatabase.java:94)
+	at org.hibernate.tool.schema.internal.Helper.applySqlString(Helper.java:233)
+	at org.hibernate.tool.schema.internal.Helper.applySqlStrings(Helper.java:217)
+	at org.hibernate.tool.schema.internal.SchemaDropperImpl.applyConstraintDropping(SchemaDropperImpl.java:470)
+	at org.hibernate.tool.schema.internal.SchemaDropperImpl.dropConstraintsTablesSequences(SchemaDropperImpl.java:242)
+	at org.hibernate.tool.schema.internal.SchemaDropperImpl.dropFromMetadata(SchemaDropperImpl.java:215)
+	at org.hibernate.tool.schema.internal.SchemaDropperImpl.performDrop(SchemaDropperImpl.java:185)
+	at org.hibernate.tool.schema.internal.SchemaDropperImpl.doDrop(SchemaDropperImpl.java:155)
+	at org.hibernate.tool.schema.internal.SchemaDropperImpl.doDrop(SchemaDropperImpl.java:115)
+	at org.hibernate.tool.schema.spi.SchemaManagementToolCoordinator.performDatabaseAction(SchemaManagementToolCoordinator.java:244)
+	at org.hibernate.tool.schema.spi.SchemaManagementToolCoordinator.lambda$process$5(SchemaManagementToolCoordinator.java:145)
+	at java.base/java.util.HashMap.forEach(HashMap.java:1421)
+	at org.hibernate.tool.schema.spi.SchemaManagementToolCoordinator.process(SchemaManagementToolCoordinator.java:142)
+	at org.hibernate.boot.internal.SessionFactoryObserverForSchemaExport.sessionFactoryCreated(SessionFactoryObserverForSchemaExport.java:37)
+	at org.hibernate.internal.SessionFactoryObserverChain.sessionFactoryCreated(SessionFactoryObserverChain.java:35)
+	at org.hibernate.internal.SessionFactoryImpl.<init>(SessionFactoryImpl.java:295)
+	at org.hibernate.boot.internal.SessionFactoryBuilderImpl.build(SessionFactoryBuilderImpl.java:450)
+	at org.hibernate.jpa.boot.internal.EntityManagerFactoryBuilderImpl.build(EntityManagerFactoryBuilderImpl.java:1507)
+	at org.springframework.orm.jpa.vendor.SpringHibernateJpaPersistenceProvider.createContainerEntityManagerFactory(SpringHibernateJpaPersistenceProvider.java:75)
+	at org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean.createNativeEntityManagerFactory(LocalContainerEntityManagerFactoryBean.java:376)
+	at org.springframework.orm.jpa.AbstractEntityManagerFactoryBean.buildNativeEntityManagerFactory(AbstractEntityManagerFactoryBean.java:409)
+	at org.springframework.orm.jpa.AbstractEntityManagerFactoryBean.afterPropertiesSet(AbstractEntityManagerFactoryBean.java:396)
+	at org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean.afterPropertiesSet(LocalContainerEntityManagerFactoryBean.java:352)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.invokeInitMethods(AbstractAutowireCapableBeanFactory.java:1822)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.initializeBean(AbstractAutowireCapableBeanFactory.java:1771)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.doCreateBean(AbstractAutowireCapableBeanFactory.java:601)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.createBean(AbstractAutowireCapableBeanFactory.java:523)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.lambda$doGetBean$0(AbstractBeanFactory.java:325)
+	at org.springframework.beans.factory.support.DefaultSingletonBeanRegistry.getSingleton(DefaultSingletonBeanRegistry.java:234)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.doGetBean(AbstractBeanFactory.java:323)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.getBean(AbstractBeanFactory.java:199)
+	at org.springframework.context.support.AbstractApplicationContext.getBean(AbstractApplicationContext.java:1173)
+	at org.springframework.context.support.AbstractApplicationContext.finishBeanFactoryInitialization(AbstractApplicationContext.java:936)
+	at org.springframework.context.support.AbstractApplicationContext.refresh(AbstractApplicationContext.java:616)
+	at org.springframework.boot.web.servlet.context.ServletWebServerApplicationContext.refresh(ServletWebServerApplicationContext.java:146)
+	at org.springframework.boot.SpringApplication.refresh(SpringApplication.java:753)
+	at org.springframework.boot.SpringApplication.refreshContext(SpringApplication.java:455)
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:323)
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:1342)
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:1331)
+	at com.chatty.ChattyApplication.main(ChattyApplication.java:10)
+Caused by: java.sql.SQLSyntaxErrorException: Table 'chatty.chat_room' doesn't exist
+	at com.mysql.cj.jdbc.exceptions.SQLError.createSQLException(SQLError.java:121)
+	at com.mysql.cj.jdbc.exceptions.SQLExceptionsMapping.translateException(SQLExceptionsMapping.java:122)
+	at com.mysql.cj.jdbc.StatementImpl.executeInternal(StatementImpl.java:763)
+	at com.mysql.cj.jdbc.StatementImpl.execute(StatementImpl.java:648)
+	at com.zaxxer.hikari.pool.ProxyStatement.execute(ProxyStatement.java:94)
+	at com.zaxxer.hikari.pool.HikariProxyStatement.execute(HikariProxyStatement.java)
+	at org.hibernate.tool.schema.internal.exec.GenerationTargetToDatabase.accept(GenerationTargetToDatabase.java:80)
+	... 40 common frames omitted
+2024-01-23 15:42:51.310 [main] WARN org.hibernate.tool.schema.internal.ExceptionHandlerLoggedImpl - GenerationTarget encountered exception accepting command : Error executing DDL "
+    alter table chat_room 
+       drop 
+       foreign key FK6ept16aectchy48yx59vj59yb" via JDBC [Table 'chatty.chat_room' doesn't exist]
+org.hibernate.tool.schema.spi.CommandAcceptanceException: Error executing DDL "
+    alter table chat_room 
+       drop 
+       foreign key FK6ept16aectchy48yx59vj59yb" via JDBC [Table 'chatty.chat_room' doesn't exist]
+	at org.hibernate.tool.schema.internal.exec.GenerationTargetToDatabase.accept(GenerationTargetToDatabase.java:94)
+	at org.hibernate.tool.schema.internal.Helper.applySqlString(Helper.java:233)
+	at org.hibernate.tool.schema.internal.Helper.applySqlStrings(Helper.java:217)
+	at org.hibernate.tool.schema.internal.SchemaDropperImpl.applyConstraintDropping(SchemaDropperImpl.java:470)
+	at org.hibernate.tool.schema.internal.SchemaDropperImpl.dropConstraintsTablesSequences(SchemaDropperImpl.java:242)
+	at org.hibernate.tool.schema.internal.SchemaDropperImpl.dropFromMetadata(SchemaDropperImpl.java:215)
+	at org.hibernate.tool.schema.internal.SchemaDropperImpl.performDrop(SchemaDropperImpl.java:185)
+	at org.hibernate.tool.schema.internal.SchemaDropperImpl.doDrop(SchemaDropperImpl.java:155)
+	at org.hibernate.tool.schema.internal.SchemaDropperImpl.doDrop(SchemaDropperImpl.java:115)
+	at org.hibernate.tool.schema.spi.SchemaManagementToolCoordinator.performDatabaseAction(SchemaManagementToolCoordinator.java:244)
+	at org.hibernate.tool.schema.spi.SchemaManagementToolCoordinator.lambda$process$5(SchemaManagementToolCoordinator.java:145)
+	at java.base/java.util.HashMap.forEach(HashMap.java:1421)
+	at org.hibernate.tool.schema.spi.SchemaManagementToolCoordinator.process(SchemaManagementToolCoordinator.java:142)
+	at org.hibernate.boot.internal.SessionFactoryObserverForSchemaExport.sessionFactoryCreated(SessionFactoryObserverForSchemaExport.java:37)
+	at org.hibernate.internal.SessionFactoryObserverChain.sessionFactoryCreated(SessionFactoryObserverChain.java:35)
+	at org.hibernate.internal.SessionFactoryImpl.<init>(SessionFactoryImpl.java:295)
+	at org.hibernate.boot.internal.SessionFactoryBuilderImpl.build(SessionFactoryBuilderImpl.java:450)
+	at org.hibernate.jpa.boot.internal.EntityManagerFactoryBuilderImpl.build(EntityManagerFactoryBuilderImpl.java:1507)
+	at org.springframework.orm.jpa.vendor.SpringHibernateJpaPersistenceProvider.createContainerEntityManagerFactory(SpringHibernateJpaPersistenceProvider.java:75)
+	at org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean.createNativeEntityManagerFactory(LocalContainerEntityManagerFactoryBean.java:376)
+	at org.springframework.orm.jpa.AbstractEntityManagerFactoryBean.buildNativeEntityManagerFactory(AbstractEntityManagerFactoryBean.java:409)
+	at org.springframework.orm.jpa.AbstractEntityManagerFactoryBean.afterPropertiesSet(AbstractEntityManagerFactoryBean.java:396)
+	at org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean.afterPropertiesSet(LocalContainerEntityManagerFactoryBean.java:352)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.invokeInitMethods(AbstractAutowireCapableBeanFactory.java:1822)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.initializeBean(AbstractAutowireCapableBeanFactory.java:1771)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.doCreateBean(AbstractAutowireCapableBeanFactory.java:601)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.createBean(AbstractAutowireCapableBeanFactory.java:523)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.lambda$doGetBean$0(AbstractBeanFactory.java:325)
+	at org.springframework.beans.factory.support.DefaultSingletonBeanRegistry.getSingleton(DefaultSingletonBeanRegistry.java:234)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.doGetBean(AbstractBeanFactory.java:323)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.getBean(AbstractBeanFactory.java:199)
+	at org.springframework.context.support.AbstractApplicationContext.getBean(AbstractApplicationContext.java:1173)
+	at org.springframework.context.support.AbstractApplicationContext.finishBeanFactoryInitialization(AbstractApplicationContext.java:936)
+	at org.springframework.context.support.AbstractApplicationContext.refresh(AbstractApplicationContext.java:616)
+	at org.springframework.boot.web.servlet.context.ServletWebServerApplicationContext.refresh(ServletWebServerApplicationContext.java:146)
+	at org.springframework.boot.SpringApplication.refresh(SpringApplication.java:753)
+	at org.springframework.boot.SpringApplication.refreshContext(SpringApplication.java:455)
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:323)
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:1342)
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:1331)
+	at com.chatty.ChattyApplication.main(ChattyApplication.java:10)
+Caused by: java.sql.SQLSyntaxErrorException: Table 'chatty.chat_room' doesn't exist
+	at com.mysql.cj.jdbc.exceptions.SQLError.createSQLException(SQLError.java:121)
+	at com.mysql.cj.jdbc.exceptions.SQLExceptionsMapping.translateException(SQLExceptionsMapping.java:122)
+	at com.mysql.cj.jdbc.StatementImpl.executeInternal(StatementImpl.java:763)
+	at com.mysql.cj.jdbc.StatementImpl.execute(StatementImpl.java:648)
+	at com.zaxxer.hikari.pool.ProxyStatement.execute(ProxyStatement.java:94)
+	at com.zaxxer.hikari.pool.HikariProxyStatement.execute(HikariProxyStatement.java)
+	at org.hibernate.tool.schema.internal.exec.GenerationTargetToDatabase.accept(GenerationTargetToDatabase.java:80)
+	... 40 common frames omitted
+2024-01-23 15:42:51.311 [main] WARN org.hibernate.tool.schema.internal.ExceptionHandlerLoggedImpl - GenerationTarget encountered exception accepting command : Error executing DDL "
+    alter table matches 
+       drop 
+       foreign key FKjn5cea248gae6hjub299oyqlf" via JDBC [Table 'chatty.matches' doesn't exist]
+org.hibernate.tool.schema.spi.CommandAcceptanceException: Error executing DDL "
+    alter table matches 
+       drop 
+       foreign key FKjn5cea248gae6hjub299oyqlf" via JDBC [Table 'chatty.matches' doesn't exist]
+	at org.hibernate.tool.schema.internal.exec.GenerationTargetToDatabase.accept(GenerationTargetToDatabase.java:94)
+	at org.hibernate.tool.schema.internal.Helper.applySqlString(Helper.java:233)
+	at org.hibernate.tool.schema.internal.Helper.applySqlStrings(Helper.java:217)
+	at org.hibernate.tool.schema.internal.SchemaDropperImpl.applyConstraintDropping(SchemaDropperImpl.java:470)
+	at org.hibernate.tool.schema.internal.SchemaDropperImpl.dropConstraintsTablesSequences(SchemaDropperImpl.java:242)
+	at org.hibernate.tool.schema.internal.SchemaDropperImpl.dropFromMetadata(SchemaDropperImpl.java:215)
+	at org.hibernate.tool.schema.internal.SchemaDropperImpl.performDrop(SchemaDropperImpl.java:185)
+	at org.hibernate.tool.schema.internal.SchemaDropperImpl.doDrop(SchemaDropperImpl.java:155)
+	at org.hibernate.tool.schema.internal.SchemaDropperImpl.doDrop(SchemaDropperImpl.java:115)
+	at org.hibernate.tool.schema.spi.SchemaManagementToolCoordinator.performDatabaseAction(SchemaManagementToolCoordinator.java:244)
+	at org.hibernate.tool.schema.spi.SchemaManagementToolCoordinator.lambda$process$5(SchemaManagementToolCoordinator.java:145)
+	at java.base/java.util.HashMap.forEach(HashMap.java:1421)
+	at org.hibernate.tool.schema.spi.SchemaManagementToolCoordinator.process(SchemaManagementToolCoordinator.java:142)
+	at org.hibernate.boot.internal.SessionFactoryObserverForSchemaExport.sessionFactoryCreated(SessionFactoryObserverForSchemaExport.java:37)
+	at org.hibernate.internal.SessionFactoryObserverChain.sessionFactoryCreated(SessionFactoryObserverChain.java:35)
+	at org.hibernate.internal.SessionFactoryImpl.<init>(SessionFactoryImpl.java:295)
+	at org.hibernate.boot.internal.SessionFactoryBuilderImpl.build(SessionFactoryBuilderImpl.java:450)
+	at org.hibernate.jpa.boot.internal.EntityManagerFactoryBuilderImpl.build(EntityManagerFactoryBuilderImpl.java:1507)
+	at org.springframework.orm.jpa.vendor.SpringHibernateJpaPersistenceProvider.createContainerEntityManagerFactory(SpringHibernateJpaPersistenceProvider.java:75)
+	at org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean.createNativeEntityManagerFactory(LocalContainerEntityManagerFactoryBean.java:376)
+	at org.springframework.orm.jpa.AbstractEntityManagerFactoryBean.buildNativeEntityManagerFactory(AbstractEntityManagerFactoryBean.java:409)
+	at org.springframework.orm.jpa.AbstractEntityManagerFactoryBean.afterPropertiesSet(AbstractEntityManagerFactoryBean.java:396)
+	at org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean.afterPropertiesSet(LocalContainerEntityManagerFactoryBean.java:352)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.invokeInitMethods(AbstractAutowireCapableBeanFactory.java:1822)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.initializeBean(AbstractAutowireCapableBeanFactory.java:1771)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.doCreateBean(AbstractAutowireCapableBeanFactory.java:601)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.createBean(AbstractAutowireCapableBeanFactory.java:523)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.lambda$doGetBean$0(AbstractBeanFactory.java:325)
+	at org.springframework.beans.factory.support.DefaultSingletonBeanRegistry.getSingleton(DefaultSingletonBeanRegistry.java:234)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.doGetBean(AbstractBeanFactory.java:323)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.getBean(AbstractBeanFactory.java:199)
+	at org.springframework.context.support.AbstractApplicationContext.getBean(AbstractApplicationContext.java:1173)
+	at org.springframework.context.support.AbstractApplicationContext.finishBeanFactoryInitialization(AbstractApplicationContext.java:936)
+	at org.springframework.context.support.AbstractApplicationContext.refresh(AbstractApplicationContext.java:616)
+	at org.springframework.boot.web.servlet.context.ServletWebServerApplicationContext.refresh(ServletWebServerApplicationContext.java:146)
+	at org.springframework.boot.SpringApplication.refresh(SpringApplication.java:753)
+	at org.springframework.boot.SpringApplication.refreshContext(SpringApplication.java:455)
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:323)
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:1342)
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:1331)
+	at com.chatty.ChattyApplication.main(ChattyApplication.java:10)
+Caused by: java.sql.SQLSyntaxErrorException: Table 'chatty.matches' doesn't exist
+	at com.mysql.cj.jdbc.exceptions.SQLError.createSQLException(SQLError.java:121)
+	at com.mysql.cj.jdbc.exceptions.SQLExceptionsMapping.translateException(SQLExceptionsMapping.java:122)
+	at com.mysql.cj.jdbc.StatementImpl.executeInternal(StatementImpl.java:763)
+	at com.mysql.cj.jdbc.StatementImpl.execute(StatementImpl.java:648)
+	at com.zaxxer.hikari.pool.ProxyStatement.execute(ProxyStatement.java:94)
+	at com.zaxxer.hikari.pool.HikariProxyStatement.execute(HikariProxyStatement.java)
+	at org.hibernate.tool.schema.internal.exec.GenerationTargetToDatabase.accept(GenerationTargetToDatabase.java:80)
+	... 40 common frames omitted
+2024-01-23 15:42:51.317 [main] WARN org.hibernate.tool.schema.internal.ExceptionHandlerLoggedImpl - GenerationTarget encountered exception accepting command : Error executing DDL "
+    alter table match_history 
+       drop 
+       foreign key FKb5muis977gp9g2ebd1npcciow" via JDBC [Table 'chatty.match_history' doesn't exist]
+org.hibernate.tool.schema.spi.CommandAcceptanceException: Error executing DDL "
+    alter table match_history 
+       drop 
+       foreign key FKb5muis977gp9g2ebd1npcciow" via JDBC [Table 'chatty.match_history' doesn't exist]
+	at org.hibernate.tool.schema.internal.exec.GenerationTargetToDatabase.accept(GenerationTargetToDatabase.java:94)
+	at org.hibernate.tool.schema.internal.Helper.applySqlString(Helper.java:233)
+	at org.hibernate.tool.schema.internal.Helper.applySqlStrings(Helper.java:217)
+	at org.hibernate.tool.schema.internal.SchemaDropperImpl.applyConstraintDropping(SchemaDropperImpl.java:470)
+	at org.hibernate.tool.schema.internal.SchemaDropperImpl.dropConstraintsTablesSequences(SchemaDropperImpl.java:242)
+	at org.hibernate.tool.schema.internal.SchemaDropperImpl.dropFromMetadata(SchemaDropperImpl.java:215)
+	at org.hibernate.tool.schema.internal.SchemaDropperImpl.performDrop(SchemaDropperImpl.java:185)
+	at org.hibernate.tool.schema.internal.SchemaDropperImpl.doDrop(SchemaDropperImpl.java:155)
+	at org.hibernate.tool.schema.internal.SchemaDropperImpl.doDrop(SchemaDropperImpl.java:115)
+	at org.hibernate.tool.schema.spi.SchemaManagementToolCoordinator.performDatabaseAction(SchemaManagementToolCoordinator.java:244)
+	at org.hibernate.tool.schema.spi.SchemaManagementToolCoordinator.lambda$process$5(SchemaManagementToolCoordinator.java:145)
+	at java.base/java.util.HashMap.forEach(HashMap.java:1421)
+	at org.hibernate.tool.schema.spi.SchemaManagementToolCoordinator.process(SchemaManagementToolCoordinator.java:142)
+	at org.hibernate.boot.internal.SessionFactoryObserverForSchemaExport.sessionFactoryCreated(SessionFactoryObserverForSchemaExport.java:37)
+	at org.hibernate.internal.SessionFactoryObserverChain.sessionFactoryCreated(SessionFactoryObserverChain.java:35)
+	at org.hibernate.internal.SessionFactoryImpl.<init>(SessionFactoryImpl.java:295)
+	at org.hibernate.boot.internal.SessionFactoryBuilderImpl.build(SessionFactoryBuilderImpl.java:450)
+	at org.hibernate.jpa.boot.internal.EntityManagerFactoryBuilderImpl.build(EntityManagerFactoryBuilderImpl.java:1507)
+	at org.springframework.orm.jpa.vendor.SpringHibernateJpaPersistenceProvider.createContainerEntityManagerFactory(SpringHibernateJpaPersistenceProvider.java:75)
+	at org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean.createNativeEntityManagerFactory(LocalContainerEntityManagerFactoryBean.java:376)
+	at org.springframework.orm.jpa.AbstractEntityManagerFactoryBean.buildNativeEntityManagerFactory(AbstractEntityManagerFactoryBean.java:409)
+	at org.springframework.orm.jpa.AbstractEntityManagerFactoryBean.afterPropertiesSet(AbstractEntityManagerFactoryBean.java:396)
+	at org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean.afterPropertiesSet(LocalContainerEntityManagerFactoryBean.java:352)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.invokeInitMethods(AbstractAutowireCapableBeanFactory.java:1822)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.initializeBean(AbstractAutowireCapableBeanFactory.java:1771)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.doCreateBean(AbstractAutowireCapableBeanFactory.java:601)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.createBean(AbstractAutowireCapableBeanFactory.java:523)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.lambda$doGetBean$0(AbstractBeanFactory.java:325)
+	at org.springframework.beans.factory.support.DefaultSingletonBeanRegistry.getSingleton(DefaultSingletonBeanRegistry.java:234)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.doGetBean(AbstractBeanFactory.java:323)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.getBean(AbstractBeanFactory.java:199)
+	at org.springframework.context.support.AbstractApplicationContext.getBean(AbstractApplicationContext.java:1173)
+	at org.springframework.context.support.AbstractApplicationContext.finishBeanFactoryInitialization(AbstractApplicationContext.java:936)
+	at org.springframework.context.support.AbstractApplicationContext.refresh(AbstractApplicationContext.java:616)
+	at org.springframework.boot.web.servlet.context.ServletWebServerApplicationContext.refresh(ServletWebServerApplicationContext.java:146)
+	at org.springframework.boot.SpringApplication.refresh(SpringApplication.java:753)
+	at org.springframework.boot.SpringApplication.refreshContext(SpringApplication.java:455)
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:323)
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:1342)
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:1331)
+	at com.chatty.ChattyApplication.main(ChattyApplication.java:10)
+Caused by: java.sql.SQLSyntaxErrorException: Table 'chatty.match_history' doesn't exist
+	at com.mysql.cj.jdbc.exceptions.SQLError.createSQLException(SQLError.java:121)
+	at com.mysql.cj.jdbc.exceptions.SQLExceptionsMapping.translateException(SQLExceptionsMapping.java:122)
+	at com.mysql.cj.jdbc.StatementImpl.executeInternal(StatementImpl.java:763)
+	at com.mysql.cj.jdbc.StatementImpl.execute(StatementImpl.java:648)
+	at com.zaxxer.hikari.pool.ProxyStatement.execute(ProxyStatement.java:94)
+	at com.zaxxer.hikari.pool.HikariProxyStatement.execute(HikariProxyStatement.java)
+	at org.hibernate.tool.schema.internal.exec.GenerationTargetToDatabase.accept(GenerationTargetToDatabase.java:80)
+	... 40 common frames omitted
+2024-01-23 15:42:51.324 [main] WARN org.hibernate.tool.schema.internal.ExceptionHandlerLoggedImpl - GenerationTarget encountered exception accepting command : Error executing DDL "
+    alter table match_history 
+       drop 
+       foreign key FKaetf5l14e7tc8np1fovrccjnj" via JDBC [Table 'chatty.match_history' doesn't exist]
+org.hibernate.tool.schema.spi.CommandAcceptanceException: Error executing DDL "
+    alter table match_history 
+       drop 
+       foreign key FKaetf5l14e7tc8np1fovrccjnj" via JDBC [Table 'chatty.match_history' doesn't exist]
+	at org.hibernate.tool.schema.internal.exec.GenerationTargetToDatabase.accept(GenerationTargetToDatabase.java:94)
+	at org.hibernate.tool.schema.internal.Helper.applySqlString(Helper.java:233)
+	at org.hibernate.tool.schema.internal.Helper.applySqlStrings(Helper.java:217)
+	at org.hibernate.tool.schema.internal.SchemaDropperImpl.applyConstraintDropping(SchemaDropperImpl.java:470)
+	at org.hibernate.tool.schema.internal.SchemaDropperImpl.dropConstraintsTablesSequences(SchemaDropperImpl.java:242)
+	at org.hibernate.tool.schema.internal.SchemaDropperImpl.dropFromMetadata(SchemaDropperImpl.java:215)
+	at org.hibernate.tool.schema.internal.SchemaDropperImpl.performDrop(SchemaDropperImpl.java:185)
+	at org.hibernate.tool.schema.internal.SchemaDropperImpl.doDrop(SchemaDropperImpl.java:155)
+	at org.hibernate.tool.schema.internal.SchemaDropperImpl.doDrop(SchemaDropperImpl.java:115)
+	at org.hibernate.tool.schema.spi.SchemaManagementToolCoordinator.performDatabaseAction(SchemaManagementToolCoordinator.java:244)
+	at org.hibernate.tool.schema.spi.SchemaManagementToolCoordinator.lambda$process$5(SchemaManagementToolCoordinator.java:145)
+	at java.base/java.util.HashMap.forEach(HashMap.java:1421)
+	at org.hibernate.tool.schema.spi.SchemaManagementToolCoordinator.process(SchemaManagementToolCoordinator.java:142)
+	at org.hibernate.boot.internal.SessionFactoryObserverForSchemaExport.sessionFactoryCreated(SessionFactoryObserverForSchemaExport.java:37)
+	at org.hibernate.internal.SessionFactoryObserverChain.sessionFactoryCreated(SessionFactoryObserverChain.java:35)
+	at org.hibernate.internal.SessionFactoryImpl.<init>(SessionFactoryImpl.java:295)
+	at org.hibernate.boot.internal.SessionFactoryBuilderImpl.build(SessionFactoryBuilderImpl.java:450)
+	at org.hibernate.jpa.boot.internal.EntityManagerFactoryBuilderImpl.build(EntityManagerFactoryBuilderImpl.java:1507)
+	at org.springframework.orm.jpa.vendor.SpringHibernateJpaPersistenceProvider.createContainerEntityManagerFactory(SpringHibernateJpaPersistenceProvider.java:75)
+	at org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean.createNativeEntityManagerFactory(LocalContainerEntityManagerFactoryBean.java:376)
+	at org.springframework.orm.jpa.AbstractEntityManagerFactoryBean.buildNativeEntityManagerFactory(AbstractEntityManagerFactoryBean.java:409)
+	at org.springframework.orm.jpa.AbstractEntityManagerFactoryBean.afterPropertiesSet(AbstractEntityManagerFactoryBean.java:396)
+	at org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean.afterPropertiesSet(LocalContainerEntityManagerFactoryBean.java:352)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.invokeInitMethods(AbstractAutowireCapableBeanFactory.java:1822)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.initializeBean(AbstractAutowireCapableBeanFactory.java:1771)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.doCreateBean(AbstractAutowireCapableBeanFactory.java:601)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.createBean(AbstractAutowireCapableBeanFactory.java:523)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.lambda$doGetBean$0(AbstractBeanFactory.java:325)
+	at org.springframework.beans.factory.support.DefaultSingletonBeanRegistry.getSingleton(DefaultSingletonBeanRegistry.java:234)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.doGetBean(AbstractBeanFactory.java:323)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.getBean(AbstractBeanFactory.java:199)
+	at org.springframework.context.support.AbstractApplicationContext.getBean(AbstractApplicationContext.java:1173)
+	at org.springframework.context.support.AbstractApplicationContext.finishBeanFactoryInitialization(AbstractApplicationContext.java:936)
+	at org.springframework.context.support.AbstractApplicationContext.refresh(AbstractApplicationContext.java:616)
+	at org.springframework.boot.web.servlet.context.ServletWebServerApplicationContext.refresh(ServletWebServerApplicationContext.java:146)
+	at org.springframework.boot.SpringApplication.refresh(SpringApplication.java:753)
+	at org.springframework.boot.SpringApplication.refreshContext(SpringApplication.java:455)
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:323)
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:1342)
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:1331)
+	at com.chatty.ChattyApplication.main(ChattyApplication.java:10)
+Caused by: java.sql.SQLSyntaxErrorException: Table 'chatty.match_history' doesn't exist
+	at com.mysql.cj.jdbc.exceptions.SQLError.createSQLException(SQLError.java:121)
+	at com.mysql.cj.jdbc.exceptions.SQLExceptionsMapping.translateException(SQLExceptionsMapping.java:122)
+	at com.mysql.cj.jdbc.StatementImpl.executeInternal(StatementImpl.java:763)
+	at com.mysql.cj.jdbc.StatementImpl.execute(StatementImpl.java:648)
+	at com.zaxxer.hikari.pool.ProxyStatement.execute(ProxyStatement.java:94)
+	at com.zaxxer.hikari.pool.HikariProxyStatement.execute(HikariProxyStatement.java)
+	at org.hibernate.tool.schema.internal.exec.GenerationTargetToDatabase.accept(GenerationTargetToDatabase.java:80)
+	... 40 common frames omitted
+2024-01-23 15:42:51.803 [main] INFO org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean - Initialized JPA EntityManagerFactory for persistence unit 'default'
+2024-01-23 15:42:52.570 [main] INFO org.springframework.data.jpa.repository.query.QueryEnhancerFactory - Hibernate is in classpath; If applicable, HQL parser will be used.
+2024-01-23 15:42:54.305 [main] WARN org.springframework.boot.autoconfigure.orm.jpa.JpaBaseConfiguration$JpaWebConfiguration - spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2024-01-23 15:42:54.546 [main] INFO org.springframework.boot.autoconfigure.web.servlet.WelcomePageHandlerMapping - Adding welcome page: class path resource [static/index.html]
+2024-01-23 15:42:55.790 [main] INFO org.springframework.security.web.DefaultSecurityFilterChain - Will secure any request with [org.springframework.security.web.session.DisableEncodeUrlFilter@7cf517f6, org.springframework.security.web.context.request.async.WebAsyncManagerIntegrationFilter@1c07b091, org.springframework.security.web.context.SecurityContextHolderFilter@44e4fa97, org.springframework.security.web.header.HeaderWriterFilter@2b56774b, org.springframework.web.filter.CorsFilter@1a8251ba, org.springframework.security.web.authentication.logout.LogoutFilter@cc65ea1, com.chatty.jwt.JwtTokenFilter@69b66787, org.springframework.security.web.savedrequest.RequestCacheAwareFilter@31b273b2, org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestFilter@53534c15, org.springframework.security.web.authentication.AnonymousAuthenticationFilter@3d2887e0, org.springframework.security.web.access.ExceptionTranslationFilter@617275e0, org.springframework.security.web.access.intercept.AuthorizationFilter@418422c3]
+2024-01-23 15:42:55.860 [main] WARN org.springframework.security.config.annotation.web.builders.WebSecurity - You are asking Spring Security to ignore Mvc [pattern='/users/join']. This is not recommended -- please use permitAll via HttpSecurity#authorizeHttpRequests instead.
+2024-01-23 15:42:55.861 [main] INFO org.springframework.security.web.DefaultSecurityFilterChain - Will not secure Mvc [pattern='/users/join']
+2024-01-23 15:42:55.862 [main] WARN org.springframework.security.config.annotation.web.builders.WebSecurity - You are asking Spring Security to ignore Mvc [pattern='/users/login']. This is not recommended -- please use permitAll via HttpSecurity#authorizeHttpRequests instead.
+2024-01-23 15:42:55.864 [main] INFO org.springframework.security.web.DefaultSecurityFilterChain - Will not secure Mvc [pattern='/users/login']
+2024-01-23 15:42:55.864 [main] WARN org.springframework.security.config.annotation.web.builders.WebSecurity - You are asking Spring Security to ignore Mvc [pattern='/ws']. This is not recommended -- please use permitAll via HttpSecurity#authorizeHttpRequests instead.
+2024-01-23 15:42:55.864 [main] INFO org.springframework.security.web.DefaultSecurityFilterChain - Will not secure Mvc [pattern='/ws']
+2024-01-23 15:42:55.865 [main] WARN org.springframework.security.config.annotation.web.builders.WebSecurity - You are asking Spring Security to ignore Mvc [pattern='/auth/**']. This is not recommended -- please use permitAll via HttpSecurity#authorizeHttpRequests instead.
+2024-01-23 15:42:55.865 [main] INFO org.springframework.security.web.DefaultSecurityFilterChain - Will not secure Mvc [pattern='/auth/**']
+2024-01-23 15:42:55.865 [main] WARN org.springframework.security.config.annotation.web.builders.WebSecurity - You are asking Spring Security to ignore Mvc [pattern='/swagger-ui/**']. This is not recommended -- please use permitAll via HttpSecurity#authorizeHttpRequests instead.
+2024-01-23 15:42:55.865 [main] INFO org.springframework.security.web.DefaultSecurityFilterChain - Will not secure Mvc [pattern='/swagger-ui/**']
+2024-01-23 15:42:55.865 [main] WARN org.springframework.security.config.annotation.web.builders.WebSecurity - You are asking Spring Security to ignore Mvc [pattern='/v3/api-docs/**']. This is not recommended -- please use permitAll via HttpSecurity#authorizeHttpRequests instead.
+2024-01-23 15:42:55.865 [main] INFO org.springframework.security.web.DefaultSecurityFilterChain - Will not secure Mvc [pattern='/v3/api-docs/**']
+2024-01-23 15:42:55.866 [main] WARN org.springframework.security.config.annotation.web.builders.WebSecurity - You are asking Spring Security to ignore Mvc [pattern='/index.html']. This is not recommended -- please use permitAll via HttpSecurity#authorizeHttpRequests instead.
+2024-01-23 15:42:55.866 [main] INFO org.springframework.security.web.DefaultSecurityFilterChain - Will not secure Mvc [pattern='/index.html']
+2024-01-23 15:42:55.866 [main] WARN org.springframework.security.config.annotation.web.builders.WebSecurity - You are asking Spring Security to ignore Mvc [pattern='/matching/**']. This is not recommended -- please use permitAll via HttpSecurity#authorizeHttpRequests instead.
+2024-01-23 15:42:55.866 [main] INFO org.springframework.security.web.DefaultSecurityFilterChain - Will not secure Mvc [pattern='/matching/**']
+2024-01-23 15:42:55.866 [main] WARN org.springframework.security.config.annotation.web.builders.WebSecurity - You are asking Spring Security to ignore Mvc [pattern='/ws/**']. This is not recommended -- please use permitAll via HttpSecurity#authorizeHttpRequests instead.
+2024-01-23 15:42:55.867 [main] INFO org.springframework.security.web.DefaultSecurityFilterChain - Will not secure Mvc [pattern='/ws/**']
+2024-01-23 15:42:56.456 [main] INFO org.apache.coyote.http11.Http11NioProtocol - Starting ProtocolHandler ["http-nio-8080"]
+2024-01-23 15:42:56.490 [main] INFO org.springframework.boot.web.embedded.tomcat.TomcatWebServer - Tomcat started on port 8080 (http) with context path ''
+2024-01-23 15:42:56.492 [main] INFO org.springframework.messaging.simp.broker.SimpleBrokerMessageHandler - Starting...
+2024-01-23 15:42:56.493 [main] INFO org.springframework.messaging.simp.broker.SimpleBrokerMessageHandler - BrokerAvailabilityEvent[available=true, SimpleBrokerMessageHandler [org.springframework.messaging.simp.broker.DefaultSubscriptionRegistry@53f785df]]
+2024-01-23 15:42:56.493 [main] INFO org.springframework.messaging.simp.broker.SimpleBrokerMessageHandler - Started.
+2024-01-23 15:42:56.516 [main] INFO com.chatty.ChattyApplication - Started ChattyApplication in 11.637 seconds (process running for 12.672)
+2024-01-23 15:43:56.464 [MessageBroker-1] INFO org.springframework.web.socket.config.WebSocketMessageBrokerStats - WebSocketSession[0 current WS(0)-HttpStream(0)-HttpPoll(0), 0 total, 0 closed abnormally (0 connect failure, 0 send limit, 0 transport error)], stompSubProtocol[processed CONNECT(0)-CONNECTED(0)-DISCONNECT(0)], stompBrokerRelay[null], inboundChannel[pool size = 0, active threads = 0, queued tasks = 0, completed tasks = 0], outboundChannel[pool size = 0, active threads = 0, queued tasks = 0, completed tasks = 0], sockJsScheduler[pool size = 1, active threads = 1, queued tasks = 0, completed tasks = 0]
+2024-01-23 15:44:32.402 [http-nio-8080-exec-1] INFO org.apache.catalina.core.ContainerBase.[Tomcat].[localhost].[/] - Initializing Spring DispatcherServlet 'dispatcherServlet'
+2024-01-23 15:44:32.404 [http-nio-8080-exec-1] INFO org.springframework.web.servlet.DispatcherServlet - Initializing Servlet 'dispatcherServlet'
+2024-01-23 15:44:32.412 [http-nio-8080-exec-1] INFO org.springframework.web.servlet.DispatcherServlet - Completed initialization in 8 ms
+2024-01-23 15:44:32.423 [http-nio-8080-exec-1] WARN org.springframework.web.servlet.handler.HandlerMappingIntrospector - Cache miss for REQUEST dispatch to '/auth/mobile' (previous null). Performing MatchableHandlerMapping lookup. This is logged once only at WARN level, and every time at TRACE.
+2024-01-23 15:44:32.475 [http-nio-8080-exec-1] INFO com.chatty.interceptor.RateLimitInterceptor - remaining token : 20
+2024-01-23 15:44:32.715 [http-nio-8080-exec-1] INFO com.chatty.controller.auth.AuthController - 번호 인증 요청
+2024-01-23 15:44:33.207 [http-nio-8080-exec-1] INFO com.chatty.service.sms.SmsService - 번호 인증 요청 정보 저장 완료 : 038514
+2024-01-23 15:44:41.366 [http-nio-8080-exec-3] INFO com.chatty.interceptor.RateLimitInterceptor - remaining token : 19
+2024-01-23 15:44:41.440 [http-nio-8080-exec-3] INFO com.chatty.controller.user.UserController - [UserController/join] 회원 가입 시작
+2024-01-23 15:44:41.474 [http-nio-8080-exec-3] INFO com.chatty.service.user.UserService - [UserService/join] 회원 가입 시작
+2024-01-23 15:44:41.474 [http-nio-8080-exec-3] INFO com.chatty.service.user.UserService - [UserService/isAlreadyExistedUser] 이미 가입한 유저인지 확인
+2024-01-23 15:44:41.635 [http-nio-8080-exec-3] INFO com.chatty.service.sms.SmsService - 확인이 필요한 인증번호 : 038514
+2024-01-23 15:44:41.769 [http-nio-8080-exec-3] INFO com.chatty.service.user.UserService - [UserService/join] 회원 가입 완료
+2024-01-23 15:44:41.769 [http-nio-8080-exec-3] INFO com.chatty.service.user.UserService - [UserService/createTokens] AccessToken, RefreshToken 생성
+2024-01-23 15:44:42.003 [http-nio-8080-exec-3] INFO com.chatty.service.user.UserService - [UserService/createTokens] 생성한 accessToken : eyJhbGciOiJIUzI1NiJ9.eyJtb2JpbGVOdW1iZXIiOiIwMTA3NzI2NTEwOCIsImRldmljZUlkIjoiMTIzMTI0IiwiaWF0IjoxNzA1OTkyMjgxLCJleHAiOjE3MDU5OTcyODF9.cWX3gF1R_-oOG8eZ03RrMlyKZL2cZJYGDb4xyI7J6fU
+2024-01-23 15:44:42.004 [http-nio-8080-exec-3] INFO com.chatty.service.user.UserService - [UserService/createTokens] 생성한 refreshToken : eyJhbGciOiJIUzI1NiJ9.eyJkZXZpY2VJZCI6IjAxMDc3MjY1MTA4IDEyMzEyNCIsImlhdCI6MTcwNTk5MjI4MiwiZXhwIjoxNzA1OTkyNTgyfQ.irx4H89HINWr1txutaU4sU4bOEJLDodU-lypKo28rLs
+2024-01-23 15:44:42.005 [http-nio-8080-exec-3] INFO com.chatty.service.user.UserService - [UserService/createTokens] RefreshToken Redis 저장
+2024-01-23 15:45:31.003 [http-nio-8080-exec-4] WARN org.springframework.web.servlet.handler.HandlerMappingIntrospector - Cache miss for REQUEST dispatch to '/check/problem/nickname' (previous null). Performing CorsConfiguration lookup. This is logged once only at WARN level, and every time at TRACE.
+2024-01-23 15:45:31.014 [http-nio-8080-exec-4] INFO com.chatty.validator.TokenValidator - [JwtTokenFilter] accessToken 유효 여부 확인
+2024-01-23 15:45:31.015 [http-nio-8080-exec-4] INFO com.chatty.validator.TokenValidator - 입력된 토큰 : Bearer eyJhbGciOiJIUzI1NiJ9.eyJtb2JpbGVOdW1iZXIiOiIwMTA3NzI2NTEwOCIsImRldmljZUlkIjoiMTIzMTI0IiwiaWF0IjoxNzA1OTkyMjgxLCJleHAiOjE3MDU5OTcyODF9.cWX3gF1R_-oOG8eZ03RrMlyKZL2cZJYGDb4xyI7J6fU
+2024-01-23 15:45:31.017 [http-nio-8080-exec-4] INFO com.chatty.jwt.JwtTokenProvider - [JwtTokenProvider/isValidToken] 비밀키를 통해 유효한 토큰인지 확인
+2024-01-23 15:45:31.017 [http-nio-8080-exec-4] INFO com.chatty.jwt.JwtTokenProvider - eyJhbGciOiJIUzI1NiJ9.eyJtb2JpbGVOdW1iZXIiOiIwMTA3NzI2NTEwOCIsImRldmljZUlkIjoiMTIzMTI0IiwiaWF0IjoxNzA1OTkyMjgxLCJleHAiOjE3MDU5OTcyODF9.cWX3gF1R_-oOG8eZ03RrMlyKZL2cZJYGDb4xyI7J6fU
+2024-01-23 15:45:31.041 [http-nio-8080-exec-4] INFO com.chatty.jwt.JwtTokenProvider - [JwtTokenProvider/isExpiredToken] 만료된 도큰인지 확인
+2024-01-23 15:45:31.042 [http-nio-8080-exec-4] INFO com.chatty.jwt.JwtTokenProvider - 만료되지 않았습니다.
+2024-01-23 15:45:31.190 [http-nio-8080-exec-4] INFO com.chatty.jwt.JwtTokenFilter - doFilter로 넘어가기
+2024-01-23 15:45:31.197 [http-nio-8080-exec-4] INFO com.chatty.interceptor.RateLimitInterceptor - remaining token : 18
