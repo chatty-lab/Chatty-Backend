@@ -24,15 +24,17 @@ public class MatchResponse {
 //    private Coordinate coordinate;
     private int age;
     private boolean isSuccess;
+    private boolean isBlueCheck;
 
     private int requestMinAge;
     private int requestMaxAge;
     private String requestCategory;
     private Double requestScope;
     private Gender requestGender;
+    private boolean requestBlueCheck;
 
     @Builder
-    public MatchResponse(final Long id, final Long userId, final String nickname, final Gender gender, final Mbti mbti, final String address, final String imageUrl, final int age, final boolean isSuccess, final int requestMinAge, final int requestMaxAge, final String requestCategory, final Double requestScope, final Gender requestGender) {
+    public MatchResponse(final Long id, final Long userId, final String nickname, final Gender gender, final Mbti mbti, final String address, final String imageUrl, final int age, final boolean isSuccess, final boolean isBlueCheck, final int requestMinAge, final int requestMaxAge, final String requestCategory, final Double requestScope, final Gender requestGender, final  boolean requestBlueCheck) {
         this.id = id;
         this.userId = userId;
         this.nickname = nickname;
@@ -43,11 +45,13 @@ public class MatchResponse {
 //        this.coordinate = coordinate;
         this.age = age;
         this.isSuccess = isSuccess;
+        this.isBlueCheck = isBlueCheck;
         this.requestMinAge = requestMinAge;
         this.requestMaxAge = requestMaxAge;
         this.requestCategory = requestCategory;
         this.requestScope = requestScope;
         this.requestGender = requestGender;
+        this.requestBlueCheck = requestBlueCheck;
     }
 
     public static MatchResponse of(final Match match, final int age) {
@@ -65,11 +69,13 @@ public class MatchResponse {
 //                        .build())
                 .age(age)
                 .isSuccess(match.isSuccess())
+                .isBlueCheck(match.getUser().isBlueCheck())
                 .requestScope(match.getScope())
                 .requestCategory(match.getCategory())
                 .requestGender(match.getGender())
                 .requestMinAge(match.getMinAge())
                 .requestMaxAge(match.getMaxAge())
+                .requestBlueCheck(match.isBlueCheck())
                 .build();
     }
 }

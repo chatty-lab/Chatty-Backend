@@ -31,13 +31,16 @@ public class MatchRequest {
     @NotBlank(message = "관심사는 필수로 선택해야 합니다.")
     private String category;
 
+    private Boolean blueCheck;
+
     @Builder
-    public MatchRequest(final int minAge, final int maxAge, final Gender gender, final Double scope, final String category) {
+    public MatchRequest(final int minAge, final int maxAge, final Gender gender, final Double scope, final String category, final Boolean blueCheck) {
         this.minAge = minAge;
         this.maxAge = maxAge;
         this.gender = gender;
         this.scope = scope;
         this.category = category;
+        this.blueCheck = blueCheck;
     }
 
     public Match toEntity(final User user, final LocalDateTime now) {
@@ -49,6 +52,7 @@ public class MatchRequest {
                 .gender(gender)
                 .user(user)
                 .registeredDateTime(now)
+                .isBlueCheck(blueCheck)
                 .build();
     }
 }
