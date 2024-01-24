@@ -25,6 +25,9 @@ import org.springframework.transaction.annotation.Transactional;
 @RequiredArgsConstructor
 public class AuthCheckService {
 
+    private final String NICKNAME = "nickname";
+    private final String BIRTH = "birth";
+
     private final UserRepository userRepository;
     private final JwtTokenProvider jwtTokenProvider;
     private final RefreshTokenRepository refreshTokenRepository;
@@ -33,6 +36,7 @@ public class AuthCheckService {
     @Transactional
     public ProblemResponseDto createNicknameProblem(ProblemRequestDto problemRequestDto){
         String mobileNumber = problemRequestDto.getMobileNumber();
+
         User user = userRepository.findUserByMobileNumber(mobileNumber).orElseThrow(() -> new CustomException(
                 Code.NOT_EXIST_USER));
         String nickname = user.getNickname();
@@ -60,9 +64,7 @@ public class AuthCheckService {
             throw new CustomException(Code.FAIL_AUTH_CHECK);
         }
 
-        User user = userRepository.findUserByMobileNumber(mobileNumber).orElseThrow(() -> new CustomException(Code.NOT_EXIST_USER));
-        AuthCheck authCheck = authCheckRepository.findAuthCheckByUserId(user.getId()).orElseThrow(() -> new CustomException(Code.NOT_EXIST_AUTHCHECK));
-        authCheck.updateCheckNickname(true);
+        updateCheck(mobileNumber,NICKNAME,true);
     }
 
     @Transactional
@@ -74,9 +76,19 @@ public class AuthCheckService {
             throw new CustomException(Code.FAIL_AUTH_CHECK);
         }
 
+        updateCheck(mobileNumber,BIRTH,true);
+    }
+
+    private void updateCheck(String mobileNumber, String kind, Boolean value){
         User user = userRepository.findUserByMobileNumber(mobileNumber).orElseThrow(() -> new CustomException(Code.NOT_EXIST_USER));
         AuthCheck authCheck = authCheckRepository.findAuthCheckByUserId(user.getId()).orElseThrow(() -> new CustomException(Code.NOT_EXIST_AUTHCHECK));
-        authCheck.updateCheckBirth(true);
+
+        if(NICKNAME.equals(kind)){
+            authCheck.updateCheckNickname(value);
+            return;
+        }
+
+        authCheck.updateCheckBirth(value);
     }
 
     @Transactional
@@ -85,15 +97,15 @@ public class AuthCheckService {
         String deviceId = completeRequestDto.getDeviceId();
         User user = userRepository.findUserByMobileNumber(mobileNumber).orElseThrow(() -> new CustomException(Code.NOT_EXIST_USER));
 
-        log.info("deviceId를 업데이트합니다.");
-        user.updateDeviceToken(deviceId);
-
         log.info("모든 계정확인 질문 답변을 다 했는지 확인합니다.");
         AuthCheck authCheck = authCheckRepository.findAuthCheckByUserId(user.getId()).orElseThrow(() -> new CustomException(Code.NOT_EXIST_AUTHCHECK));
 
         if(!(authCheck.getCheckBirth() && authCheck.getCheckNickname())){
             throw new CustomException(Code.NOT_CHECK_ALL_QUESTION);
         }
+
+        log.info("deviceId를 업데이트합니다.");
+        user.updateDeviceToken(deviceId);
 
         log.info("토큰을 생성합니다.");
         String accessToken = jwtTokenProvider.createAccessToken(mobileNumber,deviceId);
