@@ -24,7 +24,6 @@ public class JwtTokenProvider {
     private static final String AUTHORIZATION = "Authorization";
     private static final String BEARER_TYPE = "Bearer ";
     private static final String MOBILE_NUMBER = "mobileNumber";
-    private static final String UUID = "uuid";
     private static final String DEVICEID = "deviceId";
 
     @Value("${jwt-secret-key}")
@@ -58,11 +57,11 @@ public class JwtTokenProvider {
         return Jwts.parser().verifyWith(key).build().parseSignedClaims(refreshToken).getPayload().get(DEVICEID,String.class);
     }
 
-    public String createAccessToken(String mobileNumber, String uuid) {
+    public String createAccessToken(String mobileNumber, String deviceId) {
 
         Claims claims = Jwts.claims()
                 .add(MOBILE_NUMBER, mobileNumber)
-                .add(DEVICEID, uuid)
+                .add(DEVICEID, deviceId)
                 .build();
 
         return Jwts.builder()
@@ -73,10 +72,10 @@ public class JwtTokenProvider {
                 .compact();
     }
 
-    public String createRefreshToken(String mobileNumber, String uuid) {
+    public String createRefreshToken(String mobileNumber, String deviceId) {
 
         Claims claims = Jwts.claims()
-                .add(DEVICEID, JwtTokenUtils.getRefreshTokenUuid(mobileNumber,uuid))
+                .add(DEVICEID, JwtTokenUtils.getRefreshTokenUuid(mobileNumber,deviceId))
                 .build();
 
         return Jwts.builder()
@@ -132,13 +131,11 @@ public class JwtTokenProvider {
         }
     }
 
-    public boolean isEqualRedisRefresh(String token, String uuid){
+    public boolean isEqualRedisRefresh(String token, String deviceId){
 
-        System.out.println(token);
-        System.out.println(uuid);
         log.info("[isEqualRedisRefresh] refreshToken과 Redis에 저장된 refreshToken과 일치여부 확인");
         try {
-            String refreshToken = refreshTokenRepository.findRefreshTokenByUuid(uuid);
+            String refreshToken = refreshTokenRepository.findRefreshTokenByDeviceId(deviceId);
             System.out.println(refreshToken);
             log.info("[isEqualRedisRefresh] 전달받은 refreshToken이 현재 refreshToken과 일치합니다.");
             return token.equals(refreshToken);

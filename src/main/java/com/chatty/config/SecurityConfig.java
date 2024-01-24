@@ -52,6 +52,7 @@ public class SecurityConfig {
         return (web) -> web.ignoring().requestMatchers(
                 "/users/join",
                 "/users/login",
+                "/check/**",
                 "/ws",
                 "/auth/**",
                 "/swagger-ui/**",

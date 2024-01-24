@@ -44,11 +44,16 @@ public class JwtTokenFilter extends OncePerRequestFilter {
         String deviceId = jwtTokenProvider.getDeviceId(accessToken);
         UserDetails userDetails = userDetailsService.loadUserByUsername(userMobileNumber);
 
-        if(!userDetails.getPassword().equals(deviceId)){ // 기기번호 검증도 같이 해준다.
-            log.error("기기번호가 일치하지 않아 유효하지 않은 토큰입니다.");
-            request.setAttribute("exception",Code.INVALID_TOKEN);
-            throw new CustomException(Code.INVALID_TOKEN);
+        try {
+            if(!userDetails.getPassword().equals(deviceId)){ // 기기번호 검증도 같이 해준다.
+                log.error("기기번호가 일치하지 않아 유효하지 않은 토큰입니다.");
+                request.setAttribute("exception",Code.INVALID_TOKEN);
+            }
+        }catch (CustomException e){
+            log.error("valid 에러 코드 발생");
+            request.setAttribute("errorCode",e);
         }
+
 
         UsernamePasswordAuthenticationToken authenticationToken = new UsernamePasswordAuthenticationToken(userDetails,null,
                 userDetails.getAuthorities());
