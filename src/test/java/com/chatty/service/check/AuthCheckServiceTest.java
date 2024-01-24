@@ -117,9 +117,24 @@ public class AuthCheckServiceTest {
 
         //when
         when(userRepository.findUserByMobileNumber(checkRequestDto.getMobileNumber())).thenReturn(Optional.of(user));
-        when(authCheckRepository.findAuthCheckByUserId(user.getId())).thenThrow(new CustomException(Code.FAIL_AUTH_CHECK));
+        when(authCheckRepository.findAuthCheckByUserId(user.getId())).thenThrow(new CustomException(Code.NOT_EXIST_AUTHCHECK));
 
         //then
+        assertThatThrownBy(() -> authCheckService.checkNickName(checkRequestDto))
+                .isInstanceOf(CustomException.class)
+                .hasMessage("계정 확인 이력이 존재하지 않습니다.");
+    }
+
+    @Test
+    @DisplayName("닉네임 문제의 정답을 확인할 시, 정답을 맞추지 못하면 에러가 발생한다.")
+    void checkNicknameNotAnswer() throws Exception{
+        //given
+        CheckRequestDto checkRequestDto = CheckRequestDto.builder().mobileNumber("01012341234").answer("무야호").build();
+        User user = User.builder().id(1L).nickname("무야호야").build();
+
+        //when, then
+        when(userRepository.findUserByMobileNumber(checkRequestDto.getMobileNumber())).thenReturn(Optional.of(user));
+
         assertThatThrownBy(() -> authCheckService.checkNickName(checkRequestDto))
                 .isInstanceOf(CustomException.class)
                 .hasMessage("계정 확인에 실패했습니다.");
@@ -203,6 +218,21 @@ public class AuthCheckServiceTest {
     }
 
     @Test
+    @DisplayName("태어난 연도의 정답을 확인할 시, 정답을 맞추지 못하면 에러가 발생한다.")
+    void checkBirthNotAnswer() throws Exception{
+        //given
+        CheckRequestDto checkRequestDto = CheckRequestDto.builder().mobileNumber("01012341234").answer("2000").build();
+        User user = User.builder().id(1L).birth(LocalDate.of(1999,1,1)).build();
+
+        //when, then
+        when(userRepository.findUserByMobileNumber(checkRequestDto.getMobileNumber())).thenReturn(Optional.of(user));
+
+        assertThatThrownBy(() -> authCheckService.checkBirth(checkRequestDto))
+                .isInstanceOf(CustomException.class)
+                .hasMessage("계정 확인에 실패했습니다.");
+    }
+
+    @Test
     @DisplayName("모든 계정확인 질문 답변을 완료한다.")
     void complete() throws Exception{
         //given
@@ -257,7 +287,7 @@ public class AuthCheckServiceTest {
     }
 
     @Test
-    @DisplayName("모든 계정확인 질문 답변을 완료를하지 않으면 에러가 발생한다.")
+    @DisplayName("모든 계정확인 질문 답변을 완료하지 않으면 에러가 발생한다.")
     void completeNot() throws Exception{
         //given
         CompleteRequestDto completeRequestDto = CompleteRequestDto.builder().mobileNumber("01012341234").deviceId("123123").build();

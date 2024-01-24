@@ -146,7 +146,7 @@ public class AuthCheckControllerTest {
 
         //when,then
         mockMvc.perform(
-                        post("/check/nickname")
+                        get("/check/problem/birth")
                                 .with(csrf())
                                 .contentType(MediaType.APPLICATION_JSON)
                                 .content(objectMapper.writeValueAsString(problemRequestDto))
