@@ -25,12 +25,13 @@ public enum Code {
     NOT_IN_USER_ROOM(HttpStatus.BAD_REQUEST, "유저가 채팅방에 존재하지 않습니다.","E-015"),
     INVALID_EXTENSION(HttpStatus.BAD_REQUEST, "올바르지 않은 확장자입니다.", "E-016"), // 형이 작성한 Code null로 해놓을게
     NOT_EXIST_MATCH(HttpStatus.BAD_REQUEST, "존재하지 않는 매치입니다.", "E-017"),
-    FAIL_AUTH_CHECK(HttpStatus.BAD_REQUEST, "계정 확인에 실패했습니다.", "E-018"),
-    MATCH_LIMIT_EXCEEDED(HttpStatus.BAD_REQUEST, "일일 매칭 횟수 제한을 초과했습니다.", "E-098"),
+    MATCH_LIMIT_EXCEEDED(HttpStatus.BAD_REQUEST, "일일 매칭 횟수 제한을 초과했습니다.", "E-018"),
+    FAIL_AUTH_CHECK(HttpStatus.BAD_REQUEST, "계정 확인에 실패했습니다.", "E-019"),
+    NOT_EXIST_AUTHCHECK(HttpStatus.BAD_REQUEST, "계정 확인 이력이 존재하지 않습니다.", "E-020"),
+    NOT_CHECK_ALL_QUESTION(HttpStatus.BAD_REQUEST, "계정 확인 질문을 전부 완료해야 합니다.","E-021"),
 
-    //NOT_AUTH_NUMBER_FORMAT(HttpStatus.BAD_REQUEST, "잘못된 번호 형식 입니다.","E-006") // 번호형식은 requestDto에서 해결하자
     // ratelimit
-    TOO_MANY_REQUESTS(HttpStatus.TOO_MANY_REQUESTS, "너무 많은 요청을 보냈습니다.","E-019");
+    TOO_MANY_REQUESTS(HttpStatus.TOO_MANY_REQUESTS, "너무 많은 요청을 보냈습니다.","E-098");
 
     private final HttpStatus httpStatus;
     private final String message;
