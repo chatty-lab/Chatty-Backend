@@ -34,6 +34,7 @@ public enum Code {
     // ratelimit
     TOO_MANY_REQUESTS(HttpStatus.TOO_MANY_REQUESTS, "너무 많은 요청을 보냈습니다.","E-098");
 
+
     private final HttpStatus httpStatus;
     private final String message;
     private final String errorCode;
