@@ -18,19 +18,19 @@ public class RefreshTokenRepository {
 
     private final RedisTemplate<String, String> redisTemplate;
 
-    public void save(String uuid, String refreshToken){
+    public void save(String deviceId, String refreshToken){
         try {
             ValueOperations<String, String> value = redisTemplate.opsForValue();
-            value.set(uuid,refreshToken, Duration.ofSeconds(Long.parseLong(validTime)/1000));
+            value.set(deviceId,refreshToken, Duration.ofSeconds(Long.parseLong(validTime)/1000));
         }catch(Exception e) {
             log.error("[RedistTokenService/getRefreshTokenByUuid] 데이터 저장 실패");
         }
     }
 
-    public String findRefreshTokenByUuid(String uuid){
+    public String findRefreshTokenByDeviceId(String deviceId){
         try {
             ValueOperations<String, String> value = redisTemplate.opsForValue();
-            return value.get(uuid);
+            return value.get(deviceId);
         }catch(Exception e) {
             log.error("[RedistTokenService/getRefreshTokenByUuid] 일치하는 refresh 토큰이 존재하지 않습니다.");
             return null;
