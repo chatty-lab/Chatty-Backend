@@ -3,32 +3,25 @@ package com.chatty.service.match;
 import com.chatty.dto.chat.request.RoomDto;
 import com.chatty.dto.chat.response.RoomResponseDto;
 import com.chatty.dto.match.response.MatchResponse;
-import com.chatty.entity.match.Match;
 import com.chatty.entity.match.MatchHistory;
 import com.chatty.entity.user.Gender;
 import com.chatty.entity.user.User;
 import com.chatty.exception.CustomException;
 import com.chatty.repository.match.MatchHistoryRepository;
-import com.chatty.repository.match.MatchRepository;
 import com.chatty.repository.user.UserRepository;
 import com.chatty.service.chat.RoomService;
 import com.google.gson.Gson;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.locationtech.jts.geom.Point;
 import org.springframework.stereotype.Component;
 import org.springframework.web.socket.CloseStatus;
 import org.springframework.web.socket.TextMessage;
 import org.springframework.web.socket.WebSocketSession;
 import org.springframework.web.socket.handler.TextWebSocketHandler;
 
-import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
-import java.util.Optional;
 
-import static com.chatty.constants.Code.NOT_EXIST_MATCH;
 import static com.chatty.constants.Code.NOT_EXIST_USER;
 
 @RequiredArgsConstructor
@@ -66,6 +59,8 @@ public class MatchHandler extends TextWebSocketHandler {
         System.out.println("matchResponse.getGender() = " + matchResponse.getGender());
         System.out.println("matchResponse.getRequestGender() = " + matchResponse.getRequestGender());
         System.out.println("matchResponse.getRequestCategory() = " + matchResponse.getRequestCategory());
+        System.out.println("matchResponse.isBlueCheck() = " + matchResponse.isBlueCheck());
+        System.out.println("matchResponse.isRequestBlueCheck() = " + matchResponse.isRequestBlueCheck());
         System.out.println("======================");
 
         matchService.createUserSession(session, matchResponse);
@@ -82,6 +77,17 @@ public class MatchHandler extends TextWebSocketHandler {
             log.info("session에 저장되어있는 requestGender 값 = {}", session.getAttributes().get("requestGender"));
             if (session == connected || connected.getAttributes().get("nickname") == null) {
                 continue;
+            }
+
+            // session requestBlueCheck 값 체크
+            Object requestBlueCheck = session.getAttributes().get("requestBlueCheck");
+            Object connectedBlueCheck = connected.getAttributes().get("isBlueCheck");
+            if (requestBlueCheck.equals(true)) {
+                if (connectedBlueCheck.equals(false)) {
+                    System.out.println("나는 프사있는 사람이랑 매칭이 되고 싶은데,");
+                    System.out.println("웹세션에는 프사없는 사람이 존재하니까 continue를 할게.");
+                    continue;
+                }
             }
 
             Long senderId = Long.parseLong(session.getAttributes().get("userId").toString());
