@@ -18,8 +18,10 @@
         <input type="text" id="gender" placeholder="Write a gender..." value="MALE"/>
         <input type="text" id="scope" placeholder="Write a scope..." value="300.0"/>
         <input type="text" id="category" placeholder="Write a category..." value="category"/>
+        <input type="text" id="blueCheck" value="true">
 <!--        <button type="submit">Send</button>-->
         <button type="button" id="api-button">매칭하기</button>
+        <button type="button" id="api-test">api-test</button>
     </form>
 
 <!--    <form id="chat-form2">-->
@@ -128,7 +130,8 @@
             maxAge: document.getElementById("maxAge").value,
             category: document.getElementById("category").value,
             scope: document.getElementById("scope").value,
-            gender: document.getElementById("gender").value
+            gender: document.getElementById("gender").value,
+            blueCheck: document.getElementById("blueCheck").value
         })
 
         function success() {
@@ -142,6 +145,35 @@
         httpRequest("POST", "/match", body, success, fail);
     })
 
+    // document.getElementById("api-test").addEventListener("click", e => {
+    //     // alert('event 발생!');
+    //     function success() {
+    //         alert('api 호출 완료');
+    //     }
+    //
+    //     function fail() {
+    //         alert('api 호출 !!실패!!');
+    //     }
+    //
+    //     httpRequest("GET", "https://fdhgxk22gh.execute-api.us-east-1.amazonaws.com/production/api/v1/search?q=Red Whip", success, fail);
+    // })
+
+    // function httpRequest(method, url, success, fail) {
+    //     fetch(url, {
+    //         method: method,
+    //     }).then(response => {
+    //         if (response.status === 200 || response.status === 201) {
+    //             response.json().then(body => {
+    //                 console.log('성공');
+    //                 console.log(body);
+    //                 console.log(body.data);
+    //             })
+    //             return success();
+    //         } else {
+    //             return fail();
+    //         }
+    //     })
+    // }
     function httpRequest(method, url, body, success, fail) {
         fetch(url, {
             method: method,
@@ -158,9 +190,12 @@
                     console.log(body.data.requestGender);
                     console.log(body.data.requestCategory);
                     console.log(body.data.requestScope);
+                    console.log(body.data.blueCheck);
+                    console.log(body.data.requestBlueCheck);
                     const id = body.data.id;
                     const userId = body.data.userId;
                     const age = body.data.age;
+                    const blueCheck = body.data.blueCheck;
                     const requestMinAge = body.data.requestMinAge;
                     const requestMaxAge = body.data.requestMaxAge;
                     const requestGender = body.data.requestGender;
@@ -168,6 +203,7 @@
                     const requestCategory = body.data.requestCategory;
                     const nickname = body.data.nickname;
                     const gender = body.data.gender;
+                    const requestBlueCheck = body.data.requestBlueCheck;
 
                     webSocket.send(JSON.stringify({
                         id,
@@ -180,6 +216,8 @@
                         requestCategory,
                         nickname,
                         gender,
+                        requestBlueCheck,
+                        blueCheck
                     }))
 
                 })
