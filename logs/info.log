@@ -2346,3 +2346,68 @@ This generated password is for development use only. Your security configuration
 2024-01-24 23:04:48.995 [http-nio-8080-exec-4] INFO com.chatty.interceptor.RateLimitInterceptor - remaining token : 17
 2024-01-24 23:04:50.545 [http-nio-8080-exec-4] INFO org.springdoc.api.AbstractOpenApiResource - Init duration for springdoc-openapi is: 1491 ms
 2024-01-24 23:05:00.661 [MessageBroker-1] INFO org.springframework.web.socket.config.WebSocketMessageBrokerStats - WebSocketSession[0 current WS(0)-HttpStream(0)-HttpPoll(0), 0 total, 0 closed abnormally (0 connect failure, 0 send limit, 0 transport error)], stompSubProtocol[processed CONNECT(0)-CONNECTED(0)-DISCONNECT(0)], stompBrokerRelay[null], inboundChannel[pool size = 0, active threads = 0, queued tasks = 0, completed tasks = 0], outboundChannel[pool size = 0, active threads = 0, queued tasks = 0, completed tasks = 0], sockJsScheduler[pool size = 1, active threads = 1, queued tasks = 0, completed tasks = 0]
+2024-01-25 19:25:13.072 [background-preinit] INFO org.hibernate.validator.internal.util.Version - HV000001: Hibernate Validator 8.0.1.Final
+2024-01-25 19:25:13.124 [Test worker] INFO com.chatty.controller.check.AuthCheckControllerTest - Starting AuthCheckControllerTest using Java 18.0.2 with PID 64385 (started by developer in /Users/developer/IdeaProjects/Chatty-Backend)
+2024-01-25 19:25:13.126 [Test worker] INFO com.chatty.controller.check.AuthCheckControllerTest - No active profile set, falling back to 1 default profile: "default"
+2024-01-25 19:25:18.770 [Test worker] INFO org.springframework.boot.autoconfigure.web.servlet.WelcomePageHandlerMapping - Adding welcome page: class path resource [static/index.html]
+2024-01-25 19:25:22.713 [Test worker] WARN org.springframework.boot.autoconfigure.security.servlet.UserDetailsServiceAutoConfiguration - 
+
+Using generated security password: 05105331-6a60-4bc4-8716-f3d9df229199
+
+This generated password is for development use only. Your security configuration must be updated before running your application in production.
+
+2024-01-25 19:25:22.985 [Test worker] INFO org.springframework.security.web.DefaultSecurityFilterChain - Will secure any request with [org.springframework.security.web.session.DisableEncodeUrlFilter@2a504ea7, org.springframework.security.web.context.request.async.WebAsyncManagerIntegrationFilter@10f397d0, org.springframework.security.web.context.SecurityContextHolderFilter@1805ca5c, org.springframework.security.web.header.HeaderWriterFilter@29a1ec65, org.springframework.web.filter.CorsFilter@33a3e5db, org.springframework.security.web.csrf.CsrfFilter@2d8087da, org.springframework.security.web.authentication.logout.LogoutFilter@1be52113, org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter@240f2efd, org.springframework.security.web.authentication.ui.DefaultLoginPageGeneratingFilter@25e796fe, org.springframework.security.web.authentication.ui.DefaultLogoutPageGeneratingFilter@4f9213d2, org.springframework.security.web.authentication.www.BasicAuthenticationFilter@7eebb316, org.springframework.security.web.savedrequest.RequestCacheAwareFilter@3134b261, org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestFilter@aa633e6, org.springframework.security.web.authentication.AnonymousAuthenticationFilter@679f59f1, org.springframework.security.web.access.ExceptionTranslationFilter@647af13d, org.springframework.security.web.access.intercept.AuthorizationFilter@204c5ddf]
+2024-01-25 19:25:23.100 [Test worker] INFO org.springframework.boot.test.mock.web.SpringBootMockServletContext - Initializing Spring TestDispatcherServlet ''
+2024-01-25 19:25:23.102 [Test worker] INFO org.springframework.test.web.servlet.TestDispatcherServlet - Initializing Servlet ''
+2024-01-25 19:25:23.114 [Test worker] INFO org.springframework.test.web.servlet.TestDispatcherServlet - Completed initialization in 11 ms
+2024-01-25 19:25:23.201 [Test worker] INFO com.chatty.controller.check.AuthCheckControllerTest - Started AuthCheckControllerTest in 11.043 seconds (process running for 14.073)
+2024-01-25 19:25:23.512 [Test worker] INFO com.chatty.interceptor.RateLimitInterceptor - remaining token : 20
+2024-01-25 19:25:23.700 [Test worker] INFO com.chatty.controller.check.AuthCheckController - [AuthCheckController/checkBirth] 닉네임 문제 획득
+2024-01-25 19:25:23.887 [Test worker] INFO com.chatty.interceptor.RateLimitInterceptor - remaining token : 19
+2024-01-25 19:25:23.908 [Test worker] INFO com.chatty.controller.check.AuthCheckController - [AuthCheckController/checkBirth] 닉네임 확인
+2024-01-25 19:25:23.974 [Test worker] INFO com.chatty.interceptor.RateLimitInterceptor - remaining token : 18
+2024-01-25 19:25:24.158 [Test worker] INFO com.chatty.interceptor.RateLimitInterceptor - remaining token : 17
+2024-01-25 19:25:24.234 [Test worker] INFO com.chatty.interceptor.RateLimitInterceptor - remaining token : 16
+2024-01-25 19:25:24.290 [Test worker] INFO com.chatty.interceptor.RateLimitInterceptor - remaining token : 15
+2024-01-25 19:25:24.293 [Test worker] INFO com.chatty.controller.check.AuthCheckController - [AuthCheckController/complete] 계정 확인 완료
+2024-01-25 19:25:24.380 [Test worker] INFO com.chatty.interceptor.RateLimitInterceptor - remaining token : 14
+2024-01-25 19:25:24.385 [Test worker] INFO com.chatty.controller.check.AuthCheckController - [AuthCheckController/checkBirth] 출생 연도 월일 확인
+2024-01-25 19:25:24.448 [Test worker] INFO com.chatty.interceptor.RateLimitInterceptor - remaining token : 13
+2024-01-25 19:25:24.455 [Test worker] INFO com.chatty.controller.check.AuthCheckController - [AuthCheckController/checkBirth] 출생 년도 문제 획득
+2024-01-25 19:25:24.504 [Test worker] INFO com.chatty.interceptor.RateLimitInterceptor - remaining token : 12
+2024-01-25 19:25:24.573 [Test worker] INFO com.chatty.interceptor.RateLimitInterceptor - remaining token : 11
+2024-01-25 19:25:24.610 [Test worker] INFO com.chatty.interceptor.RateLimitInterceptor - remaining token : 10
+2024-01-25 19:25:24.654 [Test worker] INFO com.chatty.interceptor.RateLimitInterceptor - remaining token : 9
+2024-01-25 19:25:24.686 [Test worker] INFO com.chatty.interceptor.RateLimitInterceptor - remaining token : 8
+2024-01-25 19:26:50.239 [background-preinit] INFO org.hibernate.validator.internal.util.Version - HV000001: Hibernate Validator 8.0.1.Final
+2024-01-25 19:26:50.334 [Test worker] INFO com.chatty.controller.check.AuthCheckControllerTest - Starting AuthCheckControllerTest using Java 18.0.2 with PID 64518 (started by developer in /Users/developer/IdeaProjects/Chatty-Backend)
+2024-01-25 19:26:50.338 [Test worker] INFO com.chatty.controller.check.AuthCheckControllerTest - No active profile set, falling back to 1 default profile: "default"
+2024-01-25 19:26:57.054 [Test worker] INFO org.springframework.boot.autoconfigure.web.servlet.WelcomePageHandlerMapping - Adding welcome page: class path resource [static/index.html]
+2024-01-25 19:27:01.509 [Test worker] WARN org.springframework.boot.autoconfigure.security.servlet.UserDetailsServiceAutoConfiguration - 
+
+Using generated security password: be9b2503-5807-429f-99ec-14665b7bdbd6
+
+This generated password is for development use only. Your security configuration must be updated before running your application in production.
+
+2024-01-25 19:27:01.762 [Test worker] INFO org.springframework.security.web.DefaultSecurityFilterChain - Will secure any request with [org.springframework.security.web.session.DisableEncodeUrlFilter@5e1a7d3, org.springframework.security.web.context.request.async.WebAsyncManagerIntegrationFilter@1eda309d, org.springframework.security.web.context.SecurityContextHolderFilter@25e796fe, org.springframework.security.web.header.HeaderWriterFilter@c697186, org.springframework.web.filter.CorsFilter@248d2cec, org.springframework.security.web.csrf.CsrfFilter@15bb8ed5, org.springframework.security.web.authentication.logout.LogoutFilter@54caeadc, org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter@6081f330, org.springframework.security.web.authentication.ui.DefaultLoginPageGeneratingFilter@30eb55c9, org.springframework.security.web.authentication.ui.DefaultLogoutPageGeneratingFilter@5d77be8e, org.springframework.security.web.authentication.www.BasicAuthenticationFilter@47ffa248, org.springframework.security.web.savedrequest.RequestCacheAwareFilter@29ba63f0, org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestFilter@4822ab4d, org.springframework.security.web.authentication.AnonymousAuthenticationFilter@55a055cc, org.springframework.security.web.access.ExceptionTranslationFilter@aa633e6, org.springframework.security.web.access.intercept.AuthorizationFilter@1b841e7d]
+2024-01-25 19:27:01.948 [Test worker] INFO org.springframework.boot.test.mock.web.SpringBootMockServletContext - Initializing Spring TestDispatcherServlet ''
+2024-01-25 19:27:01.950 [Test worker] INFO org.springframework.test.web.servlet.TestDispatcherServlet - Initializing Servlet ''
+2024-01-25 19:27:01.957 [Test worker] INFO org.springframework.test.web.servlet.TestDispatcherServlet - Completed initialization in 5 ms
+2024-01-25 19:27:02.156 [Test worker] INFO com.chatty.controller.check.AuthCheckControllerTest - Started AuthCheckControllerTest in 13.117 seconds (process running for 16.15)
+2024-01-25 19:27:02.822 [Test worker] INFO com.chatty.interceptor.RateLimitInterceptor - remaining token : 20
+2024-01-25 19:28:24.381 [background-preinit] INFO org.hibernate.validator.internal.util.Version - HV000001: Hibernate Validator 8.0.1.Final
+2024-01-25 19:28:24.439 [Test worker] INFO com.chatty.controller.check.AuthCheckControllerTest - Starting AuthCheckControllerTest using Java 18.0.2 with PID 64707 (started by developer in /Users/developer/IdeaProjects/Chatty-Backend)
+2024-01-25 19:28:24.442 [Test worker] INFO com.chatty.controller.check.AuthCheckControllerTest - No active profile set, falling back to 1 default profile: "default"
+2024-01-25 19:28:30.004 [Test worker] INFO org.springframework.boot.autoconfigure.web.servlet.WelcomePageHandlerMapping - Adding welcome page: class path resource [static/index.html]
+2024-01-25 19:28:33.518 [Test worker] WARN org.springframework.boot.autoconfigure.security.servlet.UserDetailsServiceAutoConfiguration - 
+
+Using generated security password: 367ff38e-28a0-4c0a-a6ee-eb703c264c53
+
+This generated password is for development use only. Your security configuration must be updated before running your application in production.
+
+2024-01-25 19:28:33.865 [Test worker] INFO org.springframework.security.web.DefaultSecurityFilterChain - Will secure any request with [org.springframework.security.web.session.DisableEncodeUrlFilter@177068db, org.springframework.security.web.context.request.async.WebAsyncManagerIntegrationFilter@60f3239f, org.springframework.security.web.context.SecurityContextHolderFilter@5badeda0, org.springframework.security.web.header.HeaderWriterFilter@6d4c18b8, org.springframework.web.filter.CorsFilter@6b103db7, org.springframework.security.web.csrf.CsrfFilter@c697186, org.springframework.security.web.authentication.logout.LogoutFilter@53df7e67, org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter@37753b69, org.springframework.security.web.authentication.ui.DefaultLoginPageGeneratingFilter@61d7bb61, org.springframework.security.web.authentication.ui.DefaultLogoutPageGeneratingFilter@b3042ed, org.springframework.security.web.authentication.www.BasicAuthenticationFilter@7f3e9acc, org.springframework.security.web.savedrequest.RequestCacheAwareFilter@1dd247b, org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestFilter@338270ea, org.springframework.security.web.authentication.AnonymousAuthenticationFilter@1f12d5e0, org.springframework.security.web.access.ExceptionTranslationFilter@7d6019d5, org.springframework.security.web.access.intercept.AuthorizationFilter@57167ccb]
+2024-01-25 19:28:34.010 [Test worker] INFO org.springframework.boot.test.mock.web.SpringBootMockServletContext - Initializing Spring TestDispatcherServlet ''
+2024-01-25 19:28:34.013 [Test worker] INFO org.springframework.test.web.servlet.TestDispatcherServlet - Initializing Servlet ''
+2024-01-25 19:28:34.019 [Test worker] INFO org.springframework.test.web.servlet.TestDispatcherServlet - Completed initialization in 5 ms
+2024-01-25 19:28:34.104 [Test worker] INFO com.chatty.controller.check.AuthCheckControllerTest - Started AuthCheckControllerTest in 10.648 seconds (process running for 13.811)
+2024-01-25 19:28:34.335 [Test worker] INFO com.chatty.interceptor.RateLimitInterceptor - remaining token : 20
