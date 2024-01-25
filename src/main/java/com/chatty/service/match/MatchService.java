@@ -34,6 +34,10 @@ public class MatchService {
 
         LocalDateTime now = LocalDateTime.now();
 
+        if (request.getBlueCheck()) {
+            validateBlueCheck(user);
+        }
+
         validateDailyMatchingLimit(user, now);
 
         int age = calculateUserAge(user);
@@ -59,11 +63,13 @@ public class MatchService {
         attributes.put("userId", matchResponse.getUserId());
         attributes.put("nickname", matchResponse.getNickname());
         attributes.put("gender", matchResponse.getGender());
+        attributes.put("isBlueCheck", matchResponse.isBlueCheck());
         attributes.put("requestGender", matchResponse.getRequestGender());
         attributes.put("age", matchResponse.getAge());
         attributes.put("requestMinAge", matchResponse.getRequestMinAge());
         attributes.put("requestMaxAge", matchResponse.getRequestMaxAge());
         attributes.put("category", matchResponse.getRequestCategory());
+        attributes.put("requestBlueCheck", matchResponse.isRequestBlueCheck());
     }
 
     private int calculateUserAge(final User user) {
@@ -86,6 +92,12 @@ public class MatchService {
             if (matchesCount >= 10) {
                 throw new CustomException(Code.MATCH_LIMIT_EXCEEDED);
             }
+        }
+    }
+
+    private void validateBlueCheck(final User user) {
+        if (!user.isBlueCheck()) {
+            throw new CustomException(Code.NOT_BLUECHECK_USER);
         }
     }
 }

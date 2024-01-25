@@ -69,6 +69,8 @@ public class User extends CommonEntity implements UserDetails{
 
     private String deviceToken;
 
+    private boolean blueCheck;
+
     public void joinComplete(final User request) {
         this.nickname = request.getNickname();
         this.location = request.getLocation();

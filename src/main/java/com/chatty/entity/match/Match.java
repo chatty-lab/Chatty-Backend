@@ -36,9 +36,10 @@ public class Match {
 
     private LocalDateTime registeredDateTime;
     private boolean isSuccess;
+    private boolean isBlueCheck;
 
     @Builder
-    public Match(final int minAge, final int maxAge, final Gender gender, final Double scope, final String category, final User user, final LocalDateTime registeredDateTime, final boolean isSuccess) {
+    public Match(final int minAge, final int maxAge, final Gender gender, final Double scope, final String category, final User user, final LocalDateTime registeredDateTime, final boolean isSuccess, final boolean isBlueCheck) {
         this.minAge = minAge;
         this.maxAge = maxAge;
         this.gender = gender;
@@ -47,6 +48,7 @@ public class Match {
         this.user = user;
         this.registeredDateTime = registeredDateTime;
         this.isSuccess = isSuccess;
+        this.isBlueCheck = isBlueCheck;
     }
 
     public void updateIsSuccess() {
