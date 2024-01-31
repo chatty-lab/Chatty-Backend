@@ -37,6 +37,7 @@ public class SecurityConfig {
                                 .requestMatchers("/reviews/home").hasRole("USER")
                                 .requestMatchers("/reviews/**").authenticated()
                         .requestMatchers("/chat/**").authenticated()
+                        .requestMatchers("/post/**").authenticated()
                         .anyRequest().authenticated()
                 )
                 .addFilterBefore(new JwtTokenFilter(jwtTokenProvider,tokenValidator,userDetailsService), UsernamePasswordAuthenticationFilter.class)
