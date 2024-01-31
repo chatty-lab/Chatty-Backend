@@ -3,17 +3,22 @@ package com.chatty.entity.user;
 import com.chatty.constants.Authority;
 import com.chatty.entity.CommonEntity;
 import com.chatty.entity.check.AuthCheck;
+import com.chatty.entity.comment.Comment;
+import com.chatty.entity.post.Post;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.EnumType;
 import jakarta.persistence.Enumerated;
+import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.OneToMany;
 import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
 import jakarta.validation.constraints.NotBlank;
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 import lombok.AllArgsConstructor;
@@ -68,6 +73,12 @@ public class User extends CommonEntity implements UserDetails{
     private String imageUrl;
 
     private String deviceToken;
+
+    @OneToMany(fetch = FetchType.LAZY,mappedBy = "user")
+    private List<Post> posts = new ArrayList<>();
+
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "user")
+    private List<Comment> comments = new ArrayList<>();
 
     public void joinComplete(final User request) {
         this.nickname = request.getNickname();
