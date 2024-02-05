@@ -1,0 +1,1 @@
+2024-02-05 20:20:49.539 [http-nio-8080-exec-3] ERROR com.chatty.service.user.UserService - 이미 존재 하는 유저 입니다.
