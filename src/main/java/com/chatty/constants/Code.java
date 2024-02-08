@@ -30,10 +30,10 @@ public enum Code {
     NOT_EXIST_AUTHCHECK(HttpStatus.BAD_REQUEST, "계정 확인 이력이 존재하지 않습니다.", "E-020"),
     NOT_CHECK_ALL_QUESTION(HttpStatus.BAD_REQUEST, "계정 확인 질문을 전부 완료해야 합니다.","E-021"),
     NOT_BLUECHECK_USER(HttpStatus.UNAUTHORIZED, "프로필 인증이 되어있지 않습니다.", "E-022"),
+    INVALID_DEVICE_NUMER(HttpStatus.BAD_REQUEST, "유효하지 않은 디바이스 번호입니다.","E-023"),
 
     // ratelimit
     TOO_MANY_REQUESTS(HttpStatus.TOO_MANY_REQUESTS, "너무 많은 요청을 보냈습니다.","E-098");
-
 
     private final HttpStatus httpStatus;
     private final String message;
