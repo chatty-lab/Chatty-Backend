@@ -3,7 +3,6 @@ package com.chatty.service.match;
 import com.chatty.constants.Code;
 import com.chatty.dto.match.request.MatchRequest;
 import com.chatty.dto.match.response.MatchResponse;
-import com.chatty.dto.user.response.UserResponse;
 import com.chatty.entity.match.Match;
 import com.chatty.entity.user.Gender;
 import com.chatty.entity.user.User;
@@ -11,6 +10,7 @@ import com.chatty.exception.CustomException;
 import com.chatty.repository.match.MatchRepository;
 import com.chatty.repository.user.UserRepository;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.socket.WebSocketSession;
@@ -19,6 +19,7 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.Map;
 
+@Slf4j
 @RequiredArgsConstructor
 @Transactional(readOnly = true)
 @Service
@@ -77,6 +78,9 @@ public class MatchService {
     }
 
     private void validateDailyMatchingLimit(final User user, final LocalDateTime now) {
+
+        log.info("validateDailyMatchingLimit : {}",user.getGender());
+
         Long matchesCount = matchRepository.countMatchesBy(
                 user.getId(),
                 now.toLocalDate().atStartOfDay(),

@@ -60,7 +60,7 @@ public class UserService {
 
         if(!user.getDeviceId().equals(userRequestDto.getDeviceId())){
             log.error("기기 번호가 일치하지 않습니다.");
-            throw new CustomException(Code.ALREADY_EXIST_USER);
+            throw new CustomException(Code.INVALID_DEVICE_NUMER);
         }
 
         deleteToken(JwtTokenUtils.getRefreshTokenUuid(userRequestDto.getMobileNumber(),userRequestDto.getDeviceId()));
