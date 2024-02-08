@@ -89,7 +89,7 @@ public class UserService {
 
             if(!user.getDeviceId().equals(userRequestDto.getDeviceId())){
                 log.error("이미 등록된 계정이 존재합니다.");
-                throw new CustomException(Code.ALREADY_EXIST_USER);
+                throw new CustomException(Code.INVALID_DEVICE_NUMER);
             }
         }
 
