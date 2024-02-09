@@ -94,10 +94,10 @@ public class MatchHandler extends TextWebSocketHandler {
             Long receiverId = Long.parseLong(connected.getAttributes().get("userId").toString());
 
             // 이미 매칭 기록이 존재하면 Skip
-            if (matchHistoryRepository.existsBySenderIdAndReceiverId(senderId, receiverId) ||
-                    matchHistoryRepository.existsBySenderIdAndReceiverId(receiverId, senderId)) {
-                continue;
-            }
+//            if (matchHistoryRepository.existsBySenderIdAndReceiverId(senderId, receiverId) ||
+//                    matchHistoryRepository.existsBySenderIdAndReceiverId(receiverId, senderId)) {
+//                continue;
+//            }
             //
 
             // 1. 내가 원하는 성별이 ALL일 경우
@@ -171,10 +171,10 @@ public class MatchHandler extends TextWebSocketHandler {
             String myCategory = session.getAttributes().get("category").toString();
             String yourCategory = connected.getAttributes().get("category").toString();
 
-            if (!myCategory.equals(yourCategory)) {
-                log.info("카테고리값이 서로 다릅니다.");
-                continue;
-            }
+//            if (!myCategory.equals(yourCategory)) {
+//                log.info("카테고리값이 서로 다릅니다.");
+//                continue;
+//            }
 
             System.out.println("카테고리 값이 일치합니다. 매칭되었습니다.");
 
