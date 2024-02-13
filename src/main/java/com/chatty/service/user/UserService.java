@@ -240,6 +240,16 @@ public class UserService {
         return UserResponse.of(user);
     }
 
+    @Transactional
+    public UserResponse updateAddress(final UserAddressRequest request, final String mobileNumber) {
+        User user = userRepository.findUserByMobileNumber(mobileNumber)
+                .orElseThrow(() -> new CustomException(Code.NOT_EXIST_USER));
+
+        user.updateAddress(request.getAddress());
+
+        return UserResponse.of(user);
+    }
+
     private void validateDuplicateNickname(final UserNicknameRequest request) {
         userRepository.findByNickname(request.getNickname())
                 .ifPresent(findUser -> {
@@ -269,5 +279,4 @@ public class UserService {
         log.info("유저가 유효한지 검사");
         return userRepository.findUserById(userId).orElseThrow(() -> new CustomException(Code.NOT_EXIST_USER));
     }
-
 }

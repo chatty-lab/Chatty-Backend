@@ -255,4 +255,9 @@ public class UserController {
         return ApiResponse.ok(userService.updateInterests(request, authentication.getName()));
     }
 
+    @PutMapping("/address")
+    public ApiResponse<UserResponse> updateAddress(@RequestBody @Valid UserAddressRequest request, Authentication authentication) {
+        return ApiResponse.ok(userService.updateAddress(request, authentication.getName()));
+    }
+
 }

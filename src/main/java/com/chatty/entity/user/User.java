@@ -120,6 +120,10 @@ public class User extends CommonEntity implements UserDetails{
         this.userInterests = userInterests;
     }
 
+    public void updateAddress(final String address) {
+        this.address = address;
+    }
+
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
         return List.of(new SimpleGrantedAuthority("ROLE_" + authority.name()));
