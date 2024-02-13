@@ -250,6 +250,16 @@ public class UserService {
         return UserResponse.of(user);
     }
 
+    @Transactional
+    public UserResponse updateJob(final UserJobRequest request, final String mobileNumber) {
+        User user = userRepository.findUserByMobileNumber(mobileNumber)
+                .orElseThrow(() -> new CustomException(Code.NOT_EXIST_USER));
+
+        user.updateJob(request.getJob());
+
+        return UserResponse.of(user);
+    }
+
     private void validateDuplicateNickname(final UserNicknameRequest request) {
         userRepository.findByNickname(request.getNickname())
                 .ifPresent(findUser -> {

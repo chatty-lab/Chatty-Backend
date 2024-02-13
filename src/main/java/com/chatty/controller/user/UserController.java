@@ -260,4 +260,9 @@ public class UserController {
         return ApiResponse.ok(userService.updateAddress(request, authentication.getName()));
     }
 
+    @PutMapping("/job")
+    public ApiResponse<UserResponse> updateJob(@RequestBody @Valid UserJobRequest request, Authentication authentication) {
+        return ApiResponse.ok(userService.updateJob(request, authentication.getName()));
+    }
+
 }

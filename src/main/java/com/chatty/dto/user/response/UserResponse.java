@@ -25,9 +25,10 @@ public class UserResponse {
     private Authority authority;
     private String imageUrl;
     private List<String> interests;
+    private String job;
 
     @Builder
-    public UserResponse(final Long id, final String mobileNumber, final String nickname, final LocalDate birth, final Gender gender, final Mbti mbti, final String address, final Authority authority, final String imageUrl, final List<String> interests) {
+    public UserResponse(final Long id, final String mobileNumber, final String nickname, final LocalDate birth, final Gender gender, final Mbti mbti, final String address, final Authority authority, final String imageUrl, final List<String> interests, final String job) {
         this.id = id;
         this.mobileNumber = mobileNumber;
         this.nickname = nickname;
@@ -38,6 +39,7 @@ public class UserResponse {
         this.authority = authority;
         this.imageUrl = imageUrl;
         this.interests = interests;
+        this.job = job;
     }
 
     public static UserResponse of(final User user) {
@@ -54,6 +56,7 @@ public class UserResponse {
                 .interests(user.getUserInterests().stream()
                         .map(i -> i.getInterest().getName())
                         .collect(Collectors.toList()))
+                .job(user.getJob())
                 .build();
     }
 }

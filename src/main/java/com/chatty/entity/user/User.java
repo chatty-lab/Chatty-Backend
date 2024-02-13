@@ -124,6 +124,10 @@ public class User extends CommonEntity implements UserDetails{
         this.address = address;
     }
 
+    public void updateJob(final String job) {
+        this.job = job;
+    }
+
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
         return List.of(new SimpleGrantedAuthority("ROLE_" + authority.name()));
