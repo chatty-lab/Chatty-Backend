@@ -1,6 +1,5 @@
 package com.chatty.dto.chat.response;
 
-import com.chatty.entity.chat.ChatMessage;
 import jakarta.validation.constraints.NotBlank;
 import java.util.List;
 import lombok.AllArgsConstructor;
@@ -15,9 +14,9 @@ import lombok.NoArgsConstructor;
 public class MultipleMessageResponseDto {
 
     @NotBlank(message = "content(내용)은 필수로 입력해야 합니다.")
-    private List<ChatMessage> contents;
+    private List<ChatMessageDto> contents;
 
-    public static MultipleMessageResponseDto of(List<ChatMessage> messages){
+    public static MultipleMessageResponseDto of(List<ChatMessageDto> messages){
         return MultipleMessageResponseDto.builder()
                 .contents(messages)
                 .build();
