@@ -3,19 +3,14 @@ package com.chatty.entity.user;
 import com.chatty.constants.Authority;
 import com.chatty.entity.CommonEntity;
 import com.chatty.entity.check.AuthCheck;
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.EnumType;
-import jakarta.persistence.Enumerated;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
-import jakarta.persistence.OneToOne;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
 import java.time.LocalDate;
 import java.util.Collection;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
+
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
@@ -61,6 +56,14 @@ public class User extends CommonEntity implements UserDetails{
     private Point location;
 
     private String address;
+
+    // TODO: 주소, 직업, 학교, 관심사
+    private String job;
+
+    private String school;
+
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
+    private Set<UserInterest> userInterests = new HashSet<>();
 
     @Enumerated(EnumType.STRING)
     private Authority authority;
@@ -111,6 +114,10 @@ public class User extends CommonEntity implements UserDetails{
     public static Point createPoint(final Coordinate coordinate) {
         GeometryFactory geometryFactory = new GeometryFactory(new PrecisionModel(), 4326);
         return geometryFactory.createPoint(new org.locationtech.jts.geom.Coordinate(coordinate.getLng(), coordinate.getLat()));
+    }
+
+    public void updateInterests(final Set<UserInterest> userInterests) {
+        this.userInterests = userInterests;
     }
 
     @Override
