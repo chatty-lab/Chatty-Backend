@@ -62,6 +62,8 @@ public class User extends CommonEntity implements UserDetails{
 
     private String school;
 
+    private String introduce;
+
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
     private Set<UserInterest> userInterests = new HashSet<>();
 
@@ -130,6 +132,10 @@ public class User extends CommonEntity implements UserDetails{
 
     public void updateSchool(final String school) {
         this.school = school;
+    }
+
+    public void updateIntroduce(final String introduce) {
+        this.introduce = introduce;
     }
 
     @Override

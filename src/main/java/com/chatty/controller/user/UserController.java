@@ -270,4 +270,9 @@ public class UserController {
         return ApiResponse.ok(userService.updateSchool(request, authentication.getName()));
     }
 
+    @PutMapping("/introduce")
+    public ApiResponse<UserResponse> updateIntroduce(@RequestBody @Valid UserIntroduceRequest request, Authentication authentication) {
+        return ApiResponse.ok(userService.updateIntroduce(request, authentication.getName()));
+    }
+
 }

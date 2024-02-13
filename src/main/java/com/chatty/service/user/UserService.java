@@ -270,6 +270,16 @@ public class UserService {
         return UserResponse.of(user);
     }
 
+    @Transactional
+    public UserResponse updateIntroduce(final UserIntroduceRequest request, final String mobileNumber) {
+        User user = userRepository.findUserByMobileNumber(mobileNumber)
+                .orElseThrow(() -> new CustomException(Code.NOT_EXIST_USER));
+
+        user.updateIntroduce(request.getIntroduce());
+
+        return UserResponse.of(user);
+    }
+
     private void validateDuplicateNickname(final UserNicknameRequest request) {
         userRepository.findByNickname(request.getNickname())
                 .ifPresent(findUser -> {
