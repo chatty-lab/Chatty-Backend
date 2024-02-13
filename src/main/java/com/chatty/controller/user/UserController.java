@@ -265,4 +265,9 @@ public class UserController {
         return ApiResponse.ok(userService.updateJob(request, authentication.getName()));
     }
 
+    @PutMapping("/school")
+    public ApiResponse<UserResponse> updateSchool(@RequestBody @Valid UserSchoolRequest request, Authentication authentication) {
+        return ApiResponse.ok(userService.updateSchool(request, authentication.getName()));
+    }
+
 }

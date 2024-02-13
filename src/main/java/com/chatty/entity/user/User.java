@@ -128,6 +128,10 @@ public class User extends CommonEntity implements UserDetails{
         this.job = job;
     }
 
+    public void updateSchool(final String school) {
+        this.school = school;
+    }
+
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
         return List.of(new SimpleGrantedAuthority("ROLE_" + authority.name()));
