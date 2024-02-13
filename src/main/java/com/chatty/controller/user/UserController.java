@@ -250,26 +250,31 @@ public class UserController {
         return ApiResponse.ok(userService.updateDeviceToken(authentication.getName(), request));
     }
 
+    @Operation(summary = "관심사 변경", description = "관심사를 변경합니다.")
     @PutMapping("/interests")
     public ApiResponse<UserResponse> updateInterest(@RequestBody @Valid InterestRequest request, Authentication authentication) {
         return ApiResponse.ok(userService.updateInterests(request, authentication.getName()));
     }
 
+    @Operation(summary = "주소 변경", description = "주소를 변경합니다.")
     @PutMapping("/address")
     public ApiResponse<UserResponse> updateAddress(@RequestBody @Valid UserAddressRequest request, Authentication authentication) {
         return ApiResponse.ok(userService.updateAddress(request, authentication.getName()));
     }
 
+    @Operation(summary = "직업 변경", description = "직업을 변경합니다.")
     @PutMapping("/job")
     public ApiResponse<UserResponse> updateJob(@RequestBody @Valid UserJobRequest request, Authentication authentication) {
         return ApiResponse.ok(userService.updateJob(request, authentication.getName()));
     }
 
+    @Operation(summary = "학교 변경", description = "학교를 변경합니다.")
     @PutMapping("/school")
     public ApiResponse<UserResponse> updateSchool(@RequestBody @Valid UserSchoolRequest request, Authentication authentication) {
         return ApiResponse.ok(userService.updateSchool(request, authentication.getName()));
     }
 
+    @Operation(summary = "자기소개 변경", description = "자기소개를 변경합니다.")
     @PutMapping("/introduce")
     public ApiResponse<UserResponse> updateIntroduce(@RequestBody @Valid UserIntroduceRequest request, Authentication authentication) {
         return ApiResponse.ok(userService.updateIntroduce(request, authentication.getName()));
