@@ -42,9 +42,6 @@ public class ChatServiceTest {
     @Mock
     private UserRepository userRepository;
 
-    @Mock
-    private UserService userService;
-
     @Test
     @DisplayName("메시지를 저장한다.")
     void saveMessage() throws Exception {
@@ -166,12 +163,15 @@ public class ChatServiceTest {
     @DisplayName("메시지 목록을 가져온다.")
     void getMessages() throws Exception{
         //given
-        UnreadMessageDto unreadMessageDto = UnreadMessageDto.builder().senderId(1L).receiverId(2L).roomId(1L).build();
-        ChatMessage chatMessage1 = ChatMessage.builder().messageId(1L).build();
-        ChatMessage chatMessage2 = ChatMessage.builder().messageId(2L).build();
+        UnreadMessageDto unreadMessageDto = UnreadMessageDto.builder().roomId(1L).build();
+        User sender = User.builder().id(1L).build();
+        User receiver = User.builder().id(2L).build();
+        ChatRoom chatRoom = ChatRoom.builder().roomId(1L).build();
 
-        when(userService.validateExistUser(anyLong())).thenReturn(User.builder().id(1L).build());
-        when(messageRepository.findByIsReadFalseAndReceiverAndSenderOrderBySendTimeDesc(any(),any())).thenReturn(Optional.of(
+        ChatMessage chatMessage1 = ChatMessage.builder().messageId(1L).sender(sender).receiver(receiver).chatRoom(chatRoom).build();
+        ChatMessage chatMessage2 = ChatMessage.builder().messageId(2L).sender(sender).receiver(receiver).chatRoom(chatRoom).build();
+
+        when(messageRepository.findByIsReadFalseAndChatRoomRoomIdOrderBySendTimeDesc(anyLong())).thenReturn(Optional.of(
                 List.of(chatMessage1,chatMessage2)));
 
         //when
@@ -185,26 +185,11 @@ public class ChatServiceTest {
     }
 
     @Test
-    @DisplayName("메시지 목록을 가져올때, 사용자가 존재하지 않으면 예외가 발생한다.")
-    void getMessagesNotExistedUser() throws Exception{
-        //given
-        UnreadMessageDto unreadMessageDto = UnreadMessageDto.builder().senderId(1L).receiverId(2L).roomId(1L).build();
-        when(userService.validateExistUser(anyLong())).thenThrow(new CustomException(Code.NOT_EXIST_USER));
-
-        //when,then
-        assertThatThrownBy(() -> chatService.getMessages(unreadMessageDto))
-                .isInstanceOf(CustomException.class)
-                .hasMessage("존재 하지 않는 유저 입니다.");
-    }
-
-    @Test
     @DisplayName("메시지 목록을 가져올때, 메시지가 존재하지 않으면 예외가 발생한다.")
     void getMessagesNotFoundMessages() throws Exception{
         //given
-        UnreadMessageDto unreadMessageDto = UnreadMessageDto.builder().senderId(1L).receiverId(2L).roomId(1L).build();
-
-        when(userService.validateExistUser(anyLong())).thenReturn(User.builder().id(1L).build());
-        when(messageRepository.findByIsReadFalseAndReceiverAndSenderOrderBySendTimeDesc(any(),any())).thenThrow(new CustomException(Code.NOT_FOUND_CHAT_MESSAGE));
+        UnreadMessageDto unreadMessageDto = UnreadMessageDto.builder().roomId(1L).build();
+        when(messageRepository.findByIsReadFalseAndChatRoomRoomIdOrderBySendTimeDesc(1L)).thenThrow(new CustomException(Code.NOT_FOUND_CHAT_MESSAGE));
 
         //when, then
         assertThatThrownBy(() -> chatService.getMessages(unreadMessageDto))

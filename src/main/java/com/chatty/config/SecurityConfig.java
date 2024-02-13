@@ -36,11 +36,9 @@ public class SecurityConfig {
                 .authorizeHttpRequests(authorize -> authorize
                                 .requestMatchers("/reviews/home").hasRole("USER")
                                 .requestMatchers("/reviews/**").authenticated()
-                        .requestMatchers("/chat/**").authenticated()
                         .anyRequest().authenticated()
                 )
                 .addFilterBefore(new JwtTokenFilter(jwtTokenProvider,tokenValidator,userDetailsService), UsernamePasswordAuthenticationFilter.class)
-
                 .exceptionHandling(exception -> exception
                         .authenticationEntryPoint(new JwtAuthenticationEntryPoint())
                         .accessDeniedHandler(new CustomAccessDeniedHandler(HttpStatus.FORBIDDEN)))

@@ -68,6 +68,7 @@ public class MessageController {
     )
     @PostMapping("/chat/messages")
     public ApiResponse<MultipleMessageResponseDto> getMessages(@RequestBody UnreadMessageDto unreadMessageDto){
+        log.info("메시지 가져오기");
         return ApiResponse.ok(chatService.getMessages(unreadMessageDto));
     }
 
