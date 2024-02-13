@@ -1,6 +1,7 @@
 package com.chatty.controller.user;
 
 import com.chatty.dto.ApiResponse;
+import com.chatty.dto.interest.request.InterestRequest;
 import com.chatty.dto.user.request.*;
 import com.chatty.dto.user.response.UserResponse;
 import com.chatty.dto.user.response.UserResponseDto;
@@ -18,6 +19,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
+import java.util.List;
 
 @Slf4j
 @RestController
@@ -247,4 +249,10 @@ public class UserController {
     public ApiResponse<String> updateDeviceToken(@RequestBody @Valid UserDeviceTokenRequest request, final Authentication authentication) {
         return ApiResponse.ok(userService.updateDeviceToken(authentication.getName(), request));
     }
+
+    @PutMapping("/interests")
+    public ApiResponse<UserResponse> updateInterest(@RequestBody @Valid InterestRequest request, Authentication authentication) {
+        return ApiResponse.ok(userService.updateInterests(request, authentication.getName()));
+    }
+
 }
