@@ -1,13 +1,18 @@
 package com.chatty.service.user;
 
 import com.chatty.constants.Code;
+import com.chatty.dto.interest.request.InterestRequest;
+import com.chatty.dto.interest.response.InterestResponse;
 import com.chatty.dto.user.request.*;
 import com.chatty.dto.user.response.UserResponse;
 import com.chatty.dto.user.response.UserResponseDto;
 import com.chatty.constants.Authority;
+import com.chatty.entity.user.Interest;
 import com.chatty.entity.user.User;
+import com.chatty.entity.user.UserInterest;
 import com.chatty.exception.CustomException;
 import com.chatty.jwt.JwtTokenProvider;
+import com.chatty.repository.interest.InterestRepository;
 import com.chatty.repository.token.RefreshTokenRepository;
 import com.chatty.repository.user.UserRepository;
 import com.chatty.service.sms.SmsService;
@@ -16,8 +21,8 @@ import com.chatty.utils.S3Service;
 import com.chatty.utils.sms.SmsUtils;
 
 import java.io.IOException;
-import java.util.HashMap;
-import java.util.Map;
+import java.util.*;
+
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
@@ -34,6 +39,7 @@ public class UserService {
     private final RefreshTokenRepository refreshTokenRepository;
     private final SmsService smsService;
     private final S3Service s3Service;
+    private final InterestRepository interestRepository;
 
     private static final String ACCESS_TOKEN = "accessToken";
     private static final String REFRESH_TOKEN = "refreshToken";
@@ -46,10 +52,10 @@ public class UserService {
         String key = SmsUtils.makeKey(userRequestDto.getMobileNumber(), userRequestDto.getDeviceId());
         String authNumber = userRequestDto.getAuthenticationNumber();
 
-        if(!smsService.checkAuthNumber(key,authNumber)){
-            log.error("인증 번호가 일치하지 않는다.");
-            throw new CustomException(Code.INVALID_AUTH_NUMBER);
-        }
+//        if(!smsService.checkAuthNumber(key,authNumber)){
+//            log.error("인증 번호가 일치하지 않는다.");
+//            throw new CustomException(Code.INVALID_AUTH_NUMBER);
+//        }
 
         if(!isAlreadyExistedUser(userRequestDto.getMobileNumber())) {
             log.error("존재 하지 않는 유저 입니다.");
@@ -63,7 +69,7 @@ public class UserService {
             throw new CustomException(Code.INVALID_DEVICE_NUMER);
         }
 
-        deleteToken(JwtTokenUtils.getRefreshTokenUuid(userRequestDto.getMobileNumber(),userRequestDto.getDeviceId()));
+//        deleteToken(JwtTokenUtils.getRefreshTokenUuid(userRequestDto.getMobileNumber(),userRequestDto.getDeviceId()));
         Map<String,String> tokens = createTokens(userRequestDto.getMobileNumber(), userRequestDto.getDeviceId());
         return UserResponseDto.of(tokens.get(ACCESS_TOKEN), tokens.get(REFRESH_TOKEN));
     }
@@ -78,10 +84,10 @@ public class UserService {
         String key = SmsUtils.makeKey(userRequestDto.getMobileNumber(), userRequestDto.getDeviceId());
         String authNumber = userRequestDto.getAuthenticationNumber();
 
-        if(!smsService.checkAuthNumber(key,authNumber)){
-            log.error("인증 번호가 일치하지 않는다.");
-            throw new CustomException(Code.INVALID_AUTH_NUMBER);
-        }
+//        if(!smsService.checkAuthNumber(key,authNumber)){
+//            log.error("인증 번호가 일치하지 않는다.");
+//            throw new CustomException(Code.INVALID_AUTH_NUMBER);
+//        }
 
         if(isExistedUser){
             log.error("이미 존재 하는 유저 입니다.");
@@ -208,6 +214,70 @@ public class UserService {
         User user = userRepository.findUserByMobileNumber(mobileNumber).orElseThrow(() -> new CustomException(Code.NOT_EXIST_USER));
         user.updateDeviceToken(request.getDeviceToken());
         return "deviceToken이 업데이트 되었습니다.";
+    }
+
+    @Transactional
+    public UserResponse updateInterests(InterestRequest request, String mobileNumber) {
+        User user = userRepository.findUserByMobileNumber(mobileNumber)
+                .orElseThrow(() -> new CustomException(Code.NOT_EXIST_USER));
+
+        user.getUserInterests().clear();
+//        Set<UserInterest> newInterests = new HashSet<>();
+        for (Long interestId : request.getInterests()) {
+            Interest interest = interestRepository.findById(interestId)
+                    .orElseThrow(() -> new CustomException(Code.NOT_BLUECHECK_USER));
+
+            UserInterest userInterest = UserInterest.builder()
+                    .user(user)
+                    .interest(interest)
+                    .build();
+//            newInterests.add(userInterest);
+            user.getUserInterests().add(userInterest);
+        }
+//        user.updateInterests(newInterests);
+        userRepository.save(user);
+
+        return UserResponse.of(user);
+    }
+
+    @Transactional
+    public UserResponse updateAddress(final UserAddressRequest request, final String mobileNumber) {
+        User user = userRepository.findUserByMobileNumber(mobileNumber)
+                .orElseThrow(() -> new CustomException(Code.NOT_EXIST_USER));
+
+        user.updateAddress(request.getAddress());
+
+        return UserResponse.of(user);
+    }
+
+    @Transactional
+    public UserResponse updateJob(final UserJobRequest request, final String mobileNumber) {
+        User user = userRepository.findUserByMobileNumber(mobileNumber)
+                .orElseThrow(() -> new CustomException(Code.NOT_EXIST_USER));
+
+        user.updateJob(request.getJob());
+
+        return UserResponse.of(user);
+    }
+
+    @Transactional
+    public UserResponse updateSchool(final UserSchoolRequest request, final String mobileNumber) {
+        User user = userRepository.findUserByMobileNumber(mobileNumber)
+                .orElseThrow(() -> new CustomException(Code.NOT_EXIST_USER));
+
+        user.updateSchool(request.getSchool());
+
+        return UserResponse.of(user);
+    }
+
+    @Transactional
+    public UserResponse updateIntroduce(final UserIntroduceRequest request, final String mobileNumber) {
+        User user = userRepository.findUserByMobileNumber(mobileNumber)
+                .orElseThrow(() -> new CustomException(Code.NOT_EXIST_USER));
+
+        user.updateIntroduce(request.getIntroduce());
+
+        return UserResponse.of(user);
     }
 
     private void validateDuplicateNickname(final UserNicknameRequest request) {

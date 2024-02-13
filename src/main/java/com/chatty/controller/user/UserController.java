@@ -1,6 +1,7 @@
 package com.chatty.controller.user;
 
 import com.chatty.dto.ApiResponse;
+import com.chatty.dto.interest.request.InterestRequest;
 import com.chatty.dto.user.request.*;
 import com.chatty.dto.user.response.UserResponse;
 import com.chatty.dto.user.response.UserResponseDto;
@@ -18,6 +19,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
+import java.util.List;
 
 @Slf4j
 @RestController
@@ -247,4 +249,35 @@ public class UserController {
     public ApiResponse<String> updateDeviceToken(@RequestBody @Valid UserDeviceTokenRequest request, final Authentication authentication) {
         return ApiResponse.ok(userService.updateDeviceToken(authentication.getName(), request));
     }
+
+    @Operation(summary = "관심사 변경", description = "관심사를 변경합니다.")
+    @PutMapping("/interests")
+    public ApiResponse<UserResponse> updateInterest(@RequestBody @Valid InterestRequest request, Authentication authentication) {
+        return ApiResponse.ok(userService.updateInterests(request, authentication.getName()));
+    }
+
+    @Operation(summary = "주소 변경", description = "주소를 변경합니다.")
+    @PutMapping("/address")
+    public ApiResponse<UserResponse> updateAddress(@RequestBody @Valid UserAddressRequest request, Authentication authentication) {
+        return ApiResponse.ok(userService.updateAddress(request, authentication.getName()));
+    }
+
+    @Operation(summary = "직업 변경", description = "직업을 변경합니다.")
+    @PutMapping("/job")
+    public ApiResponse<UserResponse> updateJob(@RequestBody @Valid UserJobRequest request, Authentication authentication) {
+        return ApiResponse.ok(userService.updateJob(request, authentication.getName()));
+    }
+
+    @Operation(summary = "학교 변경", description = "학교를 변경합니다.")
+    @PutMapping("/school")
+    public ApiResponse<UserResponse> updateSchool(@RequestBody @Valid UserSchoolRequest request, Authentication authentication) {
+        return ApiResponse.ok(userService.updateSchool(request, authentication.getName()));
+    }
+
+    @Operation(summary = "자기소개 변경", description = "자기소개를 변경합니다.")
+    @PutMapping("/introduce")
+    public ApiResponse<UserResponse> updateIntroduce(@RequestBody @Valid UserIntroduceRequest request, Authentication authentication) {
+        return ApiResponse.ok(userService.updateIntroduce(request, authentication.getName()));
+    }
+
 }

@@ -8,6 +8,8 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 import java.time.LocalDate;
+import java.util.List;
+import java.util.stream.Collectors;
 
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @Getter
@@ -22,9 +24,13 @@ public class UserResponse {
     private String address;
     private Authority authority;
     private String imageUrl;
+    private List<String> interests;
+    private String job;
+    private String introduce;
+    private String school;
 
     @Builder
-    public UserResponse(final Long id, final String mobileNumber, final String nickname, final LocalDate birth, final Gender gender, final Mbti mbti, final String address, final Authority authority, final String imageUrl) {
+    public UserResponse(final Long id, final String mobileNumber, final String nickname, final LocalDate birth, final Gender gender, final Mbti mbti, final String address, final Authority authority, final String imageUrl, final List<String> interests, final String job, final String introduce, final String school) {
         this.id = id;
         this.mobileNumber = mobileNumber;
         this.nickname = nickname;
@@ -34,6 +40,10 @@ public class UserResponse {
         this.address = address;
         this.authority = authority;
         this.imageUrl = imageUrl;
+        this.interests = interests;
+        this.job = job;
+        this.introduce = introduce;
+        this.school = school;
     }
 
     public static UserResponse of(final User user) {
@@ -47,6 +57,12 @@ public class UserResponse {
                 .address(user.getAddress())
                 .authority(user.getAuthority())
                 .imageUrl(user.getImageUrl())
+                .interests(user.getUserInterests().stream()
+                        .map(i -> i.getInterest().getName())
+                        .collect(Collectors.toList()))
+                .job(user.getJob())
+                .introduce(user.getIntroduce())
+                .school(user.getSchool())
                 .build();
     }
 }
