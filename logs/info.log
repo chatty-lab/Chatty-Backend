@@ -1,350 +1,40 @@
-2024-02-14 13:55:37.169 [background-preinit] INFO org.hibernate.validator.internal.util.Version - HV000001: Hibernate Validator 8.0.1.Final
-2024-02-14 13:55:37.249 [main] INFO com.chatty.ChattyApplication - Starting ChattyApplication using Java 18.0.2 with PID 73448 (/Users/developer/IdeaProjects/Chatty-Backend/build/classes/java/main started by developer in /Users/developer/IdeaProjects/Chatty-Backend)
-2024-02-14 13:55:37.251 [main] INFO com.chatty.ChattyApplication - No active profile set, falling back to 1 default profile: "default"
-2024-02-14 13:55:38.742 [main] INFO org.springframework.data.repository.config.RepositoryConfigurationDelegate - Multiple Spring Data modules found, entering strict repository configuration mode
-2024-02-14 13:55:38.744 [main] INFO org.springframework.data.repository.config.RepositoryConfigurationDelegate - Bootstrapping Spring Data Redis repositories in DEFAULT mode.
-2024-02-14 13:55:38.774 [main] INFO org.springframework.data.repository.config.RepositoryConfigurationDelegate - Finished Spring Data repository scanning in 11 ms. Found 0 Redis repository interfaces.
-2024-02-14 13:55:39.189 [main] INFO org.springframework.data.repository.config.RepositoryConfigurationDelegate - Multiple Spring Data modules found, entering strict repository configuration mode
-2024-02-14 13:55:39.190 [main] INFO org.springframework.data.repository.config.RepositoryConfigurationDelegate - Bootstrapping Spring Data JPA repositories in DEFAULT mode.
-2024-02-14 13:55:39.380 [main] INFO org.springframework.data.repository.config.RepositoryConfigurationDelegate - Finished Spring Data repository scanning in 186 ms. Found 7 JPA repository interfaces.
-2024-02-14 13:55:39.396 [main] INFO org.springframework.data.repository.config.RepositoryConfigurationDelegate - Multiple Spring Data modules found, entering strict repository configuration mode
-2024-02-14 13:55:39.397 [main] INFO org.springframework.data.repository.config.RepositoryConfigurationDelegate - Bootstrapping Spring Data Redis repositories in DEFAULT mode.
-2024-02-14 13:55:39.413 [main] INFO org.springframework.data.repository.config.RepositoryConfigurationExtensionSupport - Spring Data Redis - Could not safely identify store assignment for repository candidate interface com.chatty.repository.chat.ChatRoomRepository; If you want this repository to be a Redis repository, consider annotating your entities with one of these annotations: org.springframework.data.redis.core.RedisHash (preferred), or consider extending one of the following types with your repository: org.springframework.data.keyvalue.repository.KeyValueRepository
-2024-02-14 13:55:39.413 [main] INFO org.springframework.data.repository.config.RepositoryConfigurationExtensionSupport - Spring Data Redis - Could not safely identify store assignment for repository candidate interface com.chatty.repository.chat.MessageRepository; If you want this repository to be a Redis repository, consider annotating your entities with one of these annotations: org.springframework.data.redis.core.RedisHash (preferred), or consider extending one of the following types with your repository: org.springframework.data.keyvalue.repository.KeyValueRepository
-2024-02-14 13:55:39.414 [main] INFO org.springframework.data.repository.config.RepositoryConfigurationExtensionSupport - Spring Data Redis - Could not safely identify store assignment for repository candidate interface com.chatty.repository.check.AuthCheckRepository; If you want this repository to be a Redis repository, consider annotating your entities with one of these annotations: org.springframework.data.redis.core.RedisHash (preferred), or consider extending one of the following types with your repository: org.springframework.data.keyvalue.repository.KeyValueRepository
-2024-02-14 13:55:39.415 [main] INFO org.springframework.data.repository.config.RepositoryConfigurationExtensionSupport - Spring Data Redis - Could not safely identify store assignment for repository candidate interface com.chatty.repository.interest.InterestRepository; If you want this repository to be a Redis repository, consider annotating your entities with one of these annotations: org.springframework.data.redis.core.RedisHash (preferred), or consider extending one of the following types with your repository: org.springframework.data.keyvalue.repository.KeyValueRepository
-2024-02-14 13:55:39.415 [main] INFO org.springframework.data.repository.config.RepositoryConfigurationExtensionSupport - Spring Data Redis - Could not safely identify store assignment for repository candidate interface com.chatty.repository.match.MatchHistoryRepository; If you want this repository to be a Redis repository, consider annotating your entities with one of these annotations: org.springframework.data.redis.core.RedisHash (preferred), or consider extending one of the following types with your repository: org.springframework.data.keyvalue.repository.KeyValueRepository
-2024-02-14 13:55:39.419 [main] INFO org.springframework.data.repository.config.RepositoryConfigurationExtensionSupport - Spring Data Redis - Could not safely identify store assignment for repository candidate interface com.chatty.repository.match.MatchRepository; If you want this repository to be a Redis repository, consider annotating your entities with one of these annotations: org.springframework.data.redis.core.RedisHash (preferred), or consider extending one of the following types with your repository: org.springframework.data.keyvalue.repository.KeyValueRepository
-2024-02-14 13:55:39.420 [main] INFO org.springframework.data.repository.config.RepositoryConfigurationExtensionSupport - Spring Data Redis - Could not safely identify store assignment for repository candidate interface com.chatty.repository.user.UserRepository; If you want this repository to be a Redis repository, consider annotating your entities with one of these annotations: org.springframework.data.redis.core.RedisHash (preferred), or consider extending one of the following types with your repository: org.springframework.data.keyvalue.repository.KeyValueRepository
-2024-02-14 13:55:39.420 [main] INFO org.springframework.data.repository.config.RepositoryConfigurationDelegate - Finished Spring Data repository scanning in 23 ms. Found 0 Redis repository interfaces.
-2024-02-14 13:55:40.599 [main] INFO org.springframework.boot.web.embedded.tomcat.TomcatWebServer - Tomcat initialized with port 8080 (http)
-2024-02-14 13:55:40.626 [main] INFO org.apache.coyote.http11.Http11NioProtocol - Initializing ProtocolHandler ["http-nio-8080"]
-2024-02-14 13:55:40.631 [main] INFO org.apache.catalina.core.StandardService - Starting service [Tomcat]
-2024-02-14 13:55:40.632 [main] INFO org.apache.catalina.core.StandardEngine - Starting Servlet engine: [Apache Tomcat/10.1.16]
-2024-02-14 13:55:40.807 [main] INFO org.apache.catalina.core.ContainerBase.[Tomcat].[localhost].[/] - Initializing Spring embedded WebApplicationContext
-2024-02-14 13:55:40.810 [main] INFO org.springframework.boot.web.servlet.context.ServletWebServerApplicationContext - Root WebApplicationContext: initialization completed in 3463 ms
-2024-02-14 13:55:41.166 [main] INFO org.hibernate.jpa.internal.util.LogHelper - HHH000204: Processing PersistenceUnitInfo [name: default]
-2024-02-14 13:55:41.222 [main] INFO org.hibernate.Version - HHH000412: Hibernate ORM core version 6.3.1.Final
-2024-02-14 13:55:41.234 [main] INFO org.hibernate.spatial.integration.SpatialService - HHH80000001: hibernate-spatial integration enabled : true
-2024-02-14 13:55:41.263 [main] INFO org.hibernate.cache.internal.RegionFactoryInitiator - HHH000026: Second-level cache disabled
-2024-02-14 13:55:41.379 [main] INFO com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Starting...
-2024-02-14 13:55:42.047 [main] INFO com.zaxxer.hikari.pool.HikariPool - HikariPool-1 - Added connection com.mysql.cj.jdbc.ConnectionImpl@3e998033
-2024-02-14 13:55:42.053 [main] INFO com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Start completed.
-2024-02-14 13:55:42.212 [main] INFO org.hibernate.spatial - HHH80000003: hibernate-spatial adding type contributions from : org.hibernate.spatial.dialect.mysql.MySQLDialectContributor
-2024-02-14 13:55:42.440 [main] INFO org.springframework.orm.jpa.persistenceunit.SpringPersistenceUnitInfo - No LoadTimeWeaver setup: ignoring JPA class transformer
-2024-02-14 13:55:42.463 [main] INFO org.hibernate.spatial - HHH80000003: hibernate-spatial adding type contributions from : org.hibernate.spatial.dialect.mysql.MySQLDialectContributor
-2024-02-14 13:55:42.985 [main] INFO org.hibernate.spatial - HHH80000004: hibernate-spatial adding function contributions from : org.hibernate.spatial.dialect.mysql.MySQLDialectContributor
-2024-02-14 13:55:44.230 [main] INFO org.hibernate.engine.transaction.jta.platform.internal.JtaPlatformInitiator - HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
-2024-02-14 13:55:44.549 [main] INFO org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean - Initialized JPA EntityManagerFactory for persistence unit 'default'
-2024-02-14 13:55:45.583 [main] INFO org.springframework.data.jpa.repository.query.QueryEnhancerFactory - Hibernate is in classpath; If applicable, HQL parser will be used.
-2024-02-14 13:55:47.607 [main] WARN org.springframework.boot.autoconfigure.orm.jpa.JpaBaseConfiguration$JpaWebConfiguration - spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
-2024-02-14 13:55:47.879 [main] INFO org.springframework.boot.autoconfigure.web.servlet.WelcomePageHandlerMapping - Adding welcome page: class path resource [static/index.html]
-2024-02-14 13:55:49.382 [main] INFO org.springframework.security.web.DefaultSecurityFilterChain - Will secure any request with [org.springframework.security.web.session.DisableEncodeUrlFilter@229cf4e7, org.springframework.security.web.context.request.async.WebAsyncManagerIntegrationFilter@2de08488, org.springframework.security.web.context.SecurityContextHolderFilter@6fbe879b, org.springframework.security.web.header.HeaderWriterFilter@2517d499, org.springframework.web.filter.CorsFilter@4f0ea6f8, org.springframework.security.web.authentication.logout.LogoutFilter@7454f141, com.chatty.jwt.JwtTokenFilter@684329d1, org.springframework.security.web.savedrequest.RequestCacheAwareFilter@739174f1, org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestFilter@46d7c4d0, org.springframework.security.web.authentication.AnonymousAuthenticationFilter@2dbdd3f2, org.springframework.security.web.access.ExceptionTranslationFilter@32b1d581, org.springframework.security.web.access.intercept.AuthorizationFilter@7d0e5fbb]
-2024-02-14 13:55:49.402 [main] WARN org.springframework.security.config.annotation.web.builders.WebSecurity - You are asking Spring Security to ignore Mvc [pattern='/users/join']. This is not recommended -- please use permitAll via HttpSecurity#authorizeHttpRequests instead.
-2024-02-14 13:55:49.403 [main] INFO org.springframework.security.web.DefaultSecurityFilterChain - Will not secure Mvc [pattern='/users/join']
-2024-02-14 13:55:49.403 [main] WARN org.springframework.security.config.annotation.web.builders.WebSecurity - You are asking Spring Security to ignore Mvc [pattern='/users/login']. This is not recommended -- please use permitAll via HttpSecurity#authorizeHttpRequests instead.
-2024-02-14 13:55:49.403 [main] INFO org.springframework.security.web.DefaultSecurityFilterChain - Will not secure Mvc [pattern='/users/login']
-2024-02-14 13:55:49.403 [main] WARN org.springframework.security.config.annotation.web.builders.WebSecurity - You are asking Spring Security to ignore Mvc [pattern='/check/**']. This is not recommended -- please use permitAll via HttpSecurity#authorizeHttpRequests instead.
-2024-02-14 13:55:49.403 [main] INFO org.springframework.security.web.DefaultSecurityFilterChain - Will not secure Mvc [pattern='/check/**']
-2024-02-14 13:55:49.403 [main] WARN org.springframework.security.config.annotation.web.builders.WebSecurity - You are asking Spring Security to ignore Mvc [pattern='/ws']. This is not recommended -- please use permitAll via HttpSecurity#authorizeHttpRequests instead.
-2024-02-14 13:55:49.403 [main] INFO org.springframework.security.web.DefaultSecurityFilterChain - Will not secure Mvc [pattern='/ws']
-2024-02-14 13:55:49.403 [main] WARN org.springframework.security.config.annotation.web.builders.WebSecurity - You are asking Spring Security to ignore Mvc [pattern='/auth/**']. This is not recommended -- please use permitAll via HttpSecurity#authorizeHttpRequests instead.
-2024-02-14 13:55:49.403 [main] INFO org.springframework.security.web.DefaultSecurityFilterChain - Will not secure Mvc [pattern='/auth/**']
-2024-02-14 13:55:49.403 [main] WARN org.springframework.security.config.annotation.web.builders.WebSecurity - You are asking Spring Security to ignore Mvc [pattern='/swagger-ui/**']. This is not recommended -- please use permitAll via HttpSecurity#authorizeHttpRequests instead.
-2024-02-14 13:55:49.403 [main] INFO org.springframework.security.web.DefaultSecurityFilterChain - Will not secure Mvc [pattern='/swagger-ui/**']
-2024-02-14 13:55:49.403 [main] WARN org.springframework.security.config.annotation.web.builders.WebSecurity - You are asking Spring Security to ignore Mvc [pattern='/v3/api-docs/**']. This is not recommended -- please use permitAll via HttpSecurity#authorizeHttpRequests instead.
-2024-02-14 13:55:49.403 [main] INFO org.springframework.security.web.DefaultSecurityFilterChain - Will not secure Mvc [pattern='/v3/api-docs/**']
-2024-02-14 13:55:49.403 [main] WARN org.springframework.security.config.annotation.web.builders.WebSecurity - You are asking Spring Security to ignore Mvc [pattern='/index.html']. This is not recommended -- please use permitAll via HttpSecurity#authorizeHttpRequests instead.
-2024-02-14 13:55:49.403 [main] INFO org.springframework.security.web.DefaultSecurityFilterChain - Will not secure Mvc [pattern='/index.html']
-2024-02-14 13:55:49.403 [main] WARN org.springframework.security.config.annotation.web.builders.WebSecurity - You are asking Spring Security to ignore Mvc [pattern='/matching/**']. This is not recommended -- please use permitAll via HttpSecurity#authorizeHttpRequests instead.
-2024-02-14 13:55:49.403 [main] INFO org.springframework.security.web.DefaultSecurityFilterChain - Will not secure Mvc [pattern='/matching/**']
-2024-02-14 13:55:49.403 [main] WARN org.springframework.security.config.annotation.web.builders.WebSecurity - You are asking Spring Security to ignore Mvc [pattern='/ws/**']. This is not recommended -- please use permitAll via HttpSecurity#authorizeHttpRequests instead.
-2024-02-14 13:55:49.403 [main] INFO org.springframework.security.web.DefaultSecurityFilterChain - Will not secure Mvc [pattern='/ws/**']
-2024-02-14 13:55:49.986 [main] INFO org.apache.coyote.http11.Http11NioProtocol - Starting ProtocolHandler ["http-nio-8080"]
-2024-02-14 13:55:50.015 [main] INFO org.springframework.boot.web.embedded.tomcat.TomcatWebServer - Tomcat started on port 8080 (http) with context path ''
-2024-02-14 13:55:50.019 [main] INFO org.springframework.messaging.simp.broker.SimpleBrokerMessageHandler - Starting...
-2024-02-14 13:55:50.019 [main] INFO org.springframework.messaging.simp.broker.SimpleBrokerMessageHandler - BrokerAvailabilityEvent[available=true, SimpleBrokerMessageHandler [org.springframework.messaging.simp.broker.DefaultSubscriptionRegistry@375c6b98]]
-2024-02-14 13:55:50.020 [main] INFO org.springframework.messaging.simp.broker.SimpleBrokerMessageHandler - Started.
-2024-02-14 13:55:50.038 [main] INFO com.chatty.ChattyApplication - Started ChattyApplication in 13.874 seconds (process running for 15.072)
-2024-02-14 13:56:50.002 [MessageBroker-1] INFO org.springframework.web.socket.config.WebSocketMessageBrokerStats - WebSocketSession[0 current WS(0)-HttpStream(0)-HttpPoll(0), 0 total, 0 closed abnormally (0 connect failure, 0 send limit, 0 transport error)], stompSubProtocol[processed CONNECT(0)-CONNECTED(0)-DISCONNECT(0)], stompBrokerRelay[null], inboundChannel[pool size = 0, active threads = 0, queued tasks = 0, completed tasks = 0], outboundChannel[pool size = 0, active threads = 0, queued tasks = 0, completed tasks = 0], sockJsScheduler[pool size = 1, active threads = 1, queued tasks = 0, completed tasks = 0]
-2024-02-14 13:58:25.120 [http-nio-8080-exec-1] INFO org.apache.catalina.core.ContainerBase.[Tomcat].[localhost].[/] - Initializing Spring DispatcherServlet 'dispatcherServlet'
-2024-02-14 13:58:25.122 [http-nio-8080-exec-1] INFO org.springframework.web.servlet.DispatcherServlet - Initializing Servlet 'dispatcherServlet'
-2024-02-14 13:58:25.135 [http-nio-8080-exec-1] INFO org.springframework.web.servlet.DispatcherServlet - Completed initialization in 13 ms
-2024-02-14 13:58:25.164 [http-nio-8080-exec-1] WARN org.springframework.web.servlet.handler.HandlerMappingIntrospector - Cache miss for REQUEST dispatch to '/ws' (previous null). Performing MatchableHandlerMapping lookup. This is logged once only at WARN level, and every time at TRACE.
-2024-02-14 13:58:25.403 [http-nio-8080-exec-1] INFO com.chatty.handler.StompHandler - Stomp Handler 실행
-2024-02-14 13:58:25.406 [http-nio-8080-exec-1] INFO com.chatty.handler.StompHandler - accessor : StompHeaderAccessor [headers={simpMessageType=CONNECT, stompCommand=CONNECT, nativeHeaders={accept-version=[1.1,1.0], heart-beat=[10000,10000]}, simpSessionAttributes={}, simpHeartbeat=[J@6990142c, simpSessionId=2388d8cc-ff6b-bc5e-868d-2275636bea2e}]
-2024-02-14 13:58:25.410 [http-nio-8080-exec-1] INFO com.chatty.handler.StompHandler - stompCommand : CONNECT
-2024-02-14 13:58:25.410 [http-nio-8080-exec-1] INFO com.chatty.validator.TokenValidator - [JwtTokenFilter] accessToken 유효 여부 확인
-2024-02-14 13:58:25.410 [http-nio-8080-exec-1] INFO com.chatty.validator.TokenValidator - 입력된 토큰 : null
-2024-02-14 13:58:25.411 [http-nio-8080-exec-1] ERROR com.chatty.jwt.JwtTokenProvider - token이 존재 하지 않습니다.
-2024-02-14 13:58:25.416 [http-nio-8080-exec-1] ERROR com.chatty.validator.TokenValidator - accessToken 토큰이 존재하지 않습니다.
-2024-02-14 13:58:25.445 [http-nio-8080-exec-1] INFO com.chatty.handler.StompHandler - Stomp Handler 실행
-2024-02-14 13:58:25.445 [http-nio-8080-exec-1] INFO com.chatty.handler.StompHandler - accessor : StompHeaderAccessor [headers={simpMessageType=DISCONNECT, stompCommand=DISCONNECT, simpSessionAttributes={}, simpSessionId=2388d8cc-ff6b-bc5e-868d-2275636bea2e}]
-2024-02-14 13:58:25.446 [http-nio-8080-exec-1] INFO com.chatty.handler.StompHandler - stompCommand : DISCONNECT
-2024-02-14 13:58:25.446 [http-nio-8080-exec-1] INFO com.chatty.handler.StompHandler - message : GenericMessage [payload=byte[0], headers={simpMessageType=DISCONNECT, stompCommand=DISCONNECT, simpSessionAttributes={}, simpSessionId=2388d8cc-ff6b-bc5e-868d-2275636bea2e}]
-2024-02-14 13:59:23.927 [http-nio-8080-exec-2] INFO com.chatty.interceptor.RateLimitInterceptor - remaining token : 20
-2024-02-14 13:59:24.210 [http-nio-8080-exec-2] INFO com.chatty.controller.auth.AuthController - 번호 인증 요청
-2024-02-14 13:59:24.905 [http-nio-8080-exec-2] INFO com.chatty.service.sms.SmsService - 번호 인증 요청 정보 저장 완료 : 966622
-2024-02-14 13:59:34.137 [http-nio-8080-exec-4] INFO com.chatty.interceptor.RateLimitInterceptor - remaining token : 19
-2024-02-14 13:59:34.199 [http-nio-8080-exec-4] INFO com.chatty.controller.user.UserController - [UserController/login] 로그인 시작
-2024-02-14 13:59:34.277 [http-nio-8080-exec-4] INFO com.chatty.service.user.UserService - [UserService/login] 로그인 시작
-2024-02-14 13:59:34.277 [http-nio-8080-exec-4] INFO com.chatty.service.user.UserService - [UserService/isAlreadyExistedUser] 이미 가입한 유저인지 확인
-2024-02-14 13:59:34.516 [http-nio-8080-exec-4] INFO com.chatty.service.user.UserService - [UserService/createTokens] AccessToken, RefreshToken 생성
-2024-02-14 13:59:34.618 [http-nio-8080-exec-4] INFO com.chatty.service.user.UserService - [UserService/createTokens] 생성한 accessToken : eyJhbGciOiJIUzI1NiJ9.eyJtb2JpbGVOdW1iZXIiOiIwMTA3NzI2NTEwOCIsImRldmljZUlkIjoiMTIzMTI0IiwiaWF0IjoxNzA3ODg2Nzc0LCJleHAiOjE3MDc4OTE3NzR9.yUjhI_LxrLXllfvOwnBiPIx9MRR8Jc8-6W8J4VYfQzs
-2024-02-14 13:59:34.619 [http-nio-8080-exec-4] INFO com.chatty.service.user.UserService - [UserService/createTokens] 생성한 refreshToken : eyJhbGciOiJIUzI1NiJ9.eyJkZXZpY2VJZCI6IjAxMDc3MjY1MTA4IDEyMzEyNCIsImlhdCI6MTcwNzg4Njc3NCwiZXhwIjoxNzA3ODg3MDc0fQ.xsKMcOzwoDVqjZJixnn6O5ltUc5AEheH_3gmvwZpsNQ
-2024-02-14 13:59:34.619 [http-nio-8080-exec-4] INFO com.chatty.service.user.UserService - [UserService/createTokens] RefreshToken Redis 저장
-2024-02-14 13:59:53.210 [http-nio-8080-exec-6] INFO com.chatty.handler.StompHandler - Stomp Handler 실행
-2024-02-14 13:59:53.214 [http-nio-8080-exec-6] INFO com.chatty.handler.StompHandler - accessor : StompHeaderAccessor [headers={simpMessageType=CONNECT, stompCommand=CONNECT, nativeHeaders={Authorization=[eyJhbGciOiJIUzI1NiJ9.eyJtb2JpbGVOdW1iZXIiOiIwMTA3NzI2NTEwOCIsImRldmljZUlkIjoiMTIzMTI0IiwiaWF0IjoxNzA3ODg2Nzc0LCJleHAiOjE3MDc4OTE3NzR9.yUjhI_LxrLXllfvOwnBiPIx9MRR8Jc8-6W8J4VYfQzs], accept-version=[1.1,1.0], heart-beat=[10000,10000]}, simpSessionAttributes={}, simpHeartbeat=[J@72fcf40, simpSessionId=ea764786-0e75-d1a2-ca30-e8d546b215c8}]
-2024-02-14 13:59:53.214 [http-nio-8080-exec-6] INFO com.chatty.handler.StompHandler - stompCommand : CONNECT
-2024-02-14 13:59:53.214 [http-nio-8080-exec-6] INFO com.chatty.validator.TokenValidator - [JwtTokenFilter] accessToken 유효 여부 확인
-2024-02-14 13:59:53.215 [http-nio-8080-exec-6] INFO com.chatty.validator.TokenValidator - 입력된 토큰 : eyJhbGciOiJIUzI1NiJ9.eyJtb2JpbGVOdW1iZXIiOiIwMTA3NzI2NTEwOCIsImRldmljZUlkIjoiMTIzMTI0IiwiaWF0IjoxNzA3ODg2Nzc0LCJleHAiOjE3MDc4OTE3NzR9.yUjhI_LxrLXllfvOwnBiPIx9MRR8Jc8-6W8J4VYfQzs
-2024-02-14 13:59:53.216 [http-nio-8080-exec-6] ERROR com.chatty.jwt.JwtTokenProvider - 형식에 맞지 않은 token 발송
-2024-02-14 13:59:53.216 [http-nio-8080-exec-6] ERROR com.chatty.validator.TokenValidator - 올바른 토큰의 형식을 입력해주세요.
-2024-02-14 13:59:53.219 [http-nio-8080-exec-6] INFO com.chatty.handler.StompHandler - Stomp Handler 실행
-2024-02-14 13:59:53.219 [http-nio-8080-exec-6] INFO com.chatty.handler.StompHandler - accessor : StompHeaderAccessor [headers={simpMessageType=DISCONNECT, stompCommand=DISCONNECT, simpSessionAttributes={}, simpSessionId=ea764786-0e75-d1a2-ca30-e8d546b215c8}]
-2024-02-14 13:59:53.219 [http-nio-8080-exec-6] INFO com.chatty.handler.StompHandler - stompCommand : DISCONNECT
-2024-02-14 13:59:53.219 [http-nio-8080-exec-6] INFO com.chatty.handler.StompHandler - message : GenericMessage [payload=byte[0], headers={simpMessageType=DISCONNECT, stompCommand=DISCONNECT, simpSessionAttributes={}, simpSessionId=ea764786-0e75-d1a2-ca30-e8d546b215c8}]
-2024-02-14 14:00:10.608 [http-nio-8080-exec-7] INFO com.chatty.handler.StompHandler - Stomp Handler 실행
-2024-02-14 14:00:10.610 [http-nio-8080-exec-7] INFO com.chatty.handler.StompHandler - accessor : StompHeaderAccessor [headers={simpMessageType=CONNECT, stompCommand=CONNECT, nativeHeaders={Authorization=[Bearer eyJhbGciOiJIUzI1NiJ9.eyJtb2JpbGVOdW1iZXIiOiIwMTA3NzI2NTEwOCIsImRldmljZUlkIjoiMTIzMTI0IiwiaWF0IjoxNzA3ODg2Nzc0LCJleHAiOjE3MDc4OTE3NzR9.yUjhI_LxrLXllfvOwnBiPIx9MRR8Jc8-6W8J4VYfQzs], accept-version=[1.1,1.0], heart-beat=[10000,10000]}, simpSessionAttributes={}, simpHeartbeat=[J@7e906bc8, simpSessionId=9b4c4ef2-e2bb-c213-5529-00a78a0f9634}]
-2024-02-14 14:00:10.610 [http-nio-8080-exec-7] INFO com.chatty.handler.StompHandler - stompCommand : CONNECT
-2024-02-14 14:00:10.610 [http-nio-8080-exec-7] INFO com.chatty.validator.TokenValidator - [JwtTokenFilter] accessToken 유효 여부 확인
-2024-02-14 14:00:10.610 [http-nio-8080-exec-7] INFO com.chatty.validator.TokenValidator - 입력된 토큰 : Bearer eyJhbGciOiJIUzI1NiJ9.eyJtb2JpbGVOdW1iZXIiOiIwMTA3NzI2NTEwOCIsImRldmljZUlkIjoiMTIzMTI0IiwiaWF0IjoxNzA3ODg2Nzc0LCJleHAiOjE3MDc4OTE3NzR9.yUjhI_LxrLXllfvOwnBiPIx9MRR8Jc8-6W8J4VYfQzs
-2024-02-14 14:00:10.611 [http-nio-8080-exec-7] INFO com.chatty.jwt.JwtTokenProvider - [JwtTokenProvider/isValidToken] 비밀키를 통해 유효한 토큰인지 확인
-2024-02-14 14:00:10.611 [http-nio-8080-exec-7] INFO com.chatty.jwt.JwtTokenProvider - eyJhbGciOiJIUzI1NiJ9.eyJtb2JpbGVOdW1iZXIiOiIwMTA3NzI2NTEwOCIsImRldmljZUlkIjoiMTIzMTI0IiwiaWF0IjoxNzA3ODg2Nzc0LCJleHAiOjE3MDc4OTE3NzR9.yUjhI_LxrLXllfvOwnBiPIx9MRR8Jc8-6W8J4VYfQzs
-2024-02-14 14:00:10.617 [http-nio-8080-exec-7] INFO com.chatty.jwt.JwtTokenProvider - [JwtTokenProvider/isExpiredToken] 만료된 도큰인지 확인
-2024-02-14 14:00:10.618 [http-nio-8080-exec-7] INFO com.chatty.jwt.JwtTokenProvider - 만료되지 않았습니다.
-2024-02-14 14:00:10.618 [http-nio-8080-exec-7] INFO com.chatty.handler.StompHandler - 토큰 검증 완료
-2024-02-14 14:00:10.618 [http-nio-8080-exec-7] INFO com.chatty.handler.StompHandler - message : GenericMessage [payload=byte[0], headers={simpMessageType=CONNECT, stompCommand=CONNECT, nativeHeaders={Authorization=[Bearer eyJhbGciOiJIUzI1NiJ9.eyJtb2JpbGVOdW1iZXIiOiIwMTA3NzI2NTEwOCIsImRldmljZUlkIjoiMTIzMTI0IiwiaWF0IjoxNzA3ODg2Nzc0LCJleHAiOjE3MDc4OTE3NzR9.yUjhI_LxrLXllfvOwnBiPIx9MRR8Jc8-6W8J4VYfQzs], accept-version=[1.1,1.0], heart-beat=[10000,10000]}, simpSessionAttributes={}, simpHeartbeat=[J@7e906bc8, simpSessionId=9b4c4ef2-e2bb-c213-5529-00a78a0f9634}]
-2024-02-14 14:04:39.754 [http-nio-8080-exec-9] INFO com.chatty.handler.StompHandler - Stomp Handler 실행
-2024-02-14 14:04:39.757 [http-nio-8080-exec-9] INFO com.chatty.handler.StompHandler - accessor : StompHeaderAccessor [headers={simpMessageType=DISCONNECT, stompCommand=DISCONNECT, simpSessionAttributes={}, simpHeartbeat=[J@481990e8, simpSessionId=9b4c4ef2-e2bb-c213-5529-00a78a0f9634}]
-2024-02-14 14:04:39.758 [http-nio-8080-exec-9] INFO com.chatty.handler.StompHandler - stompCommand : DISCONNECT
-2024-02-14 14:04:39.758 [http-nio-8080-exec-9] INFO com.chatty.handler.StompHandler - message : GenericMessage [payload=byte[0], headers={simpMessageType=DISCONNECT, stompCommand=DISCONNECT, simpSessionAttributes={}, simpHeartbeat=[J@481990e8, simpSessionId=9b4c4ef2-e2bb-c213-5529-00a78a0f9634}]
-2024-02-14 14:04:39.763 [http-nio-8080-exec-9] INFO com.chatty.handler.StompHandler - Stomp Handler 실행
-2024-02-14 14:04:39.765 [http-nio-8080-exec-9] INFO com.chatty.handler.StompHandler - accessor : StompHeaderAccessor [headers={simpMessageType=DISCONNECT, stompCommand=DISCONNECT, simpSessionAttributes={}, simpSessionId=9b4c4ef2-e2bb-c213-5529-00a78a0f9634}]
-2024-02-14 14:04:39.773 [http-nio-8080-exec-9] INFO com.chatty.handler.StompHandler - stompCommand : DISCONNECT
-2024-02-14 14:04:39.774 [http-nio-8080-exec-9] INFO com.chatty.handler.StompHandler - message : GenericMessage [payload=byte[0], headers={simpMessageType=DISCONNECT, stompCommand=DISCONNECT, simpSessionAttributes={}, simpSessionId=9b4c4ef2-e2bb-c213-5529-00a78a0f9634}]
-2024-02-14 14:04:42.406 [http-nio-8080-exec-1] INFO com.chatty.handler.StompHandler - Stomp Handler 실행
-2024-02-14 14:04:42.407 [http-nio-8080-exec-1] INFO com.chatty.handler.StompHandler - accessor : StompHeaderAccessor [headers={simpMessageType=CONNECT, stompCommand=CONNECT, nativeHeaders={Authorization=[Bearer eyJhbGciOiJIUzI1NiJ9.eyJtb2JpbGVOdW1iZXIiOiIwMTA3NzI2NTEwOCIsImRldmljZUlkIjoiMTIzMTI0IiwiaWF0IjoxNzA3ODg2Nzc0LCJleHAiOjE3MDc4OTE3NzR9.yUjhI_LxrLXllfvOwnBiPIx9MRR8Jc8-6W8J4VYfQzs], accept-version=[1.1,1.0], heart-beat=[10000,10000]}, simpSessionAttributes={}, simpHeartbeat=[J@1d6b0f5e, simpSessionId=0223e74a-bacc-f9c1-0a82-80f29b167a4b}]
-2024-02-14 14:04:42.408 [http-nio-8080-exec-1] INFO com.chatty.handler.StompHandler - stompCommand : CONNECT
-2024-02-14 14:04:42.408 [http-nio-8080-exec-1] INFO com.chatty.validator.TokenValidator - [JwtTokenFilter] accessToken 유효 여부 확인
-2024-02-14 14:04:42.408 [http-nio-8080-exec-1] INFO com.chatty.validator.TokenValidator - 입력된 토큰 : Bearer eyJhbGciOiJIUzI1NiJ9.eyJtb2JpbGVOdW1iZXIiOiIwMTA3NzI2NTEwOCIsImRldmljZUlkIjoiMTIzMTI0IiwiaWF0IjoxNzA3ODg2Nzc0LCJleHAiOjE3MDc4OTE3NzR9.yUjhI_LxrLXllfvOwnBiPIx9MRR8Jc8-6W8J4VYfQzs
-2024-02-14 14:04:42.409 [http-nio-8080-exec-1] INFO com.chatty.jwt.JwtTokenProvider - [JwtTokenProvider/isValidToken] 비밀키를 통해 유효한 토큰인지 확인
-2024-02-14 14:04:42.411 [http-nio-8080-exec-1] INFO com.chatty.jwt.JwtTokenProvider - eyJhbGciOiJIUzI1NiJ9.eyJtb2JpbGVOdW1iZXIiOiIwMTA3NzI2NTEwOCIsImRldmljZUlkIjoiMTIzMTI0IiwiaWF0IjoxNzA3ODg2Nzc0LCJleHAiOjE3MDc4OTE3NzR9.yUjhI_LxrLXllfvOwnBiPIx9MRR8Jc8-6W8J4VYfQzs
-2024-02-14 14:04:42.419 [http-nio-8080-exec-1] INFO com.chatty.jwt.JwtTokenProvider - [JwtTokenProvider/isExpiredToken] 만료된 도큰인지 확인
-2024-02-14 14:04:42.422 [http-nio-8080-exec-1] INFO com.chatty.jwt.JwtTokenProvider - 만료되지 않았습니다.
-2024-02-14 14:04:42.422 [http-nio-8080-exec-1] INFO com.chatty.handler.StompHandler - 토큰 검증 완료
-2024-02-14 14:04:42.422 [http-nio-8080-exec-1] INFO com.chatty.handler.StompHandler - message : GenericMessage [payload=byte[0], headers={simpMessageType=CONNECT, stompCommand=CONNECT, nativeHeaders={Authorization=[Bearer eyJhbGciOiJIUzI1NiJ9.eyJtb2JpbGVOdW1iZXIiOiIwMTA3NzI2NTEwOCIsImRldmljZUlkIjoiMTIzMTI0IiwiaWF0IjoxNzA3ODg2Nzc0LCJleHAiOjE3MDc4OTE3NzR9.yUjhI_LxrLXllfvOwnBiPIx9MRR8Jc8-6W8J4VYfQzs], accept-version=[1.1,1.0], heart-beat=[10000,10000]}, simpSessionAttributes={}, simpHeartbeat=[J@1d6b0f5e, simpSessionId=0223e74a-bacc-f9c1-0a82-80f29b167a4b}]
-2024-02-14 14:04:51.543 [http-nio-8080-exec-3] INFO com.chatty.handler.StompHandler - Stomp Handler 실행
-2024-02-14 14:04:51.546 [http-nio-8080-exec-3] INFO com.chatty.handler.StompHandler - accessor : StompHeaderAccessor [headers={simpMessageType=SUBSCRIBE, stompCommand=SUBSCRIBE, nativeHeaders={id=[sub-0], destination=[/sub/chat/1]}, simpSessionAttributes={}, simpHeartbeat=[J@b722434, simpSubscriptionId=sub-0, simpSessionId=0223e74a-bacc-f9c1-0a82-80f29b167a4b, simpDestination=/sub/chat/1}]
-2024-02-14 14:04:51.546 [http-nio-8080-exec-3] INFO com.chatty.handler.StompHandler - stompCommand : SUBSCRIBE
-2024-02-14 14:04:51.546 [http-nio-8080-exec-3] INFO com.chatty.handler.StompHandler - message : GenericMessage [payload=byte[0], headers={simpMessageType=SUBSCRIBE, stompCommand=SUBSCRIBE, nativeHeaders={id=[sub-0], destination=[/sub/chat/1]}, simpSessionAttributes={}, simpHeartbeat=[J@b722434, simpSubscriptionId=sub-0, simpSessionId=0223e74a-bacc-f9c1-0a82-80f29b167a4b, simpDestination=/sub/chat/1}]
-2024-02-14 14:05:11.982 [http-nio-8080-exec-2] INFO com.chatty.handler.StompHandler - Stomp Handler 실행
-2024-02-14 14:05:11.984 [http-nio-8080-exec-2] INFO com.chatty.handler.StompHandler - accessor : StompHeaderAccessor [headers={simpMessageType=CONNECT, stompCommand=CONNECT, nativeHeaders={accept-version=[1.1,1.0], heart-beat=[10000,10000]}, simpSessionAttributes={}, simpHeartbeat=[J@5443d79b, simpSessionId=55c4d403-29e0-58cd-76bd-2b75502a22fe}]
-2024-02-14 14:05:11.984 [http-nio-8080-exec-2] INFO com.chatty.handler.StompHandler - stompCommand : CONNECT
-2024-02-14 14:05:11.984 [http-nio-8080-exec-2] INFO com.chatty.validator.TokenValidator - [JwtTokenFilter] accessToken 유효 여부 확인
-2024-02-14 14:05:11.984 [http-nio-8080-exec-2] INFO com.chatty.validator.TokenValidator - 입력된 토큰 : null
-2024-02-14 14:05:11.985 [http-nio-8080-exec-2] ERROR com.chatty.jwt.JwtTokenProvider - token이 존재 하지 않습니다.
-2024-02-14 14:05:11.986 [http-nio-8080-exec-2] ERROR com.chatty.validator.TokenValidator - accessToken 토큰이 존재하지 않습니다.
-2024-02-14 14:05:11.989 [http-nio-8080-exec-2] INFO com.chatty.handler.StompHandler - Stomp Handler 실행
-2024-02-14 14:05:11.990 [http-nio-8080-exec-2] INFO com.chatty.handler.StompHandler - accessor : StompHeaderAccessor [headers={simpMessageType=DISCONNECT, stompCommand=DISCONNECT, simpSessionAttributes={}, simpSessionId=55c4d403-29e0-58cd-76bd-2b75502a22fe}]
-2024-02-14 14:05:11.990 [http-nio-8080-exec-2] INFO com.chatty.handler.StompHandler - stompCommand : DISCONNECT
-2024-02-14 14:05:11.990 [http-nio-8080-exec-2] INFO com.chatty.handler.StompHandler - message : GenericMessage [payload=byte[0], headers={simpMessageType=DISCONNECT, stompCommand=DISCONNECT, simpSessionAttributes={}, simpSessionId=55c4d403-29e0-58cd-76bd-2b75502a22fe}]
-2024-02-14 14:05:19.926 [http-nio-8080-exec-5] INFO com.chatty.handler.StompHandler - Stomp Handler 실행
-2024-02-14 14:05:19.926 [http-nio-8080-exec-5] INFO com.chatty.handler.StompHandler - accessor : StompHeaderAccessor [headers={simpMessageType=CONNECT, stompCommand=CONNECT, nativeHeaders={Authorization=[Bearer eyJhbGciOiJIUzI1NiJ9.eyJtb2JpbGVOdW1iZXIiOiIwMTA3NzI2NTEwOCIsImRldmljZUlkIjoiMTIzMTI0IiwiaWF0IjoxNzA3ODg2Nzc0LCJleHAiOjE3MDc4OTE3NzR9.yUjhI_LxrLXllfvOwnBiPIx9MRR8Jc8-6W8J4VYfQzs], accept-version=[1.1,1.0], heart-beat=[10000,10000]}, simpSessionAttributes={}, simpHeartbeat=[J@17fef701, simpSessionId=85c07bdf-d567-42d0-46dd-cfb54fe15823}]
-2024-02-14 14:05:19.927 [http-nio-8080-exec-5] INFO com.chatty.handler.StompHandler - stompCommand : CONNECT
-2024-02-14 14:05:19.927 [http-nio-8080-exec-5] INFO com.chatty.validator.TokenValidator - [JwtTokenFilter] accessToken 유효 여부 확인
-2024-02-14 14:05:19.927 [http-nio-8080-exec-5] INFO com.chatty.validator.TokenValidator - 입력된 토큰 : Bearer eyJhbGciOiJIUzI1NiJ9.eyJtb2JpbGVOdW1iZXIiOiIwMTA3NzI2NTEwOCIsImRldmljZUlkIjoiMTIzMTI0IiwiaWF0IjoxNzA3ODg2Nzc0LCJleHAiOjE3MDc4OTE3NzR9.yUjhI_LxrLXllfvOwnBiPIx9MRR8Jc8-6W8J4VYfQzs
-2024-02-14 14:05:19.927 [http-nio-8080-exec-5] INFO com.chatty.jwt.JwtTokenProvider - [JwtTokenProvider/isValidToken] 비밀키를 통해 유효한 토큰인지 확인
-2024-02-14 14:05:19.927 [http-nio-8080-exec-5] INFO com.chatty.jwt.JwtTokenProvider - eyJhbGciOiJIUzI1NiJ9.eyJtb2JpbGVOdW1iZXIiOiIwMTA3NzI2NTEwOCIsImRldmljZUlkIjoiMTIzMTI0IiwiaWF0IjoxNzA3ODg2Nzc0LCJleHAiOjE3MDc4OTE3NzR9.yUjhI_LxrLXllfvOwnBiPIx9MRR8Jc8-6W8J4VYfQzs
-2024-02-14 14:05:19.931 [http-nio-8080-exec-5] INFO com.chatty.jwt.JwtTokenProvider - [JwtTokenProvider/isExpiredToken] 만료된 도큰인지 확인
-2024-02-14 14:05:19.932 [http-nio-8080-exec-5] INFO com.chatty.jwt.JwtTokenProvider - 만료되지 않았습니다.
-2024-02-14 14:05:19.933 [http-nio-8080-exec-5] INFO com.chatty.handler.StompHandler - 토큰 검증 완료
-2024-02-14 14:05:19.933 [http-nio-8080-exec-5] INFO com.chatty.handler.StompHandler - message : GenericMessage [payload=byte[0], headers={simpMessageType=CONNECT, stompCommand=CONNECT, nativeHeaders={Authorization=[Bearer eyJhbGciOiJIUzI1NiJ9.eyJtb2JpbGVOdW1iZXIiOiIwMTA3NzI2NTEwOCIsImRldmljZUlkIjoiMTIzMTI0IiwiaWF0IjoxNzA3ODg2Nzc0LCJleHAiOjE3MDc4OTE3NzR9.yUjhI_LxrLXllfvOwnBiPIx9MRR8Jc8-6W8J4VYfQzs], accept-version=[1.1,1.0], heart-beat=[10000,10000]}, simpSessionAttributes={}, simpHeartbeat=[J@17fef701, simpSessionId=85c07bdf-d567-42d0-46dd-cfb54fe15823}]
-2024-02-14 14:05:26.492 [http-nio-8080-exec-6] INFO com.chatty.handler.StompHandler - Stomp Handler 실행
-2024-02-14 14:05:26.492 [http-nio-8080-exec-6] INFO com.chatty.handler.StompHandler - accessor : StompHeaderAccessor [headers={simpMessageType=SUBSCRIBE, stompCommand=SUBSCRIBE, nativeHeaders={id=[sub-0], destination=[/sub/chat/1]}, simpSessionAttributes={}, simpHeartbeat=[J@31f9b87b, simpSubscriptionId=sub-0, simpSessionId=85c07bdf-d567-42d0-46dd-cfb54fe15823, simpDestination=/sub/chat/1}]
-2024-02-14 14:05:26.493 [http-nio-8080-exec-6] INFO com.chatty.handler.StompHandler - stompCommand : SUBSCRIBE
-2024-02-14 14:05:26.493 [http-nio-8080-exec-6] INFO com.chatty.handler.StompHandler - message : GenericMessage [payload=byte[0], headers={simpMessageType=SUBSCRIBE, stompCommand=SUBSCRIBE, nativeHeaders={id=[sub-0], destination=[/sub/chat/1]}, simpSessionAttributes={}, simpHeartbeat=[J@31f9b87b, simpSubscriptionId=sub-0, simpSessionId=85c07bdf-d567-42d0-46dd-cfb54fe15823, simpDestination=/sub/chat/1}]
-2024-02-14 14:05:34.855 [http-nio-8080-exec-7] INFO com.chatty.handler.StompHandler - Stomp Handler 실행
-2024-02-14 14:05:34.856 [http-nio-8080-exec-7] INFO com.chatty.handler.StompHandler - accessor : StompHeaderAccessor [headers={simpMessageType=SUBSCRIBE, stompCommand=SUBSCRIBE, nativeHeaders={id=[sub-1], destination=[/sub/chat/1]}, simpSessionAttributes={}, simpHeartbeat=[J@2bf4e2c7, simpSubscriptionId=sub-1, simpSessionId=85c07bdf-d567-42d0-46dd-cfb54fe15823, simpDestination=/sub/chat/1}]
-2024-02-14 14:05:34.856 [http-nio-8080-exec-7] INFO com.chatty.handler.StompHandler - stompCommand : SUBSCRIBE
-2024-02-14 14:05:34.856 [http-nio-8080-exec-7] INFO com.chatty.handler.StompHandler - message : GenericMessage [payload=byte[0], headers={simpMessageType=SUBSCRIBE, stompCommand=SUBSCRIBE, nativeHeaders={id=[sub-1], destination=[/sub/chat/1]}, simpSessionAttributes={}, simpHeartbeat=[J@2bf4e2c7, simpSubscriptionId=sub-1, simpSessionId=85c07bdf-d567-42d0-46dd-cfb54fe15823, simpDestination=/sub/chat/1}]
-2024-02-14 14:06:27.768 [http-nio-8080-exec-8] INFO com.chatty.handler.StompHandler - Stomp Handler 실행
-2024-02-14 14:06:27.770 [http-nio-8080-exec-8] INFO com.chatty.handler.StompHandler - accessor : StompHeaderAccessor [headers={simpMessageType=MESSAGE, stompCommand=SEND, nativeHeaders={Authorization=[Bearer eyJhbGciOiJIUzI1NiJ9.eyJtb2JpbGVOdW1iZXIiOiIwMTA3NzI2NTEwOCIsImRldmljZUlkIjoiMTIzMTI0IiwiaWF0IjoxNzA3ODg2Nzc0LCJleHAiOjE3MDc4OTE3NzR9.yUjhI_LxrLXllfvOwnBiPIx9MRR8Jc8-6W8J4VYfQzs], destination=[/chat/message/1], content-length=[72]}, simpSessionAttributes={}, simpHeartbeat=[J@7e456dba, simpSessionId=0223e74a-bacc-f9c1-0a82-80f29b167a4b, simpDestination=/chat/message/1}]
-2024-02-14 14:06:27.771 [http-nio-8080-exec-8] INFO com.chatty.handler.StompHandler - stompCommand : SEND
-2024-02-14 14:06:27.771 [http-nio-8080-exec-8] INFO com.chatty.validator.TokenValidator - [JwtTokenFilter] accessToken 유효 여부 확인
-2024-02-14 14:06:27.771 [http-nio-8080-exec-8] INFO com.chatty.validator.TokenValidator - 입력된 토큰 : Bearer eyJhbGciOiJIUzI1NiJ9.eyJtb2JpbGVOdW1iZXIiOiIwMTA3NzI2NTEwOCIsImRldmljZUlkIjoiMTIzMTI0IiwiaWF0IjoxNzA3ODg2Nzc0LCJleHAiOjE3MDc4OTE3NzR9.yUjhI_LxrLXllfvOwnBiPIx9MRR8Jc8-6W8J4VYfQzs
-2024-02-14 14:06:27.771 [http-nio-8080-exec-8] INFO com.chatty.jwt.JwtTokenProvider - [JwtTokenProvider/isValidToken] 비밀키를 통해 유효한 토큰인지 확인
-2024-02-14 14:06:27.771 [http-nio-8080-exec-8] INFO com.chatty.jwt.JwtTokenProvider - eyJhbGciOiJIUzI1NiJ9.eyJtb2JpbGVOdW1iZXIiOiIwMTA3NzI2NTEwOCIsImRldmljZUlkIjoiMTIzMTI0IiwiaWF0IjoxNzA3ODg2Nzc0LCJleHAiOjE3MDc4OTE3NzR9.yUjhI_LxrLXllfvOwnBiPIx9MRR8Jc8-6W8J4VYfQzs
-2024-02-14 14:06:27.776 [http-nio-8080-exec-8] INFO com.chatty.jwt.JwtTokenProvider - [JwtTokenProvider/isExpiredToken] 만료된 도큰인지 확인
-2024-02-14 14:06:27.781 [http-nio-8080-exec-8] INFO com.chatty.jwt.JwtTokenProvider - 만료되지 않았습니다.
-2024-02-14 14:06:27.781 [http-nio-8080-exec-8] INFO com.chatty.handler.StompHandler - 토큰 검증 완료
-2024-02-14 14:06:27.781 [http-nio-8080-exec-8] INFO com.chatty.handler.StompHandler - message : GenericMessage [payload=byte[72], headers={simpMessageType=MESSAGE, stompCommand=SEND, nativeHeaders={Authorization=[Bearer eyJhbGciOiJIUzI1NiJ9.eyJtb2JpbGVOdW1iZXIiOiIwMTA3NzI2NTEwOCIsImRldmljZUlkIjoiMTIzMTI0IiwiaWF0IjoxNzA3ODg2Nzc0LCJleHAiOjE3MDc4OTE3NzR9.yUjhI_LxrLXllfvOwnBiPIx9MRR8Jc8-6W8J4VYfQzs], destination=[/chat/message/1], content-length=[72]}, simpSessionAttributes={}, simpHeartbeat=[J@7e456dba, simpSessionId=0223e74a-bacc-f9c1-0a82-80f29b167a4b, simpDestination=/chat/message/1}]
-2024-02-14 14:06:55.855 [http-nio-8080-exec-9] INFO com.chatty.handler.StompHandler - Stomp Handler 실행
-2024-02-14 14:06:55.857 [http-nio-8080-exec-9] INFO com.chatty.handler.StompHandler - accessor : StompHeaderAccessor [headers={simpMessageType=MESSAGE, stompCommand=SEND, nativeHeaders={Authorization=[Bearer eyJhbGciOiJIUzI1NiJ9.eyJtb2JpbGVOdW1iZXIiOiIwMTA3NzI2NTEwOCIsImRldmljZUlkIjoiMTIzMTI0IiwiaWF0IjoxNzA3ODg2Nzc0LCJleHAiOjE3MDc4OTE3NzR9.yUjhI_LxrLXllfvOwnBiPIx9MRR8Jc8-6W8J4VYfQzs], destination=[/pub/chat/message/1], content-length=[72]}, simpSessionAttributes={}, simpHeartbeat=[J@67cc92ef, simpSessionId=0223e74a-bacc-f9c1-0a82-80f29b167a4b, simpDestination=/pub/chat/message/1}]
-2024-02-14 14:06:55.858 [http-nio-8080-exec-9] INFO com.chatty.handler.StompHandler - stompCommand : SEND
-2024-02-14 14:06:55.858 [http-nio-8080-exec-9] INFO com.chatty.validator.TokenValidator - [JwtTokenFilter] accessToken 유효 여부 확인
-2024-02-14 14:06:55.858 [http-nio-8080-exec-9] INFO com.chatty.validator.TokenValidator - 입력된 토큰 : Bearer eyJhbGciOiJIUzI1NiJ9.eyJtb2JpbGVOdW1iZXIiOiIwMTA3NzI2NTEwOCIsImRldmljZUlkIjoiMTIzMTI0IiwiaWF0IjoxNzA3ODg2Nzc0LCJleHAiOjE3MDc4OTE3NzR9.yUjhI_LxrLXllfvOwnBiPIx9MRR8Jc8-6W8J4VYfQzs
-2024-02-14 14:06:55.858 [http-nio-8080-exec-9] INFO com.chatty.jwt.JwtTokenProvider - [JwtTokenProvider/isValidToken] 비밀키를 통해 유효한 토큰인지 확인
-2024-02-14 14:06:55.859 [http-nio-8080-exec-9] INFO com.chatty.jwt.JwtTokenProvider - eyJhbGciOiJIUzI1NiJ9.eyJtb2JpbGVOdW1iZXIiOiIwMTA3NzI2NTEwOCIsImRldmljZUlkIjoiMTIzMTI0IiwiaWF0IjoxNzA3ODg2Nzc0LCJleHAiOjE3MDc4OTE3NzR9.yUjhI_LxrLXllfvOwnBiPIx9MRR8Jc8-6W8J4VYfQzs
-2024-02-14 14:06:55.863 [http-nio-8080-exec-9] INFO com.chatty.jwt.JwtTokenProvider - [JwtTokenProvider/isExpiredToken] 만료된 도큰인지 확인
-2024-02-14 14:06:55.865 [http-nio-8080-exec-9] INFO com.chatty.jwt.JwtTokenProvider - 만료되지 않았습니다.
-2024-02-14 14:06:55.865 [http-nio-8080-exec-9] INFO com.chatty.handler.StompHandler - 토큰 검증 완료
-2024-02-14 14:06:55.866 [http-nio-8080-exec-9] INFO com.chatty.handler.StompHandler - message : GenericMessage [payload=byte[72], headers={simpMessageType=MESSAGE, stompCommand=SEND, nativeHeaders={Authorization=[Bearer eyJhbGciOiJIUzI1NiJ9.eyJtb2JpbGVOdW1iZXIiOiIwMTA3NzI2NTEwOCIsImRldmljZUlkIjoiMTIzMTI0IiwiaWF0IjoxNzA3ODg2Nzc0LCJleHAiOjE3MDc4OTE3NzR9.yUjhI_LxrLXllfvOwnBiPIx9MRR8Jc8-6W8J4VYfQzs], destination=[/pub/chat/message/1], content-length=[72]}, simpSessionAttributes={}, simpHeartbeat=[J@67cc92ef, simpSessionId=0223e74a-bacc-f9c1-0a82-80f29b167a4b, simpDestination=/pub/chat/message/1}]
-2024-02-14 14:06:55.952 [clientInboundChannel-29] INFO com.chatty.controller.chat.MessageController - 메세지 전송
-2024-02-14 14:08:43.411 [http-nio-8080-exec-10] INFO com.chatty.interceptor.RateLimitInterceptor - remaining token : 20
-2024-02-14 14:08:43.513 [http-nio-8080-exec-10] ERROR org.apache.catalina.core.ContainerBase.[Tomcat].[localhost].[/].[dispatcherServlet] - Servlet.service() for servlet [dispatcherServlet] threw exception
-java.lang.NullPointerException: Cannot invoke "com.chatty.exception.CustomException.getCode()" because "exception" is null
-	at com.chatty.handler.JwtAuthenticationEntryPoint.setResponse(JwtAuthenticationEntryPoint.java:32)
-	at com.chatty.handler.JwtAuthenticationEntryPoint.commence(JwtAuthenticationEntryPoint.java:24)
-	at org.springframework.security.web.access.ExceptionTranslationFilter.sendStartAuthentication(ExceptionTranslationFilter.java:219)
-	at org.springframework.security.web.access.ExceptionTranslationFilter.handleAccessDeniedException(ExceptionTranslationFilter.java:197)
-	at org.springframework.security.web.access.ExceptionTranslationFilter.handleSpringSecurityException(ExceptionTranslationFilter.java:178)
-	at org.springframework.security.web.access.ExceptionTranslationFilter.doFilter(ExceptionTranslationFilter.java:147)
-	at org.springframework.security.web.access.ExceptionTranslationFilter.doFilter(ExceptionTranslationFilter.java:120)
-	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:374)
-	at org.springframework.security.web.authentication.AnonymousAuthenticationFilter.doFilter(AnonymousAuthenticationFilter.java:100)
-	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:374)
-	at org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestFilter.doFilter(SecurityContextHolderAwareRequestFilter.java:179)
-	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:374)
-	at org.springframework.security.web.savedrequest.RequestCacheAwareFilter.doFilter(RequestCacheAwareFilter.java:63)
-	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:374)
-	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:101)
-	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:374)
-	at org.springframework.security.web.authentication.logout.LogoutFilter.doFilter(LogoutFilter.java:107)
-	at org.springframework.security.web.authentication.logout.LogoutFilter.doFilter(LogoutFilter.java:93)
-	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:374)
-	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:101)
-	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:374)
-	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:101)
-	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:374)
-	at org.springframework.security.web.context.SecurityContextHolderFilter.doFilter(SecurityContextHolderFilter.java:82)
-	at org.springframework.security.web.context.SecurityContextHolderFilter.doFilter(SecurityContextHolderFilter.java:69)
-	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:374)
-	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:101)
-	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:374)
-	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:101)
-	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:374)
-	at org.springframework.security.web.FilterChainProxy.doFilterInternal(FilterChainProxy.java:233)
-	at org.springframework.security.web.FilterChainProxy.doFilter(FilterChainProxy.java:191)
-	at org.springframework.web.filter.DelegatingFilterProxy.invokeDelegate(DelegatingFilterProxy.java:352)
-	at org.springframework.web.filter.DelegatingFilterProxy.doFilter(DelegatingFilterProxy.java:268)
-	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:174)
-	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:149)
-	at org.springframework.web.filter.RequestContextFilter.doFilterInternal(RequestContextFilter.java:100)
-	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:116)
-	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:174)
-	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:149)
-	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:101)
-	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:174)
-	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:149)
-	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:101)
-	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:174)
-	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:149)
-	at org.apache.catalina.core.ApplicationDispatcher.invoke(ApplicationDispatcher.java:642)
-	at org.apache.catalina.core.ApplicationDispatcher.processRequest(ApplicationDispatcher.java:410)
-	at org.apache.catalina.core.ApplicationDispatcher.doForward(ApplicationDispatcher.java:340)
-	at org.apache.catalina.core.ApplicationDispatcher.forward(ApplicationDispatcher.java:277)
-	at org.apache.catalina.core.StandardHostValve.custom(StandardHostValve.java:362)
-	at org.apache.catalina.core.StandardHostValve.status(StandardHostValve.java:222)
-	at org.apache.catalina.core.StandardHostValve.invoke(StandardHostValve.java:151)
-	at org.apache.catalina.valves.ErrorReportValve.invoke(ErrorReportValve.java:93)
-	at org.apache.catalina.core.StandardEngineValve.invoke(StandardEngineValve.java:74)
-	at org.apache.catalina.connector.CoyoteAdapter.service(CoyoteAdapter.java:340)
-	at org.apache.coyote.http11.Http11Processor.service(Http11Processor.java:391)
-	at org.apache.coyote.AbstractProcessorLight.process(AbstractProcessorLight.java:63)
-	at org.apache.coyote.AbstractProtocol$ConnectionHandler.process(AbstractProtocol.java:896)
-	at org.apache.tomcat.util.net.NioEndpoint$SocketProcessor.doRun(NioEndpoint.java:1744)
-	at org.apache.tomcat.util.net.SocketProcessorBase.run(SocketProcessorBase.java:52)
-	at org.apache.tomcat.util.threads.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1191)
-	at org.apache.tomcat.util.threads.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:659)
-	at org.apache.tomcat.util.threads.TaskThread$WrappingRunnable.run(TaskThread.java:61)
-	at java.base/java.lang.Thread.run(Thread.java:833)
-2024-02-14 14:08:43.518 [http-nio-8080-exec-10] ERROR org.apache.catalina.core.ContainerBase.[Tomcat].[localhost] - Exception Processing ErrorPage[errorCode=0, location=/error]
-java.lang.NullPointerException: Cannot invoke "com.chatty.exception.CustomException.getCode()" because "exception" is null
-	at com.chatty.handler.JwtAuthenticationEntryPoint.setResponse(JwtAuthenticationEntryPoint.java:32)
-	at com.chatty.handler.JwtAuthenticationEntryPoint.commence(JwtAuthenticationEntryPoint.java:24)
-	at org.springframework.security.web.access.ExceptionTranslationFilter.sendStartAuthentication(ExceptionTranslationFilter.java:219)
-	at org.springframework.security.web.access.ExceptionTranslationFilter.handleAccessDeniedException(ExceptionTranslationFilter.java:197)
-	at org.springframework.security.web.access.ExceptionTranslationFilter.handleSpringSecurityException(ExceptionTranslationFilter.java:178)
-	at org.springframework.security.web.access.ExceptionTranslationFilter.doFilter(ExceptionTranslationFilter.java:147)
-	at org.springframework.security.web.access.ExceptionTranslationFilter.doFilter(ExceptionTranslationFilter.java:120)
-	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:374)
-	at org.springframework.security.web.authentication.AnonymousAuthenticationFilter.doFilter(AnonymousAuthenticationFilter.java:100)
-	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:374)
-	at org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestFilter.doFilter(SecurityContextHolderAwareRequestFilter.java:179)
-	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:374)
-	at org.springframework.security.web.savedrequest.RequestCacheAwareFilter.doFilter(RequestCacheAwareFilter.java:63)
-	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:374)
-	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:101)
-	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:374)
-	at org.springframework.security.web.authentication.logout.LogoutFilter.doFilter(LogoutFilter.java:107)
-	at org.springframework.security.web.authentication.logout.LogoutFilter.doFilter(LogoutFilter.java:93)
-	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:374)
-	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:101)
-	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:374)
-	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:101)
-	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:374)
-	at org.springframework.security.web.context.SecurityContextHolderFilter.doFilter(SecurityContextHolderFilter.java:82)
-	at org.springframework.security.web.context.SecurityContextHolderFilter.doFilter(SecurityContextHolderFilter.java:69)
-	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:374)
-	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:101)
-	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:374)
-	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:101)
-	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:374)
-	at org.springframework.security.web.FilterChainProxy.doFilterInternal(FilterChainProxy.java:233)
-	at org.springframework.security.web.FilterChainProxy.doFilter(FilterChainProxy.java:191)
-	at org.springframework.web.filter.DelegatingFilterProxy.invokeDelegate(DelegatingFilterProxy.java:352)
-	at org.springframework.web.filter.DelegatingFilterProxy.doFilter(DelegatingFilterProxy.java:268)
-	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:174)
-	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:149)
-	at org.springframework.web.filter.RequestContextFilter.doFilterInternal(RequestContextFilter.java:100)
-	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:116)
-	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:174)
-	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:149)
-	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:101)
-	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:174)
-	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:149)
-	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:101)
-	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:174)
-	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:149)
-	at org.apache.catalina.core.ApplicationDispatcher.invoke(ApplicationDispatcher.java:642)
-	at org.apache.catalina.core.ApplicationDispatcher.processRequest(ApplicationDispatcher.java:410)
-	at org.apache.catalina.core.ApplicationDispatcher.doForward(ApplicationDispatcher.java:340)
-	at org.apache.catalina.core.ApplicationDispatcher.forward(ApplicationDispatcher.java:277)
-	at org.apache.catalina.core.StandardHostValve.custom(StandardHostValve.java:362)
-	at org.apache.catalina.core.StandardHostValve.status(StandardHostValve.java:222)
-	at org.apache.catalina.core.StandardHostValve.invoke(StandardHostValve.java:151)
-	at org.apache.catalina.valves.ErrorReportValve.invoke(ErrorReportValve.java:93)
-	at org.apache.catalina.core.StandardEngineValve.invoke(StandardEngineValve.java:74)
-	at org.apache.catalina.connector.CoyoteAdapter.service(CoyoteAdapter.java:340)
-	at org.apache.coyote.http11.Http11Processor.service(Http11Processor.java:391)
-	at org.apache.coyote.AbstractProcessorLight.process(AbstractProcessorLight.java:63)
-	at org.apache.coyote.AbstractProtocol$ConnectionHandler.process(AbstractProtocol.java:896)
-	at org.apache.tomcat.util.net.NioEndpoint$SocketProcessor.doRun(NioEndpoint.java:1744)
-	at org.apache.tomcat.util.net.SocketProcessorBase.run(SocketProcessorBase.java:52)
-	at org.apache.tomcat.util.threads.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1191)
-	at org.apache.tomcat.util.threads.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:659)
-	at org.apache.tomcat.util.threads.TaskThread$WrappingRunnable.run(TaskThread.java:61)
-	at java.base/java.lang.Thread.run(Thread.java:833)
-2024-02-14 14:11:50.857 [http-nio-8080-exec-3] INFO com.chatty.handler.StompHandler - Stomp Handler 실행
-2024-02-14 14:11:50.860 [http-nio-8080-exec-3] INFO com.chatty.handler.StompHandler - accessor : StompHeaderAccessor [headers={simpMessageType=DISCONNECT, stompCommand=DISCONNECT, simpSessionAttributes={}, simpHeartbeat=[J@7506f259, simpSessionId=0223e74a-bacc-f9c1-0a82-80f29b167a4b}]
-2024-02-14 14:11:50.861 [http-nio-8080-exec-3] INFO com.chatty.handler.StompHandler - stompCommand : DISCONNECT
-2024-02-14 14:11:50.861 [http-nio-8080-exec-3] INFO com.chatty.handler.StompHandler - message : GenericMessage [payload=byte[0], headers={simpMessageType=DISCONNECT, stompCommand=DISCONNECT, simpSessionAttributes={}, simpHeartbeat=[J@7506f259, simpSessionId=0223e74a-bacc-f9c1-0a82-80f29b167a4b}]
-2024-02-14 14:11:50.872 [http-nio-8080-exec-3] INFO com.chatty.handler.StompHandler - Stomp Handler 실행
-2024-02-14 14:11:50.873 [http-nio-8080-exec-3] INFO com.chatty.handler.StompHandler - accessor : StompHeaderAccessor [headers={simpMessageType=DISCONNECT, stompCommand=DISCONNECT, simpSessionAttributes={}, simpSessionId=0223e74a-bacc-f9c1-0a82-80f29b167a4b}]
-2024-02-14 14:11:50.874 [http-nio-8080-exec-3] INFO com.chatty.handler.StompHandler - stompCommand : DISCONNECT
-2024-02-14 14:11:50.874 [http-nio-8080-exec-3] INFO com.chatty.handler.StompHandler - message : GenericMessage [payload=byte[0], headers={simpMessageType=DISCONNECT, stompCommand=DISCONNECT, simpSessionAttributes={}, simpSessionId=0223e74a-bacc-f9c1-0a82-80f29b167a4b}]
-2024-02-14 14:14:22.392 [http-nio-8080-exec-2] INFO com.chatty.handler.StompHandler - Stomp Handler 실행
-2024-02-14 14:14:22.394 [http-nio-8080-exec-2] INFO com.chatty.handler.StompHandler - accessor : StompHeaderAccessor [headers={simpMessageType=DISCONNECT, stompCommand=DISCONNECT, simpSessionAttributes={}, simpHeartbeat=[J@146658a1, simpSessionId=85c07bdf-d567-42d0-46dd-cfb54fe15823}]
-2024-02-14 14:14:22.395 [http-nio-8080-exec-2] INFO com.chatty.handler.StompHandler - stompCommand : DISCONNECT
-2024-02-14 14:14:22.395 [http-nio-8080-exec-2] INFO com.chatty.handler.StompHandler - message : GenericMessage [payload=byte[0], headers={simpMessageType=DISCONNECT, stompCommand=DISCONNECT, simpSessionAttributes={}, simpHeartbeat=[J@146658a1, simpSessionId=85c07bdf-d567-42d0-46dd-cfb54fe15823}]
-2024-02-14 14:14:22.414 [http-nio-8080-exec-2] INFO com.chatty.handler.StompHandler - Stomp Handler 실행
-2024-02-14 14:14:22.418 [http-nio-8080-exec-2] INFO com.chatty.handler.StompHandler - accessor : StompHeaderAccessor [headers={simpMessageType=DISCONNECT, stompCommand=DISCONNECT, simpSessionAttributes={}, simpSessionId=85c07bdf-d567-42d0-46dd-cfb54fe15823}]
-2024-02-14 14:14:22.418 [http-nio-8080-exec-2] INFO com.chatty.handler.StompHandler - stompCommand : DISCONNECT
-2024-02-14 14:14:22.418 [http-nio-8080-exec-2] INFO com.chatty.handler.StompHandler - message : GenericMessage [payload=byte[0], headers={simpMessageType=DISCONNECT, stompCommand=DISCONNECT, simpSessionAttributes={}, simpSessionId=85c07bdf-d567-42d0-46dd-cfb54fe15823}]
-2024-02-14 14:23:16.277 [SpringApplicationShutdownHook] INFO org.springframework.messaging.simp.broker.SimpleBrokerMessageHandler - Stopping...
-2024-02-14 14:23:16.279 [SpringApplicationShutdownHook] INFO org.springframework.messaging.simp.broker.SimpleBrokerMessageHandler - BrokerAvailabilityEvent[available=false, SimpleBrokerMessageHandler [org.springframework.messaging.simp.broker.DefaultSubscriptionRegistry@375c6b98]]
-2024-02-14 14:23:16.280 [SpringApplicationShutdownHook] INFO org.springframework.messaging.simp.broker.SimpleBrokerMessageHandler - Stopped.
-2024-02-14 14:23:16.632 [SpringApplicationShutdownHook] INFO org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean - Closing JPA EntityManagerFactory for persistence unit 'default'
-2024-02-14 14:23:16.649 [SpringApplicationShutdownHook] INFO com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Shutdown initiated...
-2024-02-14 14:23:16.701 [SpringApplicationShutdownHook] INFO com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Shutdown completed.
+2024-02-14 17:21:51.542 [background-preinit] INFO org.hibernate.validator.internal.util.Version - HV000001: Hibernate Validator 8.0.1.Final
+2024-02-14 17:21:51.621 [main] INFO com.chatty.ChattyApplication - Starting ChattyApplication using Java 18.0.2 with PID 10819 (/Users/developer/IdeaProjects/Chatty-Backend/build/classes/java/main started by developer in /Users/developer/IdeaProjects/Chatty-Backend)
+2024-02-14 17:21:51.623 [main] INFO com.chatty.ChattyApplication - No active profile set, falling back to 1 default profile: "default"
+2024-02-14 17:21:53.060 [main] INFO org.springframework.data.repository.config.RepositoryConfigurationDelegate - Multiple Spring Data modules found, entering strict repository configuration mode
+2024-02-14 17:21:53.061 [main] INFO org.springframework.data.repository.config.RepositoryConfigurationDelegate - Bootstrapping Spring Data Redis repositories in DEFAULT mode.
+2024-02-14 17:21:53.088 [main] INFO org.springframework.data.repository.config.RepositoryConfigurationDelegate - Finished Spring Data repository scanning in 10 ms. Found 0 Redis repository interfaces.
+2024-02-14 17:21:53.546 [main] INFO org.springframework.data.repository.config.RepositoryConfigurationDelegate - Multiple Spring Data modules found, entering strict repository configuration mode
+2024-02-14 17:21:53.548 [main] INFO org.springframework.data.repository.config.RepositoryConfigurationDelegate - Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2024-02-14 17:21:53.817 [main] INFO org.springframework.data.repository.config.RepositoryConfigurationDelegate - Finished Spring Data repository scanning in 266 ms. Found 7 JPA repository interfaces.
+2024-02-14 17:21:53.833 [main] INFO org.springframework.data.repository.config.RepositoryConfigurationDelegate - Multiple Spring Data modules found, entering strict repository configuration mode
+2024-02-14 17:21:53.833 [main] INFO org.springframework.data.repository.config.RepositoryConfigurationDelegate - Bootstrapping Spring Data Redis repositories in DEFAULT mode.
+2024-02-14 17:21:53.850 [main] INFO org.springframework.data.repository.config.RepositoryConfigurationExtensionSupport - Spring Data Redis - Could not safely identify store assignment for repository candidate interface com.chatty.repository.chat.ChatRoomRepository; If you want this repository to be a Redis repository, consider annotating your entities with one of these annotations: org.springframework.data.redis.core.RedisHash (preferred), or consider extending one of the following types with your repository: org.springframework.data.keyvalue.repository.KeyValueRepository
+2024-02-14 17:21:53.851 [main] INFO org.springframework.data.repository.config.RepositoryConfigurationExtensionSupport - Spring Data Redis - Could not safely identify store assignment for repository candidate interface com.chatty.repository.chat.MessageRepository; If you want this repository to be a Redis repository, consider annotating your entities with one of these annotations: org.springframework.data.redis.core.RedisHash (preferred), or consider extending one of the following types with your repository: org.springframework.data.keyvalue.repository.KeyValueRepository
+2024-02-14 17:21:53.851 [main] INFO org.springframework.data.repository.config.RepositoryConfigurationExtensionSupport - Spring Data Redis - Could not safely identify store assignment for repository candidate interface com.chatty.repository.check.AuthCheckRepository; If you want this repository to be a Redis repository, consider annotating your entities with one of these annotations: org.springframework.data.redis.core.RedisHash (preferred), or consider extending one of the following types with your repository: org.springframework.data.keyvalue.repository.KeyValueRepository
+2024-02-14 17:21:53.851 [main] INFO org.springframework.data.repository.config.RepositoryConfigurationExtensionSupport - Spring Data Redis - Could not safely identify store assignment for repository candidate interface com.chatty.repository.interest.InterestRepository; If you want this repository to be a Redis repository, consider annotating your entities with one of these annotations: org.springframework.data.redis.core.RedisHash (preferred), or consider extending one of the following types with your repository: org.springframework.data.keyvalue.repository.KeyValueRepository
+2024-02-14 17:21:53.851 [main] INFO org.springframework.data.repository.config.RepositoryConfigurationExtensionSupport - Spring Data Redis - Could not safely identify store assignment for repository candidate interface com.chatty.repository.match.MatchHistoryRepository; If you want this repository to be a Redis repository, consider annotating your entities with one of these annotations: org.springframework.data.redis.core.RedisHash (preferred), or consider extending one of the following types with your repository: org.springframework.data.keyvalue.repository.KeyValueRepository
+2024-02-14 17:21:53.854 [main] INFO org.springframework.data.repository.config.RepositoryConfigurationExtensionSupport - Spring Data Redis - Could not safely identify store assignment for repository candidate interface com.chatty.repository.match.MatchRepository; If you want this repository to be a Redis repository, consider annotating your entities with one of these annotations: org.springframework.data.redis.core.RedisHash (preferred), or consider extending one of the following types with your repository: org.springframework.data.keyvalue.repository.KeyValueRepository
+2024-02-14 17:21:53.857 [main] INFO org.springframework.data.repository.config.RepositoryConfigurationExtensionSupport - Spring Data Redis - Could not safely identify store assignment for repository candidate interface com.chatty.repository.user.UserRepository; If you want this repository to be a Redis repository, consider annotating your entities with one of these annotations: org.springframework.data.redis.core.RedisHash (preferred), or consider extending one of the following types with your repository: org.springframework.data.keyvalue.repository.KeyValueRepository
+2024-02-14 17:21:53.858 [main] INFO org.springframework.data.repository.config.RepositoryConfigurationDelegate - Finished Spring Data repository scanning in 24 ms. Found 0 Redis repository interfaces.
+2024-02-14 17:21:55.034 [main] INFO org.springframework.boot.web.embedded.tomcat.TomcatWebServer - Tomcat initialized with port 8080 (http)
+2024-02-14 17:21:55.046 [main] INFO org.apache.coyote.http11.Http11NioProtocol - Initializing ProtocolHandler ["http-nio-8080"]
+2024-02-14 17:21:55.049 [main] INFO org.apache.catalina.core.StandardService - Starting service [Tomcat]
+2024-02-14 17:21:55.049 [main] INFO org.apache.catalina.core.StandardEngine - Starting Servlet engine: [Apache Tomcat/10.1.16]
+2024-02-14 17:21:55.150 [main] INFO org.apache.catalina.core.ContainerBase.[Tomcat].[localhost].[/] - Initializing Spring embedded WebApplicationContext
+2024-02-14 17:21:55.150 [main] INFO org.springframework.boot.web.servlet.context.ServletWebServerApplicationContext - Root WebApplicationContext: initialization completed in 3400 ms
+2024-02-14 17:21:55.428 [main] INFO org.hibernate.jpa.internal.util.LogHelper - HHH000204: Processing PersistenceUnitInfo [name: default]
+2024-02-14 17:21:55.480 [main] INFO org.hibernate.Version - HHH000412: Hibernate ORM core version 6.3.1.Final
+2024-02-14 17:21:55.492 [main] INFO org.hibernate.spatial.integration.SpatialService - HHH80000001: hibernate-spatial integration enabled : true
+2024-02-14 17:21:55.518 [main] INFO org.hibernate.cache.internal.RegionFactoryInitiator - HHH000026: Second-level cache disabled
+2024-02-14 17:21:55.631 [main] INFO com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Starting...
+2024-02-14 17:21:56.236 [main] INFO com.zaxxer.hikari.pool.HikariPool - HikariPool-1 - Added connection com.mysql.cj.jdbc.ConnectionImpl@4cf01c41
+2024-02-14 17:21:56.239 [main] INFO com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Start completed.
+2024-02-14 17:21:56.366 [main] INFO org.hibernate.spatial - HHH80000003: hibernate-spatial adding type contributions from : org.hibernate.spatial.dialect.mysql.MySQLDialectContributor
+2024-02-14 17:21:56.582 [main] INFO org.springframework.orm.jpa.persistenceunit.SpringPersistenceUnitInfo - No LoadTimeWeaver setup: ignoring JPA class transformer
+2024-02-14 17:21:56.605 [main] INFO org.hibernate.spatial - HHH80000003: hibernate-spatial adding type contributions from : org.hibernate.spatial.dialect.mysql.MySQLDialectContributor
+2024-02-14 17:21:57.047 [main] INFO org.hibernate.spatial - HHH80000004: hibernate-spatial adding function contributions from : org.hibernate.spatial.dialect.mysql.MySQLDialectContributor
+2024-02-14 17:21:58.243 [main] INFO org.hibernate.engine.transaction.jta.platform.internal.JtaPlatformInitiator - HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+2024-02-14 17:21:58.505 [main] INFO org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean - Initialized JPA EntityManagerFactory for persistence unit 'default'
+2024-02-14 17:21:59.310 [main] INFO org.springframework.data.jpa.repository.query.QueryEnhancerFactory - Hibernate is in classpath; If applicable, HQL parser will be used.
+2024-02-14 17:22:01.212 [main] WARN org.springframework.boot.autoconfigure.orm.jpa.JpaBaseConfiguration$JpaWebConfiguration - spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
