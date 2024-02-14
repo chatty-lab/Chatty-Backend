@@ -52,10 +52,10 @@ public class UserService {
         String key = SmsUtils.makeKey(userRequestDto.getMobileNumber(), userRequestDto.getDeviceId());
         String authNumber = userRequestDto.getAuthenticationNumber();
 
-//        if(!smsService.checkAuthNumber(key,authNumber)){
-//            log.error("인증 번호가 일치하지 않는다.");
-//            throw new CustomException(Code.INVALID_AUTH_NUMBER);
-//        }
+        if(!smsService.checkAuthNumber(key,authNumber)){
+            log.error("인증 번호가 일치하지 않는다.");
+            throw new CustomException(Code.INVALID_AUTH_NUMBER);
+        }
 
         if(!isAlreadyExistedUser(userRequestDto.getMobileNumber())) {
             log.error("존재 하지 않는 유저 입니다.");
@@ -84,10 +84,10 @@ public class UserService {
         String key = SmsUtils.makeKey(userRequestDto.getMobileNumber(), userRequestDto.getDeviceId());
         String authNumber = userRequestDto.getAuthenticationNumber();
 
-//        if(!smsService.checkAuthNumber(key,authNumber)){
-//            log.error("인증 번호가 일치하지 않는다.");
-//            throw new CustomException(Code.INVALID_AUTH_NUMBER);
-//        }
+        if(!smsService.checkAuthNumber(key,authNumber)){
+            log.error("인증 번호가 일치하지 않는다.");
+            throw new CustomException(Code.INVALID_AUTH_NUMBER);
+        }
 
         if(isExistedUser){
             log.error("이미 존재 하는 유저 입니다.");
