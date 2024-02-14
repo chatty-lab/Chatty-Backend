@@ -58,6 +58,9 @@ dependencies {
     // rate-limit
     implementation 'com.github.vladimir-bukhtoyarov:bucket4j-core:7.6.0'
 
+    // kurento-media-server
+    implementation group: 'org.kurento', name: 'kurento-client', version: '6.18.0'
+
     compileOnly 'org.projectlombok:lombok'
     runtimeOnly 'com.h2database:h2'
     runtimeOnly 'com.mysql:mysql-connector-j'
