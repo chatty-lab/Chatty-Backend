@@ -3581,3 +3581,8 @@ Caused by: org.springframework.data.mapping.PropertyReferenceException: No prope
 	at org.springframework.data.repository.query.parser.PartTree.<init>(PartTree.java:103)
 	at org.springframework.data.jpa.repository.query.PartTreeJpaQuery.<init>(PartTreeJpaQuery.java:100)
 	... 60 common frames omitted
+2024-02-14 15:42:19.188 [http-nio-8080-exec-2] ERROR com.chatty.service.user.UserService - 인증 번호가 일치하지 않는다.
+2024-02-14 15:42:26.756 [http-nio-8080-exec-5] ERROR com.chatty.service.user.UserService - 인증 번호가 일치하지 않는다.
+2024-02-14 15:42:35.968 [http-nio-8080-exec-8] ERROR com.chatty.service.user.UserService - 인증 번호가 일치하지 않는다.
+2024-02-14 15:43:03.226 [http-nio-8080-exec-1] ERROR com.chatty.service.user.UserService - 인증 번호가 일치하지 않는다.
+2024-02-14 15:44:07.728 [http-nio-8080-exec-4] ERROR com.chatty.service.user.UserService - 인증 번호가 일치하지 않는다.
