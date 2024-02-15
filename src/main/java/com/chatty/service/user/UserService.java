@@ -227,7 +227,7 @@ public class UserService {
 //        Set<UserInterest> newInterests = new HashSet<>();
         for (Long interestId : request.getInterests()) {
             Interest interest = interestRepository.findById(interestId)
-                    .orElseThrow(() -> new CustomException(Code.NOT_BLUECHECK_USER));
+                    .orElseThrow(() -> new CustomException(Code.NOT_EXIST_INTEREST));
 
             UserInterest userInterest = UserInterest.builder()
                     .user(user)
