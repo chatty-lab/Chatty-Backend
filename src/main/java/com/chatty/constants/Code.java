@@ -30,6 +30,7 @@ public enum Code {
     NOT_CHECK_ALL_QUESTION(HttpStatus.BAD_REQUEST, "계정 확인 질문을 전부 완료해야 합니다.","E021"),
     NOT_BLUECHECK_USER(HttpStatus.UNAUTHORIZED, "프로필 인증이 되어있지 않습니다.", "E022"),
     INVALID_DEVICE_NUMER(HttpStatus.BAD_REQUEST, "기존 계정과 기기 번호가 일치하지 않습니다.","E023"),
+    NOT_EXIST_INTEREST(HttpStatus.BAD_REQUEST, "존재하지 않는 관심사입니다.", "E024"),
 
     // ratelimit
     TOO_MANY_REQUESTS(HttpStatus.TOO_MANY_REQUESTS, "너무 많은 요청을 보냈습니다.","E098");

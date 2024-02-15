@@ -280,4 +280,9 @@ public class UserController {
         return ApiResponse.ok(userService.updateIntroduce(request, authentication.getName()));
     }
 
+    @GetMapping("/my/profile")
+    public ApiResponse<UserResponse> getMyProfile(Authentication authentication) {
+        return ApiResponse.ok(userService.getMyProfile(authentication.getName()));
+    }
+
 }

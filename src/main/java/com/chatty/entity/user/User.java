@@ -67,6 +67,9 @@ public class User extends CommonEntity implements UserDetails{
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
     private Set<UserInterest> userInterests = new HashSet<>();
 
+//    @OneToMany(mappedBy = "user")
+//    private Set<ProfileUnlock> unlocks = new HashSet<>();
+
     @Enumerated(EnumType.STRING)
     private Authority authority;
 
