@@ -50,7 +50,7 @@ class ProfileUnlockControllerTest {
     void unlockProfile() throws Exception {
         // given
         ProfileUnlockRequest request = ProfileUnlockRequest.builder()
-                .unlock(true)
+                .unlockMethod("candy")
                 .build();
 
         // when // then
@@ -63,22 +63,22 @@ class ProfileUnlockControllerTest {
                 .andExpect(status().isOk());
     }
 
-    @DisplayName("상대방 프로필 잠금을 해제할 때, true값을 입력해야 된다.")
-    @Test
-    void unlockProfileWithFalse() throws Exception {
-        // given
-        ProfileUnlockRequest request = ProfileUnlockRequest.builder()
-                .unlock(false)
-                .build();
-
-        // when // then
-        mockMvc.perform(
-                        post("/api/v1/users/profile/{userId}", 2L).with(csrf())
-                                .contentType(MediaType.APPLICATION_JSON)
-                                .content(objectMapper.writeValueAsString(request))
-                )
-                .andDo(print())
-                .andExpect(status().isBadRequest())
-                .andExpect(jsonPath("$.message").value("true 값만 들어올 수 있습니다."));
-    }
+//    @DisplayName("상대방 프로필 잠금을 해제할 때, true값을 입력해야 된다.")
+//    @Test
+//    void unlockProfileWithFalse() throws Exception {
+//        // given
+//        ProfileUnlockRequest request = ProfileUnlockRequest.builder()
+//                .unlock(false)
+//                .build();
+//
+//        // when // then
+//        mockMvc.perform(
+//                        post("/api/v1/users/profile/{userId}", 2L).with(csrf())
+//                                .contentType(MediaType.APPLICATION_JSON)
+//                                .content(objectMapper.writeValueAsString(request))
+//                )
+//                .andDo(print())
+//                .andExpect(status().isBadRequest())
+//                .andExpect(jsonPath("$.message").value("true 값만 들어올 수 있습니다."));
+//    }
 }
