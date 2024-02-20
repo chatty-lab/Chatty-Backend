@@ -1,5 +1,6 @@
 package com.chatty.service.match;
 
+import com.chatty.config.WebSocketConnectionManager;
 import com.chatty.dto.chat.request.RoomDto;
 import com.chatty.dto.chat.response.RoomResponseDto;
 import com.chatty.dto.match.response.MatchResponse;
@@ -39,6 +40,9 @@ public class MatchHandler extends TextWebSocketHandler {
     @Override
     public void afterConnectionEstablished(final WebSocketSession session) throws Exception {
         sessions.add(session);
+        String mobileNumber = session.getAttributes().get("mobileNumber").toString();
+        WebSocketConnectionManager.addConnection(mobileNumber, session.getId());
+
         log.info("sessionId = {}, sessions size = {}", session.getId(), sessions.size());
     }
 
@@ -234,6 +238,8 @@ public class MatchHandler extends TextWebSocketHandler {
 
     @Override
     public void afterConnectionClosed(final WebSocketSession session, final CloseStatus status) throws Exception {
+        String mobileNumber = session.getAttributes().get("mobileNumber").toString();
+        WebSocketConnectionManager.removeConnection(mobileNumber);
         log.info("세션 삭제 완료 소켓 연결 끊음.");
         sessions.remove(session);
     }
