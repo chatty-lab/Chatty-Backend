@@ -2,6 +2,7 @@ package com.chatty.config;
 
 import com.chatty.dto.ApiResponse;
 import com.chatty.exception.CustomException;
+import com.chatty.jwt.JwtTokenProvider;
 import com.chatty.validator.TokenValidator;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import jakarta.servlet.http.HttpServletResponse;
@@ -22,12 +23,15 @@ import java.util.Map;
 public class WebSocketMatchInterceptor implements HandshakeInterceptor {
 
     private final TokenValidator tokenValidator;
+    private final JwtTokenProvider jwtTokenProvider;
 
     @Override
     public boolean beforeHandshake(final ServerHttpRequest request, final ServerHttpResponse response, final WebSocketHandler wsHandler, final Map<String, Object> attributes) throws Exception {
         String token = request.getHeaders().getFirst("Authorization");
+        String mobileNumber = jwtTokenProvider.getMobileNumber(token.substring(7)); // key값으로 저장
 
         if (token != null && token.startsWith("Bearer ")) {
+
             try {
                 tokenValidator.validateAccessToken(token);
             } catch (CustomException e){
@@ -35,8 +39,15 @@ public class WebSocketMatchInterceptor implements HandshakeInterceptor {
                 response.setStatusCode(HttpStatus.UNAUTHORIZED);
                 return false;
             }
+
+            if (WebSocketConnectionManager.isConnected(mobileNumber)) {
+                log.error("이미 연결이 존재합니다.");
+                response.setStatusCode(HttpStatus.BAD_REQUEST);
+                return false;
+            }
         }
 
+        attributes.put("mobileNumber", mobileNumber);
         return true;
     }
 
