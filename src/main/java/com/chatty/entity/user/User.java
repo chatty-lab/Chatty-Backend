@@ -79,6 +79,9 @@ public class User extends CommonEntity implements UserDetails{
 
     private boolean blueCheck;
 
+    private int ticket;
+    private int candy;
+
     public void joinComplete(final User request) {
         this.nickname = request.getNickname();
         this.location = request.getLocation();
@@ -94,6 +97,7 @@ public class User extends CommonEntity implements UserDetails{
 
     public void updateGender(final Gender gender) {
         this.gender = gender;
+        this.ticket = gender.getGender().equals("남") ? 5 : 11;
     }
 
     public void updateBirth(final LocalDate birth) {
