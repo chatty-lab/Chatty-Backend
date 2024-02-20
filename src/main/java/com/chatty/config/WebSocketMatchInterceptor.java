@@ -42,6 +42,7 @@ public class WebSocketMatchInterceptor implements HandshakeInterceptor {
 
             if (WebSocketConnectionManager.isConnected(mobileNumber)) {
                 log.error("이미 연결이 존재합니다.");
+                response.setStatusCode(HttpStatus.BAD_REQUEST);
                 return false;
             }
         }
