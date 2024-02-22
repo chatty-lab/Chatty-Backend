@@ -25,12 +25,12 @@ public class ProfileUnlock {
     @JoinColumn(name = "unlocked_user_id")
     private User unlockedUser;
 
-    private LocalDateTime localDateTime;
+    private LocalDateTime registeredDateTime;
 
     @Builder
-    public ProfileUnlock(final User unlocker, final User unlockedUser, final LocalDateTime localDateTime) {
+    public ProfileUnlock(final User unlocker, final User unlockedUser, final LocalDateTime registeredDateTime) {
         this.unlocker = unlocker;
         this.unlockedUser = unlockedUser;
-        this.localDateTime = localDateTime;
+        this.registeredDateTime = registeredDateTime;
     }
 }

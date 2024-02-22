@@ -10,6 +10,8 @@ import com.chatty.utils.S3Service;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.CsvSource;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
@@ -132,6 +134,29 @@ class UserServiceTest {
         // then
         assertThat(userResponse).isNotNull();
         assertThat(userResponse.getGender()).isEqualTo(Gender.MALE);
+    }
+
+    @DisplayName("성별을 수정할 때, 남성 - ticket 5장 / 여성 - ticket 11장을 받는다.")
+    @CsvSource({"MALE, 5", "FEMALE, 11"})
+    @ParameterizedTest
+    void updateGenderAndTicket(Gender gender, int ticket) {
+        // given
+        User user = createUser("닉네임", "01012345678");
+
+        userRepository.save(user);
+
+        UserGenderRequest request = UserGenderRequest.builder()
+                .gender(gender)
+                .build();
+
+        userService.updateGender(user.getMobileNumber(), request);
+
+        // when
+        User savedUser = userRepository.findUserByMobileNumber(user.getMobileNumber()).get();
+
+        // then
+        assertThat(savedUser.getGender()).isEqualTo(gender);
+        assertThat(savedUser.getTicket()).isEqualTo(ticket);
     }
 
     @DisplayName("생년월일을 수정한다.")

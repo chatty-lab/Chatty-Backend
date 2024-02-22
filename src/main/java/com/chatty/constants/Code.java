@@ -31,6 +31,10 @@ public enum Code {
     NOT_BLUECHECK_USER(HttpStatus.UNAUTHORIZED, "프로필 인증이 되어있지 않습니다.", "E022"),
     INVALID_DEVICE_NUMER(HttpStatus.BAD_REQUEST, "기존 계정과 기기 번호가 일치하지 않습니다.","E023"),
     NOT_EXIST_INTEREST(HttpStatus.BAD_REQUEST, "존재하지 않는 관심사입니다.", "E024"),
+    ALREADY_UNLOCK_PROFILE(HttpStatus.CONFLICT, "이미 프로필 잠금을 해제했습니다.", "E025"),
+    INSUFFICIENT_CANDY(HttpStatus.BAD_REQUEST, "캔디의 개수가 부족합니다.", "E026"),
+    INSUFFICIENT_TICKET(HttpStatus.BAD_REQUEST, "티켓의 개수가 부족합니다.", "E027"),
+
 
     // ratelimit
     TOO_MANY_REQUESTS(HttpStatus.TOO_MANY_REQUESTS, "너무 많은 요청을 보냈습니다.","E098");

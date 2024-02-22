@@ -50,7 +50,7 @@ class ProfileUnlockControllerTest {
     void unlockProfile() throws Exception {
         // given
         ProfileUnlockRequest request = ProfileUnlockRequest.builder()
-                .unlock(true)
+                .unlockMethod("candy")
                 .build();
 
         // when // then
@@ -63,12 +63,12 @@ class ProfileUnlockControllerTest {
                 .andExpect(status().isOk());
     }
 
-    @DisplayName("상대방 프로필 잠금을 해제할 때, true값을 입력해야 된다.")
+    @DisplayName("상대방 프로필 잠금을 해제할 때, candy or ticket을 입력해야 합니다.")
     @Test
     void unlockProfileWithFalse() throws Exception {
         // given
         ProfileUnlockRequest request = ProfileUnlockRequest.builder()
-                .unlock(false)
+//                .unlock(false)
                 .build();
 
         // when // then
@@ -79,6 +79,6 @@ class ProfileUnlockControllerTest {
                 )
                 .andDo(print())
                 .andExpect(status().isBadRequest())
-                .andExpect(jsonPath("$.message").value("true 값만 들어올 수 있습니다."));
+                .andExpect(jsonPath("$.message").value("candy또는 ticket을 입력해주세요."));
     }
 }

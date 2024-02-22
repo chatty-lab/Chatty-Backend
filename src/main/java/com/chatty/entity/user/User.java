@@ -1,8 +1,10 @@
 package com.chatty.entity.user;
 
 import com.chatty.constants.Authority;
+import com.chatty.constants.Code;
 import com.chatty.entity.CommonEntity;
 import com.chatty.entity.check.AuthCheck;
+import com.chatty.exception.CustomException;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
 import java.time.LocalDate;
@@ -79,6 +81,9 @@ public class User extends CommonEntity implements UserDetails{
 
     private boolean blueCheck;
 
+    private int ticket;
+    private int candy;
+
     public void joinComplete(final User request) {
         this.nickname = request.getNickname();
         this.location = request.getLocation();
@@ -94,6 +99,7 @@ public class User extends CommonEntity implements UserDetails{
 
     public void updateGender(final Gender gender) {
         this.gender = gender;
+        this.ticket = gender.getGender().equals("남") ? 5 : 11;
     }
 
     public void updateBirth(final LocalDate birth) {
@@ -139,6 +145,30 @@ public class User extends CommonEntity implements UserDetails{
 
     public void updateIntroduce(final String introduce) {
         this.introduce = introduce;
+    }
+
+    public boolean isCandyQuantityLessThan(final int candy) {
+        return this.candy < candy;
+    }
+
+    public void deductCandyQuantity(final int candy) {
+        if (isCandyQuantityLessThan(candy)) {
+            throw new CustomException(Code.INSUFFICIENT_CANDY);
+        }
+
+        this.candy -= candy;
+    }
+
+    public boolean isTicketQuantityLessThan(final int ticket) {
+        return this.ticket < ticket;
+    }
+
+    public void deductTicketQuantity(final int ticket) {
+        if (isTicketQuantityLessThan(ticket)) {
+            throw new CustomException(Code.INSUFFICIENT_TICKET);
+        }
+
+        this.ticket -= ticket;
     }
 
     @Override

@@ -15,14 +15,14 @@ public class ProfileUnlockResponse {
     private Long id;
     private Long unlockerId;
     private Long unlockedUserId;
-    private LocalDateTime localDateTime;
+    private LocalDateTime registeredDateTime;
 
     @Builder
-    public ProfileUnlockResponse(final Long id, final Long unlockerId, final Long unlockedUserId, final LocalDateTime localDateTime) {
+    public ProfileUnlockResponse(final Long id, final Long unlockerId, final Long unlockedUserId, final LocalDateTime registeredDateTime) {
         this.id = id;
         this.unlockerId = unlockerId;
         this.unlockedUserId = unlockedUserId;
-        this.localDateTime = localDateTime;
+        this.registeredDateTime = registeredDateTime;
     }
 
     public static ProfileUnlockResponse of(final ProfileUnlock profileUnlock) {
@@ -30,7 +30,7 @@ public class ProfileUnlockResponse {
                 .id(profileUnlock.getId())
                 .unlockerId(profileUnlock.getUnlocker().getId())
                 .unlockedUserId(profileUnlock.getUnlockedUser().getId())
-                .localDateTime(profileUnlock.getLocalDateTime())
+                .registeredDateTime(profileUnlock.getRegisteredDateTime())
                 .build();
     }
 }
