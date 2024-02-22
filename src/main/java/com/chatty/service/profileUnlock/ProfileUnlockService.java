@@ -43,6 +43,12 @@ public class ProfileUnlockService {
             }
 
             unlocker.deductCandyQuantity(7);
+        } else if (unlockMethod.equals("ticket")) {
+            if (unlocker.isTicketQuantityLessThan(1)) {
+                throw new CustomException(Code.INSUFFICIENT_TICKET);
+            }
+
+            unlocker.deductTicketQuantity(1);
         }
 
         ProfileUnlock profileUnlock = request.toEntity(unlocker, unlockedUser, now);

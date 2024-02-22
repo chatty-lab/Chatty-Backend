@@ -159,6 +159,18 @@ public class User extends CommonEntity implements UserDetails{
         this.candy -= candy;
     }
 
+    public boolean isTicketQuantityLessThan(final int ticket) {
+        return this.ticket < ticket;
+    }
+
+    public void deductTicketQuantity(final int ticket) {
+        if (isTicketQuantityLessThan(ticket)) {
+            throw new CustomException(Code.INSUFFICIENT_TICKET);
+        }
+
+        this.ticket -= ticket;
+    }
+
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
         return List.of(new SimpleGrantedAuthority("ROLE_" + authority.name()));
