@@ -41,7 +41,7 @@ class ProfileUnlockRepositoryTest {
         ProfileUnlock profileUnlock = ProfileUnlock.builder()
                 .unlocker(user1)
                 .unlockedUser(user2)
-                .localDateTime(now)
+                .registeredDateTime(now)
                 .build();
 
         profileUnlockRepository.save(profileUnlock);
