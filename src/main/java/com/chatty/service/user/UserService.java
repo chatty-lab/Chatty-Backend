@@ -25,6 +25,7 @@ import java.util.*;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
@@ -287,6 +288,15 @@ public class UserService {
                 .orElseThrow(() -> new CustomException(Code.NOT_EXIST_USER));
 
         return UserResponse.of(user);
+    }
+
+    @Scheduled(cron = "0 0 0 * * *")
+    @Transactional
+    public void resetTicketDaily() {
+        List<User> users = userRepository.findAll();
+        for (User user : users) {
+            user.resetTicket();
+        }
     }
 
     private void validateDuplicateNickname(final UserNicknameRequest request) {
