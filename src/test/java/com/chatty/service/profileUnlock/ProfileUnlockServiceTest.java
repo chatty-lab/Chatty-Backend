@@ -3,6 +3,7 @@ package com.chatty.service.profileUnlock;
 import com.chatty.constants.Authority;
 import com.chatty.dto.profileUnlock.request.ProfileUnlockRequest;
 import com.chatty.dto.profileUnlock.response.ProfileUnlockResponse;
+import com.chatty.dto.user.response.UserProfileResponse;
 import com.chatty.entity.user.Gender;
 import com.chatty.entity.user.ProfileUnlock;
 import com.chatty.entity.user.User;
@@ -173,6 +174,47 @@ class ProfileUnlockServiceTest {
         assertThatThrownBy(() -> profileUnlockService.unlockProfile(unlockedUser.getId(), unlocker.getMobileNumber(), request, now))
                 .isInstanceOf(CustomException.class)
                 .hasMessage("이미 프로필 잠금을 해제했습니다.");
+    }
+
+    @DisplayName("상대방 프로필을 조회할 때, 잠금을 해제한 경우 unlock 값은 true다.")
+    @Test
+    void getUserProfileWithUnlockProfile() {
+        // given
+        LocalDateTime now = LocalDateTime.now();
+        User unlocker = createUser("박지성", "01012345678", 10, 5);
+        User unlockedUser = createUser("강혜원", "01011112222", 10, 5);
+        userRepository.saveAll(List.of(unlocker, unlockedUser));
+
+        ProfileUnlock profileUnlock = ProfileUnlock.builder()
+                .unlocker(unlocker)
+                .unlockedUser(unlockedUser)
+                .registeredDateTime(now)
+                .build();
+        profileUnlockRepository.save(profileUnlock);
+
+        // when
+        UserProfileResponse userProfileResponse = profileUnlockService.getUserProfile(unlockedUser.getId(), unlocker.getMobileNumber());
+
+        // then
+        assertThat(userProfileResponse.getId()).isNotNull();
+        assertThat(userProfileResponse.isUnlock()).isTrue();
+    }
+
+    @DisplayName("상대방 프로필을 조회할 때, 잠금을 해제하지 않은 경우 unlock 값은 false다.")
+    @Test
+    void getUserProfileWithoutUnlockProfile() {
+        // given
+        LocalDateTime now = LocalDateTime.now();
+        User user1 = createUser("박지성", "01012345678", 10, 5);
+        User user2 = createUser("강혜원", "01011112222", 10, 5);
+        userRepository.saveAll(List.of(user1, user2));
+
+        // when
+        UserProfileResponse userProfileResponse = profileUnlockService.getUserProfile(user2.getId(), user1.getMobileNumber());
+
+        // then
+        assertThat(userProfileResponse.getId()).isNotNull();
+        assertThat(userProfileResponse.isUnlock()).isFalse();
     }
 
     private User createUser(final String nickname, final String mobileNumber, final int candy, final int ticket) {
