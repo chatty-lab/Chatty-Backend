@@ -26,11 +26,11 @@ public class ProfileUnlockRequest {
         this.unlockMethod = unlockMethod;
     }
 
-    public ProfileUnlock toEntity(final User unlocker, final User unlockedUser, LocalDateTime localDateTime) {
+    public ProfileUnlock toEntity(final User unlocker, final User unlockedUser, LocalDateTime registeredDateTime) {
         return ProfileUnlock.builder()
                 .unlocker(unlocker)
                 .unlockedUser(unlockedUser)
-                .localDateTime(localDateTime)
+                .registeredDateTime(registeredDateTime)
                 .build();
     }
 

@@ -11,6 +11,8 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.*;
 
+import java.time.LocalDateTime;
+
 @Slf4j
 @RequiredArgsConstructor
 @RequestMapping("/api/v1/users")
@@ -22,7 +24,7 @@ public class ProfileUnlockController {
     @PostMapping("/profile/{userId}")
     public ApiResponse<ProfileUnlockResponse> unlockProfile(@PathVariable final Long userId, Authentication authentication,
                                                              @Valid @RequestBody final ProfileUnlockRequest request) {
-        return ApiResponse.ok(profileUnlockService.unlockProfile(userId, authentication.getName(), request));
+        return ApiResponse.ok(profileUnlockService.unlockProfile(userId, authentication.getName(), request, LocalDateTime.now()));
     }
 
     @GetMapping("/profile/{userId}")
