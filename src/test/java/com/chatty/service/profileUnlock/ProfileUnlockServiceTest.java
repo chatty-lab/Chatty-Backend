@@ -44,8 +44,8 @@ class ProfileUnlockServiceTest {
     void unlockProfile() {
         // given
         LocalDateTime now = LocalDateTime.now();
-        User unlocker = createUser("박지성", "01012345678", 7);
-        User unlockedUser = createUser("강혜원", "01011112222", 7);
+        User unlocker = createUser("박지성", "01012345678", 7, 5);
+        User unlockedUser = createUser("강혜원", "01011112222", 7, 11);
         userRepository.saveAll(List.of(unlocker, unlockedUser));
 
         ProfileUnlockRequest request = ProfileUnlockRequest.builder()
@@ -67,8 +67,8 @@ class ProfileUnlockServiceTest {
     void unlockProfileWithNoCandy() {
         // given
         LocalDateTime now = LocalDateTime.now();
-        User unlocker = createUser("박지성", "01012345678", 6);
-        User unlockedUser = createUser("강혜원", "01011112222", 7);
+        User unlocker = createUser("박지성", "01012345678", 6, 5);
+        User unlockedUser = createUser("강혜원", "01011112222", 7, 11);
         userRepository.saveAll(List.of(unlocker, unlockedUser));
 
         ProfileUnlockRequest request = ProfileUnlockRequest.builder()
@@ -86,8 +86,8 @@ class ProfileUnlockServiceTest {
     void unlockProfileWithDuplicateUnlock() {
         // given
         LocalDateTime now = LocalDateTime.now();
-        User unlocker = createUser("박지성", "01012345678", 6);
-        User unlockedUser = createUser("강혜원", "01011112222", 7);
+        User unlocker = createUser("박지성", "01012345678", 6, 5);
+        User unlockedUser = createUser("강혜원", "01011112222", 7, 11);
         userRepository.saveAll(List.of(unlocker, unlockedUser));
 
         ProfileUnlock profileUnlock = ProfileUnlock.builder()
@@ -107,7 +107,75 @@ class ProfileUnlockServiceTest {
                 .hasMessage("이미 프로필 잠금을 해제했습니다.");
     }
 
-    private User createUser(final String nickname, final String mobileNumber, final int candy) {
+    @DisplayName("티켓을 이용하여 프로필 잠금을 해제한다.")
+    @Test
+    void unlockProfileWithTicket() {
+        // given
+        LocalDateTime now = LocalDateTime.now();
+        User unlocker = createUser("박지성", "01012345678", 7, 5);
+        User unlockedUser = createUser("강혜원", "01011112222", 7, 11);
+        userRepository.saveAll(List.of(unlocker, unlockedUser));
+
+        ProfileUnlockRequest request = ProfileUnlockRequest.builder()
+                .unlockMethod("ticket")
+                .build();
+
+        // when
+        ProfileUnlockResponse profileUnlockResponse = profileUnlockService.unlockProfile(unlockedUser.getId(), unlocker.getMobileNumber(), request, now);
+
+        // then
+        assertThat(profileUnlockResponse.getId()).isNotNull();
+        assertThat(profileUnlockResponse)
+                .extracting("unlockerId", "unlockedUserId", "registeredDateTime")
+                .containsExactlyInAnyOrder(unlocker.getId(), unlockedUser.getId(), now);
+    }
+
+    @DisplayName("티켓을 이용하여 프로필 잠금을 해제할 때, 보유한 티켓(1개미만)이 부족하면 예외가 발생한다.")
+    @Test
+    void unlockProfileWithNoTicket() {
+        // given
+        LocalDateTime now = LocalDateTime.now();
+        User unlocker = createUser("박지성", "01012345678", 6, 0);
+        User unlockedUser = createUser("강혜원", "01011112222", 7, 11);
+        userRepository.saveAll(List.of(unlocker, unlockedUser));
+
+        ProfileUnlockRequest request = ProfileUnlockRequest.builder()
+                .unlockMethod("ticket")
+                .build();
+
+        // when // then
+        assertThatThrownBy(() -> profileUnlockService.unlockProfile(unlockedUser.getId(), unlocker.getMobileNumber(), request, now))
+                .isInstanceOf(CustomException.class)
+                .hasMessage("티켓의 개수가 부족합니다.");
+    }
+
+    @DisplayName("티켓을 이용하여 프로필 잠금을 해제할 때, 이미 잠금을 해제한 유저면 예외가 발생한다.")
+    @Test
+    void unlockProfileWithTicketAndDuplicateUnlock() {
+        // given
+        LocalDateTime now = LocalDateTime.now();
+        User unlocker = createUser("박지성", "01012345678", 6, 5);
+        User unlockedUser = createUser("강혜원", "01011112222", 7, 11);
+        userRepository.saveAll(List.of(unlocker, unlockedUser));
+
+        ProfileUnlock profileUnlock = ProfileUnlock.builder()
+                .registeredDateTime(now)
+                .unlocker(unlocker)
+                .unlockedUser(unlockedUser)
+                .build();
+        profileUnlockRepository.save(profileUnlock);
+
+        ProfileUnlockRequest request = ProfileUnlockRequest.builder()
+                .unlockMethod("ticket")
+                .build();
+
+        // when // then
+        assertThatThrownBy(() -> profileUnlockService.unlockProfile(unlockedUser.getId(), unlocker.getMobileNumber(), request, now))
+                .isInstanceOf(CustomException.class)
+                .hasMessage("이미 프로필 잠금을 해제했습니다.");
+    }
+
+    private User createUser(final String nickname, final String mobileNumber, final int candy, final int ticket) {
         return User.builder()
                 .mobileNumber(mobileNumber)
                 .deviceId("123456")
@@ -118,6 +186,7 @@ class ProfileUnlockServiceTest {
                 .gender(Gender.MALE)
                 .nickname(nickname)
                 .candy(candy)
+                .ticket(ticket)
                 .build();
     }
 
