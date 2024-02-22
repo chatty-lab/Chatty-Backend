@@ -24,14 +24,28 @@ public class ProfileUnlockService {
     private final UserRepository userRepository;
 
     @Transactional
-    public ProfileUnlockResponse unlockProfile(final Long unlockedUserId, final String mobileNumber, final ProfileUnlockRequest request) {
+    public ProfileUnlockResponse unlockProfile(final Long unlockedUserId, final String mobileNumber, final ProfileUnlockRequest request, final LocalDateTime now) {
         User unlocker = userRepository.findUserByMobileNumber(mobileNumber)
                 .orElseThrow(() -> new CustomException(Code.NOT_EXIST_USER));
 
         User unlockedUser = userRepository.findById(unlockedUserId)
                 .orElseThrow(() -> new CustomException(Code.NOT_EXIST_USER));
 
-        ProfileUnlock profileUnlock = request.toEntity(unlocker, unlockedUser, LocalDateTime.now());
+        if (profileUnlockRepository.existsByUnlockerIdAndUnlockedUserId(unlocker.getId(), unlockedUserId)) {
+            throw new CustomException(Code.ALREADY_UNLOCK_PROFILE);
+        }
+
+        String unlockMethod = request.getUnlockMethod();
+
+        if (unlockMethod.equals("candy")) {
+            if (unlocker.isCandyQuantityLessThan(7)) {
+                throw new CustomException(Code.INSUFFICIENT_CANDY);
+            }
+
+            unlocker.deductCandyQuantity(7);
+        }
+
+        ProfileUnlock profileUnlock = request.toEntity(unlocker, unlockedUser, now);
         profileUnlockRepository.save(profileUnlock);
 
         return ProfileUnlockResponse.of(profileUnlock);
