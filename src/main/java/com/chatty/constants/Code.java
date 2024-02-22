@@ -33,6 +33,7 @@ public enum Code {
     NOT_EXIST_INTEREST(HttpStatus.BAD_REQUEST, "존재하지 않는 관심사입니다.", "E024"),
     ALREADY_UNLOCK_PROFILE(HttpStatus.CONFLICT, "이미 프로필 잠금을 해제했습니다.", "E025"),
     INSUFFICIENT_CANDY(HttpStatus.BAD_REQUEST, "캔디의 개수가 부족합니다.", "E026"),
+    INSUFFICIENT_TICKET(HttpStatus.BAD_REQUEST, "티켓의 개수가 부족합니다.", "E027"),
 
 
     // ratelimit
