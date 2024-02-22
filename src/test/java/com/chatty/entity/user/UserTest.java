@@ -12,7 +12,7 @@ class UserTest {
     @Test
     void updateNickname() {
         // given
-        User user = createUser();
+        User user = createUser(Gender.MALE, 5);
 
         // when
         user.updateNickname("닉네임수정");
@@ -101,9 +101,39 @@ class UserTest {
                 .hasMessage("티켓의 개수가 부족합니다.");
     }
 
-    private User createUser() {
+    @DisplayName("티켓 초기화 메서드 사용 시 남성은 5장으로 초기화 된다.")
+    @Test
+    void resetTicketWithMale() {
+        // given
+        int ticket = 2;
+        User user = createUser(Gender.MALE, ticket);
+
+        // when
+        user.resetTicket();
+
+        // then
+        assertThat(user.getTicket()).isEqualTo(5);
+    }
+
+    @DisplayName("티켓 초기화 메서드 사용 시 여성은 11장으로 초기화 된다.")
+    @Test
+    void resetTicketWithFemale() {
+        // given
+        int ticket = 2;
+        User user = createUser(Gender.FEMALE, ticket);
+
+        // when
+        user.resetTicket();
+
+        // then
+        assertThat(user.getTicket()).isEqualTo(11);
+    }
+
+    private User createUser(final Gender gender, final int ticket) {
         return User.builder()
                 .nickname("닉네임")
+                .gender(gender)
+                .ticket(ticket)
                 .build();
     }
 

@@ -171,6 +171,10 @@ public class User extends CommonEntity implements UserDetails{
         this.ticket -= ticket;
     }
 
+    public void resetTicket() {
+        this.ticket = this.gender.getGender().equals("남") ? 5 : 11;
+    }
+
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
         return List.of(new SimpleGrantedAuthority("ROLE_" + authority.name()));
