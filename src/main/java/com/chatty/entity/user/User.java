@@ -1,8 +1,10 @@
 package com.chatty.entity.user;
 
 import com.chatty.constants.Authority;
+import com.chatty.constants.Code;
 import com.chatty.entity.CommonEntity;
 import com.chatty.entity.check.AuthCheck;
+import com.chatty.exception.CustomException;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
 import java.time.LocalDate;
@@ -143,6 +145,18 @@ public class User extends CommonEntity implements UserDetails{
 
     public void updateIntroduce(final String introduce) {
         this.introduce = introduce;
+    }
+
+    public boolean isCandyQuantityLessThan(final int candy) {
+        return this.candy < candy;
+    }
+
+    public void deductCandyQuantity(final int candy) {
+        if (isCandyQuantityLessThan(candy)) {
+            throw new CustomException(Code.INSUFFICIENT_CANDY);
+        }
+
+        this.candy -= candy;
     }
 
     @Override
