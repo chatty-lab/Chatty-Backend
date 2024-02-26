@@ -1,5 +1,6 @@
 package com.chatty.entity.subscription;
 
+import com.chatty.dto.subscription.request.SubscriptionUpdateRequest;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -29,5 +30,11 @@ public class Subscription {
         this.name = name;
         this.duration = duration;
         this.price = price;
+    }
+
+    public void updateSubscription(final SubscriptionUpdateRequest request) {
+        this.name = request.getName();
+        this.duration = request.getDuration();
+        this.price = request.getPrice();
     }
 }

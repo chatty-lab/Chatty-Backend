@@ -1,8 +1,11 @@
 package com.chatty.service.subscription;
 
+import com.chatty.constants.Code;
 import com.chatty.dto.subscription.request.SubscriptionCreateRequest;
+import com.chatty.dto.subscription.request.SubscriptionUpdateRequest;
 import com.chatty.dto.subscription.response.SubscriptionResponse;
 import com.chatty.entity.subscription.Subscription;
+import com.chatty.exception.CustomException;
 import com.chatty.repository.subscription.SubscriptionRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -18,6 +21,16 @@ public class SubscriptionService {
     @Transactional
     public SubscriptionResponse createSubscription(final SubscriptionCreateRequest request) {
         Subscription subscription = subscriptionRepository.save(request.toEntity());
+
+        return SubscriptionResponse.of(subscription);
+    }
+
+    @Transactional
+    public SubscriptionResponse updateSubscription(final SubscriptionUpdateRequest request, final Long subscriptionId) {
+        Subscription subscription = subscriptionRepository.findById(subscriptionId)
+                .orElseThrow(() -> new CustomException(Code.NOT_EXIST_USER));
+
+        subscription.updateSubscription(request);
 
         return SubscriptionResponse.of(subscription);
     }
