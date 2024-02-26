@@ -29,4 +29,10 @@ public class AdminSubscriptionController {
                                                                 @PathVariable Long subscriptionId) {
         return ApiResponse.ok(subScriptionService.updateSubscription(request, subscriptionId));
     }
+
+    @DeleteMapping("/v1/subscription/{subscriptionId}")
+    @PreAuthorize("hasRole('ADMIN')")
+    public ApiResponse<SubscriptionResponse> deleteSubscription(@PathVariable Long subscriptionId) {
+        return ApiResponse.ok(subScriptionService.deleteSubscription(subscriptionId));
+    }
 }

@@ -28,9 +28,19 @@ public class SubscriptionService {
     @Transactional
     public SubscriptionResponse updateSubscription(final SubscriptionUpdateRequest request, final Long subscriptionId) {
         Subscription subscription = subscriptionRepository.findById(subscriptionId)
-                .orElseThrow(() -> new CustomException(Code.NOT_EXIST_USER));
+                .orElseThrow(() -> new CustomException(Code.NOT_EXIST_SUBSCRIPTION));
 
         subscription.updateSubscription(request);
+
+        return SubscriptionResponse.of(subscription);
+    }
+
+    @Transactional
+    public SubscriptionResponse deleteSubscription(final Long subscriptionId) {
+        Subscription subscription = subscriptionRepository.findById(subscriptionId)
+                .orElseThrow(() -> new CustomException(Code.NOT_EXIST_SUBSCRIPTION));
+
+        subscriptionRepository.delete(subscription);
 
         return SubscriptionResponse.of(subscription);
     }
