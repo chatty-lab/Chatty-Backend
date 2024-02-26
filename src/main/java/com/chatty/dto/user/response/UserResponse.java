@@ -28,9 +28,10 @@ public class UserResponse {
     private String job;
     private String introduce;
     private String school;
+    private boolean blueCheck;
 
     @Builder
-    public UserResponse(final Long id, final String mobileNumber, final String nickname, final LocalDate birth, final Gender gender, final Mbti mbti, final String address, final Authority authority, final String imageUrl, final List<String> interests, final String job, final String introduce, final String school) {
+    public UserResponse(final Long id, final String mobileNumber, final String nickname, final LocalDate birth, final Gender gender, final Mbti mbti, final String address, final Authority authority, final String imageUrl, final List<String> interests, final String job, final String introduce, final String school, final boolean blueCheck) {
         this.id = id;
         this.mobileNumber = mobileNumber;
         this.nickname = nickname;
@@ -44,6 +45,7 @@ public class UserResponse {
         this.job = job;
         this.introduce = introduce;
         this.school = school;
+        this.blueCheck = blueCheck;
     }
 
     public static UserResponse of(final User user) {
@@ -63,6 +65,7 @@ public class UserResponse {
                 .job(user.getJob())
                 .introduce(user.getIntroduce())
                 .school(user.getSchool())
+                .blueCheck(user.isBlueCheck())
                 .build();
     }
 }
