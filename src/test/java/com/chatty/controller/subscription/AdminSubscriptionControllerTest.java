@@ -15,8 +15,7 @@ import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.test.web.servlet.MockMvc;
 
 import static org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestPostProcessors.csrf;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.put;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
@@ -112,6 +111,32 @@ class AdminSubscriptionControllerTest {
                         put("/v1/subscription/{subscriptionId}", 1L).with(csrf())
                                 .contentType(MediaType.APPLICATION_JSON)
                                 .content(objectMapper.writeValueAsString(request))
+                )
+                .andDo(print())
+                .andExpect(status().isForbidden());
+    }
+
+    @DisplayName("구독권을 삭제한다.")
+    @WithMockUser(username = "01012345678", roles = "ADMIN")
+    @Test
+    void deleteSubscription() throws Exception {
+        // when // then
+        mockMvc.perform(
+                        delete("/v1/subscription/{subscriptionId}", 1L).with(csrf())
+                                .contentType(MediaType.APPLICATION_JSON)
+                )
+                .andDo(print())
+                .andExpect(status().isOk());
+    }
+
+    @DisplayName("ADMIN 권한이 아닌 사람이 구독권을 삭제할 때, 403예외가 발생한다.")
+    @WithMockUser(username = "01012345678", roles = "USER")
+    @Test
+    void deleteSubscriptionWithoutAdmin() throws Exception {
+        // when // then
+        mockMvc.perform(
+                        delete("/v1/subscription/{subscriptionId}", 1L).with(csrf())
+                                .contentType(MediaType.APPLICATION_JSON)
                 )
                 .andDo(print())
                 .andExpect(status().isForbidden());

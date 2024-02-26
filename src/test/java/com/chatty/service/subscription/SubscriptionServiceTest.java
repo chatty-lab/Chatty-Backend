@@ -11,6 +11,9 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
+import java.util.NoSuchElementException;
+import java.util.Optional;
+
 import static org.assertj.core.api.Assertions.*;
 
 @SpringBootTest
@@ -68,6 +71,21 @@ class SubscriptionServiceTest {
         assertThat(subscriptionResponse)
                 .extracting("name", "price", "duration")
                 .containsExactlyInAnyOrder("수정된 구독권", 18_900, 60);
+    }
+
+    @DisplayName("등록된 구독권을 삭제한다.")
+    @Test
+    void deleteSubscription() {
+        // given
+        Subscription subscription = createSubscription("구독권1", 9_900, 30);
+        subscriptionRepository.save(subscription);
+
+        // when
+        subscriptionService.deleteSubscription(subscription.getId());
+
+        // then
+        assertThatThrownBy(() -> subscriptionRepository.findById(subscription.getId()).get())
+                .isInstanceOf(NoSuchElementException.class);
     }
 
     private Subscription createSubscription(final String name, final int price, final int duration) {
