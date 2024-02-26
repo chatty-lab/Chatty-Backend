@@ -1,9 +1,10 @@
 package com.chatty.service.subscription;
 
 import com.chatty.dto.subscription.request.SubscriptionCreateRequest;
+import com.chatty.dto.subscription.request.SubscriptionUpdateRequest;
 import com.chatty.dto.subscription.response.SubscriptionResponse;
+import com.chatty.entity.subscription.Subscription;
 import com.chatty.repository.subscription.SubscriptionRepository;
-import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -11,7 +12,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
 import static org.assertj.core.api.Assertions.*;
-import static org.junit.jupiter.api.Assertions.*;
 
 @SpringBootTest
 class SubscriptionServiceTest {
@@ -45,5 +45,36 @@ class SubscriptionServiceTest {
         assertThat(subscriptionResponse)
                 .extracting("name", "price", "duration")
                 .containsExactlyInAnyOrder("구독권1", 9_900, 30);
+    }
+    
+    @DisplayName("등록된 구독권을 수정한다.")
+    @Test
+    void updateSubscription() {
+        // given
+        Subscription subscription = createSubscription("구독권1", 9_900, 30);
+        subscriptionRepository.save(subscription);
+
+        SubscriptionUpdateRequest request = SubscriptionUpdateRequest.builder()
+                .name("수정된 구독권")
+                .duration(60)
+                .price(18_900)
+                .build();
+
+        // when
+        SubscriptionResponse subscriptionResponse = subscriptionService.updateSubscription(request, subscription.getId());
+
+        // then
+        assertThat(subscriptionResponse.getId()).isNotNull();
+        assertThat(subscriptionResponse)
+                .extracting("name", "price", "duration")
+                .containsExactlyInAnyOrder("수정된 구독권", 18_900, 60);
+    }
+
+    private Subscription createSubscription(final String name, final int price, final int duration) {
+        return Subscription.builder()
+                .name(name)
+                .price(price)
+                .duration(duration)
+                .build();
     }
 }
