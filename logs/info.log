@@ -1,0 +1,120 @@
+2024-02-28 22:35:56.029 [background-preinit] INFO org.hibernate.validator.internal.util.Version - HV000001: Hibernate Validator 8.0.1.Final
+2024-02-28 22:35:56.085 [main] INFO com.chatty.ChattyApplication - Starting ChattyApplication using Java 18.0.2 with PID 19970 (/Users/developer/IdeaProjects/Chatty-Backend/build/classes/java/main started by developer in /Users/developer/IdeaProjects/Chatty-Backend)
+2024-02-28 22:35:56.088 [main] INFO com.chatty.ChattyApplication - No active profile set, falling back to 1 default profile: "default"
+2024-02-28 22:35:57.849 [main] INFO org.springframework.data.repository.config.RepositoryConfigurationDelegate - Multiple Spring Data modules found, entering strict repository configuration mode
+2024-02-28 22:35:57.850 [main] INFO org.springframework.data.repository.config.RepositoryConfigurationDelegate - Bootstrapping Spring Data Redis repositories in DEFAULT mode.
+2024-02-28 22:35:57.879 [main] INFO org.springframework.data.repository.config.RepositoryConfigurationDelegate - Finished Spring Data repository scanning in 11 ms. Found 0 Redis repository interfaces.
+2024-02-28 22:35:58.395 [main] INFO org.springframework.data.repository.config.RepositoryConfigurationDelegate - Multiple Spring Data modules found, entering strict repository configuration mode
+2024-02-28 22:35:58.396 [main] INFO org.springframework.data.repository.config.RepositoryConfigurationDelegate - Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2024-02-28 22:35:58.656 [main] INFO org.springframework.data.repository.config.RepositoryConfigurationDelegate - Finished Spring Data repository scanning in 257 ms. Found 8 JPA repository interfaces.
+2024-02-28 22:35:58.684 [main] INFO org.springframework.data.repository.config.RepositoryConfigurationDelegate - Multiple Spring Data modules found, entering strict repository configuration mode
+2024-02-28 22:35:58.685 [main] INFO org.springframework.data.repository.config.RepositoryConfigurationDelegate - Bootstrapping Spring Data Redis repositories in DEFAULT mode.
+2024-02-28 22:35:58.715 [main] INFO org.springframework.data.repository.config.RepositoryConfigurationExtensionSupport - Spring Data Redis - Could not safely identify store assignment for repository candidate interface com.chatty.repository.chat.ChatRoomRepository; If you want this repository to be a Redis repository, consider annotating your entities with one of these annotations: org.springframework.data.redis.core.RedisHash (preferred), or consider extending one of the following types with your repository: org.springframework.data.keyvalue.repository.KeyValueRepository
+2024-02-28 22:35:58.718 [main] INFO org.springframework.data.repository.config.RepositoryConfigurationExtensionSupport - Spring Data Redis - Could not safely identify store assignment for repository candidate interface com.chatty.repository.chat.MessageRepository; If you want this repository to be a Redis repository, consider annotating your entities with one of these annotations: org.springframework.data.redis.core.RedisHash (preferred), or consider extending one of the following types with your repository: org.springframework.data.keyvalue.repository.KeyValueRepository
+2024-02-28 22:35:58.718 [main] INFO org.springframework.data.repository.config.RepositoryConfigurationExtensionSupport - Spring Data Redis - Could not safely identify store assignment for repository candidate interface com.chatty.repository.check.AuthCheckRepository; If you want this repository to be a Redis repository, consider annotating your entities with one of these annotations: org.springframework.data.redis.core.RedisHash (preferred), or consider extending one of the following types with your repository: org.springframework.data.keyvalue.repository.KeyValueRepository
+2024-02-28 22:35:58.719 [main] INFO org.springframework.data.repository.config.RepositoryConfigurationExtensionSupport - Spring Data Redis - Could not safely identify store assignment for repository candidate interface com.chatty.repository.interest.InterestRepository; If you want this repository to be a Redis repository, consider annotating your entities with one of these annotations: org.springframework.data.redis.core.RedisHash (preferred), or consider extending one of the following types with your repository: org.springframework.data.keyvalue.repository.KeyValueRepository
+2024-02-28 22:35:58.719 [main] INFO org.springframework.data.repository.config.RepositoryConfigurationExtensionSupport - Spring Data Redis - Could not safely identify store assignment for repository candidate interface com.chatty.repository.match.MatchHistoryRepository; If you want this repository to be a Redis repository, consider annotating your entities with one of these annotations: org.springframework.data.redis.core.RedisHash (preferred), or consider extending one of the following types with your repository: org.springframework.data.keyvalue.repository.KeyValueRepository
+2024-02-28 22:35:58.721 [main] INFO org.springframework.data.repository.config.RepositoryConfigurationExtensionSupport - Spring Data Redis - Could not safely identify store assignment for repository candidate interface com.chatty.repository.match.MatchRepository; If you want this repository to be a Redis repository, consider annotating your entities with one of these annotations: org.springframework.data.redis.core.RedisHash (preferred), or consider extending one of the following types with your repository: org.springframework.data.keyvalue.repository.KeyValueRepository
+2024-02-28 22:35:58.723 [main] INFO org.springframework.data.repository.config.RepositoryConfigurationExtensionSupport - Spring Data Redis - Could not safely identify store assignment for repository candidate interface com.chatty.repository.profileUnlock.ProfileUnlockRepository; If you want this repository to be a Redis repository, consider annotating your entities with one of these annotations: org.springframework.data.redis.core.RedisHash (preferred), or consider extending one of the following types with your repository: org.springframework.data.keyvalue.repository.KeyValueRepository
+2024-02-28 22:35:58.724 [main] INFO org.springframework.data.repository.config.RepositoryConfigurationExtensionSupport - Spring Data Redis - Could not safely identify store assignment for repository candidate interface com.chatty.repository.user.UserRepository; If you want this repository to be a Redis repository, consider annotating your entities with one of these annotations: org.springframework.data.redis.core.RedisHash (preferred), or consider extending one of the following types with your repository: org.springframework.data.keyvalue.repository.KeyValueRepository
+2024-02-28 22:35:58.724 [main] INFO org.springframework.data.repository.config.RepositoryConfigurationDelegate - Finished Spring Data repository scanning in 38 ms. Found 0 Redis repository interfaces.
+2024-02-28 22:36:00.583 [main] INFO org.springframework.boot.web.embedded.tomcat.TomcatWebServer - Tomcat initialized with port 8080 (http)
+2024-02-28 22:36:00.595 [main] INFO org.apache.coyote.http11.Http11NioProtocol - Initializing ProtocolHandler ["http-nio-8080"]
+2024-02-28 22:36:00.598 [main] INFO org.apache.catalina.core.StandardService - Starting service [Tomcat]
+2024-02-28 22:36:00.598 [main] INFO org.apache.catalina.core.StandardEngine - Starting Servlet engine: [Apache Tomcat/10.1.16]
+2024-02-28 22:36:00.717 [main] INFO org.apache.catalina.core.ContainerBase.[Tomcat].[localhost].[/] - Initializing Spring embedded WebApplicationContext
+2024-02-28 22:36:00.718 [main] INFO org.springframework.boot.web.servlet.context.ServletWebServerApplicationContext - Root WebApplicationContext: initialization completed in 4505 ms
+2024-02-28 22:36:01.054 [main] INFO org.hibernate.jpa.internal.util.LogHelper - HHH000204: Processing PersistenceUnitInfo [name: default]
+2024-02-28 22:36:01.173 [main] INFO org.hibernate.Version - HHH000412: Hibernate ORM core version 6.3.1.Final
+2024-02-28 22:36:01.200 [main] INFO org.hibernate.spatial.integration.SpatialService - HHH80000001: hibernate-spatial integration enabled : true
+2024-02-28 22:36:01.251 [main] INFO org.hibernate.cache.internal.RegionFactoryInitiator - HHH000026: Second-level cache disabled
+2024-02-28 22:36:01.428 [main] INFO com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Starting...
+2024-02-28 22:36:01.956 [main] INFO com.zaxxer.hikari.pool.HikariPool - HikariPool-1 - Added connection com.mysql.cj.jdbc.ConnectionImpl@3ba5c4dd
+2024-02-28 22:36:01.959 [main] INFO com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Start completed.
+2024-02-28 22:36:02.111 [main] INFO org.hibernate.spatial - HHH80000003: hibernate-spatial adding type contributions from : org.hibernate.spatial.dialect.mysql.MySQLDialectContributor
+2024-02-28 22:36:02.290 [main] INFO org.springframework.orm.jpa.persistenceunit.SpringPersistenceUnitInfo - No LoadTimeWeaver setup: ignoring JPA class transformer
+2024-02-28 22:36:02.309 [main] INFO org.hibernate.spatial - HHH80000003: hibernate-spatial adding type contributions from : org.hibernate.spatial.dialect.mysql.MySQLDialectContributor
+2024-02-28 22:36:02.744 [main] INFO org.hibernate.spatial - HHH80000004: hibernate-spatial adding function contributions from : org.hibernate.spatial.dialect.mysql.MySQLDialectContributor
+2024-02-28 22:36:03.852 [main] INFO org.hibernate.engine.transaction.jta.platform.internal.JtaPlatformInitiator - HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+2024-02-28 22:36:04.243 [main] INFO org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean - Initialized JPA EntityManagerFactory for persistence unit 'default'
+2024-02-28 22:36:05.063 [main] INFO org.springframework.data.jpa.repository.query.QueryEnhancerFactory - Hibernate is in classpath; If applicable, HQL parser will be used.
+2024-02-28 22:36:06.907 [main] WARN org.springframework.boot.autoconfigure.orm.jpa.JpaBaseConfiguration$JpaWebConfiguration - spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2024-02-28 22:36:07.147 [main] INFO org.springframework.boot.autoconfigure.web.servlet.WelcomePageHandlerMapping - Adding welcome page: class path resource [static/index.html]
+2024-02-28 22:36:08.454 [main] INFO org.springframework.security.web.DefaultSecurityFilterChain - Will secure any request with [org.springframework.security.web.session.DisableEncodeUrlFilter@6fc277e4, org.springframework.security.web.context.request.async.WebAsyncManagerIntegrationFilter@6f944b94, org.springframework.security.web.context.SecurityContextHolderFilter@454cd9e4, org.springframework.security.web.header.HeaderWriterFilter@56e92cdf, org.springframework.web.filter.CorsFilter@60296d11, org.springframework.security.web.authentication.logout.LogoutFilter@49038769, com.chatty.jwt.JwtTokenFilter@1fc48b16, org.springframework.security.web.savedrequest.RequestCacheAwareFilter@12899f13, org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestFilter@b300af4, org.springframework.security.web.authentication.AnonymousAuthenticationFilter@63c5a25d, org.springframework.security.web.access.ExceptionTranslationFilter@27779eaa, org.springframework.security.web.access.intercept.AuthorizationFilter@6c2d9f6f]
+2024-02-28 22:36:08.476 [main] WARN org.springframework.security.config.annotation.web.builders.WebSecurity - You are asking Spring Security to ignore Mvc [pattern='/users/join']. This is not recommended -- please use permitAll via HttpSecurity#authorizeHttpRequests instead.
+2024-02-28 22:36:08.476 [main] INFO org.springframework.security.web.DefaultSecurityFilterChain - Will not secure Mvc [pattern='/users/join']
+2024-02-28 22:36:08.476 [main] WARN org.springframework.security.config.annotation.web.builders.WebSecurity - You are asking Spring Security to ignore Mvc [pattern='/users/login']. This is not recommended -- please use permitAll via HttpSecurity#authorizeHttpRequests instead.
+2024-02-28 22:36:08.476 [main] INFO org.springframework.security.web.DefaultSecurityFilterChain - Will not secure Mvc [pattern='/users/login']
+2024-02-28 22:36:08.477 [main] WARN org.springframework.security.config.annotation.web.builders.WebSecurity - You are asking Spring Security to ignore Mvc [pattern='/check/**']. This is not recommended -- please use permitAll via HttpSecurity#authorizeHttpRequests instead.
+2024-02-28 22:36:08.477 [main] INFO org.springframework.security.web.DefaultSecurityFilterChain - Will not secure Mvc [pattern='/check/**']
+2024-02-28 22:36:08.477 [main] WARN org.springframework.security.config.annotation.web.builders.WebSecurity - You are asking Spring Security to ignore Mvc [pattern='/ws']. This is not recommended -- please use permitAll via HttpSecurity#authorizeHttpRequests instead.
+2024-02-28 22:36:08.477 [main] INFO org.springframework.security.web.DefaultSecurityFilterChain - Will not secure Mvc [pattern='/ws']
+2024-02-28 22:36:08.477 [main] WARN org.springframework.security.config.annotation.web.builders.WebSecurity - You are asking Spring Security to ignore Mvc [pattern='/auth/**']. This is not recommended -- please use permitAll via HttpSecurity#authorizeHttpRequests instead.
+2024-02-28 22:36:08.477 [main] INFO org.springframework.security.web.DefaultSecurityFilterChain - Will not secure Mvc [pattern='/auth/**']
+2024-02-28 22:36:08.477 [main] WARN org.springframework.security.config.annotation.web.builders.WebSecurity - You are asking Spring Security to ignore Mvc [pattern='/swagger-ui/**']. This is not recommended -- please use permitAll via HttpSecurity#authorizeHttpRequests instead.
+2024-02-28 22:36:08.477 [main] INFO org.springframework.security.web.DefaultSecurityFilterChain - Will not secure Mvc [pattern='/swagger-ui/**']
+2024-02-28 22:36:08.477 [main] WARN org.springframework.security.config.annotation.web.builders.WebSecurity - You are asking Spring Security to ignore Mvc [pattern='/v3/api-docs/**']. This is not recommended -- please use permitAll via HttpSecurity#authorizeHttpRequests instead.
+2024-02-28 22:36:08.477 [main] INFO org.springframework.security.web.DefaultSecurityFilterChain - Will not secure Mvc [pattern='/v3/api-docs/**']
+2024-02-28 22:36:08.477 [main] WARN org.springframework.security.config.annotation.web.builders.WebSecurity - You are asking Spring Security to ignore Mvc [pattern='/index.html']. This is not recommended -- please use permitAll via HttpSecurity#authorizeHttpRequests instead.
+2024-02-28 22:36:08.477 [main] INFO org.springframework.security.web.DefaultSecurityFilterChain - Will not secure Mvc [pattern='/index.html']
+2024-02-28 22:36:08.477 [main] WARN org.springframework.security.config.annotation.web.builders.WebSecurity - You are asking Spring Security to ignore Mvc [pattern='/matching/**']. This is not recommended -- please use permitAll via HttpSecurity#authorizeHttpRequests instead.
+2024-02-28 22:36:08.477 [main] INFO org.springframework.security.web.DefaultSecurityFilterChain - Will not secure Mvc [pattern='/matching/**']
+2024-02-28 22:36:08.477 [main] WARN org.springframework.security.config.annotation.web.builders.WebSecurity - You are asking Spring Security to ignore Mvc [pattern='/ws/**']. This is not recommended -- please use permitAll via HttpSecurity#authorizeHttpRequests instead.
+2024-02-28 22:36:08.477 [main] INFO org.springframework.security.web.DefaultSecurityFilterChain - Will not secure Mvc [pattern='/ws/**']
+2024-02-28 22:36:08.477 [main] WARN org.springframework.security.config.annotation.web.builders.WebSecurity - You are asking Spring Security to ignore Mvc [pattern='/signaling/**']. This is not recommended -- please use permitAll via HttpSecurity#authorizeHttpRequests instead.
+2024-02-28 22:36:08.477 [main] INFO org.springframework.security.web.DefaultSecurityFilterChain - Will not secure Mvc [pattern='/signaling/**']
+2024-02-28 22:36:09.161 [main] INFO org.apache.coyote.http11.Http11NioProtocol - Starting ProtocolHandler ["http-nio-8080"]
+2024-02-28 22:36:09.192 [main] INFO org.springframework.boot.web.embedded.tomcat.TomcatWebServer - Tomcat started on port 8080 (http) with context path ''
+2024-02-28 22:36:09.195 [main] INFO org.springframework.messaging.simp.broker.SimpleBrokerMessageHandler - Starting...
+2024-02-28 22:36:09.195 [main] INFO org.springframework.messaging.simp.broker.SimpleBrokerMessageHandler - BrokerAvailabilityEvent[available=true, SimpleBrokerMessageHandler [org.springframework.messaging.simp.broker.DefaultSubscriptionRegistry@6516a5e9]]
+2024-02-28 22:36:09.195 [main] INFO org.springframework.messaging.simp.broker.SimpleBrokerMessageHandler - Started.
+2024-02-28 22:36:09.223 [main] INFO com.chatty.ChattyApplication - Started ChattyApplication in 14.321 seconds (process running for 15.793)
+2024-02-28 22:36:22.354 [http-nio-8080-exec-2] INFO org.apache.catalina.core.ContainerBase.[Tomcat].[localhost].[/] - Initializing Spring DispatcherServlet 'dispatcherServlet'
+2024-02-28 22:36:22.357 [http-nio-8080-exec-2] INFO org.springframework.web.servlet.DispatcherServlet - Initializing Servlet 'dispatcherServlet'
+2024-02-28 22:36:22.369 [http-nio-8080-exec-2] INFO org.springframework.web.servlet.DispatcherServlet - Completed initialization in 10 ms
+2024-02-28 22:36:22.399 [http-nio-8080-exec-2] WARN org.springframework.web.servlet.handler.HandlerMappingIntrospector - Cache miss for REQUEST dispatch to '/users/join' (previous null). Performing MatchableHandlerMapping lookup. This is logged once only at WARN level, and every time at TRACE.
+2024-02-28 22:36:22.454 [http-nio-8080-exec-2] INFO com.chatty.interceptor.RateLimitInterceptor - remaining token : 20
+2024-02-28 22:36:22.723 [http-nio-8080-exec-2] INFO com.chatty.controller.user.UserController - [UserController/join] 회원 가입 시작
+2024-02-28 22:36:22.745 [http-nio-8080-exec-2] INFO com.chatty.service.user.UserService - [UserService/join] 회원 가입 시작
+2024-02-28 22:36:22.746 [http-nio-8080-exec-2] INFO com.chatty.service.user.UserService - [UserService/isAlreadyExistedUser] 이미 가입한 유저인지 확인
+2024-02-28 22:36:23.317 [http-nio-8080-exec-2] INFO com.chatty.service.sms.SmsService - 확인이 필요한 인증번호 : null
+2024-02-28 22:36:23.318 [http-nio-8080-exec-2] ERROR com.chatty.service.user.UserService - 인증 번호가 일치하지 않는다.
+2024-02-28 22:36:30.132 [http-nio-8080-exec-4] INFO com.chatty.interceptor.RateLimitInterceptor - remaining token : 19
+2024-02-28 22:36:30.192 [http-nio-8080-exec-4] INFO com.chatty.controller.auth.AuthController - 번호 인증 요청
+2024-02-28 22:36:30.238 [http-nio-8080-exec-4] INFO com.chatty.service.sms.SmsService - 번호 인증 요청 정보 저장 완료 : 756979
+2024-02-28 22:36:38.917 [http-nio-8080-exec-5] INFO com.chatty.interceptor.RateLimitInterceptor - remaining token : 18
+2024-02-28 22:36:38.932 [http-nio-8080-exec-5] INFO com.chatty.controller.user.UserController - [UserController/join] 회원 가입 시작
+2024-02-28 22:36:38.979 [http-nio-8080-exec-5] INFO com.chatty.service.user.UserService - [UserService/join] 회원 가입 시작
+2024-02-28 22:36:38.983 [http-nio-8080-exec-5] INFO com.chatty.service.user.UserService - [UserService/isAlreadyExistedUser] 이미 가입한 유저인지 확인
+2024-02-28 22:36:39.036 [http-nio-8080-exec-5] INFO com.chatty.service.sms.SmsService - 확인이 필요한 인증번호 : 756979
+2024-02-28 22:36:39.037 [http-nio-8080-exec-5] ERROR com.chatty.service.user.UserService - 이미 존재 하는 유저 입니다.
+2024-02-28 22:36:47.693 [http-nio-8080-exec-7] INFO com.chatty.interceptor.RateLimitInterceptor - remaining token : 17
+2024-02-28 22:36:47.710 [http-nio-8080-exec-7] INFO com.chatty.controller.user.UserController - [UserController/join] 회원 가입 시작
+2024-02-28 22:36:47.715 [http-nio-8080-exec-7] INFO com.chatty.service.user.UserService - [UserService/join] 회원 가입 시작
+2024-02-28 22:36:47.715 [http-nio-8080-exec-7] INFO com.chatty.service.user.UserService - [UserService/isAlreadyExistedUser] 이미 가입한 유저인지 확인
+2024-02-28 22:36:47.735 [http-nio-8080-exec-7] INFO com.chatty.service.sms.SmsService - 확인이 필요한 인증번호 : 756979
+2024-02-28 22:36:47.736 [http-nio-8080-exec-7] ERROR com.chatty.service.user.UserService - 이미 존재 하는 유저 입니다.
+2024-02-28 22:36:53.090 [http-nio-8080-exec-9] INFO com.chatty.interceptor.RateLimitInterceptor - remaining token : 16
+2024-02-28 22:36:53.104 [http-nio-8080-exec-9] INFO com.chatty.controller.user.UserController - [UserController/join] 회원 가입 시작
+2024-02-28 22:36:53.109 [http-nio-8080-exec-9] INFO com.chatty.service.user.UserService - [UserService/join] 회원 가입 시작
+2024-02-28 22:36:53.109 [http-nio-8080-exec-9] INFO com.chatty.service.user.UserService - [UserService/isAlreadyExistedUser] 이미 가입한 유저인지 확인
+2024-02-28 22:36:53.139 [http-nio-8080-exec-9] INFO com.chatty.service.sms.SmsService - 확인이 필요한 인증번호 : 756979
+2024-02-28 22:36:53.139 [http-nio-8080-exec-9] ERROR com.chatty.service.user.UserService - 이미 존재 하는 유저 입니다.
+2024-02-28 22:36:54.435 [http-nio-8080-exec-1] INFO com.chatty.interceptor.RateLimitInterceptor - remaining token : 15
+2024-02-28 22:36:54.439 [http-nio-8080-exec-1] INFO com.chatty.controller.user.UserController - [UserController/join] 회원 가입 시작
+2024-02-28 22:36:54.442 [http-nio-8080-exec-1] INFO com.chatty.service.user.UserService - [UserService/join] 회원 가입 시작
+2024-02-28 22:36:54.442 [http-nio-8080-exec-1] INFO com.chatty.service.user.UserService - [UserService/isAlreadyExistedUser] 이미 가입한 유저인지 확인
+2024-02-28 22:36:54.454 [http-nio-8080-exec-1] INFO com.chatty.service.sms.SmsService - 확인이 필요한 인증번호 : 756979
+2024-02-28 22:36:54.456 [http-nio-8080-exec-1] ERROR com.chatty.service.user.UserService - 이미 존재 하는 유저 입니다.
+2024-02-28 22:36:55.323 [http-nio-8080-exec-2] INFO com.chatty.interceptor.RateLimitInterceptor - remaining token : 14
+2024-02-28 22:36:55.332 [http-nio-8080-exec-2] INFO com.chatty.controller.user.UserController - [UserController/join] 회원 가입 시작
+2024-02-28 22:36:55.353 [http-nio-8080-exec-2] INFO com.chatty.service.user.UserService - [UserService/join] 회원 가입 시작
+2024-02-28 22:36:55.353 [http-nio-8080-exec-2] INFO com.chatty.service.user.UserService - [UserService/isAlreadyExistedUser] 이미 가입한 유저인지 확인
+2024-02-28 22:36:55.375 [http-nio-8080-exec-2] INFO com.chatty.service.sms.SmsService - 확인이 필요한 인증번호 : 756979
+2024-02-28 22:36:55.375 [http-nio-8080-exec-2] ERROR com.chatty.service.user.UserService - 이미 존재 하는 유저 입니다.
+2024-02-28 22:37:01.012 [http-nio-8080-exec-5] INFO com.chatty.interceptor.RateLimitInterceptor - remaining token : 13
+2024-02-28 22:37:01.022 [http-nio-8080-exec-5] INFO com.chatty.controller.user.UserController - [UserController/join] 회원 가입 시작
+2024-02-28 22:37:01.026 [http-nio-8080-exec-5] INFO com.chatty.service.user.UserService - [UserService/join] 회원 가입 시작
+2024-02-28 22:37:01.026 [http-nio-8080-exec-5] INFO com.chatty.service.user.UserService - [UserService/isAlreadyExistedUser] 이미 가입한 유저인지 확인
+2024-02-28 22:37:01.042 [http-nio-8080-exec-5] INFO com.chatty.service.sms.SmsService - 확인이 필요한 인증번호 : 756979
+2024-02-28 22:37:01.044 [http-nio-8080-exec-5] ERROR com.chatty.service.user.UserService - 이미 존재 하는 유저 입니다.

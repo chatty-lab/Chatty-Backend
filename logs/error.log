@@ -1,0 +1,7 @@
+2024-02-28 22:36:23.318 [http-nio-8080-exec-2] ERROR com.chatty.service.user.UserService - 인증 번호가 일치하지 않는다.
+2024-02-28 22:36:39.037 [http-nio-8080-exec-5] ERROR com.chatty.service.user.UserService - 이미 존재 하는 유저 입니다.
+2024-02-28 22:36:47.736 [http-nio-8080-exec-7] ERROR com.chatty.service.user.UserService - 이미 존재 하는 유저 입니다.
+2024-02-28 22:36:53.139 [http-nio-8080-exec-9] ERROR com.chatty.service.user.UserService - 이미 존재 하는 유저 입니다.
+2024-02-28 22:36:54.456 [http-nio-8080-exec-1] ERROR com.chatty.service.user.UserService - 이미 존재 하는 유저 입니다.
+2024-02-28 22:36:55.375 [http-nio-8080-exec-2] ERROR com.chatty.service.user.UserService - 이미 존재 하는 유저 입니다.
+2024-02-28 22:37:01.044 [http-nio-8080-exec-5] ERROR com.chatty.service.user.UserService - 이미 존재 하는 유저 입니다.
