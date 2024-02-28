@@ -3,15 +3,20 @@ package com.chatty.service.chat;
 import com.chatty.constants.Code;
 import com.chatty.dto.chat.request.DeleteRoomDto;
 import com.chatty.dto.chat.request.RoomDto;
+import com.chatty.dto.chat.response.ChatRoomsResponseDto;
 import com.chatty.dto.chat.response.RoomResponseDto;
 import com.chatty.entity.chat.ChatRoom;
 import com.chatty.entity.user.User;
 import com.chatty.exception.CustomException;
 import com.chatty.repository.chat.ChatRoomRepository;
+import com.chatty.repository.user.UserRepository;
 import com.chatty.service.user.UserService;
+import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -20,6 +25,7 @@ import org.springframework.transaction.annotation.Transactional;
 @RequiredArgsConstructor
 public class RoomService {
     private final ChatRoomRepository chatRoomRepository;
+    private final UserRepository userRepository;
     private final UserService userService;
 
     @Transactional
@@ -70,5 +76,13 @@ public class RoomService {
 
     private ChatRoom isExistedRoomByRoomId(Long roomId){
         return chatRoomRepository.findChatRoomByRoomId(roomId).orElseThrow(() -> new CustomException(Code.NOT_FOUND_CHAT_ROOM));
+    }
+
+    public ChatRoomsResponseDto getRooms(Authentication authentication) {
+        User user = userRepository.findUserByMobileNumber(authentication.getName()).orElseThrow(() -> new CustomException(Code.NOT_EXIST_USER));
+        List<ChatRoom> rooms = chatRoomRepository.findAllBySender(user);
+        List<RoomResponseDto> list = rooms.stream().map(room -> RoomResponseDto.of(room)).collect(Collectors.toList());
+
+        return ChatRoomsResponseDto.of(list);
     }
 }

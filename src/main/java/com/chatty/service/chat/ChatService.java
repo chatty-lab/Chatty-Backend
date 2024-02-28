@@ -4,8 +4,10 @@ import com.chatty.constants.Code;
 import com.chatty.dto.chat.request.MessageDto;
 import com.chatty.dto.chat.request.UnreadMessageDto;
 import com.chatty.dto.chat.response.ChatMessageDto;
+import com.chatty.dto.chat.response.ChatRoomsResponseDto;
 import com.chatty.dto.chat.response.MessageMarkResponseDto;
 import com.chatty.dto.chat.response.MultipleMessageResponseDto;
+import com.chatty.dto.chat.response.RoomResponseDto;
 import com.chatty.dto.chat.response.SimpleMessageResponseDto;
 import com.chatty.entity.chat.ChatMessage;
 import com.chatty.entity.chat.ChatRoom;
@@ -19,6 +21,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -72,7 +75,7 @@ public class ChatService {
         chatRoomRepository.findChatRoomByRoomId(roomId).orElseThrow(() -> new CustomException(Code.NOT_FOUND_CHAT_ROOM));
     }
 
-    private void isExistedSender(Long senderId){
+    private void isExistedSender(Long senderId) {
         userRepository.findUserById(senderId).orElseThrow(() -> new CustomException(Code.NOT_EXIST_USER));
     }
 }
