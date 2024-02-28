@@ -99,6 +99,8 @@ public class UserService {
                 log.error("이미 등록된 계정이 존재합니다.");
                 throw new CustomException(Code.INVALID_DEVICE_NUMER);
             }
+
+            throw new CustomException(Code.ALREADY_EXIST_USER);
         }
 
         User user = User.builder()
