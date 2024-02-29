@@ -36,11 +36,13 @@ public class SecurityConfig {
                 .httpBasic(HttpBasicConfigurer::disable)
                 .csrf(AbstractHttpConfigurer::disable)
                 .authorizeHttpRequests(authorize -> authorize
-                                .requestMatchers("/reviews/home").hasRole("USER")
-                                .requestMatchers("/reviews/**").authenticated()
-                        .anyRequest().authenticated()
+                        .requestMatchers("/reviews/home").hasRole("USER")
+                        .requestMatchers("/reviews/**").authenticated()
+                        .requestMatchers("/users/birth", "/users/gender").hasRole("ANONYMOUS")
+                        .requestMatchers("/users/**").hasAnyRole("USER", "ANONYMOUS")
+                        .anyRequest().hasAnyRole("USER", "ADMIN")
                 )
-                .addFilterBefore(new JwtTokenFilter(jwtTokenProvider,tokenValidator,userDetailsService), UsernamePasswordAuthenticationFilter.class)
+                .addFilterBefore(new JwtTokenFilter(jwtTokenProvider, tokenValidator, userDetailsService), UsernamePasswordAuthenticationFilter.class)
                 .exceptionHandling(exception -> exception
                         .authenticationEntryPoint(new JwtAuthenticationEntryPoint())
                         .accessDeniedHandler(new CustomAccessDeniedHandler(HttpStatus.FORBIDDEN)))
@@ -48,7 +50,7 @@ public class SecurityConfig {
     }
 
     @Bean
-    public WebSecurityCustomizer webSecurityCustomizer(){
+    public WebSecurityCustomizer webSecurityCustomizer() {
         return (web) -> web.ignoring().requestMatchers(
                 "/users/join",
                 "/users/login",

@@ -36,6 +36,7 @@ public enum Code {
     INSUFFICIENT_TICKET(HttpStatus.BAD_REQUEST, "티켓의 개수가 부족합니다.", "E027"),
     NOT_AUTHORITY(HttpStatus.FORBIDDEN, "권한이 없습니다.", "E028"),
     NOT_EXIST_SUBSCRIPTION(HttpStatus.NOT_FOUND, "존재하지 않는 구독권입니다.", "E029"),
+    NOT_AUTHORITY_USER(HttpStatus.FORBIDDEN, "회원가입을 완료해주세요.", "E030"),
 
 
 

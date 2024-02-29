@@ -108,6 +108,7 @@ public class User extends CommonEntity implements UserDetails{
 
     public void updateMbti(final Mbti mbti) {
         this.mbti = mbti;
+        this.authority = Authority.USER;
     }
 
     public void updateCoordinate(final Coordinate coordinate) {
