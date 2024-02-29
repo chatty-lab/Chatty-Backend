@@ -13,6 +13,7 @@ import java.io.IOException;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.web.filter.OncePerRequestFilter;
@@ -59,6 +60,11 @@ public class JwtTokenFilter extends OncePerRequestFilter {
                 userDetails.getAuthorities());
         SecurityContextHolder.getContext().setAuthentication(authenticationToken);
         log.info("doFilter로 넘어가기");
+
+        GrantedAuthority grantedAuthority = userDetails.getAuthorities().stream().findFirst().get();
+        String authority = grantedAuthority.getAuthority();
+        request.setAttribute("role", authority.split("_")[1]);
+
         filterChain.doFilter(request, response);
     }
 }
