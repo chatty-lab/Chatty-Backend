@@ -35,9 +35,6 @@ public class WebSocketConfig implements WebSocketMessageBrokerConfigurer {
 
         // 메시지를 발행하는 요청 url
         registry.setApplicationDestinationPrefixes("/pub"); // Controller 객체의 MessageMapping 메서드 라우팅
-
-        registry.enableSimpleBroker("/topic");
-        registry.setApplicationDestinationPrefixes("/app");
     }
 
     @Override
