@@ -225,7 +225,6 @@ public class UserService {
         User user = userRepository.findUserByMobileNumber(mobileNumber)
                 .orElseThrow(() -> new CustomException(Code.NOT_EXIST_USER));
 
-        // TODO: 예외 처리 로직 다시 작성 - 예외 이름, 3개 이상 아니면 예외 발생 등
         user.getUserInterests().clear();
         for (Long interestId : request.getInterests()) {
             Interest interest = interestRepository.findById(interestId)
