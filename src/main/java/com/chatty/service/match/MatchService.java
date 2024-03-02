@@ -39,7 +39,7 @@ public class MatchService {
             validateBlueCheck(user);
         }
 
-        validateDailyMatchingLimit(user, now);
+//        validateDailyMatchingLimit(user, now);
 
         int age = calculateUserAge(user);
         Match match = matchRepository.save(request.toEntity(user, now));
