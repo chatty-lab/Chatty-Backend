@@ -1,5 +1,6 @@
 package com.chatty.dto.interest.request;
 
+import jakarta.validation.constraints.Size;
 import lombok.AccessLevel;
 import lombok.Builder;
 import lombok.Getter;
@@ -11,6 +12,7 @@ import java.util.List;
 @Getter
 public class InterestRequest {
 
+    @Size(min = 3, message = "관심사는 최소 3개 선택해야 됩니다.")
     private List<Long> interests;
 
     @Builder
