@@ -1,11 +1,14 @@
 package com.chatty.service.user;
 
 import com.chatty.constants.Authority;
+import com.chatty.dto.interest.request.InterestRequest;
 import com.chatty.dto.user.request.*;
 import com.chatty.dto.user.response.UserResponse;
 import com.chatty.entity.user.*;
 import com.chatty.exception.CustomException;
+import com.chatty.repository.interest.InterestRepository;
 import com.chatty.repository.user.UserRepository;
+import com.chatty.repository.userinterest.UserInterestRepository;
 import com.chatty.utils.S3Service;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.DisplayName;
@@ -39,8 +42,16 @@ class UserServiceTest {
     @MockBean
     private S3Service s3Service;
 
+    @Autowired
+    private InterestRepository interestRepository;
+
+    @Autowired
+    private UserInterestRepository userInterestRepository;
+
     @AfterEach
     void tearDown() {
+        userInterestRepository.deleteAllInBatch();
+        interestRepository.deleteAllInBatch();
         userRepository.deleteAllInBatch();
     }
 
@@ -301,6 +312,129 @@ class UserServiceTest {
                 .hasMessage("존재 하지 않는 유저 입니다.");
     }
 
+    @DisplayName("관심사를 수정한다.")
+    @Test
+    void updateInterests() throws IOException {
+        // given
+        User user = createUser("닉네임", "01012345678");
+        userRepository.save(user);
+
+        Interest interest1 = createInterest("여행");
+        Interest interest2 = createInterest("맛집");
+        Interest interest3 = createInterest("카페");
+        interestRepository.saveAll(List.of(interest1, interest2, interest3));
+        List<Long> interests = List.of(interest1.getId(), interest2.getId(), interest3.getId());
+
+        InterestRequest request = InterestRequest.builder()
+                .interests(interests)
+                .build();
+
+        // when
+        UserResponse userResponse = userService.updateInterests(request, user.getMobileNumber());
+
+        // then
+        assertThat(userResponse.getId()).isNotNull();
+        assertThat(userResponse.getInterests()).hasSize(3)
+                .containsExactlyInAnyOrder("여행", "맛집", "카페");
+    }
+
+    @DisplayName("관심사를 수정할 때, 존재하지 않는 관심사 값을 넣으면 예외가 발생한다.")
+    @Test
+    void updateInterestsWithoutInterest() throws IOException {
+        // given
+        User user = createUser("닉네임", "01012345678");
+        userRepository.save(user);
+
+        Long interest1 = 1L;
+        Long interest2 = 2L;
+        Long interest3 = 3L;
+        List<Long> interests = List.of(interest1, interest2, interest3);
+        InterestRequest request = InterestRequest.builder()
+                .interests(interests)
+                .build();
+
+        // when // then
+        assertThatThrownBy(() -> userService.updateInterests(request, user.getMobileNumber()))
+                .isInstanceOf(CustomException.class)
+                .hasMessage("존재하지 않는 관심사입니다.");
+    }
+
+    @DisplayName("주소를 수정한다")
+    @Test
+    void updateAddress() throws IOException {
+        // given
+        User user = createUser("닉네임", "01012345678");
+        userRepository.save(user);
+
+        UserAddressRequest request = UserAddressRequest.builder()
+                .address("주소")
+                .build();
+
+        // when
+        UserResponse userResponse = userService.updateAddress(request, user.getMobileNumber());
+
+        // then
+        assertThat(userResponse.getId()).isNotNull();
+        assertThat(userResponse.getAddress()).isEqualTo("주소");
+    }
+
+    @DisplayName("직업을 수정한다")
+    @Test
+    void updateJob() throws IOException {
+        // given
+        User user = createUser("닉네임", "01012345678");
+        userRepository.save(user);
+
+        UserJobRequest request = UserJobRequest.builder()
+                .job("직업")
+                .build();
+
+        // when
+        UserResponse userResponse = userService.updateJob(request, user.getMobileNumber());
+
+        // then
+        assertThat(userResponse.getId()).isNotNull();
+        assertThat(userResponse.getJob()).isEqualTo("직업");
+    }
+
+    @DisplayName("학교를 수정한다")
+    @Test
+    void updateSchool() throws IOException {
+        // given
+        User user = createUser("닉네임", "01012345678");
+        userRepository.save(user);
+
+        UserSchoolRequest request = UserSchoolRequest.builder()
+                .school("학교")
+                .build();
+
+        // when
+        UserResponse userResponse = userService.updateSchool(request, user.getMobileNumber());
+
+        // then
+        assertThat(userResponse.getId()).isNotNull();
+        assertThat(userResponse.getSchool()).isEqualTo("학교");
+    }
+
+    @DisplayName("자기소개를 수정한다")
+    @Test
+    void updateIntroduce() throws IOException {
+        // given
+        User user = createUser("닉네임", "01012345678");
+        userRepository.save(user);
+
+        UserIntroduceRequest request = UserIntroduceRequest.builder()
+                .introduce("자기소개")
+                .build();
+
+        // when
+        UserResponse userResponse = userService.updateIntroduce(request, user.getMobileNumber());
+
+        // then
+        assertThat(userResponse.getId()).isNotNull();
+        assertThat(userResponse.getIntroduce()).isEqualTo("자기소개");
+    }
+
     private User notCompleteJoinUser(final String mobileNumber) {
         return User.builder()
                 .mobileNumber(mobileNumber)
@@ -325,6 +459,12 @@ class UserServiceTest {
                                 .lng(127.1)
                                 .build()
                 ))
+                .build();
+    }
+
+    private Interest createInterest(final String name) {
+        return Interest.builder()
+                .name(name)
                 .build();
     }
 }
