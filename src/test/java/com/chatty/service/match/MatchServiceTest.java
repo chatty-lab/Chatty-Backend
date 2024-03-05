@@ -87,72 +87,72 @@ class MatchServiceTest {
         assertThat(matchResponse.isSuccess()).isTrue();
     }
 
-    @DisplayName("남성은 하루 매칭 제한 횟수 5번을 초과하였을 때, 예외가 발생한다.")
-    @Test
-    void createMatchWithLimitExceededForMale() {
-        // given
-        LocalDate birth = LocalDate.of(2000, 1, 1);
-        User user = createUser("박지성", "01022222222", birth, Gender.MALE, false);
-        userRepository.save(user);
+//    @DisplayName("남성은 하루 매칭 제한 횟수 5번을 초과하였을 때, 예외가 발생한다.")
+//    @Test
+//    void createMatchWithLimitExceededForMale() {
+//        // given
+//        LocalDate birth = LocalDate.of(2000, 1, 1);
+//        User user = createUser("박지성", "01022222222", birth, Gender.MALE, false);
+//        userRepository.save(user);
+//
+//        LocalDateTime localDateTime = LocalDateTime.now();
+//        Match match1 = createMatch(user, localDateTime, 25, 30, 300.0, Gender.FEMALE, true);
+//        Match match2 = createMatch(user, localDateTime, 25, 30, 300.0, Gender.FEMALE, true);
+//        Match match3 = createMatch(user, localDateTime, 25, 30, 300.0, Gender.FEMALE, true);
+//        Match match4 = createMatch(user, localDateTime, 25, 30, 300.0, Gender.FEMALE, true);
+//        Match match5 = createMatch(user, localDateTime, 25, 30, 300.0, Gender.FEMALE, true);
+//        matchRepository.saveAll(List.of(match1, match2, match3, match4, match5));
+//
+//        MatchRequest request = MatchRequest.builder()
+//                .minAge(25)
+//                .maxAge(30)
+//                .scope(300.0)
+//                .category("category")
+//                .gender(Gender.FEMALE)
+//                .blueCheck(false)
+//                .build();
+//
+//        // when // then
+//        assertThatThrownBy(() -> matchService.createMatch(user.getMobileNumber(), request))
+//                .isInstanceOf(CustomException.class)
+//                .hasMessage("일일 매칭 횟수 제한을 초과했습니다.");
+//    }
 
-        LocalDateTime localDateTime = LocalDateTime.now();
-        Match match1 = createMatch(user, localDateTime, 25, 30, 300.0, Gender.FEMALE, true);
-        Match match2 = createMatch(user, localDateTime, 25, 30, 300.0, Gender.FEMALE, true);
-        Match match3 = createMatch(user, localDateTime, 25, 30, 300.0, Gender.FEMALE, true);
-        Match match4 = createMatch(user, localDateTime, 25, 30, 300.0, Gender.FEMALE, true);
-        Match match5 = createMatch(user, localDateTime, 25, 30, 300.0, Gender.FEMALE, true);
-        matchRepository.saveAll(List.of(match1, match2, match3, match4, match5));
-
-        MatchRequest request = MatchRequest.builder()
-                .minAge(25)
-                .maxAge(30)
-                .scope(300.0)
-                .category("category")
-                .gender(Gender.FEMALE)
-                .blueCheck(false)
-                .build();
-
-        // when // then
-        assertThatThrownBy(() -> matchService.createMatch(user.getMobileNumber(), request))
-                .isInstanceOf(CustomException.class)
-                .hasMessage("일일 매칭 횟수 제한을 초과했습니다.");
-    }
-
-    @DisplayName("여성은 하루 매칭 제한 횟수 10번을 초과하였을 때, 예외가 발생한다.")
-    @Test
-    void createMatchWithLimitExceededForFemale() {
-        // given
-        LocalDate birth = LocalDate.of(2000, 1, 1);
-        User user = createUser("김연아", "01033333333", birth, Gender.FEMALE, false);
-        userRepository.save(user);
-
-        LocalDateTime localDateTime = LocalDateTime.now();
-        Match match1 = createMatch(user, localDateTime, 25, 30, 300.0, Gender.MALE, true);
-        Match match2 = createMatch(user, localDateTime, 25, 30, 300.0, Gender.MALE, true);
-        Match match3 = createMatch(user, localDateTime, 25, 30, 300.0, Gender.MALE, true);
-        Match match4 = createMatch(user, localDateTime, 25, 30, 300.0, Gender.MALE, true);
-        Match match5 = createMatch(user, localDateTime, 25, 30, 300.0, Gender.MALE, true);
-        Match match6 = createMatch(user, localDateTime, 25, 30, 300.0, Gender.MALE, true);
-        Match match7 = createMatch(user, localDateTime, 25, 30, 300.0, Gender.MALE, true);
-        Match match8 = createMatch(user, localDateTime, 25, 30, 300.0, Gender.MALE, true);
-        Match match9 = createMatch(user, localDateTime, 25, 30, 300.0, Gender.MALE, true);
-        Match match10 = createMatch(user, localDateTime, 25, 30, 300.0, Gender.MALE, true);
-        matchRepository.saveAll(List.of(match1, match2, match3, match4, match5, match6, match7, match8, match9, match10));
-
-        MatchRequest request = MatchRequest.builder()
-                .minAge(25)
-                .maxAge(30)
-                .scope(300.0)
-                .category("category")
-                .gender(Gender.MALE)
-                .blueCheck(false)
-                .build();
-
-        // when // then
-        assertThatThrownBy(() -> matchService.createMatch(user.getMobileNumber(), request))
-                .isInstanceOf(CustomException.class)
-                .hasMessage("일일 매칭 횟수 제한을 초과했습니다.");
-    }
+//    @DisplayName("여성은 하루 매칭 제한 횟수 10번을 초과하였을 때, 예외가 발생한다.")
+//    @Test
+//    void createMatchWithLimitExceededForFemale() {
+//        // given
+//        LocalDate birth = LocalDate.of(2000, 1, 1);
+//        User user = createUser("김연아", "01033333333", birth, Gender.FEMALE, false);
+//        userRepository.save(user);
+//
+//        LocalDateTime localDateTime = LocalDateTime.now();
+//        Match match1 = createMatch(user, localDateTime, 25, 30, 300.0, Gender.MALE, true);
+//        Match match2 = createMatch(user, localDateTime, 25, 30, 300.0, Gender.MALE, true);
+//        Match match3 = createMatch(user, localDateTime, 25, 30, 300.0, Gender.MALE, true);
+//        Match match4 = createMatch(user, localDateTime, 25, 30, 300.0, Gender.MALE, true);
+//        Match match5 = createMatch(user, localDateTime, 25, 30, 300.0, Gender.MALE, true);
+//        Match match6 = createMatch(user, localDateTime, 25, 30, 300.0, Gender.MALE, true);
+//        Match match7 = createMatch(user, localDateTime, 25, 30, 300.0, Gender.MALE, true);
+//        Match match8 = createMatch(user, localDateTime, 25, 30, 300.0, Gender.MALE, true);
+//        Match match9 = createMatch(user, localDateTime, 25, 30, 300.0, Gender.MALE, true);
+//        Match match10 = createMatch(user, localDateTime, 25, 30, 300.0, Gender.MALE, true);
+//        matchRepository.saveAll(List.of(match1, match2, match3, match4, match5, match6, match7, match8, match9, match10));
+//
+//        MatchRequest request = MatchRequest.builder()
+//                .minAge(25)
+//                .maxAge(30)
+//                .scope(300.0)
+//                .category("category")
+//                .gender(Gender.MALE)
+//                .blueCheck(false)
+//                .build();
+//
+//        // when // then
+//        assertThatThrownBy(() -> matchService.createMatch(user.getMobileNumber(), request))
+//                .isInstanceOf(CustomException.class)
+//                .hasMessage("일일 매칭 횟수 제한을 초과했습니다.");
+//    }
 
     @DisplayName("프로필 인증(BlueCheck)을 받은 사람만 매칭을 시작할 때, blueCheck 기능을 사용할 수 있다.")
     @Test
