@@ -28,7 +28,6 @@ public class WebSocketMatchInterceptor implements HandshakeInterceptor {
     @Override
     public boolean beforeHandshake(final ServerHttpRequest request, final ServerHttpResponse response, final WebSocketHandler wsHandler, final Map<String, Object> attributes) throws Exception {
         String token = request.getHeaders().getFirst("Authorization");
-        String mobileNumber = jwtTokenProvider.getMobileNumber(token.substring(7)); // key값으로 저장
 
         if (token != null && token.startsWith("Bearer ")) {
 
@@ -39,12 +38,13 @@ public class WebSocketMatchInterceptor implements HandshakeInterceptor {
                 response.setStatusCode(HttpStatus.UNAUTHORIZED);
                 return false;
             }
+        }
 
-            if (WebSocketConnectionManager.isConnected(mobileNumber)) {
-                log.error("이미 연결이 존재합니다.");
-                response.setStatusCode(HttpStatus.BAD_REQUEST);
-                return false;
-            }
+        String mobileNumber = jwtTokenProvider.getMobileNumber(token.substring(7)); // key값으로 저장
+        if (WebSocketConnectionManager.isConnected(mobileNumber)) {
+            log.error("이미 연결이 존재합니다.");
+            response.setStatusCode(HttpStatus.BAD_REQUEST);
+            return false;
         }
 
         attributes.put("mobileNumber", mobileNumber);

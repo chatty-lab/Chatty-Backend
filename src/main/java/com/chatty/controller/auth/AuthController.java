@@ -76,9 +76,34 @@ public class AuthController {
             )
     )
     @PostMapping("/token")
-    public ApiResponse<String> token(@Valid @RequestBody CheckTokenDto checkTokenDto){
-        return ApiResponse.ok(authService.checkAccessToken(checkTokenDto));
+    public ApiResponse<String> token(){
+        return ApiResponse.ok(authService.checkAccessToken());
     }
+//    @Operation(summary = "accessToken 유효성 확인", description = "accessToken 유효성을 검증 합니다.")
+//    @io.swagger.v3.oas.annotations.responses.ApiResponse(responseCode = "400", description = "accessToken 검증 실패",
+//            content = @Content(mediaType = "application/json",
+//                    examples = {
+//                            @ExampleObject(name = "E-001", value = """
+//                                    {
+//                                        "errorCode": "001",
+//                                        "status": "400",
+//                                        "message": "유효성 검증을 실패했습니다."
+//                                    }
+//                                    """),
+//                            @ExampleObject(name = "E-002", value = """
+//                                    {
+//                                        "errorCode": "002",
+//                                        "status": "400",
+//                                        "message": "accessToken이 만료되었습니다."
+//                                    }
+//                                    """),
+//                    }
+//            )
+//    )
+//    @PostMapping("/token")
+//    public ApiResponse<String> token(@Valid @RequestBody CheckTokenDto checkTokenDto){
+//        return ApiResponse.ok(authService.checkAccessToken(checkTokenDto));
+//    }
 
     @Operation(summary = "번호 인증 요청", description = "전화번호로 sms 인증요청을 합니다.")
     @io.swagger.v3.oas.annotations.responses.ApiResponse(responseCode = "400", description = "번호 인증 실패",

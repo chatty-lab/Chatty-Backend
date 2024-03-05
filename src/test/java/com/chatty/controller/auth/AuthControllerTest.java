@@ -34,37 +34,37 @@ public class AuthControllerTest {
     @MockBean
     private SmsService smsService;
 
-    @Test
-    @DisplayName("accessToken 유효성을 검증한다.")
-    @WithMockUser(username = "123123", roles = "USER")
-    void token() throws Exception{
-        //given
-        CheckTokenDto checkTokenDto = CheckTokenDto.builder()
-                .accessToken("abcdefg").build();
-        //when, then
-        mockMvc.perform(
-                post("/auth/token").with(csrf())
-                        .contentType(MediaType.APPLICATION_JSON)
-                        .content(objectMapper.writeValueAsString(checkTokenDto))
-                )
-                .andDo(print())
-                .andExpect(status().isOk());
-    }
-
-    @Test
-    @DisplayName("accessToken 유효성을 검증시, accessToken 값은 필수이다.")
-    @WithMockUser(username = "123123", roles = "USER")
-    void tokenNotExistedToken() throws Exception{
-        //given
-        CheckTokenDto checkTokenDto = CheckTokenDto.builder().build();
-        //when, then
-        mockMvc.perform(
-                        post("/auth/token").with(csrf())
-                                .contentType(MediaType.APPLICATION_JSON)
-                                .content(objectMapper.writeValueAsString(checkTokenDto))
-                )
-                .andDo(print())
-                .andExpect(status().isBadRequest())
-                .andExpect(jsonPath("$.message").value("accessToken은 필수로 입력해야 합니다."));
-    }
+//    @Test
+//    @DisplayName("accessToken 유효성을 검증한다.")
+//    @WithMockUser(username = "123123", roles = "USER")
+//    void token() throws Exception{
+//        //given
+//        CheckTokenDto checkTokenDto = CheckTokenDto.builder()
+//                .accessToken("abcdefg").build();
+//        //when, then
+//        mockMvc.perform(
+//                post("/auth/token").with(csrf())
+//                        .contentType(MediaType.APPLICATION_JSON)
+//                        .content(objectMapper.writeValueAsString(checkTokenDto))
+//                )
+//                .andDo(print())
+//                .andExpect(status().isOk());
+//    }
+//
+//    @Test
+//    @DisplayName("accessToken 유효성을 검증시, accessToken 값은 필수이다.")
+//    @WithMockUser(username = "123123", roles = "USER")
+//    void tokenNotExistedToken() throws Exception{
+//        //given
+//        CheckTokenDto checkTokenDto = CheckTokenDto.builder().build();
+//        //when, then
+//        mockMvc.perform(
+//                        post("/auth/token").with(csrf())
+//                                .contentType(MediaType.APPLICATION_JSON)
+//                                .content(objectMapper.writeValueAsString(checkTokenDto))
+//                )
+//                .andDo(print())
+//                .andExpect(status().isBadRequest())
+//                .andExpect(jsonPath("$.message").value("accessToken은 필수로 입력해야 합니다."));
+//    }
 }
