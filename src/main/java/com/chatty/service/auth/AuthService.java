@@ -39,10 +39,13 @@ public class AuthService {
         return AuthResponseDto.of(tokens.get(ACCESS_TOKEN), tokens.get(REFRESH_TOKEN));
     }
 
-    public String checkAccessToken(CheckTokenDto checkTokenDto){
-        tokenValidator.validateAccessToken(PREFIX_ACCESS_TOKEN + checkTokenDto.getAccessToken());
+    public String checkAccessToken(){
         return "유효한 accessToken 입니다.";
     }
+//    public String checkAccessToken(CheckTokenDto checkTokenDto){
+//        tokenValidator.validateAccessToken(PREFIX_ACCESS_TOKEN + checkTokenDto.getAccessToken());
+//        return "유효한 accessToken 입니다.";
+//    }
 
     private HashMap<String, String> createTokens(String refreshToken) {
 
