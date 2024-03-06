@@ -8,14 +8,12 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.messaging.simp.config.MessageBrokerRegistry;
 import org.springframework.web.socket.config.annotation.EnableWebSocketMessageBroker;
 import org.springframework.web.socket.config.annotation.StompEndpointRegistry;
-import org.springframework.web.socket.config.annotation.WebSocketConfigurer;
-import org.springframework.web.socket.config.annotation.WebSocketHandlerRegistry;
 import org.springframework.web.socket.config.annotation.WebSocketMessageBrokerConfigurer;
 
 @Configuration
 @EnableWebSocketMessageBroker
 @RequiredArgsConstructor
-public class WebSocketConfig implements WebSocketMessageBrokerConfigurer, WebSocketConfigurer {
+public class WebSocketConfig implements WebSocketMessageBrokerConfigurer{
 
     private final TokenValidator tokenValidator;
     private final JwtTokenProvider jwtTokenProvider;
@@ -25,11 +23,11 @@ public class WebSocketConfig implements WebSocketMessageBrokerConfigurer, WebSoc
     public void registerStompEndpoints(StompEndpointRegistry registry) {
 
         registry.addEndpoint("/ws")
-                .addInterceptors()
+                .addInterceptors(new WebSocketMatchInterceptor(tokenValidator, jwtTokenProvider))
                 .setAllowedOriginPatterns("*");
 
         registry.addEndpoint("/signaling")
-                .addInterceptors()
+                .addInterceptors(new WebSocketMatchInterceptor(tokenValidator, jwtTokenProvider))
                 .setAllowedOrigins("*");
     }
 
@@ -40,14 +38,5 @@ public class WebSocketConfig implements WebSocketMessageBrokerConfigurer, WebSoc
 
         // 메시지를 발행하는 요청 url
         registry.setApplicationDestinationPrefixes("/pub"); // Controller 객체의 MessageMapping 메서드 라우팅
-    }
-
-    @Override
-    public void registerWebSocketHandlers(WebSocketHandlerRegistry registry) {
-
-        registry.addHandler(chatHandler,"/ws")
-                .addHandler(chatHandler,"/signaling")
-                .setAllowedOrigins("*")
-                .addInterceptors(new WebSocketMatchInterceptor(tokenValidator, jwtTokenProvider));
     }
 }
