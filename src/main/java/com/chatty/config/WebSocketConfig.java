@@ -1,20 +1,25 @@
 package com.chatty.config;
 
-import com.chatty.handler.StompHandler;
+import com.chatty.handler.ChatHandler;
+import com.chatty.jwt.JwtTokenProvider;
+import com.chatty.validator.TokenValidator;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.messaging.simp.config.ChannelRegistration;
 import org.springframework.messaging.simp.config.MessageBrokerRegistry;
 import org.springframework.web.socket.config.annotation.EnableWebSocketMessageBroker;
 import org.springframework.web.socket.config.annotation.StompEndpointRegistry;
+import org.springframework.web.socket.config.annotation.WebSocketConfigurer;
+import org.springframework.web.socket.config.annotation.WebSocketHandlerRegistry;
 import org.springframework.web.socket.config.annotation.WebSocketMessageBrokerConfigurer;
 
 @Configuration
 @EnableWebSocketMessageBroker
 @RequiredArgsConstructor
-public class WebSocketConfig implements WebSocketMessageBrokerConfigurer {
+public class WebSocketConfig implements WebSocketMessageBrokerConfigurer, WebSocketConfigurer {
 
-    private final StompHandler stompHandler;
+    private final TokenValidator tokenValidator;
+    private final JwtTokenProvider jwtTokenProvider;
+    private final ChatHandler chatHandler;
 
     @Override
     public void registerStompEndpoints(StompEndpointRegistry registry) {
@@ -38,7 +43,11 @@ public class WebSocketConfig implements WebSocketMessageBrokerConfigurer {
     }
 
     @Override
-    public void configureClientInboundChannel(ChannelRegistration registration) {
-        registration.interceptors(stompHandler);
+    public void registerWebSocketHandlers(WebSocketHandlerRegistry registry) {
+
+        registry.addHandler(chatHandler,"/ws")
+                .addHandler(chatHandler,"/signaling")
+                .setAllowedOrigins("*")
+                .addInterceptors(new WebSocketMatchInterceptor(tokenValidator, jwtTokenProvider));
     }
 }
