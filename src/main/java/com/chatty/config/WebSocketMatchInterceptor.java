@@ -1,21 +1,16 @@
 package com.chatty.config;
 
-import com.chatty.dto.ApiResponse;
 import com.chatty.exception.CustomException;
 import com.chatty.jwt.JwtTokenProvider;
 import com.chatty.validator.TokenValidator;
-import com.fasterxml.jackson.databind.ObjectMapper;
-import jakarta.servlet.http.HttpServletResponse;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.server.ServerHttpRequest;
 import org.springframework.http.server.ServerHttpResponse;
 import org.springframework.web.socket.WebSocketHandler;
 import org.springframework.web.socket.server.HandshakeInterceptor;
 
-import java.net.InetSocketAddress;
 import java.util.Map;
 
 @Slf4j
