@@ -16,7 +16,7 @@ import java.time.LocalDateTime;
 
 @Slf4j
 @RequiredArgsConstructor
-@RequestMapping("/api/v1/users")
+@RequestMapping("/v1/users")
 @RestController
 public class ProfileUnlockController {
 

@@ -55,7 +55,7 @@ class ProfileUnlockControllerTest {
 
         // when // then
         mockMvc.perform(
-                        post("/api/v1/users/profile/{userId}", 2L).with(csrf())
+                        post("/v1/users/profile/{userId}", 2L).with(csrf())
                                 .contentType(MediaType.APPLICATION_JSON)
                                 .content(objectMapper.writeValueAsString(request))
                 )
@@ -73,7 +73,7 @@ class ProfileUnlockControllerTest {
 
         // when // then
         mockMvc.perform(
-                        post("/api/v1/users/profile/{userId}", 2L).with(csrf())
+                        post("/v1/users/profile/{userId}", 2L).with(csrf())
                                 .contentType(MediaType.APPLICATION_JSON)
                                 .content(objectMapper.writeValueAsString(request))
                 )
