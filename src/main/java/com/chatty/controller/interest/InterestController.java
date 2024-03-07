@@ -15,7 +15,7 @@ public class InterestController {
 
     private final InterestService interestService;
 
-    @GetMapping("/api/v1/interests")
+    @GetMapping("/v1/interests")
     public ApiResponse<List<InterestResponse>> getInterests() {
         return ApiResponse.ok(interestService.getInterests());
     }

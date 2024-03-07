@@ -51,7 +51,7 @@ class InterestControllerTest {
 
         // when // then
         mockMvc.perform(
-                        get("/api/v1/interests")
+                        get("/v1/interests")
                 )
                 .andDo(print())
                 .andExpect(status().isOk())
