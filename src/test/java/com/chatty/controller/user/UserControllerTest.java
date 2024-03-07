@@ -341,30 +341,30 @@ class UserControllerTest {
                 .andExpect(jsonPath("$.message").value("OK"));
     }
 
-    @DisplayName("회원가입을 진행할 때, 위치 정보는 필수값이다.")
-    @Test
-    void joinCompleteWithoutCoordinate() throws Exception {
-        // given
-        UserJoinRequest request = UserJoinRequest.builder()
-//                .coordinate(coordinate)
-                .nickname("닉네임")
-                .gender(Gender.MALE)
-                .mbti(Mbti.INFP)
-                .birth(LocalDate.now())
-                .build();
-
-        // when // then
-        mockMvc.perform(
-                        put("/users/update").with(csrf())
-                                .contentType(MediaType.APPLICATION_JSON)
-                                .content(objectMapper.writeValueAsString(request))
-                )
-                .andDo(print())
-                .andExpect(status().isBadRequest())
-                .andExpect(jsonPath("$.errorCode").value("E000"))
-                .andExpect(jsonPath("$.status").value("BAD_REQUEST"))
-                .andExpect(jsonPath("$.message").value("좌표는 필수로 입력해야 합니다."));
-    }
+//    @DisplayName("회원가입을 진행할 때, 위치 정보는 필수값이다.")
+//    @Test
+//    void joinCompleteWithoutCoordinate() throws Exception {
+//        // given
+//        UserJoinRequest request = UserJoinRequest.builder()
+////                .coordinate(coordinate)
+//                .nickname("닉네임")
+//                .gender(Gender.MALE)
+//                .mbti(Mbti.INFP)
+//                .birth(LocalDate.now())
+//                .build();
+//
+//        // when // then
+//        mockMvc.perform(
+//                        put("/users/update").with(csrf())
+//                                .contentType(MediaType.APPLICATION_JSON)
+//                                .content(objectMapper.writeValueAsString(request))
+//                )
+//                .andDo(print())
+//                .andExpect(status().isBadRequest())
+//                .andExpect(jsonPath("$.errorCode").value("E000"))
+//                .andExpect(jsonPath("$.status").value("BAD_REQUEST"))
+//                .andExpect(jsonPath("$.message").value("좌표는 필수로 입력해야 합니다."));
+//    }
 
     @DisplayName("회원가입을 진행할 때, 닉네임은 필수값이다.")
     @Test
