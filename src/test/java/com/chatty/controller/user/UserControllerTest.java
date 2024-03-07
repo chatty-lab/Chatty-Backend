@@ -86,7 +86,7 @@ class UserControllerTest {
     }
 
     @DisplayName("회원가입시 닉네임을 등록할 때, 닉네임의 길이는 2~10자로 입력해야 한다.")
-    @CsvSource({"닉", "닉네임11글자입니다요", "띄 어 쓰 기"})
+    @CsvSource({"닉", "닉네임11글자입니다요", "띄 어 쓰 기", "--__"})
     @ParameterizedTest
     void updateNicknameWithNicknameSize(final String nickname) throws Exception {
         // given
