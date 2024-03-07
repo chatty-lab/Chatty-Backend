@@ -9,6 +9,7 @@ import com.chatty.validator.TokenValidator;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.http.HttpMethod;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.config.annotation.method.configuration.EnableMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
@@ -39,6 +40,7 @@ public class SecurityConfig {
                         .requestMatchers("/reviews/home").hasRole("USER")
                         .requestMatchers("/reviews/**").authenticated()
                         .requestMatchers("/users/birth", "/users/gender").hasRole("ANONYMOUS")
+                        .requestMatchers(HttpMethod.GET, "/v1/interests").permitAll()
                         .requestMatchers("/users/**").hasAnyRole("USER", "ANONYMOUS")
                         .anyRequest().hasAnyRole("USER", "ADMIN")
                 )
