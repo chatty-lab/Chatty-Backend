@@ -41,6 +41,9 @@ jobs:
       # 필요한 application.yml을 불러와요.
       - name: Move Test Config File
         run: mv temp/application-test.yml src/test/resources/application.yml
+
+      - name: Move Firebase Config File
+        run: mv temp/chatty-lab-firebase-adminsdk-wxe5z-fa16ef3d12.json src/main/resources/firebase/chatty-lab-firebase-adminsdk-wxe5z-fa16ef3d12.json
  
       # 빌드 캐시를 불러와요.
       - name: Cache Gradle packages
