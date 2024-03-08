@@ -52,9 +52,7 @@ jobs:
         run: mv temp/application-test.yml src/test/resources/application.yml
 
       - name: Move Firebase Config File
-        run: |
-          mkdir -p src/main/resources/firebase
-          mv temp/chatty-lab-firebase-adminsdk-wxe5z-fa16ef3d12.json src/main/resources/firebase/chatty-lab-firebase-adminsdk-wxe5z-fa16ef3d12.json
+        run: mv temp/chatty-lab-firebase-adminsdk-wxe5z-fa16ef3d12.json src/main/resources/chatty-lab-firebase-adminsdk-wxe5z-fa16ef3d12.json
 
       - name: Grant execute permission for gradlew
         run: chmod +x gradlew # gradlew를 실행할 수 있는 권한을 추가(리눅스의 명령어)

@@ -15,7 +15,7 @@ import java.util.List;
 @Configuration
 public class FcmConfig {
 
-    private final ClassPathResource firebaseResource = new ClassPathResource("firebase/chatty-lab-firebase-adminsdk-wxe5z-fa16ef3d12.json");
+    private final ClassPathResource firebaseResource = new ClassPathResource("chatty-lab-firebase-adminsdk-wxe5z-fa16ef3d12.json");
 
     @Bean
     FirebaseMessaging firebaseMessaging() throws IOException {
