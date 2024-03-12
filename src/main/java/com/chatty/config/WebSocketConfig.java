@@ -42,9 +42,9 @@ public class WebSocketConfig implements WebSocketMessageBrokerConfigurer{
         registry.setApplicationDestinationPrefixes("/pub"); // Controller 객체의 MessageMapping 메서드 라우팅
     }
 
-//    @Override
-//    public void configureClientInboundChannel(final ChannelRegistration registration) {
-//        System.out.println("registration = " + registration);
-//        registration.interceptors(stompHandler);
-//    }
+    @Override
+    public void configureClientInboundChannel(final ChannelRegistration registration) {
+        System.out.println("registration = " + registration);
+        registration.interceptors(stompHandler);
+    }
 }
