@@ -24,6 +24,7 @@ public class WebSocketMatchInterceptor implements HandshakeInterceptor {
     public boolean beforeHandshake(final ServerHttpRequest request, final ServerHttpResponse response, final WebSocketHandler wsHandler, final Map<String, Object> attributes) throws Exception {
         String token = request.getHeaders().getFirst("Authorization");
         log.info("beforeHandshake token = {}", token);
+
         if (token != null && token.startsWith("Bearer ")) {
 
             try {

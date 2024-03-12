@@ -5,6 +5,7 @@ import com.chatty.jwt.JwtTokenProvider;
 import com.chatty.validator.TokenValidator;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.messaging.simp.config.ChannelRegistration;
 import org.springframework.messaging.simp.config.MessageBrokerRegistry;
 import org.springframework.web.socket.config.annotation.EnableWebSocketMessageBroker;
 import org.springframework.web.socket.config.annotation.StompEndpointRegistry;
@@ -18,6 +19,7 @@ public class WebSocketConfig implements WebSocketMessageBrokerConfigurer{
     private final TokenValidator tokenValidator;
     private final JwtTokenProvider jwtTokenProvider;
     private final ChatHandler chatHandler;
+    private final StompHandler stompHandler;
 
     @Override
     public void registerStompEndpoints(StompEndpointRegistry registry) {
@@ -39,4 +41,10 @@ public class WebSocketConfig implements WebSocketMessageBrokerConfigurer{
         // 메시지를 발행하는 요청 url
         registry.setApplicationDestinationPrefixes("/pub"); // Controller 객체의 MessageMapping 메서드 라우팅
     }
+
+//    @Override
+//    public void configureClientInboundChannel(final ChannelRegistration registration) {
+//        System.out.println("registration = " + registration);
+//        registration.interceptors(stompHandler);
+//    }
 }
