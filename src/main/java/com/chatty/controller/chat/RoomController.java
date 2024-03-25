@@ -3,7 +3,7 @@ package com.chatty.controller.chat;
 import com.chatty.dto.ApiResponse;
 import com.chatty.dto.chat.request.DeleteRoomDto;
 import com.chatty.dto.chat.request.RoomDto;
-import com.chatty.dto.chat.response.ChatRoomsResponseDto;
+import com.chatty.dto.chat.response.ChatRoomListResponse;
 import com.chatty.dto.chat.response.RoomResponseDto;
 import com.chatty.service.chat.RoomService;
 import io.swagger.v3.oas.annotations.Operation;
@@ -20,6 +20,8 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+
+import java.util.List;
 
 @RestController
 @Slf4j
@@ -124,9 +126,9 @@ public class RoomController {
         return ApiResponse.ok(roomService.findChatRoom(roomId));
     }
 
-    @GetMapping("/rooms")
-    public ApiResponse<ChatRoomsResponseDto> getRooms(Authentication authentication) {
+    @GetMapping("/room")
+    public ApiResponse<List<ChatRoomListResponse>> getRooms(Authentication authentication) {
         log.info("채팅방 목록 가져오기");
-        return ApiResponse.ok(roomService.getRooms(authentication));
+        return ApiResponse.ok(roomService.getChatRoomList(authentication.getName()));
     }
 }
