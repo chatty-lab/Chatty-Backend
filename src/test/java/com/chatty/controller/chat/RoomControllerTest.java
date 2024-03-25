@@ -1,5 +1,6 @@
 package com.chatty.controller.chat;
 
+import static org.mockito.Mockito.when;
 import static org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestPostProcessors.csrf;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.delete;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
@@ -9,6 +10,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 import com.chatty.dto.chat.request.DeleteRoomDto;
+import com.chatty.dto.chat.response.ChatRoomListResponse;
 import com.chatty.service.chat.RoomService;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.jupiter.api.Test;
@@ -21,6 +23,8 @@ import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.http.MediaType;
 import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.test.web.servlet.MockMvc;
+
+import java.util.List;
 
 @Slf4j
 @WebMvcTest(controllers = RoomController.class)
@@ -167,5 +171,23 @@ class RoomControllerTest {
         )
                 .andDo(print())
                 .andExpect(status().isOk());
+    }
+
+    @DisplayName("채팅방 목록을 불러온다.")
+    @Test
+    @WithMockUser(username = "01012345678", roles = "USER")
+    void getRoomList() throws Exception {
+        // given
+        List<ChatRoomListResponse> result = List.of();
+
+        when(roomService.getChatRoomList("01012345678")).thenReturn(result);
+
+        //then
+        mockMvc.perform(
+                        get("/chat/room").with(csrf())
+                )
+                .andDo(print())
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$.data").isArray());
     }
 }

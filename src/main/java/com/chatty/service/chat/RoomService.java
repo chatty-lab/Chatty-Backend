@@ -3,6 +3,7 @@ package com.chatty.service.chat;
 import com.chatty.constants.Code;
 import com.chatty.dto.chat.request.DeleteRoomDto;
 import com.chatty.dto.chat.request.RoomDto;
+import com.chatty.dto.chat.response.ChatRoomListResponse;
 import com.chatty.dto.chat.response.ChatRoomsResponseDto;
 import com.chatty.dto.chat.response.RoomResponseDto;
 import com.chatty.entity.chat.ChatRoom;
@@ -20,9 +21,10 @@ import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-@Service
 @Slf4j
 @RequiredArgsConstructor
+@Transactional(readOnly = true)
+@Service
 public class RoomService {
     private final ChatRoomRepository chatRoomRepository;
     private final UserRepository userRepository;
@@ -84,5 +86,19 @@ public class RoomService {
         List<RoomResponseDto> list = rooms.stream().map(room -> RoomResponseDto.of(room)).collect(Collectors.toList());
 
         return ChatRoomsResponseDto.of(list);
+    }
+
+    public List<ChatRoomListResponse> getChatRoomList(final String mobilNumber) {
+        User user = userRepository.findUserByMobileNumber(mobilNumber)
+                .orElseThrow(() -> new CustomException(Code.NOT_EXIST_USER));
+
+//        List<ChatRoom> roomList = chatRoomRepository.findAllBySenderIdOrReceiverId(user);
+        List<ChatRoom> roomList = chatRoomRepository.findAllBySenderOrReceiverOrderByChatMessagesSendTimeDesc(user, user);
+//        List<ChatRoom> roomList = chatRoomRepository.findAllBySenderIdOrReceiverId(user.getId());
+        List<ChatRoomListResponse> result = roomList.stream()
+                .map(r -> ChatRoomListResponse.of(r, user.getId()))
+                .toList();
+
+        return result;
     }
 }
