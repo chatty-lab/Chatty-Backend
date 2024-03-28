@@ -184,7 +184,7 @@ class RoomControllerTest {
 
         //then
         mockMvc.perform(
-                        get("/chat/room").with(csrf())
+                        get("/chat/rooms").with(csrf())
                 )
                 .andDo(print())
                 .andExpect(status().isOk())
