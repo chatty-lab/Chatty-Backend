@@ -126,7 +126,7 @@ public class RoomController {
         return ApiResponse.ok(roomService.findChatRoom(roomId));
     }
 
-    @GetMapping("/room")
+    @GetMapping("/rooms")
     public ApiResponse<List<ChatRoomListResponse>> getRooms(Authentication authentication) {
         log.info("채팅방 목록 가져오기");
         return ApiResponse.ok(roomService.getChatRoomList(authentication.getName()));
