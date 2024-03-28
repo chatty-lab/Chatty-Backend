@@ -13,8 +13,9 @@ public interface ChatRoomRepository extends JpaRepository<ChatRoom,Long> {
     Optional<ChatRoom> findChatRoomByReceiverAndSender(User receiver, User sender);
     Optional<ChatRoom> findChatRoomByRoomId(Long roomId);
     List<ChatRoom> findAllBySender(User sender);
-
     List<ChatRoom> findAllBySenderOrReceiverOrderByChatMessagesSendTimeDesc(User sender, User receiver);
+
+    Optional<ChatRoom> findChatRoomBySenderOrReceiver(User sender, User receiver);
 
 //    @Query(value = "select c.* " +
 //            "from chat_room c " +
